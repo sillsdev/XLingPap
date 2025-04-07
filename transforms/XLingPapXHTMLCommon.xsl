@@ -5,20 +5,6 @@
         =========================================================== -->
     <xsl:variable name="sExampleCellPadding">padding-left: .25em</xsl:variable>
     <xsl:variable name="sListLayoutSpaceBetween" select="normalize-space($contentLayoutInfo/listLayout/@spacebetween)"/>
-    <!-- ===========================================================
-        Attribute sets
-        =========================================================== -->
-    <xsl:attribute-set name="TablePaddingSpacing">
-        <xsl:attribute name="style">
-            <xsl:text>border-collapse:collapse</xsl:text>
-        </xsl:attribute>
-        <xsl:attribute name="cellpadding">
-            <xsl:call-template name="DefaultCellPaddingSpacing"/>
-        </xsl:attribute>
-        <xsl:attribute name="cellspacing">
-            <xsl:call-template name="DefaultCellPaddingSpacing"/>
-        </xsl:attribute>
-    </xsl:attribute-set>
     <!--
         caption for a table
     -->
@@ -235,9 +221,10 @@
         definition
     -->
     <xsl:template match="example/definition">
-        <xsl:element name="table" use-attribute-sets="TablePaddingSpacing">
+        <xsl:element name="table">
             <xsl:choose>
                 <xsl:when test="$bEBook='Y'">
+                    <xsl:call-template name="DoTablePaddingSpacingEBookAttributes"/>
                     <tbody>
                         <tr>
                             <xsl:call-template name="DoDefinition"/>
@@ -245,6 +232,7 @@
                     </tbody>
                 </xsl:when>
                 <xsl:otherwise>
+                    <xsl:call-template name="DoTablePaddingSpacingAttributes"/>
                     <tr>
                         <xsl:call-template name="DoDefinition"/>
                     </tr>
@@ -618,9 +606,10 @@
         </xsl:if>
         <tr>
             <td>
-                <xsl:element name="table" use-attribute-sets="TablePaddingSpacing">
+                <xsl:element name="table">
                     <xsl:choose>
                         <xsl:when test="$bEBook='Y'">
+                            <xsl:call-template name="DoTablePaddingSpacingEBookAttributes"/>
                             <tbody>
                                 <xsl:call-template name="DoListInterlinearAsRow">
                                     <xsl:with-param name="bListsShareSameCode" select="$bListsShareSameCode"/>
@@ -628,6 +617,7 @@
                             </tbody>
                         </xsl:when>
                         <xsl:otherwise>
+                            <xsl:call-template name="DoTablePaddingSpacingAttributes"/>
                             <xsl:call-template name="DoListInterlinearAsRow">
                                 <xsl:with-param name="bListsShareSameCode" select="$bListsShareSameCode"/>
                             </xsl:call-template>
@@ -800,9 +790,10 @@
         word
     -->
     <xsl:template match="word">
-        <xsl:element name="table" use-attribute-sets="TablePaddingSpacing">
+        <xsl:element name="table">
             <xsl:choose>
                 <xsl:when test="$bEBook='Y'">
+                    <xsl:call-template name="DoTablePaddingSpacingEBookAttributes"/>
                     <tbody>
                         <tr>
                             <xsl:for-each select="(langData | gloss)">
@@ -815,6 +806,7 @@
                     </tbody>
                 </xsl:when>
                 <xsl:otherwise>
+                    <xsl:call-template name="DoTablePaddingSpacingAttributes"/>
                     <tr>
                         <xsl:for-each select="(langData | gloss)">
                             <td>
@@ -892,9 +884,10 @@
         single
     -->
     <xsl:template match="single">
-        <xsl:element name="table" use-attribute-sets="TablePaddingSpacing">
+        <xsl:element name="table">
             <xsl:choose>
                 <xsl:when test="$bEBook='Y'">
+                    <xsl:call-template name="DoTablePaddingSpacingEBookAttributes"/>
                     <tbody>
                         <tr>
                             <td>
@@ -904,6 +897,7 @@
                     </tbody>
                 </xsl:when>
                 <xsl:otherwise>
+                    <xsl:call-template name="DoTablePaddingSpacingAttributes"/>
                     <tr>
                         <td>
                             <xsl:apply-templates/>
@@ -1096,15 +1090,17 @@
         iword
     -->
     <xsl:template match="iword">
-        <xsl:element name="table" use-attribute-sets="TablePaddingSpacing">
+        <xsl:element name="table">
             <xsl:attribute name="class">interblock</xsl:attribute>
             <xsl:choose>
                 <xsl:when test="$bEBook='Y'">
+                    <xsl:call-template name="DoTablePaddingSpacingEBookAttributes"/>
                     <tbody>
                         <xsl:apply-templates/>
                     </tbody>
                 </xsl:when>
                 <xsl:otherwise>
+                    <xsl:call-template name="DoTablePaddingSpacingAttributes"/>
                     <xsl:apply-templates/>
                 </xsl:otherwise>
             </xsl:choose>
@@ -1195,15 +1191,17 @@
         morph
     -->
     <xsl:template match="morph">
-        <xsl:element name="table" use-attribute-sets="TablePaddingSpacing">
+        <xsl:element name="table">
             <xsl:attribute name="class">interblock</xsl:attribute>
             <xsl:choose>
                 <xsl:when test="$bEBook='Y'">
+                    <xsl:call-template name="DoTablePaddingSpacingEBookAttributes"/>
                     <tbody>
                         <xsl:apply-templates/>
                     </tbody>
                 </xsl:when>
                 <xsl:otherwise>
+                    <xsl:call-template name="DoTablePaddingSpacingAttributes"/>
                     <xsl:apply-templates/>
                 </xsl:otherwise>
             </xsl:choose>
@@ -1558,9 +1556,12 @@
                 <xsl:choose>
                     <xsl:when test="name($myFirstChild) = 'exampleHeading' and substring(name(child::*[position()=2]), 1, 4)='list'">
                         <xsl:apply-templates select="exampleHeading" mode="NoTextRef"/>
-                        <xsl:element name="table" use-attribute-sets="TablePaddingSpacing">
+                        <xsl:element name="table">
                             <xsl:choose>
                                 <xsl:when test="$bEBook='Y'">
+                                    <xsl:attribute name="use-attribute-sets">
+                                        <xsl:text>TablePaddingSpacingEBook</xsl:text>
+                                    </xsl:attribute>
                                     <tbody>
                                         <xsl:apply-templates select="listInterlinear | listWord | listSingle | listDefinition">
                                             <xsl:with-param name="bListsShareSameCode" select="$bListsShareSameCode"/>
@@ -1568,6 +1569,9 @@
                                     </tbody>
                                 </xsl:when>
                                 <xsl:otherwise>
+                                    <xsl:attribute name="use-attribute-sets">
+                                        <xsl:text>TablePaddingSpacing</xsl:text>
+                                    </xsl:attribute>
                                     <xsl:apply-templates select="listInterlinear | listWord | listSingle | listDefinition">
                                         <xsl:with-param name="bListsShareSameCode" select="$bListsShareSameCode"/>
                                     </xsl:apply-templates>
@@ -1580,9 +1584,10 @@
                         <xsl:apply-templates select="table"/>
                     </xsl:when>
                     <xsl:when test="substring(name($myFirstChild), 1, 4)='list'">
-                        <xsl:element name="table" use-attribute-sets="TablePaddingSpacing">
+                        <xsl:element name="table">
                             <xsl:choose>
                                 <xsl:when test="$bEBook='Y'">
+                                    <xsl:call-template name="DoTablePaddingSpacingEBookAttributes"/>
                                     <tbody>
                                         <xsl:apply-templates>
                                             <xsl:with-param name="bListsShareSameCode" select="$bListsShareSameCode"/>
@@ -1590,6 +1595,7 @@
                                     </tbody>
                                 </xsl:when>
                                 <xsl:otherwise>
+                                    <xsl:call-template name="DoTablePaddingSpacingAttributes"/>
                                     <xsl:apply-templates>
                                         <xsl:with-param name="bListsShareSameCode" select="$bListsShareSameCode"/>
                                     </xsl:apply-templates>
@@ -1629,7 +1635,15 @@
     <xsl:template name="DoInterlinearLineGroup">
         <xsl:param name="originalContext"/>
         <xsl:param name="mode"/>
-        <xsl:element name="table" use-attribute-sets="TablePaddingSpacing">
+        <xsl:element name="table">
+            <xsl:choose>
+                <xsl:when test="$bEBook='Y'">
+                    <xsl:call-template name="DoTablePaddingSpacingEBookAttributes"/>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:call-template name="DoTablePaddingSpacingAttributes"/>
+                </xsl:otherwise>
+            </xsl:choose>
             <!-- add extra indent for when have an embedded interlinear; 
                 be sure to allow for the case of when a listInterlinear begins with an interlinear -->
             <xsl:variable name="parent" select=".."/>
@@ -2313,6 +2327,31 @@
                 </xsl:call-template>
             </xsl:if>
         </xsl:if>
+    </xsl:template>
+    <!--  
+        DoTablePaddingSpacingAttributes
+    -->
+    <xsl:template name="DoTablePaddingSpacingAttributes">
+        <xsl:attribute name="style">
+            <xsl:text>border-collapse:collapse</xsl:text>
+        </xsl:attribute>
+        <xsl:attribute name="cellpadding">
+            <xsl:call-template name="DefaultCellPaddingSpacing"/>
+        </xsl:attribute>
+        <xsl:attribute name="cellspacing">
+            <xsl:call-template name="DefaultCellPaddingSpacing"/>
+        </xsl:attribute>
+    </xsl:template>
+    <!--  
+        DoTablePaddingSpacingEBookAttributes
+    -->
+    <xsl:template name="DoTablePaddingSpacingEBookAttributes">
+        <xsl:attribute name="style">
+            <xsl:text>border-collapse:collapse</xsl:text>
+        </xsl:attribute>
+        <xsl:attribute name="class">
+            <xsl:text>cell-padding--zero cell-spacing--zero</xsl:text>
+        </xsl:attribute>
     </xsl:template>
     <!--  
         DoType

@@ -356,7 +356,7 @@ public class ProduceEpubFromXhtml extends RecordableCommand {
 		createContentOpfText(sb, "coverText", "cover.xhtml", "");
 		createContentOpfText(sb, "titlepageText", "titlepage.xhtml", "");
 		createContentOpfText(sb, "nav", "nav.xhtml", "nav");
-		createContentOpfText(sb, "thedocumentText", sHtmFileName, "");
+		createContentOpfText(sb, "thedocumentText", sHtmFileName, "scripted svg");
 	}
 
 	protected void createContentOpfText(StringBuilder sb, String sId, String sTextFile, String sProperties) {

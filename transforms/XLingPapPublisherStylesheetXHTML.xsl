@@ -2821,17 +2821,43 @@
         DoCellAttributes
     -->
     <xsl:template name="DoCellAttributes">
-        <xsl:if test="@direction">
-            <xsl:attribute name="style">
-                <xsl:text>direction:</xsl:text>
-                <xsl:value-of select="@direction"/>
-            </xsl:attribute>
-        </xsl:if>
-        <xsl:if test="@align">
-            <xsl:attribute name="align">
-                <xsl:value-of select="@align"/>
-            </xsl:attribute>
-        </xsl:if>
+        <xsl:choose>
+            <xsl:when test="$bEBook='Y'">
+                <xsl:attribute name="class">
+                    <xsl:if test="@align">
+                        <xsl:text> align--</xsl:text>
+                         <xsl:value-of select="@align"/>
+                    </xsl:if>
+                    <xsl:if test="@valign">
+                        <xsl:text> valign--</xsl:text>
+                        <xsl:value-of select="@valign"/>
+                    </xsl:if>
+                </xsl:attribute>
+                <xsl:if test="@direction">
+                    <xsl:attribute name="dir">
+                        <xsl:value-of select="@direction"/>
+                    </xsl:attribute>
+                </xsl:if>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:if test="@direction">
+                    <xsl:attribute name="style">
+                        <xsl:text>direction:</xsl:text>
+                        <xsl:value-of select="@direction"/>
+                    </xsl:attribute>
+                </xsl:if>
+                <xsl:if test="@align">
+                    <xsl:attribute name="align">
+                        <xsl:value-of select="@align"/>
+                    </xsl:attribute>
+                </xsl:if>
+                <xsl:if test="@valign">
+                    <xsl:attribute name="valign">
+                        <xsl:value-of select="@valign"/>
+                    </xsl:attribute>
+                </xsl:if>
+            </xsl:otherwise>
+        </xsl:choose>
         <xsl:if test="@colspan">
             <xsl:attribute name="colspan">
                 <xsl:value-of select="@colspan"/>
@@ -2842,18 +2868,6 @@
                 <xsl:value-of select="@rowspan"/>
             </xsl:attribute>
         </xsl:if>
-        <xsl:if test="@valign">
-            <xsl:attribute name="valign">
-                <xsl:value-of select="@valign"/>
-            </xsl:attribute>
-        </xsl:if>
-        <!-- does not work in HTML 4.0 
-            <xsl:if test="@width">
-            <xsl:attribute name="width">
-            <xsl:value-of select="@width"/>
-            </xsl:attribute>
-            </xsl:if>
-        -->
     </xsl:template>
     <!--
         DoChapterLabelInContents
@@ -5866,7 +5880,7 @@
                         <xsl:attribute name="padding-top">
                             <xsl:value-of select="$sBasicPointSize"/>pt</xsl:attribute>
                     </xsl:if>
-                    <td valign="baseline">
+                    <td class="valign--baseline">
                         <xsl:call-template name="DoDebugExamples"/>
                         <div>
                             <xsl:attribute name="id">

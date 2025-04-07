@@ -6,6 +6,7 @@
       Parameterized Variables
       =========================================================== -->
     <xsl:param name="sFOProcessor">XEP</xsl:param>
+    <xsl:param name="bEBook" select="'N'"/>
     <xsl:variable name="pageLayoutInfo" select="//publisherStyleSheet[1]/pageLayout"/>
     <!--    <xsl:variable name="contentLayoutInfo" select="//publisherStyleSheet[1]/contentLayout"/>-->
     <xsl:variable name="iMagnificationFactor">
@@ -273,8 +274,45 @@ li.lower-roman {
         font-size:larger;
         font-weight:bold;
 }
+align--center {
+        text-align:center;
+}
+.align--justify {
+        text-align:justify;
+}
+.align--left {
+        text-align:left;
+}
+.align--right {
+        text-align:right;
+}
+.valign--baseline {
+        vertical-align:baseline;
+}
+.valign--bottom {
+        vertical-align:bottom;
+}
+.valign--middle {
+        vertical-align:middle;
+}
+.valign--top {
+        vertical-align:top;
+}
 
 </xsl:text>
+        <xsl:if test="$bEBook='Y'">
+            <xsl:text>
+.cell-padding--zero {
+        padding:0%;
+}
+.cell-spacing--zero {
+        border-spacing:0pt;
+}
+.pagebreak {
+        /* this is empty but we use it to split the file into EPUB text files */
+}
+</xsl:text>
+        </xsl:if>
         <xsl:if test="//img[@borderaround='yes']">
             <xsl:text>.borderaround {
         border:</xsl:text>
@@ -1850,7 +1888,7 @@ li.lower-roman {
         @pagebreakbefore
     -->
     <xsl:template match="@pagebreakbefore | @startonoddpage">
-        <xsl:if test=".='yes'">
+        <xsl:if test="$bEBook='N' and .='yes'">
             <xsl:text>        border-top:1.5pt solid gray;
 </xsl:text>
         </xsl:if>

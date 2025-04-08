@@ -18,7 +18,7 @@
                 <xsl:apply-templates select="ancestor::tablenumbered/shortCaption"/>
             </xsl:when>
             <xsl:otherwise>
-                <xsl:apply-templates select="text() | *[not(descendant-or-self::endnote)]"/>
+                <xsl:apply-templates select="text() | *[not(descendant-or-self::endnote or descendant-or-self::indexedItem)]" mode="contents"/>
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
@@ -390,7 +390,9 @@
                 <xsl:call-template name="OutputCssSpecial">
                     <xsl:with-param name="fDoStyleAttribute" select="'N'"/>
                 </xsl:call-template>
-                <xsl:call-template name="OutputDirection"/>
+                <xsl:if test="$bEBook!='Y'">
+                    <xsl:call-template name="OutputDirection"/>
+                </xsl:if>
                 <!--                <xsl:call-template name="OutputBackgroundColor"/>-->
             </xsl:attribute>
             <xsl:apply-templates/>
@@ -664,7 +666,7 @@
                     <xsl:if test="@letter">
                         <td style="vertical-align:top">
                             <xsl:element name="a">
-                                <xsl:attribute name="name">
+                                <xsl:attribute name="id">
                                     <xsl:value-of select="@letter"/>
                                 </xsl:attribute>
                                 <xsl:apply-templates select="." mode="letter"/>.</xsl:element>
@@ -855,7 +857,7 @@
         <tr style="vertical-align:top">
             <td>
                 <xsl:element name="a">
-                    <xsl:attribute name="name">
+                    <xsl:attribute name="id">
                         <xsl:value-of select="@letter"/>
                     </xsl:attribute>
                     <xsl:call-template name="AddAnyTitleAttribute">
@@ -916,7 +918,7 @@
         <tr>
             <td style="vertical-align:top">
                 <xsl:element name="a">
-                    <xsl:attribute name="name">
+                    <xsl:attribute name="id">
                         <xsl:value-of select="@letter"/>
                     </xsl:attribute>
                     <xsl:call-template name="AddAnyTitleAttribute">
@@ -1534,7 +1536,7 @@
             </xsl:variable>
             <td style="vertical-align:top">
                 <xsl:element name="a">
-                    <xsl:attribute name="name">
+                    <xsl:attribute name="id">
                         <xsl:value-of select="@num"/>
                     </xsl:attribute>
                     <xsl:call-template name="AddAnyTitleAttribute">
@@ -1559,9 +1561,7 @@
                         <xsl:element name="table">
                             <xsl:choose>
                                 <xsl:when test="$bEBook='Y'">
-                                    <xsl:attribute name="use-attribute-sets">
-                                        <xsl:text>TablePaddingSpacingEBook</xsl:text>
-                                    </xsl:attribute>
+                                    <xsl:call-template name="DoTablePaddingSpacingEBookAttributes"/>
                                     <tbody>
                                         <xsl:apply-templates select="listInterlinear | listWord | listSingle | listDefinition">
                                             <xsl:with-param name="bListsShareSameCode" select="$bListsShareSameCode"/>
@@ -1569,9 +1569,7 @@
                                     </tbody>
                                 </xsl:when>
                                 <xsl:otherwise>
-                                    <xsl:attribute name="use-attribute-sets">
-                                        <xsl:text>TablePaddingSpacing</xsl:text>
-                                    </xsl:attribute>
+                                    <xsl:call-template name="DoTablePaddingSpacingAttributes"/>
                                     <xsl:apply-templates select="listInterlinear | listWord | listSingle | listDefinition">
                                         <xsl:with-param name="bListsShareSameCode" select="$bListsShareSameCode"/>
                                     </xsl:apply-templates>
@@ -1753,7 +1751,7 @@
     -->
     <xsl:template name="OutputAbbreviationItemInTable">
         <xsl:param name="abbrsShownHere"/>
-        <td valign="top">
+        <td class="valign--top">
             <xsl:call-template name="HandleColumnWidth">
                 <xsl:with-param name="sWidth" select="normalize-space($abbrsShownHere/@abbrWidth)"/>
             </xsl:call-template>
@@ -1764,14 +1762,14 @@
             </a>
         </td>
         <xsl:if test="not($contentLayoutInfo/abbreviationsInTableLayout/@useEqualSignsColumn) or $contentLayoutInfo/abbreviationsInTableLayout/@useEqualSignsColumn!='no'">
-            <td valign="top">
+            <td class="valign--top">
                 <xsl:call-template name="HandleColumnWidth">
                     <xsl:with-param name="sWidth" select="normalize-space($abbrsShownHere/@equalsWidth)"/>
                 </xsl:call-template>
                 <xsl:text> = </xsl:text>
             </td>
         </xsl:if>
-        <td valign="top">
+        <td class="valign--top">
             <xsl:call-template name="HandleColumnWidth">
                 <xsl:with-param name="sWidth" select="normalize-space($abbrsShownHere/@definitionWidth)"/>
             </xsl:call-template>
@@ -1848,7 +1846,7 @@
                 <tr>
                     <td style="vertical-align:baseline">
                         <a>
-                            <xsl:attribute name="name">
+                            <xsl:attribute name="id">
                                 <xsl:value-of select="@id"/>
                             </xsl:attribute>
                             <xsl:text>[</xsl:text>
@@ -2285,7 +2283,7 @@
         <tr>
             <td style="vertical-align:top">
                 <xsl:element name="a">
-                    <xsl:attribute name="name">
+                    <xsl:attribute name="id">
                         <xsl:value-of select="@letter"/>
                     </xsl:attribute>
                     <xsl:call-template name="AddAnyTitleAttribute">
@@ -2380,9 +2378,21 @@
                 <xsl:call-template name="OutputBackgroundColor"/>
             </xsl:attribute>
             <xsl:if test="@border">
-                <xsl:attribute name="border">
-                    <xsl:value-of select="@border"/>
-                </xsl:attribute>
+                <xsl:choose>
+                    <xsl:when test="$bEBook='Y'">
+                        <xsl:variable name="sBorder" select="normalize-space(@border)"/>
+                        <xsl:if test="$sBorder='1' or $sBorder='2'">
+                            <xsl:attribute name="border">
+                                <xsl:text>1</xsl:text>
+                            </xsl:attribute>
+                        </xsl:if>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:attribute name="border">
+                            <xsl:value-of select="@border"/>
+                        </xsl:attribute>
+                    </xsl:otherwise>
+                </xsl:choose>
             </xsl:if>
             <xsl:if test="@cellpadding">
                 <xsl:attribute name="cellpadding">

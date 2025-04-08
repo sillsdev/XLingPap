@@ -1913,7 +1913,7 @@ align--center {
         @rtl
     -->
     <xsl:template match="@rtl">
-        <xsl:if test=".='yes'">
+        <xsl:if test="$bEBook!='Y' and .='yes'">
             <xsl:text>        direction:rtl;
 </xsl:text>
         </xsl:if>

@@ -1668,6 +1668,9 @@
     <!--
       exampleRef
       -->
+    <xsl:template match="exampleRef" mode="contents" priority="100">
+        <xsl:call-template name="DoExampleRefContent"/>
+    </xsl:template>
     <xsl:template match="exampleRef">
         <a>
             <xsl:attribute name="href">
@@ -3162,7 +3165,7 @@
             <tr>
                 <td style="vertical-align:top">
                     <xsl:element name="a">
-                        <xsl:attribute name="name">
+                        <xsl:attribute name="id">
                             <xsl:value-of select="$sAcknowledgementsID"/>
                         </xsl:attribute>[*]</xsl:element>
                 </td>
@@ -5079,7 +5082,7 @@
 -->
     <xsl:template name="OutputExampleNumber">
         <xsl:element name="a">
-            <xsl:attribute name="name">
+            <xsl:attribute name="id">
                 <xsl:value-of select="../../@num"/>
             </xsl:attribute>
             <xsl:call-template name="GetAndFormatExampleNumber"/>
@@ -5446,7 +5449,7 @@
                         <xsl:when test="$indexedItems or contains($bHasCitedDescendant,'Y')">
                             <!-- this term or one its descendants is cited; show it -->
                             <a>
-                                <xsl:attribute name="name">
+                                <xsl:attribute name="id">
                                     <xsl:call-template name="CreateIndexTermID">
                                         <xsl:with-param name="sTermId" select="$sTermId"/>
                                     </xsl:call-template>

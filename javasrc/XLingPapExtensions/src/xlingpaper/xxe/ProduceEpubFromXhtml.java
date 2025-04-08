@@ -356,7 +356,24 @@ public class ProduceEpubFromXhtml extends RecordableCommand {
 		createContentOpfText(sb, "coverText", "cover.xhtml", "");
 		createContentOpfText(sb, "titlepageText", "titlepage.xhtml", "");
 		createContentOpfText(sb, "nav", "nav.xhtml", "nav");
-		createContentOpfText(sb, "thedocumentText", sHtmFileName, "scripted svg");
+		try {
+			String sProperties = "";
+			NodeList svgElements = (NodeList) xPath.compile("//svg").evaluate(htmDoc, XPathConstants.NODESET);
+			if (svgElements.getLength() > 0) {
+				sProperties = "svg";
+			}
+			NodeList script = (NodeList) xPath.compile("//script").evaluate(htmDoc, XPathConstants.NODESET);
+			if (script.getLength() > 0) {
+				if (svgElements.getLength() > 0) {
+					sProperties += " scripted";
+				} else {
+					sProperties = "scripted";
+				}
+			}
+			createContentOpfText(sb, "thedocumentText", sHtmFileName, sProperties);
+		} catch (XPathExpressionException e) {
+			reportException(docView, e);
+		}
 	}
 
 	protected void createContentOpfText(StringBuilder sb, String sId, String sTextFile, String sProperties) {
@@ -769,6 +786,8 @@ public class ProduceEpubFromXhtml extends RecordableCommand {
 		String sHtmContent = documentToString(htmDoc);
 		sHtmContent = sHtmContent.replaceFirst("\n  SYSTEM \"\">", ">");
 		sHtmContent = sHtmContent.replaceAll(" shape=\"rect\">", ">");
+		sHtmContent = sHtmContent.replaceAll(" shape=\"rect\"/>", "/>");
+		sHtmContent = sHtmContent.replaceAll(" shape=\"rect\" ", " ");
 		String sFileInOepbs = pOebpsTextPath.toString() + File.separator + sHtmFileName;
 		writeContentToFile(sHtmContent, sFileInOepbs);
 	}

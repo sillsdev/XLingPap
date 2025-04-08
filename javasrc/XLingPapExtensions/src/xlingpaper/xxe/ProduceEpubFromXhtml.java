@@ -80,7 +80,6 @@ public class ProduceEpubFromXhtml extends RecordableCommand {
 	String sDocSubtitle = "";
 	String sHtmFileName = "";
 	String sCssContent = "";
-	String sCoverJpg = "";
 	String sCoverPng = "";
 	String sGuid = "";
 	String sTableOfContentsTitle = "";
@@ -111,10 +110,10 @@ public class ProduceEpubFromXhtml extends RecordableCommand {
 			String sParameterFileName = asFilenames[0].trim();
 			File fHtmFile = new File(sParameterFileName);
 
-			// Cover.jpg for cover
-			sCoverJpg = asFilenames[1].trim();
-			int iLastPeriod = sCoverJpg.lastIndexOf(".");
-			sCoverPng = sCoverJpg.substring(0, iLastPeriod +1) + "png";
+			// Cover.png for cover
+			sCoverPng = asFilenames[1].trim();
+			int iLastPeriod = sCoverPng.lastIndexOf(".");
+			sCoverPng = sCoverPng.substring(0, iLastPeriod +1) + "png";
 
 			// Make sure the file or directory exists and isn't write protected
 			if (!fHtmFile.exists()) {
@@ -300,8 +299,7 @@ public class ProduceEpubFromXhtml extends RecordableCommand {
 		for (String sImage : imageFiles) {
 			createContentOpfImage(sb, sImage, "", "");
 		}
-		createContentOpfImage(sb, "Cover.jpg", "cover-image", "Cover.png");
-		createContentOpfImage(sb, "Cover.png", "", "");
+		createContentOpfImage(sb, "Cover.png", "cover-image", "");
 	}
 
 	protected void createContentOpfImage(StringBuilder sb, String sImageFile, String sProperties, String sFallback) {
@@ -973,7 +971,7 @@ public class ProduceEpubFromXhtml extends RecordableCommand {
 				+ "</head>\n"
 				+ "<body class=\"cover\">\n"
 				+ "	<div class=\"cover\">\n"
-				+ "		<img class=\"cover\" alt=\"Cover\" src=\"../Images/Cover.jpg\" />\n"
+				+ "		<img class=\"cover\" alt=\"Cover\" src=\"../Images/Cover.png\" />\n"
 				+ "   <div class=\"centered\">";
 		final String sCoverXhtml2 = "</div>\n"
 				+ "	</div>\n"
@@ -1042,8 +1040,8 @@ public class ProduceEpubFromXhtml extends RecordableCommand {
 		Files.copy(fCssFile.toPath(), pCss, StandardCopyOption.REPLACE_EXISTING);
 		createCoverCss();
 		createNavCss();
-		Path pImage = Paths.get(pOebpsImagesPath.toString() + File.separator + "Cover.jpg");
-		Files.copy(Paths.get(sCoverJpg), pImage, StandardCopyOption.REPLACE_EXISTING);
+		Path pImage = Paths.get(pOebpsImagesPath.toString() + File.separator + "Cover.png");
+		Files.copy(Paths.get(sCoverPng), pImage, StandardCopyOption.REPLACE_EXISTING);
 		pImage = Paths.get(pOebpsImagesPath.toString() + File.separator + "Cover.png");
 		Files.copy(Paths.get(sCoverPng), pImage, StandardCopyOption.REPLACE_EXISTING);
 		// Get and keep CSS content for font file processing later

@@ -40,6 +40,12 @@ xmlns="http://www.w3.org/1999/xhtml"
 ><ul
 xmlns="http://www.w3.org/1999/xhtml"
 ><li
+>3.16.5 9 April 2025<ul
+><li
+>Removed alt attribute to img elements for web page output (we use the description attribute instead).</li
+></ul
+></li
+><li
 >3.16.4 20 February 2025<ul
 ><li
 >Fix info on mediaOject appendix entry in documentation.</li

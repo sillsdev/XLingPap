@@ -34,13 +34,13 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >xlingpaper_support@sil.org</emailAddress
 ><date
->21 February 2025</date
+>9 April 2025</date
 ><version
 contentType="ctVersion5.3"
->2.16.4</version
+>2.16.5</version
 ><version
 contentType="ctVersion7Plus"
->3.16.4</version
+>3.16.5</version
 ><contents
 showLevel="4"
 ></contents
@@ -15726,21 +15726,13 @@ src="resources/SrcBrowseButton.png"
 >If you want, you can also type in a text description of the image in the <object
 type="tAttribute"
 >description</object
-> attribute (on a web page, this description will be used if the image file is not available). Once you type the name of the image file (and press the <object
+> attribute (on a web page, this description will be used if the image file is not available and an audio file reader can use for web page output). Once you type the name of the image file (and press the <object
 type="tKey"
 >Enter</object
 > key), the image will appear within the <object
 type="tXMLmindXMLEditor"
 ></object
 > itself.</p
-><p
-><indexedItem
-term="iAlt"
-></indexedItem
->In addition, you can set the <object
-type="tAttribute"
->alt</object
-> attribute to a value which an audio file reader can use (for web page output).</p
 ><p
 >For example, if the image is in a file called ParseC.gif, then if we key things as shown in <exampleRef
 num="xSampleChartGif"
@@ -38097,11 +38089,6 @@ id="iImageFiles"
 ><term
 >Image files</term
 ><indexTerms
-><indexTerm
-id="iAlt"
-><term
->Alternate description</term
-></indexTerm
 ><indexTerm
 id="iBorderAroundGraphic"
 ><term

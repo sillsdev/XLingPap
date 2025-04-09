@@ -242,7 +242,6 @@
             <p class="title">
                 <xsl:call-template name="DoTitleFormatInfo">
                     <xsl:with-param name="layoutInfo" select="$frontMatterLayoutInfo/titleLayout"/>
-                    <xsl:with-param name="bCheckPageBreakFormatInfo" select="'Y'"/>
                 </xsl:call-template>
                 <xsl:apply-templates select="child::node()[name()!='endnote']"/>
                 <xsl:call-template name="DoFormatLayoutInfoTextAfter">
@@ -254,7 +253,6 @@
         <p class="title">
             <xsl:call-template name="DoTitleFormatInfo">
                 <xsl:with-param name="layoutInfo" select="$frontMatterLayoutInfo/titleLayout"/>
-                <xsl:with-param name="bCheckPageBreakFormatInfo" select="'Y'"/>
             </xsl:call-template>
             <xsl:apply-templates/>
             <xsl:call-template name="DoFormatLayoutInfoTextAfter">
@@ -275,7 +273,6 @@
             </xsl:attribute>
             <xsl:call-template name="DoTitleFormatInfo">
                 <xsl:with-param name="layoutInfo" select="$frontMatterLayoutInfo/subtitleLayout"/>
-                <xsl:with-param name="bCheckPageBreakFormatInfo" select="'Y'"/>
             </xsl:call-template>
             <xsl:apply-templates/>
             <xsl:call-template name="DoFormatLayoutInfoTextAfter">
@@ -753,7 +750,6 @@
         <div id="{@id}" class="numberpart">
             <xsl:call-template name="DoTitleFormatInfo">
                 <xsl:with-param name="layoutInfo" select="$bodyLayoutInfo/partLayout/numberLayout"/>
-                <xsl:with-param name="bCheckPageBreakFormatInfo" select="'Y'"/>
             </xsl:call-template>
             <xsl:call-template name="OutputChapTitle">
                 <xsl:with-param name="sTitle">
@@ -769,7 +765,6 @@
         <div class="partTitle">
             <xsl:call-template name="DoTitleFormatInfo">
                 <xsl:with-param name="layoutInfo" select="$bodyLayoutInfo/partLayout/partTitleLayout"/>
-                <xsl:with-param name="bCheckPageBreakFormatInfo" select="'Y'"/>
             </xsl:call-template>
             <xsl:apply-templates select="secTitle"/>
             <xsl:call-template name="DoFormatLayoutInfoTextAfter">
@@ -783,6 +778,45 @@
       Chapter or appendix (in book with chapters)
       -->
     <xsl:template match="chapter | appendix[//chapter]  | chapterBeforePart | chapterInCollection | appendix[//chapterInCollection]">
+        <xsl:if test="$bEBook='Y'">
+            <xsl:variable name="layoutToUse">
+                <xsl:choose>
+                    <xsl:when test="name(.)='appendix'">
+                        <xsl:choose>
+                            <xsl:when test="ancestor::chapterInCollection">
+                                <xsl:copy-of select="$bodyLayoutInfo/chapterInCollectionBackMatterLayout/appendixLayout"/>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:copy-of select="$backMatterLayout/appendixLayout"/>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                    </xsl:when>
+                    <xsl:when test="name(.)='chapterInCollection'">
+                        <xsl:choose>
+                            <xsl:when test="count($bodyLayoutInfo/chapterInCollectionLayout/numberLayout[preceding-sibling::*]) = 0">
+                                <xsl:copy-of select="$bodyLayoutInfo/chapterInCollectionLayout/numberLayout"/>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:copy-of select="$bodyLayoutInfo/chapterInCollectionLayout/chapterTitleLayout"/>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:choose>
+                            <xsl:when test="count($bodyLayoutInfo/chapterLayout/numberLayout[preceding-sibling::*]) = 0">
+                                <xsl:copy-of select="$bodyLayoutInfo/chapterLayout/numberLayout"/>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:copy-of select="$bodyLayoutInfo/chapterLayout/chapterTitleLayout"/>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </xsl:variable>
+            <xsl:call-template name="DoPageBreakFormatInfo">
+                <xsl:with-param name="layoutInfo" select="saxon:node-set($layoutToUse)/*"/>
+            </xsl:call-template>
+        </xsl:if>
         <xsl:if test="not(name()='appendix' and ancestor::chapterInCollection and name($bodyLayoutInfo/chapterInCollectionBackMatterLayout/appendixLayout/*[1])='appendixTitleLayout')">
             <xsl:if test="name()='chapter' and $bodyLayoutInfo/chapterLayout/numberLayout or name()='chapterBeforePart' and $bodyLayoutInfo/chapterLayout/numberLayout or name()='chapterInCollection' and $bodyLayoutInfo/chapterInCollectionLayout/numberLayout or name()='chapterBeforePart' and $bodyLayoutInfo/chapterInCollectionLayout/numberLayout or name()='appendix' and $backMatterLayoutInfo/appendixLayout/numberLayout">
             <div id="{@id}">
@@ -3131,6 +3165,9 @@
     -->
     <xsl:template name="DoEndnotes">
         <xsl:if test="contains($endnotesToShow,'X')">
+            <xsl:call-template name="DoPageBreakFormatInfo">
+                <xsl:with-param name="layoutInfo" select="$backMatterLayoutInfo/useEndNotesLayout"/>
+            </xsl:call-template>
             <xsl:call-template name="OutputBackMatterItemTitle">
                 <xsl:with-param name="sId" select="$sEndnotesID"/>
                 <xsl:with-param name="sLabel">
@@ -3878,6 +3915,9 @@
                   DoIndex
 -->
     <xsl:template name="DoIndex">
+        <xsl:call-template name="DoPageBreakFormatInfo">
+            <xsl:with-param name="layoutInfo" select="$backMatterLayoutInfo/indexLayout"/>
+        </xsl:call-template>
         <xsl:call-template name="OutputBackMatterItemTitle">
             <xsl:with-param name="sId">
                 <xsl:call-template name="CreateIndexID"/>
@@ -4142,18 +4182,11 @@
     -->
     <xsl:template name="DoPageBreakFormatInfo">
         <xsl:param name="layoutInfo"/>
-        <!--  handled in CSS now -->
-        <!--        <xsl:if test="$layoutInfo/@pagebreakbefore='yes' or $layoutInfo/@startonoddpage='yes'">
-            <hr/>
+        <xsl:if test="$bEBook='Y'">
+            <xsl:if test="$layoutInfo/@pagebreakbefore='yes'">
+                <div class='pagebreak'/>
+            </xsl:if>
         </xsl:if>
--->
-        <!--        <xsl:if test="$layoutInfo/@startonoddpage='yes'">
-            <!-\-       <xsl:attribute name="break-before">
-                <xsl:text>odd-page</xsl:text>
-            </xsl:attribute>
-     -\->
-        </xsl:if>
--->
     </xsl:template>
     <!--  
         DoPrefacePerBookLayout
@@ -4221,6 +4254,9 @@
         <xsl:variable name="directlyCitedAuthors"
             select="$refAuthors[refWork[@id=$citations[not(ancestor::comment) and not(ancestor::referencedInterlinearText) and not(ancestor::glossaryTerm) and not(ancestor::abbrDefinition)][not(ancestor::refWork) or ancestor::annotation[@id=//annotationRef/@annotation] or ancestor::refWork[@id=$citations[not(ancestor::refWork)]/@ref]]/@ref]]"/>
         <xsl:variable name="directlyCitedAuthorsAnno" select="$refAuthors[refWork/@id=//citation[ancestor::annotation[@id=//annotationRef/@annotation]]/@ref]"/>
+        <xsl:call-template name="DoPageBreakFormatInfo">
+            <xsl:with-param name="layoutInfo" select="$backMatterLayout/referencesTitleLayout"/>
+        </xsl:call-template>
         <xsl:if test="$directlyCitedAuthors or $directlyCitedAuthorsAnno or $gtAuthors">
             <xsl:call-template name="OutputBackMatterItemTitle">
                 <xsl:with-param name="sId">
@@ -4623,13 +4659,7 @@
     -->
     <xsl:template name="DoTitleFormatInfo">
         <xsl:param name="layoutInfo"/>
-        <xsl:param name="bCheckPageBreakFormatInfo" select="'N'"/>
         <xsl:param name="bIgnoreTextBefore" select="'N'"/>
-        <xsl:if test="$bCheckPageBreakFormatInfo='Y'">
-            <xsl:call-template name="DoPageBreakFormatInfo">
-                <xsl:with-param name="layoutInfo" select="$layoutInfo"/>
-            </xsl:call-template>
-        </xsl:if>
         <xsl:if test="$bIgnoreTextBefore='N'">
             <xsl:call-template name="DoFrontMatterFormatInfo">
                 <xsl:with-param name="layoutInfo" select="$layoutInfo"/>
@@ -4898,7 +4928,6 @@
                     <xsl:call-template name="DoType"/>
                     <xsl:call-template name="DoTitleFormatInfo">
                         <xsl:with-param name="layoutInfo" select="$layoutInfo"/>
-                        <xsl:with-param name="bCheckPageBreakFormatInfo" select="'Y'"/>
                     </xsl:call-template>
                     <!--                    <fo:marker marker-class-name="section-title">
                         <xsl:value-of select="$sLabel"/>
@@ -5218,6 +5247,9 @@
         <xsl:param name="bForcePageBreak" select="'N'"/>
         <xsl:param name="layoutInfo"/>
         <xsl:param name="sMarkerClassName"/>
+        <xsl:call-template name="DoPageBreakFormatInfo">
+            <xsl:with-param name="layoutInfo" select="$layoutInfo"/>
+        </xsl:call-template>
         <xsl:if test="not($layoutInfo/@useLabel) or $layoutInfo/@useLabel='yes'">
             <div>
                 <xsl:attribute name="id">
@@ -5248,7 +5280,6 @@
                     <xsl:otherwise>
                         <xsl:call-template name="DoTitleFormatInfo">
                             <xsl:with-param name="layoutInfo" select="$layoutInfo"/>
-                            <xsl:with-param name="bCheckPageBreakFormatInfo" select="'Y'"/>
                         </xsl:call-template>
                         <!-- put title in marker so it can show up in running header -->
                         <!--                    <fo:marker marker-class-name="{$sMarkerClassName}">
@@ -5706,7 +5737,6 @@
             </xsl:attribute>
             <xsl:call-template name="DoTitleFormatInfo">
                 <xsl:with-param name="layoutInfo" select="$layoutInfo/keywordsLayout"/>
-                <xsl:with-param name="bCheckPageBreakFormatInfo" select="'N'"/>
             </xsl:call-template>
             <span>
                 <xsl:call-template name="OutputKeywordsLabel"/>

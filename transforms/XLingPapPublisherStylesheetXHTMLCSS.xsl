@@ -309,7 +309,8 @@ align--center {
         border-spacing:0pt;
 }
 .pagebreak {
-        /* this is empty but we use it to split the file into EPUB text files */
+        clear:both;
+        page-break-after: always;
 }
 </xsl:text>
         </xsl:if>

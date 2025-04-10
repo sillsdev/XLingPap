@@ -945,20 +945,73 @@ public class ProduceEpubFromXhtml extends RecordableCommand {
 		final String kTitlePage2 = "      </section>\n"
 				+ "  </body>\n"
 				+ "</html>\n";
+		final String kPotentialFirstNonTitleItem = "//div[@class='contents'"
+				+ " or @class='abstract'"
+				+ " or @class='acknowledgementsfrontMatter'"
+				+ " or @class='preface'"
+				+ " or @class='numberChapter'"
+				+ " or @class='chapterTitle'"
+				+ " or @class='numberChapterInCollectionchapterInCollection'"
+				+ " or @class='chapterTitleInChapterInCollection'"
+				+ " or @class='numberPart'"
+				+ " or @class='partTitle'"
+				+ " or @class='sectionTitlesection1'"
+				+ "][1]";
 		StringBuilder sb = new StringBuilder();
-		// TODO: figure out how to get the order right for all possibilities of
-		// title, subtitle, authors, etc.
-		// Can we use what's in the htm file?
-		sb.append(kTitlePage1);
-		sb.append("<p class=\"title\">");
-		sb.append(sDocTitle);
-		sb.append("</p>\n");
-		sb.append("<p class=\"author\">");
-		sb.append(sDocTitle);
-		sb.append("</p>\n");
-		sb.append(kTitlePage2);
-		writeContentToFile(sb.toString(), pOebpsTextPath.toString() + File.separator
-				+ "titlepage.xhtml");
+		try {
+			sb.append(kTitlePage1);
+			NodeList titleItems = (NodeList) xPath.compile("//p[@class='title']").evaluate(htmDoc, XPathConstants.NODESET);
+			NodeList firstNonTitleItem = (NodeList) xPath.compile(kPotentialFirstNonTitleItem).evaluate(htmDoc, XPathConstants.NODESET);
+			if (titleItems.getLength() > 0 && firstNonTitleItem.getLength() > 0) {
+				Node firstNonTitleDiv = addTtileItemsToTitlePage(sb, titleItems, firstNonTitleItem);
+				// now remove them all since we no longer need them in the main document
+				removeTitleItemsFromHtmFile(titleItems, firstNonTitleDiv);
+			} else {
+				sb.append("<p class=\"title\">");
+				sb.append(sDocTitle);
+				sb.append("</p>\n");
+				sb.append("<p class=\"author\">");
+				sb.append(sDocTitle);
+				sb.append("</p>\n");
+			}
+			sb.append(kTitlePage2);
+			writeContentToFile(sb.toString(), pOebpsTextPath.toString() + File.separator
+					+ "titlepage.xhtml");
+		} catch (XPathExpressionException e) {
+			reportException(docView, e);
+		}
+	}
+
+	protected Node addTtileItemsToTitlePage(StringBuilder sb, NodeList titleItems,
+			NodeList firstNonTitleItem) {
+		Node firstNonTitleDiv = firstNonTitleItem.item(0);
+		Node titleP = titleItems.item(titleItems.getLength()-1);
+		convertNodeToString(titleP, sb);
+		Node nextDiv = titleP.getNextSibling();
+		while (nextDiv != null && !nextDiv.equals(firstNonTitleDiv)) {
+			convertNodeToString(nextDiv, sb);
+			nextDiv = nextDiv.getNextSibling();
+		}
+		return firstNonTitleDiv;
+	}
+
+	protected void removeTitleItemsFromHtmFile(NodeList titleItems, Node firstNonTitleDiv) {
+		Node titleP = titleItems.item(titleItems.getLength()-1);
+		Node parent = titleP.getParentNode();
+		Node nextDiv = titleP.getNextSibling();
+		while (nextDiv != null && !nextDiv.equals(firstNonTitleDiv)) {
+			Node thisDiv = nextDiv;
+			nextDiv = nextDiv.getNextSibling();
+			parent.removeChild(thisDiv);
+		}
+		for (int i = 0; i < titleItems.getLength(); i++) {
+			titleP = titleItems.item(i);
+			Node nextP = titleP.getNextSibling();
+			parent.removeChild(titleP);
+			if (nextP != null &&  !nextP.equals(firstNonTitleDiv)) {
+				parent.removeChild(nextP);
+			}
+		}
 	}
 
 	protected void createCoverXhtmlFile() throws FileNotFoundException, IOException {
@@ -992,10 +1045,9 @@ public class ProduceEpubFromXhtml extends RecordableCommand {
 	}
 
 	protected void createImageFiles(File fHtmFile) {
-		NodeList graphics;
-		imageFiles.clear();
 		try {
-			graphics = (NodeList) xPath.compile("//img | //embed").evaluate(htmDoc, XPathConstants.NODESET);
+			imageFiles.clear();
+			NodeList graphics = (NodeList) xPath.compile("//img | //embed").evaluate(htmDoc, XPathConstants.NODESET);
 			int iImageCount = 1;
 			for (int i = 0; i < graphics.getLength(); i++) {
 				Node node = graphics.item(i);

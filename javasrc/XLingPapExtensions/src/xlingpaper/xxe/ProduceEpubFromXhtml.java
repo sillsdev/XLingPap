@@ -79,6 +79,7 @@ public class ProduceEpubFromXhtml extends RecordableCommand {
 	XPath xPath;
 	String sAuthor = "";
 	String sDocTitle = "";
+	String sDocLang = "en";
 	String sDocSubtitle = "";
 	String sHtmFileName = "";
 	String sCssContent = "";
@@ -129,6 +130,7 @@ public class ProduceEpubFromXhtml extends RecordableCommand {
 			this.docView = docView;
 			xmlDoc = docView.getDocument();
 			sDocTitle = XPathUtil.evalAsString("//frontMatter/title", xmlDoc);
+			sDocLang = XPathUtil.evalAsString("//lingPaper/@xml:lang", xmlDoc);
 			sGuid = UUID.randomUUID().toString();
 
 			DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
@@ -147,6 +149,7 @@ public class ProduceEpubFromXhtml extends RecordableCommand {
 			createEpubZip();
 
 			copyEpubToMainDirectory(sParameterFileName);
+			deleteTempDirectory(pEpubTempPath.toFile());
 			return "success";
 
 		} catch (Exception e) {
@@ -154,9 +157,23 @@ public class ProduceEpubFromXhtml extends RecordableCommand {
 		}
 	}
 
+	protected void deleteTempDirectory(File file) {
+		// taken with gratitude from https://www.geeksforgeeks.org/java-program-to-delete-a-directory/
+		for (File subfile : file.listFiles()) {
+            if (subfile.isDirectory()) {
+                deleteTempDirectory(subfile);
+            }
+            subfile.delete();
+        }
+		if (file.exists()) {
+			file.delete();
+		}
+	}
+
 	protected void copyEpubToMainDirectory(String sParameterFileName) throws IOException {
 		int iPeriod = sParameterFileName.lastIndexOf(".");
 		String sZipFileName = sParameterFileName.substring(0, iPeriod) + ".epub";
+		sZipFileName = sZipFileName.replace("4EBook.epub", ".epub");
 		File result = new File(sZipFileName);
 		Files.copy(archive.toPath(), result.toPath(), StandardCopyOption.REPLACE_EXISTING);
 	}
@@ -222,21 +239,13 @@ public class ProduceEpubFromXhtml extends RecordableCommand {
 			}
 			za.close();
 		} catch (IllegalArgumentException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			reportException(docView, e);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			reportException(docView, e);
 		}
 	}
 
 	protected void createContentOpfFile() {
-		// TODO: Removed these two lines after <?xml...:
-		// <!--file:///D%3A%2FAll-SIL-Publishing%2F_xrunner2_projects%2F_GPS%2FGPS-ES%2FEXGSUM64JN1-ver2%2Foutput%2FJohn_1-9%2FOEBPS%2FText%2Fcover.xhtml-->
-		//	<!--relative%2Fpath%2Ffile.ext-->
-		// Why are they there?  What good do they do for the final product?
-		// Do we need the Calibre metadata when we're not using Calibre?
-		// What about the isbn items?
 		StringBuilder sb = new StringBuilder();
 		createContentOpfPreamble(sb);
 		createContentOpfManifest(sb);
@@ -431,7 +440,7 @@ public class ProduceEpubFromXhtml extends RecordableCommand {
 		final String kPreamble2 = "</dc:title>\n"
 				+ "      <dc:source id=\"pg-src\">???2</dc:source>\n"
 				+ "      <dc:subject>";
-		// TODO: How does the creator and it id work with multiple authors here and in kPreamble4 and 5?
+		// How does the creator and its id work with multiple authors here and in kPreamble4 and 5?
 		final String kPreamble3 = "</dc:subject>\n"
 				+ "      <dc:creator id=\"id-1\">";
 		final String kPreamble4 = "</dc:creator>\n"
@@ -467,7 +476,11 @@ public class ProduceEpubFromXhtml extends RecordableCommand {
 				+ "            content=\"This publication meets the EPUB Accessibility requirements and it also meets the Web Content Accessibility Guidelines (WCAG) at the double AA level. This book contains various accessibility features such as table of content, reading order and semantic structure.\"/>\n"
 				+ "      <meta name=\"SIL XLingPaper\" content=\"3.16.5\"/>\n"
 				+ "   </metadata>\n";
-		sb.append(kPreamble1.replaceFirst("isbn:xyz1", sGuid));
+		String sPreamble1 = kPreamble1.replaceFirst("isbn:xyz1", sGuid);
+		if (!sDocLang.equals("en") && !sDocLang.equals("eng")) {
+			sPreamble1 = sPreamble1.replaceFirst("xml:lang=\"en\"", "xml:lang=\"" + sDocLang + "\"");
+		}
+		sb.append(sPreamble1);
 		sb.append(sDocTitle);
 		sb.append(kPreamble2);
 		sb.append("keywords go here");
@@ -799,7 +812,6 @@ public class ProduceEpubFromXhtml extends RecordableCommand {
 	}
 
 	protected void createNavXhtmlFile() throws FileNotFoundException, IOException {
-		// TODO: will need to set the language to es or fr sometimes...
 		final String kNav1 = "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n"
 				+ "<!DOCTYPE html>\n"
 				+ "<html xmlns=\"http://www.w3.org/1999/xhtml\" xmlns:epub=\"http://www.idpf.org/2007/ops\" lang=\"en\" xml:lang=\"en\">\n"
@@ -824,11 +836,12 @@ public class ProduceEpubFromXhtml extends RecordableCommand {
 				+ "</html>\n";
 		StringBuilder sb = new StringBuilder();
 		try {
-			// TODO: figure out how to get the order right for all possibilities of
-			// title, subtitle, authors, etc.
-			// Can we use what's in the htm file?
+			String sNav1 = kNav1;
+			if (!sDocLang.equals("en") && !sDocLang.equals("eng")) {
+				sNav1 = sNav1.replaceAll("lang=\"en\"", "lang=\"" + sDocLang + "\"");
+			}
 			NodeList contents = (NodeList) xPath.compile("//div[contains(@id,'rXLingPapContents')]").evaluate(htmDoc, XPathConstants.NODESET);
-			sb.append(kNav1);
+			sb.append(sNav1);
 			Node tocDivs = contents.item(0);
 			convertNodeToString(tocDivs, sb);
 			Node tocDivsNext = tocDivs.getNextSibling();
@@ -933,7 +946,6 @@ public class ProduceEpubFromXhtml extends RecordableCommand {
 	}
 
 	protected void createTitlePageXhtmlFile() throws FileNotFoundException, IOException {
-		// TODO: will need to set the language to es or fr sometimes...
 		final String kTitlePage1 = "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n"
 				+ "<!DOCTYPE html>\n"
 				+ "<html xmlns=\"http://www.w3.org/1999/xhtml\" xmlns:epub=\"http://www.idpf.org/2007/ops\" lang=\"en\" xml:lang=\"en\">\n"
@@ -959,7 +971,11 @@ public class ProduceEpubFromXhtml extends RecordableCommand {
 				+ "][1]";
 		StringBuilder sb = new StringBuilder();
 		try {
-			sb.append(kTitlePage1);
+			String sTitlePage1 = kTitlePage1;
+			if (!sDocLang.equals("en") && !sDocLang.equals("eng")) {
+				sTitlePage1 = sTitlePage1.replaceAll("lang=\"en\"", "lang=\"" + sDocLang + "\"");
+			}
+			sb.append(sTitlePage1);
 			NodeList titleItems = (NodeList) xPath.compile("//p[@class='title']").evaluate(htmDoc, XPathConstants.NODESET);
 			NodeList firstNonTitleItem = (NodeList) xPath.compile(kPotentialFirstNonTitleItem).evaluate(htmDoc, XPathConstants.NODESET);
 			if (titleItems.getLength() > 0 && firstNonTitleItem.getLength() > 0) {
@@ -1017,7 +1033,7 @@ public class ProduceEpubFromXhtml extends RecordableCommand {
 	protected void createCoverXhtmlFile() throws FileNotFoundException, IOException {
 		// XHTML (mostly) taken with gratitude from https://electricbookworks.github.io/ebw-training/making-ebooks/text/7-covers.html
 		// on 2025.03.25
-		final String sCoverXhtml1 = "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n"
+		final String kCoverXhtml1 = "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n"
 				+ "<!DOCTYPE html>\n"
 				+ "<html xmlns=\"http://www.w3.org/1999/xhtml\" xml:lang=\"en\" lang=\"en\">\n"
 				+ "<head>\n"
@@ -1028,11 +1044,16 @@ public class ProduceEpubFromXhtml extends RecordableCommand {
 				+ "	<div class=\"cover\">\n"
 				+ "		<img class=\"cover\" alt=\"Cover\" src=\"../Images/Cover.png\" />\n"
 				+ "   <div class=\"centered\">";
-		final String sCoverXhtml2 = "</div>\n"
+		final String kCoverXhtml2 = "</div>\n"
 				+ "	</div>\n"
 				+ "</body>\n"
 				+ "</html>\n";
-		String sCoverXhtml = sCoverXhtml1 + sDocTitle + sCoverXhtml2;
+		String sCoverXhtml1 = kCoverXhtml1;
+		if (!sDocLang.equals("en") && !sDocLang.equals("eng")) {
+			sCoverXhtml1 = sCoverXhtml1.replaceAll("lang=\"en\"", "lang=\"" + sDocLang + "\"");
+		}
+
+		String sCoverXhtml = sCoverXhtml1 + sDocTitle + kCoverXhtml2;
 		writeContentToFile(sCoverXhtml, pOebpsTextPath.toString() + File.separator + "cover.xhtml");
 	}
 

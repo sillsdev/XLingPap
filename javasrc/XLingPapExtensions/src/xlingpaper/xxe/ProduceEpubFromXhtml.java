@@ -64,6 +64,8 @@ public class ProduceEpubFromXhtml extends RecordableCommand {
 			+ "   </rootfiles>\n"
 			+ "</container>\n";
 	final String kContainerXmlFileName = "container.xml";
+	final String kTheDocumentText = "thedocumentText";
+	final String kTheMainDocumentFileName = "theMainDocument.xhtml";
 	final String kNormal = "normal";
 	File archive;
 	Path pMetaPath;
@@ -255,7 +257,7 @@ public class ProduceEpubFromXhtml extends RecordableCommand {
 		createContentOpfGuideItem(sb, "cover", "Cover", "cover.xhtml");
 		createContentOpfGuideItem(sb, "titlepage", "Title Page", "titlepage.xhtml");
 		createContentOpfGuideItem(sb, "toc", sTableOfContentsTitle, "nav.xhtml");
-		createContentOpfGuideItem(sb, "section", sDocTitle, sHtmFileName);
+		createContentOpfGuideItem(sb, "section", sDocTitle, kTheMainDocumentFileName);
 		sb.append("   </guide>\n");
 	}
 
@@ -368,7 +370,7 @@ public class ProduceEpubFromXhtml extends RecordableCommand {
 					sProperties = "scripted";
 				}
 			}
-			createContentOpfText(sb, "thedocumentText", sHtmFileName, sProperties);
+			createContentOpfText(sb, kTheDocumentText, kTheMainDocumentFileName, sProperties);
 		} catch (XPathExpressionException e) {
 			reportException(docView, e);
 		}
@@ -549,7 +551,7 @@ public class ProduceEpubFromXhtml extends RecordableCommand {
 			String sContent = a.getTextContent().replace("\u00a0", " ").trim();
 			Node href = a.getAttributes().getNamedItem("href");
 			String sId = href.getNodeValue();
-			sb.append(createTocNcxNavPoint(iNavPoint++, sContent, "Text/" + sHtmFileName + sId, false));
+			sb.append(createTocNcxNavPoint(iNavPoint++, sContent, "Text/" + kTheMainDocumentFileName + sId, false));
 			iPreviousLevel = iThisLevel;
 		}
 		return iNavPoint;
@@ -786,7 +788,7 @@ public class ProduceEpubFromXhtml extends RecordableCommand {
 		sHtmContent = sHtmContent.replaceAll(" shape=\"rect\">", ">");
 		sHtmContent = sHtmContent.replaceAll(" shape=\"rect\"/>", "/>");
 		sHtmContent = sHtmContent.replaceAll(" shape=\"rect\" ", " ");
-		String sFileInOepbs = pOebpsTextPath.toString() + File.separator + sHtmFileName;
+		String sFileInOepbs = pOebpsTextPath.toString() + File.separator + kTheMainDocumentFileName;
 		writeContentToFile(sHtmContent, sFileInOepbs);
 	}
 
@@ -863,7 +865,7 @@ public class ProduceEpubFromXhtml extends RecordableCommand {
 				}
 				sb.append(' ').append(attrName).append("=\"");
 				if (attrName.equals("href")) {
-					sb.append(sHtmFileName);
+					sb.append(kTheMainDocumentFileName);
 				}
 				sb.append(attr.getNodeValue()).append("\"");
 			}

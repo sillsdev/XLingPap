@@ -1279,7 +1279,7 @@
                         <xsl:with-param name="chapterOrAppendixUnit" select="$chapterOrAppendixUnit"/>
                     </xsl:call-template>
                     <xsl:text>&#x20;</xsl:text>
-                    <xsl:for-each select="$chapterOrAppendixUnit">
+                    <xsl:for-each select="$chapterOrAppendixUnit[contains(name(.),'chapter') or name()='appendix' or name()='part']">
                         <xsl:call-template name="OutputChapterNumber"/>
                     </xsl:for-each>
                 </td>

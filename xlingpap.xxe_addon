@@ -9,7 +9,7 @@ xmlns:a="http://www.xmlmind.com/xmleditor/schema/addon"
 ><a:name
 >A configuration for creating XLingPaper documents.</a:name
 ><a:version
->3.16.4</a:version
+>3.16.5</a:version
 ><a:author
 ><a
 href="mailto::xlingpaper_support@sil.org"
@@ -17,7 +17,7 @@ xmlns="http://www.w3.org/1999/xhtml"
 >Andy Black</a
 ></a:author
 ><a:date
->2025-02-20</a:date
+>2025-04-10</a:date
 ><a:abstract
 >A way to author and archive linguistic documents using XML.</a:abstract
 ><a:documentation
@@ -40,9 +40,15 @@ xmlns="http://www.w3.org/1999/xhtml"
 ><ul
 xmlns="http://www.w3.org/1999/xhtml"
 ><li
->3.16.5 9 April 2025<ul
+>3.16.5 10 April 2025<ul
 ><li
 >Removed alt attribute to img elements for web page output (we use the description attribute instead).</li
+><li
+>For the web page output using a publisher style sheet<ul
+><li
+>Fix bug: endnotes could get the wrong chapter number</li
+></ul
+></li
 ></ul
 ></li
 ><li

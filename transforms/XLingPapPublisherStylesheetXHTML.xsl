@@ -787,7 +787,7 @@
                                 <xsl:copy-of select="$bodyLayoutInfo/chapterInCollectionBackMatterLayout/appendixLayout"/>
                             </xsl:when>
                             <xsl:otherwise>
-                                <xsl:copy-of select="$backMatterLayout/appendixLayout"/>
+                                <xsl:copy-of select="$backMatterLayoutInfo/appendixLayout"/>
                             </xsl:otherwise>
                         </xsl:choose>
                     </xsl:when>

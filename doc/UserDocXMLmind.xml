@@ -34,7 +34,7 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >xlingpaper_support@sil.org</emailAddress
 ><date
->9 April 2025</date
+>11 April 2025</date
 ><version
 contentType="ctVersion5.3"
 >2.16.5</version
@@ -27155,7 +27155,10 @@ term="iEbook"
 >In section <sectionRef
 sec="sIntroUsing"
 ></sectionRef
->, I mentioned that you can use the <object
+>, I mentioned that you can use <object
+type="tXLingPap"
+></object
+> with the <object
 type="tXMLmindXMLEditor"
 > </object
 > to produce a file in <object
@@ -27163,47 +27166,7 @@ type="tTool"
 >EPUB</object
 > format for your document. This can be done for both papers and for books. How does one do it?</p
 ><p
->First, you need to install the (free) <object
-type="tTool"
->Calibre</object
-> program on your computer. Go to <link
-href="http://calibre-ebook.com/"
->http://calibre-ebook.com/</link
-> and download the version appropriate for your computer. When you run the installer or the first time you run <object
-type="tTool"
->Calibre</object
->, the welcome wizard will run. <object
-type="tBold"
->Very Important</object
->: You must use the default location for storing your books in the Calibre Library. If you use some other location, <object
-type="tXLingPap"
-></object
-> will not be able to find it and thus will not succeed in producing the EBook for you. Also, you may find that the EBook fails to be produced if the file name is long. Try to keep the name under 24 characters. While counting, a space counts as 3 characters as do some other non-A-Z or digit characters. If the name is too long, the EBook will fail to be produced.</p
-><p
->For users of <object
-type="tXLingPap"
-></object
-> on Mac OS X computers, you must also do another step before <object
-type="tXLingPap"
-></object
-> will know that you have installed <object
-type="tTool"
->Calibre</object
->. (This is for version 1.x of <object
-type="tTool"
->Calibre</object
->; versions 2.x and 3.x do not need this additional step.) When you have <object
-type="tTool"
->Calibre</object
-> running, use <object
-type="tInstruction"
->Preferences / Advanced / Miscellaneous</object
-> and click on <object
-type="tInstruction"
->install command line tools</object
->.</p
-><p
->Second, this process only works when you have associated a publisher style sheet with your file. See section <sectionRef
+>First, this process only works when you have associated a publisher style sheet with your file. See section <sectionRef
 sec="sFAQAssociatePublisherStyleSheet"
 ></sectionRef
 >.</p
@@ -27225,10 +27188,7 @@ type="tKey"
 >F7</object
 > key.</p
 ></endnote
-> This first tries to tell if you have installed <object
-type="tTool"
->Calibre</object
->. If so, it then starts a four step process to convert your document into an EBook in <object
+> This starts a four step process to convert your document into an EBook in <object
 type="tTool"
 >EPUB</object
 > format. It may take quite a while depending on the size of your document. It will produce a file with the same name as your <object
@@ -27243,37 +27203,26 @@ type="tXLingPap"
 > document. When it is done processing, there should be an audible beep and then <object
 type="tXLingPap"
 ></object
-> will try and load the newly created EBook into <object
-type="tTool"
->Calibre</object
->'s EBook viewer program.</p
+> will try and load the newly created EBook into your system's default's EBook viewer program.</p
 ><p
->If you wish to try and convert the resulting <object
+>We try to produce an <object
 type="tTool"
 >EPUB</object
-> file to some other EBook format (such as <object
+> document that passes <object
 type="tTool"
->MOBI</object
-> for the Kindle), you can use the <object
-type="tInstruction"
->Convert Books</object
-> capability of <object
-type="tTool"
->Calibre</object
->. Please note, however, that the <object
-type="tTool"
->MOBI</object
-> format is rather limited in what it can do so complicated tables and interlinears do not come out well.</p
+>EPUBCheck</object
+><endnote
+id="nEPUBCheck"
 ><p
->If you note any odd results or errors, please send an email message to <link
+>With the exception of the mimetype file error about it being compressed. We have not yet figured out how to add the mimetype file to the zipped epub file without also compressing it.</p
+></endnote
+> (<link
+href="https://www.w3.org/publishing/epubcheck/"
+>https://www.w3.org/publishing/epubcheck/</link
+>). If you note any odd results or errors, please send an email message to <link
 href="mailto:xlingpaper_support@sil.org"
 >xlingpaper_support@sil.org</link
->.<endnote
-id="nCalibreFailSpaceInDirectoryName"
-><p
->Some have had the process fail when there was a space in a directory name on the path to your file. Try putting your file(s) in a directory without a space in the name.</p
-></endnote
-></p
+>.</p
 ></section2
 ><section2
 id="sFAQHandleBookFrontMatter"

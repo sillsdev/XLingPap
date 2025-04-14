@@ -227,7 +227,11 @@ public class ProduceEpubFromXhtml extends RecordableCommand {
 					f = new File(sCanonicalPath);
 					if (f.exists()) {
 						filesAddedToZip.add(sCanonicalPath);
-						za.add(f, baseDir);
+						if (sFile.endsWith(File.separator + "mimetype")) {
+							za.add(f, baseDir, true);
+						} else {
+							za.add(f, baseDir);
+						}
 					} else {
 						Alert.showError(
 								docView.getPanel(),

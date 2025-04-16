@@ -212,22 +212,25 @@ public class ProduceEpubFromXhtml extends RecordableCommand {
 		File baseDir = new File(sEpubTempDir);
 		try {
 			List<String> fileNames = getAllFileNamesForZip(sEpubTempDir);
-			HashSet<String> filesAddedToZip = new HashSet<String>();
+//			HashSet<String> filesAddedToZip = new HashSet<String>();
 			ZipOutputStream zos = new ZipOutputStream(new FileOutputStream(archive));
 			Zip.Archive za = new Zip.Archive(zos);
 			for (String sFile : fileNames) {
 				String sCurrentFileName = sFile;
 				File f = new File(sFile);
+				// For CreateZipFile, we have to look for the same file name.  Not here.
+				// If we use the canonical path, then sometimes the mimetype file does not get added
+				// (with an error message) and the EPUB file is empty
 				// convert to canonical path so we get the true directory, not
 				// one with ..
-				String sCanonicalPath = f.getCanonicalPath();
-				if (!filesAddedToZip.contains(sCanonicalPath)) {
-					// avoid adding the same file when the non-canonical paths
-					// are different
-					sCurrentFileName = sCanonicalPath;
-					f = new File(sCanonicalPath);
+//				String sCanonicalPath = f.getCanonicalPath();
+//				if (!filesAddedToZip.contains(sCanonicalPath)) {
+//					// avoid adding the same file when the non-canonical paths
+//					// are different
+//					sCurrentFileName = sCanonicalPath;
+//					f = new File(sCanonicalPath);
 					if (f.exists()) {
-						filesAddedToZip.add(sCanonicalPath);
+//						filesAddedToZip.add(sCanonicalPath);
 						if (sFile.endsWith(File.separator + "mimetype")) {
 							za.add(f, baseDir, true);
 						} else {
@@ -240,7 +243,7 @@ public class ProduceEpubFromXhtml extends RecordableCommand {
 										+ sCurrentFileName
 										+ ".  Please rename it not using any special characters.  It will not be included in the zip file!");
 					}
-				}
+//				}
 			}
 			za.close();
 		} catch (IllegalArgumentException e) {
@@ -647,7 +650,7 @@ public class ProduceEpubFromXhtml extends RecordableCommand {
 		if (sOperatingSystem.contains("windows")) {
 			fontFiles = collectAllFontFilesWindows(fontFiles);
 		} else if (sOperatingSystem.contains("mac")) {
-			Alert.showError(docView.getPanel(), "collect macOS");
+//			Alert.showError(docView.getPanel(), "collect macOS");
 			fontFiles = collectAllFontFilesMac(fontFiles);
 		} else {
 			Alert.showError(docView.getPanel(), "collect Linux");

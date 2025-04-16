@@ -16,6 +16,7 @@
     <pathelement location="${xxe.bin.dir}/../addon/jeuclid_imagetoolkit/jeuclid_imagetoolkit.jar" />
     <pathelement location="${xxe.bin.dir}/../addon/batik_imagetoolkit/batik-all.jar" />
   	<pathelement location="./TagSoup/tagsoup-1.2.1.jar" />
+  	<pathelement location="./ApacheFontBox/fontbox-2.0.33.jar" />
   </path>
 
   <target name="init">

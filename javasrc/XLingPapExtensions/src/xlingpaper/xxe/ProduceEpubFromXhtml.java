@@ -7,7 +7,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.StringWriter;
-import java.lang.reflect.Field;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -18,6 +17,7 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
@@ -38,13 +38,12 @@ import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
 
+import org.apache.fontbox.ttf.TTFParser;
+import org.apache.fontbox.ttf.TrueTypeFont;
 import org.w3c.dom.Document;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
-
-import sun.font.Font2D;
-import sun.font.PhysicalFont;
 
 import com.xmlmind.guiutil.Alert;
 import com.xmlmind.util.Zip;
@@ -90,6 +89,7 @@ public class ProduceEpubFromXhtml extends RecordableCommand {
 	HashSet<String> fontFiles;
 	List<String> imageFiles = new ArrayList<String>();
 	DocumentView docView;
+	HashMap<String, String> fontFilesOnComputer = new HashMap<>();
 
 	public boolean prepare(DocumentView docView, String parameter, int x, int y) {
 		MarkManager markManager = docView.getMarkManager();
@@ -149,7 +149,7 @@ public class ProduceEpubFromXhtml extends RecordableCommand {
 			createEpubZip();
 
 			copyEpubToMainDirectory(sParameterFileName);
-			deleteTempDirectory(pEpubTempPath.toFile());
+//			deleteTempDirectory(pEpubTempPath.toFile());
 			return "success";
 
 		} catch (Exception e) {
@@ -622,6 +622,7 @@ public class ProduceEpubFromXhtml extends RecordableCommand {
 
 	protected void createFontFiles() throws NoSuchFieldException,
 			IllegalAccessException, IOException {
+		collectAllFontFilesOnComputer();
 		fontFiles = collectFontFilesFromCss(sCssContent);
 		collectFontFilesFromHtm(fontFiles);
 		// TODO: if the .woff form of the fonts are present, use them; otherwise use what's there
@@ -633,6 +634,72 @@ public class ProduceEpubFromXhtml extends RecordableCommand {
 			Files.copy(pSrc, pImage, StandardCopyOption.REPLACE_EXISTING);
 		}
 	}
+
+	protected void collectAllFontFilesOnComputer() {
+		// Linux:
+		// use fc-list in command prompt and read the file
+		// look for file, family name:style= Bold Italic ,etc...
+		// Windows:
+		// use C:\Windows\Fonts
+		// macOS
+		// /System/Library/Fonts
+		// ~/Library/Fonts
+
+		fontFilesOnComputer.clear();
+		String sOperatingSystem = System.getProperty("os.name").toLowerCase();
+		if (sOperatingSystem.contains("windows")) {
+			collectAllFontFilesWindows();
+		} else if (sOperatingSystem.contains("mac")) {
+			Alert.showError(docView.getPanel(), "collect macOS");
+			// macOS
+		} else {
+			Alert.showError(docView.getPanel(), "collect Linux");
+			// Linux
+		}
+	}
+
+	protected void collectAllFontFilesWindows() {
+		File fontsDir = new File("C:\\Windows\\Fonts");
+		if (fontsDir.exists() && fontsDir.isDirectory()) {
+			File[] files = fontsDir.listFiles((f) -> f.isFile()
+					&& f.getName().toLowerCase().matches(".*\\.(ttf|otf)"));
+			if (files == null) {
+				Alert.showError(docView.getPanel(), "collect found none");
+				return;
+			}
+			for (File file : files) {
+				try {
+					Font font = Font.createFont(Font.TRUETYPE_FONT, file);
+					String sFontCode = getFontCode(font, file);
+					if (file.getAbsolutePath() == null) {
+						Alert.showError(docView.getPanel(), "collect file path is null for '" + sFontCode + "'");
+					}
+					fontFilesOnComputer.put(file.getAbsolutePath(), sFontCode);
+				} catch (Exception e) {
+					// Skip corrupted or unreadable fonts
+				}
+			}
+		}
+	}
+
+	protected String getFontCode(Font font, File fontFile) {
+		int iStyle = readFontStyleFromFile(fontFile);
+		String sFontCode = font.getFamily() + "|" + iStyle;
+		return sFontCode;
+	}
+
+    protected int readFontStyleFromFile(File fontFile) {
+        // Use Apache's FontBox
+        try {
+
+			TTFParser parser = new TTFParser();
+			TrueTypeFont ttf = parser.parse(fontFile);
+			int iStyleCode = ttf.getHeader().getMacStyle();
+            return iStyleCode;
+        } catch (Exception e) {
+            return Font.PLAIN;
+        }
+    }
 
 	protected void collectFontFilesFromHtm(HashSet<String> fontFiles)
 			throws NoSuchFieldException, IllegalAccessException {
@@ -683,8 +750,12 @@ public class ProduceEpubFromXhtml extends RecordableCommand {
 					}
 				}
 				Font font = createFont(sFontFamilyName, sStyle, sWeight);
+//				Alert.showError(docView.getPanel(), "created font from HTM = '" + sFontFamilyName + "' " + sStyle + " " + sWeight);
 				String sFontPath = findFontFilePath(font);
-				fontFiles.add(sFontPath);
+				if (sFontPath != null) {
+					// only use ones that were found
+					fontFiles.add(sFontPath);
+				}
 			}
 		} catch (XPathExpressionException e) {
 			reportException(docView, e);
@@ -733,8 +804,11 @@ public class ProduceEpubFromXhtml extends RecordableCommand {
 //					Alert.showError(docView.getPanel(), "sWeight = '" + sWeight + "'");
 				}
 				Font font = createFont(sFontFamilyName, sStyle, sWeight);
+//				Alert.showError(docView.getPanel(), "created font from CSS = '" + sFontFamilyName + "' " + sStyle + " " + sWeight);
 				String sFontPath = findFontFilePath(font);
-				fontFiles.add(sFontPath);
+				if (sFontPath != null) {
+					fontFiles.add(sFontPath);
+				}
 //				Alert.showError(docView.getPanel(), "font path ='" + sFontPath + "'");
 			}
 			index = sHere.indexOf(kFontFamily);
@@ -761,13 +835,44 @@ public class ProduceEpubFromXhtml extends RecordableCommand {
 		// Note that this uses sun.font which may go away in a later version of Java.
 		// use reflection on Font2D (<B>PhysicalFont.platName</B>) e.g.
 //		Alert.showError(docView.getPanel(), "findFontFilePath: font = '" + font.getFontName() + "'");
+		String sFontCode = font.getFamily() + "|" + font.getStyle();
+//		Alert.showError(docView.getPanel(), "findFontFilePath: font code = '" + sFontCode + "'");
+//		if (fontFilesOnComputer.containsKey(sFontCode)) {
+//			Alert.showError(docView.getPanel(), "fontFilesOnComputer contains key = '" + sFontCode + "'\nValue = '" + fontFilesOnComputer.get(sFontCode) + "'" );
+//		}
+		String fontPath = null;
+		List<String> pathsFound = new ArrayList<String>();
+		fontFilesOnComputer.forEach((k, val) -> {
+			if (val.equals(sFontCode)) {
+				pathsFound.add(k);
+			}
+		});
+//		fontFilesOnComputer.get(sFontCode);
+		for (String pathFound : pathsFound) {
+			if (fontPath == null) {
+				fontPath = pathFound;
+				continue;
+			}
+			// If there is more than one, use the shortest file name
+			int iFontPath = fontPath.lastIndexOf(File.separator);
+			int iPathFound = pathFound.lastIndexOf(File.separator);
+			if (pathFound.substring(iPathFound).length() < fontPath.substring(iFontPath).length()) {
+				fontPath = pathFound;
+			}
+		}
+//		Alert.showError(docView.getPanel(), "fontPath = '" + fontPath + "'");
+//		Alert.showError(docView.getPanel(), "findFontFilePath: looking for '" + sFontCode + "'\n"
+//				+ "pathsFound size = " + pathsFound.size()
+//				+ "\nfontPath = '" + fontPath + "'");
 
-		Font2D f2d = sun.font.FontUtilities.getFont2D(font);
-		Field platName = PhysicalFont.class.getDeclaredField("platName");
-		platName.setAccessible(true);
-		String fontPath = (String)platName.get(f2d);
-		platName.setAccessible(false);
 		return fontPath;
+
+//		Font2D f2d = sun.font.FontUtilities.getFont2D(font);
+//		Field platName = PhysicalFont.class.getDeclaredField("platName");
+//		platName.setAccessible(true);
+//		String fontPath = (String)platName.get(f2d);
+//		platName.setAccessible(false);
+//		return fontPath;
 	}
 
 	protected void createMimetypeFile() throws FileNotFoundException, IOException {

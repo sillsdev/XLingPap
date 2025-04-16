@@ -34,7 +34,7 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >xlingpaper_support@sil.org</emailAddress
 ><date
->14 April 2025</date
+>16 April 2025</date
 ><version
 contentType="ctVersion5.3"
 >2.16.5</version
@@ -27211,35 +27211,38 @@ type="tTool"
 > document that passes <object
 type="tTool"
 >EPUBCheck</object
-><endnote
-id="nEPUBCheck"
-><p
->With the exception of the mimetype file error about it being compressed. We have not yet figured out how to add the mimetype file to the zipped epub file without also compressing it.</p
-></endnote
 > (<link
 href="https://www.w3.org/publishing/epubcheck/"
 >https://www.w3.org/publishing/epubcheck/</link
 >). If you have a choice between using a JPG or a PNG file for a graphic, then please use the PNG. <object
 type="tTool"
 >EPUBCheck</object
-> will report a “fallback” error if you use the JPG. Better yet, if you can, please use an SVG file for the image.  This is because SVG images do not deteriorate or pixelate when enlarged.</p
+> will report a “fallback” error if you use the JPG. Better yet, if you can, please use an SVG file for the image. This is because SVG images do not deteriorate or pixelate when enlarged.</p
 ><p
 >The cover image provided by <object
 type="tXLingPap"
 ></object
-> is very simple.  When you publish your EBook, most likely you will want to create your own.  Many EPUB creators use <object
+> is very simple. When you publish your EBook, most likely you will want to create your own. Many EPUB creators use <object
 type="tTool"
 >Sigil</object
 > (<link
 href="https://sigil-ebook.com/"
 >https://sigil-ebook.com/</link
->) to finalize the publishing of a document.  Besides the cover, you can use it to handle metadata, the title page, copyright page, and more.  As we note in section <sectionRef
+>) to finalize the publishing of a document. Besides the cover, you can use it to handle metadata, the title page, copyright page, and more. As we note in section <sectionRef
 sec="sFAQCreateZipFile"
 ></sectionRef
 >, <object
 type="tXLingPap"
 ></object
-> does not try to handle publisher-specific front matter pages.</p
+> does not try to handle publisher-specific front matter pages.  Note that for both macOS and Linux, we do not include the font files that should be embedded.<endnote
+id="nNoFontFilesMacLinux"
+><p
+>There are technical reasons for this.  Someday we may be able to solve these.</p
+></endnote
+> You will need to use a tool like <object
+type="tTool"
+>Sigil</object
+> to add them.</p
 ><p
 >If you note any odd results or errors, please send an email message to <link
 href="mailto:xlingpaper_support@sil.org"

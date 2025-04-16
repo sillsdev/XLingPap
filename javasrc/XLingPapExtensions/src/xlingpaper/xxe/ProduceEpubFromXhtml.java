@@ -653,7 +653,7 @@ public class ProduceEpubFromXhtml extends RecordableCommand {
 //			Alert.showError(docView.getPanel(), "collect macOS");
 			fontFiles = collectAllFontFilesMac(fontFiles);
 		} else {
-			Alert.showError(docView.getPanel(), "collect Linux");
+//			Alert.showError(docView.getPanel(), "collect Linux");
 			// Linux
 		}
 		if (fontFiles == null) {

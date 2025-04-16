@@ -42,7 +42,7 @@ xmlns="http://www.w3.org/1999/xhtml"
 ><li
 >3.16.5 14 April 2025<ul
 ><li
->Rework EPUB production to not need Calibre; the new output should also pass PEPUBCheck.</li
+>Rework EPUB production to not need Calibre; the new output should also pass EPUBCheck.</li
 ><li
 >Removed alt attribute to img elements for web page output (we use the description attribute instead).</li
 ><li

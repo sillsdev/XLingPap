@@ -66,6 +66,7 @@ public class ProduceEpubFromXhtml extends RecordableCommand {
 	final String kTheDocumentText = "thedocumentText";
 	final String kTheMainDocumentFileName = "theMainDocument.xhtml";
 	final String kNormal = "normal";
+	final String kFontFilePattern = ".*\\.(ttf|otf)";
 	File archive;
 	Path pMetaPath;
 	Path pEpubTempPath;
@@ -639,47 +640,70 @@ public class ProduceEpubFromXhtml extends RecordableCommand {
 		// Linux:
 		// use fc-list in command prompt and read the file
 		// look for file, family name:style= Bold Italic ,etc...
-		// Windows:
-		// use C:\Windows\Fonts
-		// macOS
-		// /System/Library/Fonts
-		// ~/Library/Fonts
 
 		fontFilesOnComputer.clear();
+		File[] fontFiles = null;
 		String sOperatingSystem = System.getProperty("os.name").toLowerCase();
 		if (sOperatingSystem.contains("windows")) {
-			collectAllFontFilesWindows();
+			fontFiles = collectAllFontFilesWindows(fontFiles);
 		} else if (sOperatingSystem.contains("mac")) {
 			Alert.showError(docView.getPanel(), "collect macOS");
-			// macOS
+			fontFiles = collectAllFontFilesMac(fontFiles);
 		} else {
 			Alert.showError(docView.getPanel(), "collect Linux");
 			// Linux
 		}
-	}
-
-	protected void collectAllFontFilesWindows() {
-		File fontsDir = new File("C:\\Windows\\Fonts");
-		if (fontsDir.exists() && fontsDir.isDirectory()) {
-			File[] files = fontsDir.listFiles((f) -> f.isFile()
-					&& f.getName().toLowerCase().matches(".*\\.(ttf|otf)"));
-			if (files == null) {
-				Alert.showError(docView.getPanel(), "collect found none");
-				return;
-			}
-			for (File file : files) {
-				try {
-					Font font = Font.createFont(Font.TRUETYPE_FONT, file);
-					String sFontCode = getFontCode(font, file);
-					if (file.getAbsolutePath() == null) {
-						Alert.showError(docView.getPanel(), "collect file path is null for '" + sFontCode + "'");
-					}
-					fontFilesOnComputer.put(file.getAbsolutePath(), sFontCode);
-				} catch (Exception e) {
-					// Skip corrupted or unreadable fonts
+		if (fontFiles == null) {
+			return;
+		}
+		for (File file : fontFiles) {
+			try {
+				Font font = Font.createFont(Font.TRUETYPE_FONT, file);
+				String sFontCode = getFontCode(font, file);
+				if (file.getAbsolutePath() == null) {
+					Alert.showError(docView.getPanel(), "collect file path is null for '" + sFontCode + "'");
 				}
+				// we set the file to be the key because it is guaranteed to be unique
+				fontFilesOnComputer.put(file.getAbsolutePath(), sFontCode);
+			} catch (Exception e) {
+				// Skip corrupted or unreadable fonts
 			}
 		}
+	}
+
+	protected File[] collectAllFontFilesWindows(File[] fontFiles) {
+		File fontsDir = new File("C:\\Windows\\Fonts");
+		if (fontsDir.exists() && fontsDir.isDirectory()) {
+			fontFiles = fontsDir.listFiles((f) -> f.isFile()
+					&& f.getName().toLowerCase().matches(kFontFilePattern));
+		}
+		return fontFiles;
+	}
+
+	protected File[] collectAllFontFilesMac(File[] fontFiles) {
+		File systemFontsDir = new File("/System/Library/Fonts");
+		if (systemFontsDir.exists() && systemFontsDir.isDirectory()) {
+			fontFiles = systemFontsDir.listFiles((f) -> f.isFile()
+					&& f.getName().toLowerCase().matches(kFontFilePattern));
+		}
+		File userFontsDir = new File("~/Library/Fonts");
+		File[] userFontFiles = null;
+		if (userFontsDir.exists() && userFontsDir.isDirectory()) {
+			userFontFiles = userFontsDir.listFiles((f) -> f.isFile()
+					&& f.getName().toLowerCase().matches(kFontFilePattern));
+		}
+		if (fontFiles != null && userFontFiles != null) {
+			int iSytemLen = fontFiles.length;
+			File[] mergedFiles = new File[iSytemLen + userFontFiles.length + 1];
+			for (int i = 0; i < fontFiles.length; i++) {
+				mergedFiles[i] = fontFiles[i];
+			}
+			for (int j = 0; j < userFontFiles.length; j++) {
+				mergedFiles[iSytemLen + j] = userFontFiles[j];
+			}
+			return mergedFiles;
+		}
+		return fontFiles;
 	}
 
 	protected String getFontCode(Font font, File fontFile) {
@@ -691,7 +715,6 @@ public class ProduceEpubFromXhtml extends RecordableCommand {
     protected int readFontStyleFromFile(File fontFile) {
         // Use Apache's FontBox
         try {
-
 			TTFParser parser = new TTFParser();
 			TrueTypeFont ttf = parser.parse(fontFile);
 			int iStyleCode = ttf.getHeader().getMacStyle();

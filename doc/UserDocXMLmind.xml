@@ -34,7 +34,7 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >xlingpaper_support@sil.org</emailAddress
 ><date
->16 April 2025</date
+>17 April 2025</date
 ><version
 contentType="ctVersion5.3"
 >2.16.5</version
@@ -27234,15 +27234,7 @@ sec="sFAQCreateZipFile"
 >, <object
 type="tXLingPap"
 ></object
-> does not try to handle publisher-specific front matter pages.  Note that for both macOS and Linux, we do not include the font files that should be embedded.<endnote
-id="nNoFontFilesMacLinux"
-><p
->There are technical reasons for this.  Someday we may be able to solve these.</p
-></endnote
-> You will need to use a tool like <object
-type="tTool"
->Sigil</object
-> to add them.</p
+> does not try to handle publisher-specific front matter pages.</p
 ><p
 >If you note any odd results or errors, please send an email message to <link
 href="mailto:xlingpaper_support@sil.org"

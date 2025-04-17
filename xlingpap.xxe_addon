@@ -17,7 +17,7 @@ xmlns="http://www.w3.org/1999/xhtml"
 >Andy Black</a
 ></a:author
 ><a:date
->2025-04-14</a:date
+>2025-04-17</a:date
 ><a:abstract
 >A way to author and archive linguistic documents using XML.</a:abstract
 ><a:documentation
@@ -40,7 +40,7 @@ xmlns="http://www.w3.org/1999/xhtml"
 ><ul
 xmlns="http://www.w3.org/1999/xhtml"
 ><li
->3.16.5 14 April 2025<ul
+>3.16.5 17 April 2025<ul
 ><li
 >Rework EPUB production to not need Calibre; the new output should also pass EPUBCheck.</li
 ><li

@@ -1,10 +1,12 @@
 package xlingpaper.xxe;
 
 import java.awt.Font;
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.StringWriter;
 import java.nio.charset.StandardCharsets;
@@ -67,6 +69,7 @@ public class ProduceEpubFromXhtml extends RecordableCommand {
 	final String kTheMainDocumentFileName = "theMainDocument.xhtml";
 	final String kNormal = "normal";
 	final String kFontFilePattern = ".*\\.(ttf|otf)";
+	final String kPipe = "|";
 	File archive;
 	Path pMetaPath;
 	Path pEpubTempPath;
@@ -640,21 +643,23 @@ public class ProduceEpubFromXhtml extends RecordableCommand {
 	}
 
 	protected void collectAllFontFilesOnComputer() {
-		// Linux:
-		// use fc-list in command prompt and read the file
-		// look for file, family name:style= Bold Italic ,etc...
-
 		fontFilesOnComputer.clear();
-		File[] fontFiles = null;
 		String sOperatingSystem = System.getProperty("os.name").toLowerCase();
 		if (sOperatingSystem.contains("windows")) {
-			fontFiles = collectAllFontFilesWindows(fontFiles);
+			collectAllFontFilesWindows();
 		} else if (sOperatingSystem.contains("mac")) {
-//			Alert.showError(docView.getPanel(), "collect macOS");
-			fontFiles = collectAllFontFilesMac(fontFiles);
+			collectAllFontFilesViaFcList("/usr/local/bin/fc-list");
 		} else {
-//			Alert.showError(docView.getPanel(), "collect Linux");
-			// Linux
+			collectAllFontFilesViaFcList("/usr/bin/fc-list");
+		}
+	}
+
+	protected void collectAllFontFilesWindows() {
+		File[] fontFiles = null;
+		File fontsDir = new File("C:\\Windows\\Fonts");
+		if (fontsDir.exists() && fontsDir.isDirectory()) {
+			fontFiles = fontsDir.listFiles((f) -> f.isFile()
+					&& f.getName().toLowerCase().matches(kFontFilePattern));
 		}
 		if (fontFiles == null) {
 			return;
@@ -677,57 +682,58 @@ public class ProduceEpubFromXhtml extends RecordableCommand {
 		}
 	}
 
-	protected File[] collectAllFontFilesWindows(File[] fontFiles) {
-		File fontsDir = new File("C:\\Windows\\Fonts");
-		if (fontsDir.exists() && fontsDir.isDirectory()) {
-			fontFiles = fontsDir.listFiles((f) -> f.isFile()
-					&& f.getName().toLowerCase().matches(kFontFilePattern));
+	protected void collectAllFontFilesViaFcList(String command) {
+		try {
+			final Process process = Runtime.getRuntime().exec(command);
+			final BufferedReader in = new BufferedReader(new InputStreamReader(process.getInputStream()));
+			String line;
+			while ((line = in.readLine()) != null) {
+			    processFcListLine(line);
+			}
+			process.waitFor();
+			in.close();
+		} catch (IOException e) {
+			reportException(docView, e);
+		} catch (InterruptedException e) {
+			reportException(docView, e);
 		}
-		return fontFiles;
 	}
 
-	protected File[] collectAllFontFilesMac(File[] fontFiles) {
-		File systemFontsDir = new File("/System/Library/Fonts");
-		if (systemFontsDir.exists() && systemFontsDir.isDirectory()) {
-			fontFiles = systemFontsDir.listFiles((f) -> f.isFile()
-					&& f.getName().toLowerCase().matches(kFontFilePattern));
+	protected void processFcListLine(String line) {
+		String[] items = line.split(":");
+		if (items.length < 2) {
+			// need at least 2, but expect 3
+			return;
 		}
-		String homeDir = System.getProperty("user.home");
-		File userFontsDir = new File(homeDir + "/Library/Fonts");
-		File[] userFontFiles = new File[200];
-		if (userFontsDir.exists() && userFontsDir.isDirectory()) {
-			userFontFiles = userFontsDir.listFiles((f) -> f.isFile()
-					&& f.getName().toLowerCase().matches(kFontFilePattern));
-		}
-		if (fontFiles != null && userFontFiles != null) {
-			int iSytemLen = fontFiles.length;
-			File[] mergedFiles = new File[iSytemLen + userFontFiles.length];
-			for (int i = 0; i < fontFiles.length; i++) {
-				mergedFiles[i] = fontFiles[i];
+		String sFontPath = items[0].trim();
+		if (sFontPath.endsWith(".ttf") || sFontPath.endsWith(".otf")) {
+			String sFontCode = items[1].trim();
+			int iStyle = Font.PLAIN;
+			if (items.length >= 3) {
+				String sStyle = items[2].trim();
+				if (sStyle.contains("Bold")) {
+					iStyle += Font.BOLD;
+				}
+				if (sStyle.contains("Italic")) {
+					iStyle += Font.ITALIC;
+				}
 			}
-			for (int j = 0; j < userFontFiles.length; j++) {
-				mergedFiles[iSytemLen + j] = userFontFiles[j];
-			}
-			return null;
-//			return mergedFiles;
+			sFontCode += kPipe + iStyle;
+			fontFilesOnComputer.put(sFontPath, sFontCode);
 		}
-		return fontFiles;
 	}
 
 	protected String getFontCode(Font font, File fontFile) {
 		int iStyle = readFontStyleFromFile(fontFile);
-		String sFontCode = font.getFamily() + "|" + iStyle;
+		String sFontCode = font.getFamily() + kPipe + iStyle;
 		return sFontCode;
 	}
 
     protected int readFontStyleFromFile(File fontFile) {
         // Use Apache's FontBox
         try {
-//			Alert.showError(docView.getPanel(), "before new parser");
 			TTFParser parser = new TTFParser();
-//			Alert.showError(docView.getPanel(), "before parsing '" + fontFile.getAbsolutePath() + "'");
 			TrueTypeFont ttf = parser.parse(fontFile);
-//			Alert.showError(docView.getPanel(), "before get style");
 			int iStyleCode = ttf.getHeader().getMacStyle();
             return iStyleCode;
         } catch (Exception e) {
@@ -853,7 +859,7 @@ public class ProduceEpubFromXhtml extends RecordableCommand {
 
 	protected String findFontFilePath(Font font) throws NoSuchFieldException,
 			IllegalAccessException {
-		String sFontCode = font.getFamily() + "|" + font.getStyle();
+		String sFontCode = font.getFamily() + kPipe + font.getStyle();
 		String fontPath = null;
 		List<String> pathsFound = new ArrayList<String>();
 		fontFilesOnComputer.forEach((k, val) -> {
@@ -1264,7 +1270,7 @@ public class ProduceEpubFromXhtml extends RecordableCommand {
 					+ "  position: absolute;\n"
 					+ "  top: 25%;\n"
 					+ "  left: 50%;\n"
-					+ "  font-size:300%;\n"
+					+ "  font-size:250%;\n"
 					+ "  transform: translate(-50%, -50%);\n"
 					+ "}\n";
 			Path coverCssPath = Paths.get(pOebpsStylesPath.toString() + File.separator + "cover.css");

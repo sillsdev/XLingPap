@@ -488,7 +488,7 @@ public class ProduceEpubFromXhtml extends RecordableCommand {
 				+ "      <meta name=\"SIL XLingPaper\" content=\"3.16.5\"/>\n"
 				+ "   </metadata>\n";
 		String sPreamble1 = kPreamble1.replaceFirst("isbn:xyz1", sGuid);
-		if (!sDocLang.equals("en") && !sDocLang.equals("eng")) {
+		if (changeLangValue()) {
 			sPreamble1 = sPreamble1.replaceFirst("xml:lang=\"en\"", "xml:lang=\"" + sDocLang + "\"");
 		}
 		sb.append(sPreamble1);
@@ -515,6 +515,13 @@ public class ProduceEpubFromXhtml extends RecordableCommand {
 			sb.append(kSubtitle2);
 		}
 		sb.append(kPreamble10);
+	}
+
+	protected boolean changeLangValue() {
+		if (sDocLang.length() > 1 && !sDocLang.equals("en") && !sDocLang.equals("eng")) {
+			return true;
+		}
+		return false;
 	}
 
 	protected String getISO8601DateTimeStamp() {
@@ -953,7 +960,7 @@ public class ProduceEpubFromXhtml extends RecordableCommand {
 		StringBuilder sb = new StringBuilder();
 		try {
 			String sNav1 = kNav1;
-			if (!sDocLang.equals("en") && !sDocLang.equals("eng")) {
+			if (changeLangValue()) {
 				sNav1 = sNav1.replaceAll("lang=\"en\"", "lang=\"" + sDocLang + "\"");
 			}
 			NodeList contents = (NodeList) xPath.compile("//div[contains(@id,'rXLingPapContents')]").evaluate(htmDoc, XPathConstants.NODESET);
@@ -1088,7 +1095,7 @@ public class ProduceEpubFromXhtml extends RecordableCommand {
 		StringBuilder sb = new StringBuilder();
 		try {
 			String sTitlePage1 = kTitlePage1;
-			if (!sDocLang.equals("en") && !sDocLang.equals("eng")) {
+			if (changeLangValue()) {
 				sTitlePage1 = sTitlePage1.replaceAll("lang=\"en\"", "lang=\"" + sDocLang + "\"");
 			}
 			sb.append(sTitlePage1);
@@ -1165,7 +1172,7 @@ public class ProduceEpubFromXhtml extends RecordableCommand {
 				+ "</body>\n"
 				+ "</html>\n";
 		String sCoverXhtml1 = kCoverXhtml1;
-		if (!sDocLang.equals("en") && !sDocLang.equals("eng")) {
+		if (changeLangValue()) {
 			sCoverXhtml1 = sCoverXhtml1.replaceAll("lang=\"en\"", "lang=\"" + sDocLang + "\"");
 		}
 

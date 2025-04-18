@@ -505,7 +505,7 @@ public class ProduceEpubFromXhtml extends RecordableCommand {
 		sb.append(kPreamble6);
 		sb.append(sIso8601Stamp);
 		sb.append(kPreamble7);
-		sb.append("description goes here; maybee use the content of the abstract?");
+		sb.append("description goes here");
 		sb.append(kPreamble8);
 		sb.append(sDocTitle);
 		sb.append(kPreamble9);

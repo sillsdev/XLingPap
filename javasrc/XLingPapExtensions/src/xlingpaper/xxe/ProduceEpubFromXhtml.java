@@ -944,8 +944,8 @@ public class ProduceEpubFromXhtml extends RecordableCommand {
 				+ "      <link href=\"../Styles/stylesheet.css\" type=\"text/css\" rel=\"stylesheet\" />\n"
 				+ "      <link href=\"../Styles/nav.css\" type=\"text/css\" rel=\"stylesheet\" />\n"
 				+ "   </head>\n" + "   <body>\n"
-				+ "      <nav id=\"toc\" role=\"doc-toc\" epub:type=\"toc\">\n"
-				+ " <ol><li><a><span>\u00a0</span></a></li></ol></nav>\n";
+				+ "      <nav id=\"toc\" role=\"doc-toc\" epub:type=\"toc\">\n";
+		final String kNav1End = "</nav>\n";
 		// Note: we're trying to fake the <nav id="toc"...> element in order to use the <div>s produced by XLingPaper
 		final String kNav2 = "      <nav id=\"landmarks\" hidden=\"\">\n"
 				+ "<h1 class=\"contents\">Landmarks</h1>\n"
@@ -969,6 +969,7 @@ public class ProduceEpubFromXhtml extends RecordableCommand {
 			convertNodeToString(tocDivs, sb);
 			Node tocDivsNext = tocDivs.getNextSibling();
 			convertNodeToString(tocDivsNext, sb);
+			sb.append(kNav1End);
 			sb.append(kNav2);
 			//add other landmark items here
 			sb.append(kNav3);

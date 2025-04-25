@@ -2970,8 +2970,8 @@
         <!--        <br/>-->
     </xsl:template>
     <!--
-                  DoContents
-                  -->
+        DoContents
+    -->
     <xsl:template name="DoContents">
         <xsl:param name="bIsBook" select="'Y'"/>
         <xsl:param name="frontMatterLayout" select="$frontMatterLayoutInfo"/>

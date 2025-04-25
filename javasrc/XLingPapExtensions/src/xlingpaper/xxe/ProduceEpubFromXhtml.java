@@ -14,7 +14,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
-import java.nio.file.StandardOpenOption;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
@@ -264,8 +263,7 @@ public class ProduceEpubFromXhtml extends RecordableCommand {
 		createContentOpfGuide(sb);
 		sb.append("</package>\n");
 		try {
-			Path contentOpfPath = Paths.get(pOebpsPath.toString() + File.separator + "content.opf");
-			Files.write(contentOpfPath, sb.toString().getBytes(), StandardOpenOption.CREATE);
+			writeContentToFile(sb.toString(), pOebpsPath.toString() + File.separator + "content.opf");
 		} catch (IOException e) {
 			reportException(docView, e);
 		}
@@ -553,8 +551,7 @@ public class ProduceEpubFromXhtml extends RecordableCommand {
 		}
 		sb.append("</navMap>\n</ncx>\n");
 		try {
-			Path tocNcxPath = Paths.get(pOebpsPath.toString() + File.separator + "toc.ncx");
-			Files.write(tocNcxPath, sb.toString().getBytes(), StandardOpenOption.CREATE);
+			writeContentToFile(sb.toString(), pOebpsPath.toString() + File.separator + "toc.ncx");
 		} catch (IOException e) {
 			reportException(docView, e);
 		}
@@ -1323,8 +1320,7 @@ public class ProduceEpubFromXhtml extends RecordableCommand {
 					+ "  font-size:250%;\n"
 					+ "  transform: translate(-50%, -50%);\n"
 					+ "}\n";
-			Path coverCssPath = Paths.get(pOebpsStylesPath.toString() + File.separator + "cover.css");
-			Files.write(coverCssPath, kCoverCss.getBytes(), StandardOpenOption.CREATE);
+			writeContentToFile(kCoverCss, pOebpsStylesPath.toString() + File.separator + "cover.css");
 		} catch (IOException e) {
 			reportException(docView, e);
 		}
@@ -1334,8 +1330,7 @@ public class ProduceEpubFromXhtml extends RecordableCommand {
 		try {
 			final String kNavCss = ".navnotcontent {display:none;}\n"
 					+ "li {list-style-type:none;}\n";
-			Path navCssPath = Paths.get(pOebpsStylesPath.toString() + File.separator + "nav.css");
-			Files.write(navCssPath, kNavCss.getBytes(), StandardOpenOption.CREATE);
+			writeContentToFile(kNavCss, pOebpsStylesPath.toString() + File.separator + "nav.css");
 		} catch (IOException e) {
 			reportException(docView, e);
 		}
@@ -1345,8 +1340,7 @@ public class ProduceEpubFromXhtml extends RecordableCommand {
 		pEpubTempPath = Files.createTempDirectory("XLingPaperEpub");
 		pMetaPath = Paths.get(pEpubTempPath.toString() + File.separator + "META-INF");
 		Files.createDirectory(pMetaPath);
-		Path containerXmlPath = Paths.get(pMetaPath.toString() + File.separator + kContainerXmlFileName);
-		Files.write(containerXmlPath, kContainerXml.getBytes(), StandardOpenOption.CREATE);
+		writeContentToFile(kContainerXml, pMetaPath.toString() + File.separator + kContainerXmlFileName);
 		pOebpsPath = Paths.get(pEpubTempPath.toString() + File.separator + "OEBPS");
 		Files.createDirectory(pOebpsPath);
 		pOebpsFontsPath = Paths.get(pOebpsPath.toString() + File.separator + "Fonts");

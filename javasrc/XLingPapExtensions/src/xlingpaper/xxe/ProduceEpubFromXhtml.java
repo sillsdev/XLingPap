@@ -935,6 +935,10 @@ public class ProduceEpubFromXhtml extends RecordableCommand {
 	}
 
 	protected void createNavXhtmlFile() throws FileNotFoundException, IOException {
+		final String kCommonItems = "<ol>\n"
+				+ "<li><a href=\"cover.xhtml\">Cover</a></li>\n"
+				+ "<li><a href=\"titlepage.xhtml\">Title Page</a></li>\n"
+				+ "<li><a href=\"nav.xhtml\">";
 		final String kNav1 = "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n"
 				+ "<!DOCTYPE html>\n"
 				+ "<html xmlns=\"http://www.w3.org/1999/xhtml\" xmlns:epub=\"http://www.idpf.org/2007/ops\" lang=\"en\" xml:lang=\"en\">\n"
@@ -943,16 +947,11 @@ public class ProduceEpubFromXhtml extends RecordableCommand {
 				+ "      <title>Contents</title>\n"
 				+ "      <link href=\"../Styles/stylesheet.css\" type=\"text/css\" rel=\"stylesheet\" />\n"
 				+ "      <link href=\"../Styles/nav.css\" type=\"text/css\" rel=\"stylesheet\" />\n"
-				+ "   </head>\n" + "   <body>\n"
-				+ "      <nav id=\"toc\" role=\"doc-toc\" epub:type=\"toc\">\n";
-		final String kNav1End = "</nav>\n";
-		// Note: we're trying to fake the <nav id="toc"...> element in order to use the <div>s produced by XLingPaper
-		final String kNav2 = "      <nav id=\"landmarks\" hidden=\"\">\n"
+				+ "   </head>\n" + "   <body>\n" + "      <nav id=\"toc\" role=\"doc-toc\" epub:type=\"toc\">\n";
+		final String kNav2 = "</nav>\n"
+				+ "      <nav id=\"landmarks\" hidden=\"\">\n"
 				+ "<h1 class=\"contents\">Landmarks</h1>\n"
-				+ "<ol>\n"
-				+ "<li><a href=\"cover.xhtml\">Cover</a></li>\n"
-				+ "<li><a href=\"titlepage.xhtml\">Title Page</a></li>\n"
-				+ "<li><a href=\"nav.xhtml\">Table of Contents</a></li>\n";
+				+ kCommonItems;
 		final String kNav3 = "      </ol>\n"
 				+ "      </nav>\n"
 				+ "  </body>\n"
@@ -963,14 +962,26 @@ public class ProduceEpubFromXhtml extends RecordableCommand {
 			if (changeLangValue()) {
 				sNav1 = sNav1.replaceAll("lang=\"en\"", "lang=\"" + sDocLang + "\"");
 			}
-			NodeList contents = (NodeList) xPath.compile("//div[contains(@id,'rXLingPapContents')]").evaluate(htmDoc, XPathConstants.NODESET);
 			sb.append(sNav1);
+			NodeList contents = (NodeList) xPath.compile("//div[contains(@id,'rXLingPapContents')]").evaluate(htmDoc, XPathConstants.NODESET);
 			Node tocDivs = contents.item(0);
-			convertNodeToString(tocDivs, sb);
+			sTableOfContentsTitle = tocDivs.getTextContent();
+			sb.append("<h1 class=\"contents\">");
+			sb.append(sTableOfContentsTitle);
+			sb.append("</h1>\n");
+			sb.append(kCommonItems);
+			sb.append(sTableOfContentsTitle);
+			sb.append("</a>\n");
 			Node tocDivsNext = tocDivs.getNextSibling();
-			convertNodeToString(tocDivsNext, sb);
-			sb.append(kNav1End);
+			int iLevel = 0;
+			iLevel = processXhtmlTocDivs(sb, iLevel, tocDivsNext);
+			if (iLevel > 0) {
+				sb.append("</li>\n");
+				sb.append("</ol>\n");
+			}
 			sb.append(kNav2);
+			sb.append(sTableOfContentsTitle);
+			sb.append("</a></li>\n");
 			//add other landmark items here
 			sb.append(kNav3);
 			writeContentToFile(sb.toString(), pOebpsTextPath.toString() + File.separator
@@ -978,6 +989,37 @@ public class ProduceEpubFromXhtml extends RecordableCommand {
 		} catch (XPathExpressionException e1) {
 			reportException(docView, e1);
 		}
+	}
+
+	protected int processXhtmlTocDivs(StringBuilder sb, int iPreviousLevel, Node tocDiv) {
+		NodeList tocItems = tocDiv.getChildNodes();
+		for (int i = 0; i < tocItems.getLength(); i++) {
+			Node div = tocItems.item(i);
+			Node a = div.getChildNodes().item(0);
+			if (a.getNodeType() == Node.TEXT_NODE) {
+				continue;
+			}
+			int iThisLevel = findTocLevel(div);
+			if (iThisLevel == iPreviousLevel) {
+				sb.append("</li>\n");
+			} else if (iThisLevel > 1 &&  iThisLevel > iPreviousLevel) {
+				sb.append("<ol>\n");
+			} else {
+				while (iThisLevel < iPreviousLevel) {
+					sb.append("</li>\n");
+					sb.append("</ol>\n");
+					iPreviousLevel--;
+				}
+				sb.append("</li>\n");
+			}
+			// need to replace non-breaking spaces with regular spaces
+			String sContent = a.getTextContent().replace("\u00a0", " ").trim();
+			Node href = a.getAttributes().getNamedItem("href");
+			String sId = href.getNodeValue();
+			sb.append(createXhtmlTocLi(sContent, kTheMainDocumentFileName + sId));
+			iPreviousLevel = iThisLevel;
+		}
+		return iPreviousLevel;
 	}
 
 	protected void convertNodeToString(Node n, StringBuilder sb) {

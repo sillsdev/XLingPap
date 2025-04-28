@@ -2581,7 +2581,7 @@
     <xsl:template name="DoAuthorOfChapterInCollectionInContents">
         <xsl:if test="saxon:node-set($authorInContentsLayoutInfo)/authorLayout">
             <xsl:if test="frontMatter/author[string-length(normalize-space(.)) &gt; 0]">
-                <div style="text-indent:-2em;padding-left:3em" class="authorInContents">
+                <div class="authorInContents">
                     <xsl:call-template name="GetAuthorsAsCommaSeparatedList"/>
                 </div>
             </xsl:if>

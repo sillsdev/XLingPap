@@ -489,9 +489,25 @@ align--center {
         <xsl:variable name="sClassName">
             <xsl:call-template name="GetAuthorLayoutClassNameToUse"/>
         </xsl:variable>
-        <xsl:call-template name="OutputTitleFormatInfo">
-            <xsl:with-param name="name" select="$sClassName"/>
-        </xsl:call-template>
+        <xsl:choose>
+            <xsl:when test="$sClassName=$sAuthorInContents">
+                <xsl:text>.</xsl:text>
+                <xsl:value-of select="$sAuthorInContents"/>
+                <xsl:text> {
+</xsl:text>
+                <xsl:apply-templates select="@*[name()!='textbefore' and name()!='textafter']"/>
+                <xsl:text>
+        text-indent:-2em;
+        padding-left:3em;
+}
+</xsl:text>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:call-template name="OutputTitleFormatInfo">
+                    <xsl:with-param name="name" select="$sClassName"/>
+                </xsl:call-template>
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
     <!-- 
         backMatterLayout

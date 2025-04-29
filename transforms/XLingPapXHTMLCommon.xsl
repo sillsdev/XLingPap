@@ -363,7 +363,7 @@
     -->
     <xsl:template match="tr | row">
         <tr>
-            <xsl:attribute name="style">
+            <xsl:variable name="sTrStyle">
                 <xsl:call-template name="DoType"/>
                 <xsl:call-template name="OutputCssSpecial">
                     <xsl:with-param name="fDoStyleAttribute">N</xsl:with-param>
@@ -374,7 +374,12 @@
                     <xsl:text>; </xsl:text>
                 </xsl:if>
                 <xsl:call-template name="OutputBackgroundColor"/>
-            </xsl:attribute>
+            </xsl:variable>
+            <xsl:if test="string-length($sTrStyle) &gt; 0">
+                <xsl:attribute name="style">
+                    <xsl:value-of select="$sTrStyle"/>
+                </xsl:attribute>
+            </xsl:if>
             <xsl:apply-templates/>
         </tr>
     </xsl:template>
@@ -384,7 +389,7 @@
     <xsl:template match="td | col">
         <xsl:element name="td">
             <xsl:call-template name="DoCellAttributes"/>
-            <xsl:attribute name="style">
+            <xsl:variable name="sTdStyle">
                 <xsl:call-template name="DoType"/>
                 <xsl:text>padding-left:.2em</xsl:text>
                 <xsl:call-template name="OutputCssSpecial">
@@ -394,7 +399,12 @@
                     <xsl:call-template name="OutputDirection"/>
                 </xsl:if>
                 <!--                <xsl:call-template name="OutputBackgroundColor"/>-->
-            </xsl:attribute>
+            </xsl:variable>
+            <xsl:if test="string-length($sTdStyle) &gt; 0">
+                <xsl:attribute name="style">
+                    <xsl:value-of select="$sTdStyle"/>
+                </xsl:attribute>
+            </xsl:if>
             <xsl:apply-templates/>
         </xsl:element>
     </xsl:template>
@@ -500,9 +510,14 @@
                             <xsl:call-template name="OutputCssSpecial">
                                 <xsl:with-param name="fDoStyleAttribute" select="'Y'"/>
                             </xsl:call-template>
-                            <xsl:attribute name="style">
+                            <xsl:variable name="sChartStyle">
                                 <xsl:call-template name="DoType"/>
-                            </xsl:attribute>
+                            </xsl:variable>
+                            <xsl:if test="string-length($sChartStyle) &gt; 0">
+                                <xsl:attribute name="style">
+                                    <xsl:value-of select="$sChartStyle"/>
+                                </xsl:attribute>
+                            </xsl:if>
                             <xsl:apply-templates/>
                         </div>
                     </xsl:otherwise>
@@ -1786,7 +1801,7 @@
             select="//abbreviation[not(ancestor::chapterInCollection/backMatter/abbreviations)][//abbrRef[not(ancestor::chapterInCollection/backMatter/abbreviations) and not(ancestor::comment)]/@abbr=@id]"/>
         <xsl:if test="count($abbrsUsed) &gt; 0">
             <table>
-                <xsl:attribute name="style">
+                <xsl:variable name="sStyleItems">
                     <xsl:call-template name="OutputFontAttributes">
                         <xsl:with-param name="language" select="$contentLayoutInfo/abbreviationsInTableLayout"/>
                     </xsl:call-template>
@@ -1796,7 +1811,12 @@
                         <xsl:value-of select="$sStartIndent"/>
                         <xsl:text>;</xsl:text>
                     </xsl:if>
-                </xsl:attribute>
+                </xsl:variable>
+                <xsl:if test="string-length($sStyleItems) &gt; 0">
+                    <xsl:attribute name="style">
+                        <xsl:value-of select="$sStyleItems"/>
+                    </xsl:attribute>
+                </xsl:if>
                 <xsl:choose>
                     <xsl:when test="$bEBook='Y'">
                         <tbody>
@@ -2370,13 +2390,18 @@
     -->
     <xsl:template name="OutputTable">
         <xsl:element name="table">
-            <xsl:attribute name="style">
+            <xsl:variable name="sTableStyle">
                 <xsl:call-template name="DoType"/>
                 <xsl:call-template name="OutputCssSpecial">
                     <xsl:with-param name="fDoStyleAttribute">N</xsl:with-param>
                 </xsl:call-template>
                 <xsl:call-template name="OutputBackgroundColor"/>
-            </xsl:attribute>
+            </xsl:variable>
+            <xsl:if test="string-length($sTableStyle) &gt; 0">
+                <xsl:attribute name="style">
+                    <xsl:value-of select="$sTableStyle"/>
+                </xsl:attribute>
+            </xsl:if>
             <xsl:if test="@border">
                 <xsl:choose>
                     <xsl:when test="$bEBook='Y'">

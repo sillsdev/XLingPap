@@ -1297,11 +1297,16 @@
                 <xsl:attribute name="keep-with-next.within-page">1</xsl:attribute>
             </xsl:if>
             -->
-            <xsl:attribute name="style">
+            <xsl:variable name="sTypeAttrs">
                 <xsl:call-template name="OutputTypeAttributes">
                     <xsl:with-param name="sList" select="@cssSpecial"/>
                 </xsl:call-template>
-            </xsl:attribute>
+            </xsl:variable>
+            <xsl:if test="string-length($sTypeAttrs) &gt; 0">
+                <xsl:attribute name="style">
+                    <xsl:value-of select="$sTypeAttrs"/>
+                </xsl:attribute>
+            </xsl:if>
             <xsl:choose>
                 <xsl:when test="count(preceding-sibling::*[name()!='secTitle' and name()!='shortTitle' and name()!='frontMatter'])=0">
                     <!-- is the first item -->
@@ -1438,30 +1443,17 @@
     </xsl:template>
     <xsl:template match="blockquote">
         <div class="blockquote">
-            <xsl:attribute name="style">
-                <!--  handled in CSS class                <xsl:if test="$sLineSpacing and $sLineSpacing!='single' and $lineSpacing/@singlespaceblockquotes='yes'">
-                    <xsl:call-template name="DoSinglespacing"/>
-                </xsl:if>
--->
+            <xsl:variable name="sBlockQuoteStyle">
                 <xsl:call-template name="OutputCssSpecial">
                     <xsl:with-param name="fDoStyleAttribute" select="'N'"/>
                 </xsl:call-template>
-                <!--     handled by CSS
-                    <xsl:attribute name="start-indent">
-                    <xsl:value-of select="$sBlockQuoteIndent"/>
-                    </xsl:attribute>
-                    <xsl:attribute name="end-indent">
-                    <xsl:value-of select="$sBlockQuoteIndent"/>
-                    </xsl:attribute>
-                    <xsl:attribute name="font-size">
-                    <xsl:value-of select="$sBasicPointSize - 1"/>pt</xsl:attribute>
-                    <xsl:attribute name="space-before">
-                    <xsl:value-of select="$sBasicPointSize"/>pt</xsl:attribute>
-                    <xsl:attribute name="space-after">
-                    <xsl:value-of select="$sBasicPointSize"/>pt</xsl:attribute>
-                -->
                 <xsl:call-template name="DoType"/>
-            </xsl:attribute>
+            </xsl:variable>
+            <xsl:if test="string-length($sBlockQuoteStyle) &gt; 0">
+                <xsl:attribute name="style">
+                    <xsl:value-of select="$sBlockQuoteStyle"/>
+                </xsl:attribute>
+            </xsl:if>
             <xsl:apply-templates/>
         </div>
     </xsl:template>
@@ -1670,7 +1662,7 @@
       -->
     <xsl:template match="table">
         <div>
-            <xsl:attribute name="style">
+            <xsl:variable name="sTableStyle">
                 <xsl:call-template name="SetTableAlignCSS"/>
                 <xsl:if test="$sLineSpacing and $sLineSpacing!='single' and $lineSpacing/@singlespacetables='yes'">
                     <xsl:call-template name="DoSinglespacing"/>
@@ -1679,7 +1671,12 @@
                     <xsl:with-param name="fDoStyleAttribute" select="'N'"/>
                 </xsl:call-template>
                 <xsl:call-template name="DoType"/>
-            </xsl:attribute>
+            </xsl:variable>
+            <xsl:if test="string-length($sTableStyle) &gt; 0">
+                <xsl:attribute name="style">
+                    <xsl:value-of select="$sTableStyle"/>
+                </xsl:attribute>
+            </xsl:if>
             <xsl:call-template name="OutputTable"/>
         </div>
     </xsl:template>
@@ -1744,7 +1741,7 @@
                 <xsl:with-param name="override" select="$pageLayoutInfo/linkLayout/figureRefLinkLayout"/>
             </xsl:call-template>
             <span>
-                <xsl:attribute name="style">
+                <xsl:variable name="sFigureRefStyle">
                     <xsl:choose>
                         <xsl:when test="@showCaption = 'short' or @showCaption='full'">
                             <xsl:if test="$contentLayoutInfo/figureRefCaptionLayout">
@@ -1761,7 +1758,12 @@
                             </xsl:if>
                         </xsl:otherwise>
                     </xsl:choose>
-                </xsl:attribute>
+                </xsl:variable>
+                <xsl:if test="string-length($sFigureRefStyle) &gt; 0">
+                    <xsl:attribute name="style">
+                        <xsl:value-of select="$sFigureRefStyle"/>
+                    </xsl:attribute>
+                </xsl:if>
                 <xsl:call-template name="DoFigureRef"/>
             </span>
         </a>
@@ -1815,7 +1817,7 @@
             <xsl:call-template name="AddAnyLinkAttributes">
                 <xsl:with-param name="override" select="$pageLayoutInfo/linkLayout/tablenumberedRefLinkLayout"/>
             </xsl:call-template>
-            <xsl:attribute name="style">
+            <xsl:variable name="sTableNumberedRefStyle">
                 <xsl:choose>
                     <xsl:when test="@showCaption = 'short' or @showCaption='full'">
                         <xsl:if test="$contentLayoutInfo/tablenumberedRefCaptionLayout">
@@ -1832,7 +1834,12 @@
                         </xsl:if>
                     </xsl:otherwise>
                 </xsl:choose>
-            </xsl:attribute>
+            </xsl:variable>
+            <xsl:if test="string-length($sTableNumberedRefStyle) &gt; 0">
+                <xsl:attribute name="style">
+                    <xsl:value-of select="$sTableNumberedRefStyle"/>
+                </xsl:attribute>
+            </xsl:if>
             <xsl:call-template name="DoTablenumberedRef"/>
         </a>
     </xsl:template>
@@ -2373,9 +2380,14 @@
     <xsl:template match="object">
         <span class="type{@type}">
             <span>
-                <xsl:attribute name="style">
+                <xsl:variable name="sObjectStyle">
                     <xsl:call-template name="DoType"/>
-                </xsl:attribute>
+                </xsl:variable>
+                <xsl:if test="string-length($sObjectStyle) &gt; 0">
+                    <xsl:attribute name="style">
+                        <xsl:value-of select="$sObjectStyle"/>
+                    </xsl:attribute>
+                </xsl:if>
                 <xsl:for-each select="key('TypeID',@type)">
                     <xsl:value-of select="@before"/>
                 </xsl:for-each>
@@ -3237,12 +3249,17 @@
                     </xsl:otherwise>
                 </xsl:choose>
             </xsl:attribute>
-            <xsl:attribute name="style">
+            <xsl:variable name="sFigureStyle">
                 <xsl:call-template name="DoType"/>
                 <xsl:call-template name="OutputTypeAttributes">
                     <xsl:with-param name="sList" select="@cssSpecial"/>
                 </xsl:call-template>
-            </xsl:attribute>
+            </xsl:variable>
+            <xsl:if test="string-length($sFigureStyle) &gt; 0">
+                <xsl:attribute name="style">
+                    <xsl:value-of select="$sFigureStyle"/>
+                </xsl:attribute>
+            </xsl:if>
             <xsl:if test="$contentLayoutInfo/figureLayout/@captionLocation='before' or not($contentLayoutInfo/figureLayout) and $lingPaper/@figureLabelAndCaptionLocation='before'">
                 <div class="figureCaptionLayout">
                     <xsl:call-template name="OutputFigureLabelAndCaption"/>
@@ -4298,7 +4315,7 @@
         <xsl:choose>
             <xsl:when test="$referencesLayoutInfo/@useAuthorOverDateStyle='yes'">
                 <table>
-                    <xsl:attribute name="style">
+                    <xsl:variable name="sRefWorkStyle">
                         <xsl:if test="position()!=1">
                             <xsl:if test="string-length($sSpaceBetweenDates)&gt;0">
                                 <xsl:text>padding-top:</xsl:text>
@@ -4313,7 +4330,12 @@
                                 <xsl:text>; </xsl:text>
                             </xsl:if>
                         </xsl:if>
-                    </xsl:attribute>
+                    </xsl:variable>
+                    <xsl:if test="string-length($sRefWorkStyle) &gt; 0">
+                        <xsl:attribute name="style">
+                            <xsl:value-of select="$sRefWorkStyle"/>
+                        </xsl:attribute>
+                    </xsl:if>
                     <xsl:call-template name="DoRefWorkInTable">
                         <xsl:with-param name="bDoTarget" select="$bDoTarget"/>
                         <xsl:with-param name="work" select="$work"/>
@@ -4635,12 +4657,17 @@
     <xsl:template name="DoTableNumbered">
         <div id="{@id}">
             <xsl:call-template name="SetTableAlignCSS"/>
-            <xsl:attribute name="style">
+            <xsl:variable name="sTableNumberedStyle">
                 <xsl:call-template name="DoType"/>
                 <xsl:call-template name="OutputTypeAttributes">
                     <xsl:with-param name="sList" select="@cssSpecial"/>
                 </xsl:call-template>
-            </xsl:attribute>
+            </xsl:variable>
+            <xsl:if test="string-length($sTableNumberedStyle) &gt; 0">
+                <xsl:attribute name="style">
+                    <xsl:value-of select="$sTableNumberedStyle"/>
+                </xsl:attribute>
+            </xsl:if>
             <xsl:if test="$contentLayoutInfo/tablenumberedLayout/@captionLocation='before' or not($contentLayoutInfo/tablenumberedLayout) and $lingPaper/@tablenumberedLabelAndCaptionLocation='before'">
                 <div class="tablenumberedCaptionLayout">
                     <xsl:call-template name="OutputTableNumberedLabelAndCaption"/>
@@ -5183,15 +5210,20 @@
         <xsl:choose>
             <xsl:when test="ancestor::tablenumbered or ancestor::figure">
                 <span>
-                    <xsl:attribute name="style">
+                    <xsl:variable name="sCaptionStyle">
                         <xsl:call-template name="DoType"/>
-                    </xsl:attribute>
+                    </xsl:variable>
+                    <xsl:if test="string-length($sCaptionStyle) &gt; 0">
+                        <xsl:attribute name="style">
+                            <xsl:value-of select="$sCaptionStyle"/>
+                        </xsl:attribute>
+                    </xsl:if>
                     <xsl:apply-templates/>
                 </span>
             </xsl:when>
             <xsl:otherwise>
                 <tr>
-                    <xsl:attribute name="style">
+                    <xsl:variable name="sCaptionTrStyle">
                         <xsl:call-template name="OutputFontAttributes">
                             <xsl:with-param name="language" select="."/>
                         </xsl:call-template>
@@ -5199,7 +5231,12 @@
                             <xsl:with-param name="language" select="$styleSheetLabelLayout"/>
                         </xsl:call-template>
                         <xsl:call-template name="DoType"/>
-                    </xsl:attribute>
+                    </xsl:variable>
+                    <xsl:if test="string-length($sCaptionTrStyle) &gt; 0">
+                        <xsl:attribute name="style">
+                            <xsl:value-of select="$sCaptionTrStyle"/>
+                        </xsl:attribute>
+                    </xsl:if>
                     <td colspan="30">
                         <xsl:call-template name="DoCellAttributes"/>
                         <xsl:choose>

@@ -69,6 +69,7 @@ public class ProduceEpubFromXhtml extends RecordableCommand {
 	final String kNormal = "normal";
 	final String kFontFilePattern = ".*\\.(ttf|otf)";
 	final String kPipe = "|";
+	final String kContentsLocation = kTheMainDocumentFileName + "#rXLingPapContents";
 	File archive;
 	Path pMetaPath;
 	Path pEpubTempPath;
@@ -274,7 +275,7 @@ public class ProduceEpubFromXhtml extends RecordableCommand {
 		sb.append("   <guide>\n");
 		createContentOpfGuideItem(sb, "cover", "Cover", "cover.xhtml");
 		createContentOpfGuideItem(sb, "titlepage", "Title Page", "titlepage.xhtml");
-		createContentOpfGuideItem(sb, "toc", sTableOfContentsTitle, "nav.xhtml");
+		createContentOpfGuideItem(sb, "toc", sTableOfContentsTitle, kContentsLocation);
 		createContentOpfGuideItem(sb, "section", sDocTitle, kTheMainDocumentFileName);
 		sb.append("   </guide>\n");
 	}
@@ -293,7 +294,6 @@ public class ProduceEpubFromXhtml extends RecordableCommand {
 		sb.append("   <spine toc=\"ncx\">\n");
 		createContentOpfSpineItem(sb, "coverText");
 		createContentOpfSpineItem(sb, "titlepageText");
-		createContentOpfSpineItem(sb, "nav");
 		createContentOpfSpineItem(sb, "thedocumentText");
 		sb.append("   </spine>\n");
 	}
@@ -536,7 +536,7 @@ public class ProduceEpubFromXhtml extends RecordableCommand {
 		int iNavPoint = 1;
 		sb.append(createTocNcxNavPoint(iNavPoint++, "Cover", "Text/cover.xhtml", true));
 		sb.append(createTocNcxNavPoint(iNavPoint++, "Title Page", "Text/titlepage.xhtml", true));
-		sb.append(createTocNcxNavPoint(iNavPoint++, "Contents", "Text/nav.xhtml", true));
+		sb.append(createTocNcxNavPoint(iNavPoint++, sTableOfContentsTitle, "Text/" + kContentsLocation, true));
 		try {
 			NodeList contents = (NodeList) xPath.compile("//div[contains(@id,'rXLingPapContents')]").evaluate(htmDoc, XPathConstants.NODESET);
 			Node tocDivs = contents.item(0);
@@ -898,21 +898,7 @@ public class ProduceEpubFromXhtml extends RecordableCommand {
 		createCoverXhtmlFile();
 		createTitlePageXhtmlFile();
 		createNavXhtmlFile();
-		removeContentsFromHtmFile();
 		createHtmFile(parameter);
-	}
-
-	protected void removeContentsFromHtmFile() {
-		try {
-			NodeList contents = (NodeList) xPath.compile("//div[contains(@id,'rXLingPapContents')]").evaluate(htmDoc, XPathConstants.NODESET);
-			Node tocDivs = contents.item(0);
-			Node tocDivsNext = tocDivs.getNextSibling();
-			Node parent = tocDivs.getParentNode();
-			parent.removeChild(tocDivs);
-			parent.removeChild(tocDivsNext);
-		} catch (XPathExpressionException e) {
-			reportException(docView, e);
-		}
 	}
 
 	protected void createHtmFile(String parameter) throws FileNotFoundException, IOException {
@@ -935,7 +921,7 @@ public class ProduceEpubFromXhtml extends RecordableCommand {
 		final String kCommonItems = "<ol>\n"
 				+ "<li><a href=\"cover.xhtml\">Cover</a></li>\n"
 				+ "<li><a href=\"titlepage.xhtml\">Title Page</a></li>\n"
-				+ "<li><a href=\"nav.xhtml\">";
+				+ "<li><a href=\"";
 		final String kNav1 = "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n"
 				+ "<!DOCTYPE html>\n"
 				+ "<html xmlns=\"http://www.w3.org/1999/xhtml\" xmlns:epub=\"http://www.idpf.org/2007/ops\" lang=\"en\" xml:lang=\"en\">\n"
@@ -967,6 +953,7 @@ public class ProduceEpubFromXhtml extends RecordableCommand {
 			sb.append(sTableOfContentsTitle);
 			sb.append("</h1>\n");
 			sb.append(kCommonItems);
+			sb.append(kContentsLocation + "\">");
 			sb.append(sTableOfContentsTitle);
 			sb.append("</a>\n");
 			Node tocDivsNext = tocDivs.getNextSibling();
@@ -977,6 +964,7 @@ public class ProduceEpubFromXhtml extends RecordableCommand {
 				sb.append("</ol>\n");
 			}
 			sb.append(kNav2);
+			sb.append(kContentsLocation + "\">");
 			sb.append(sTableOfContentsTitle);
 			sb.append("</a></li>\n");
 			//add other landmark items here

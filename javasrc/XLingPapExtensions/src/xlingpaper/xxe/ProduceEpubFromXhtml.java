@@ -902,6 +902,7 @@ public class ProduceEpubFromXhtml extends RecordableCommand {
 	}
 
 	protected void createHtmFile(String parameter) throws FileNotFoundException, IOException {
+		removeAllAttributeLessSpanElements();
 		String sHtmContent = documentToString(htmDoc);
 		sHtmContent = sHtmContent.replaceFirst("\n  SYSTEM \"\">", ">");
 		sHtmContent = sHtmContent.replaceAll(" shape=\"rect\">", ">");
@@ -1178,6 +1179,30 @@ public class ProduceEpubFromXhtml extends RecordableCommand {
 			if (nextP != null &&  !nextP.equals(firstNonTitleDiv)) {
 				parent.removeChild(nextP);
 			}
+		}
+	}
+
+	protected void removeAllAttributeLessSpanElements() {
+		try {
+			NodeList spanItems = (NodeList) xPath.compile("//span[count(@*)=0]").evaluate(htmDoc, XPathConstants.NODESET);
+			// we process these backwards so that we do not try to find one that has already been moved or removed
+			for (int i = spanItems.getLength() - 1; i >= 0 ; i--) {
+				Node span = spanItems.item(i);
+				removeAttributeLessSpanElement(span);
+			}
+		} catch (XPathExpressionException e) {
+			reportException(docView, e);
+		}
+	}
+
+	protected void removeAttributeLessSpanElement(Node span) {
+		if (span != null) {
+			Node parent = span.getParentNode();
+			for (int i = 0; i < span.getChildNodes().getLength(); i++) {
+				Node node = span.getChildNodes().item(i).cloneNode(true);
+				parent.insertBefore(node, span);
+			}
+			parent.removeChild(span);
 		}
 	}
 

@@ -125,23 +125,26 @@
             </xsl:with-param>
             <xsl:with-param name="sHangingIndentClass">
                 <xsl:choose>
-                    <xsl:when test="$sLevel='1'">
+                    <xsl:when test="$sLevel='0'">
                         <xsl:text>tocSection1HangingIndent</xsl:text>
                     </xsl:when>
-                    <xsl:when test="$sLevel='2'">
+                    <xsl:when test="$sLevel='1'">
                         <xsl:text>tocSection2HangingIndent</xsl:text>
                     </xsl:when>
-                    <xsl:when test="$sLevel='3'">
+                    <xsl:when test="$sLevel='2'">
                         <xsl:text>tocSection3HangingIndent</xsl:text>
                     </xsl:when>
-                    <xsl:when test="$sLevel='4'">
+                    <xsl:when test="$sLevel='3'">
                         <xsl:text>tocSection4HangingIndent</xsl:text>
                     </xsl:when>
-                    <xsl:when test="$sLevel='5'">
+                    <xsl:when test="$sLevel='4'">
                         <xsl:text>tocSection5HangingIndent</xsl:text>
                     </xsl:when>
-                    <xsl:when test="$sLevel='6'">
+                    <xsl:when test="$sLevel='5'">
                         <xsl:text>tocSection6HangingIndent</xsl:text>
+                    </xsl:when>
+                    <xsl:when test="$sLevel='6'">
+                        <xsl:text>tocSection7HangingIndent</xsl:text>
                     </xsl:when>
                 </xsl:choose>
             </xsl:with-param>
@@ -194,56 +197,60 @@
             </div>
         </xsl:if>
         <div>
-            <xsl:if test="$fIgnoreHangingIndent='N' and string-length($hangingIndent) &gt; 0 and $hangingIndent != '0pt'">
-                <xsl:attribute name="class">
-                    <xsl:value-of select="$sHangingIndentClass"/>
-                </xsl:attribute>
-            </xsl:if>
             <xsl:choose>
-                <xsl:when test="$sIndent!='0' and $sIndent!='0pt'">
-                    <xsl:attribute name="style">
-                        <xsl:if test="$sSpaceBefore!='0'">
-                            <xsl:text>margin-top:</xsl:text>
-                            <xsl:value-of select="$sSpaceBefore"/>
-                            <xsl:text>; </xsl:text>
-                        </xsl:if>
-                        <xsl:variable name="indentValue" select="substring($sIndent,1,string-length($sIndent)-2)"/>
-                        <xsl:choose>
-                            <xsl:when test="$indentValue='' and string(number($sIndent))!='NaN' and $fInListOfItems='no'">
-                                <xsl:text>text-indent:-</xsl:text>
-                                <xsl:value-of select="$sIndent div 2 + 1.5"/>
-                                <xsl:text>em; padding-left:</xsl:text>
-                                <xsl:value-of select="1.5 * $sIndent + 1.5"/>
-                                <xsl:text>em;</xsl:text>
-                            </xsl:when>
-                            <xsl:when test="string(number($indentValue))!='NaN' and $fInListOfItems='no' and substring($sIndent,string-length($sIndent)-1)='em'">
-                                <xsl:text>text-indent:-</xsl:text>
-                                <xsl:value-of select="$indentValue div 2 + 1.5"/>
-                                <xsl:text>em; padding-left:</xsl:text>
-                                <xsl:value-of select="1.5 * $indentValue + 1.5"/>
-                                <xsl:text>em;</xsl:text>
-                            </xsl:when>
-                            <xsl:otherwise>
-                                <xsl:text>text-indent:-1em; padding-left:</xsl:text>
-                                <xsl:value-of select="$sIndent"/>
-                                <xsl:text>; </xsl:text>
-                            </xsl:otherwise>
-                        </xsl:choose>
-                        <xsl:if test="$contentsLayoutToUse/@singlespaceeachcontentline='yes'">
-                            <xsl:text>line-height:</xsl:text>
-                            <xsl:value-of select="$sSinglespacingLineHeight"/>
-                            <xsl:text>;</xsl:text>
-                        </xsl:if>
+                <xsl:when test="$fIgnoreHangingIndent='N' and string-length($hangingIndent) &gt; 0 and $hangingIndent != '0pt'">
+                    <xsl:attribute name="class">
+                        <xsl:value-of select="$sHangingIndentClass"/>
                     </xsl:attribute>
                 </xsl:when>
                 <xsl:otherwise>
-                    <xsl:if test="$contentsLayoutToUse/@singlespaceeachcontentline='yes'">
-                        <xsl:attribute name="style">
-                            <xsl:text>line-height:</xsl:text>
-                            <xsl:value-of select="$sSinglespacingLineHeight"/>
-                            <xsl:text>;</xsl:text>
-                        </xsl:attribute>
-                    </xsl:if>
+                    <xsl:choose>
+                        <xsl:when test="$sIndent!='0' and $sIndent!='0pt'">
+                            <xsl:attribute name="style">
+                                <xsl:if test="$sSpaceBefore!='0'">
+                                    <xsl:text>margin-top:</xsl:text>
+                                    <xsl:value-of select="$sSpaceBefore"/>
+                                    <xsl:text>; </xsl:text>
+                                </xsl:if>
+                                <xsl:variable name="indentValue" select="substring($sIndent,1,string-length($sIndent)-2)"/>
+                                <xsl:choose>
+                                    <xsl:when test="$indentValue='' and string(number($sIndent))!='NaN' and $fInListOfItems='no'">
+                                        <xsl:text>text-indent:-</xsl:text>
+                                        <xsl:value-of select="$sIndent div 2 + 1.5"/>
+                                        <xsl:text>em; padding-left:</xsl:text>
+                                        <xsl:value-of select="1.5 * $sIndent + 1.5"/>
+                                        <xsl:text>em;</xsl:text>
+                                    </xsl:when>
+                                    <xsl:when test="string(number($indentValue))!='NaN' and $fInListOfItems='no' and substring($sIndent,string-length($sIndent)-1)='em'">
+                                        <xsl:text>text-indent:-</xsl:text>
+                                        <xsl:value-of select="$indentValue div 2 + 1.5"/>
+                                        <xsl:text>em; padding-left:</xsl:text>
+                                        <xsl:value-of select="1.5 * $indentValue + 1.5"/>
+                                        <xsl:text>em;</xsl:text>
+                                    </xsl:when>
+                                    <xsl:otherwise>
+                                        <xsl:text>text-indent:-1em; padding-left:</xsl:text>
+                                        <xsl:value-of select="$sIndent"/>
+                                        <xsl:text>; </xsl:text>
+                                    </xsl:otherwise>
+                                </xsl:choose>
+                                <xsl:if test="$contentsLayoutToUse/@singlespaceeachcontentline='yes'">
+                                    <xsl:text>line-height:</xsl:text>
+                                    <xsl:value-of select="$sSinglespacingLineHeight"/>
+                                    <xsl:text>;</xsl:text>
+                                </xsl:if>
+                            </xsl:attribute>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:if test="$contentsLayoutToUse/@singlespaceeachcontentline='yes'">
+                                <xsl:attribute name="style">
+                                    <xsl:text>line-height:</xsl:text>
+                                    <xsl:value-of select="$sSinglespacingLineHeight"/>
+                                    <xsl:text>;</xsl:text>
+                                </xsl:attribute>
+                            </xsl:if>
+                        </xsl:otherwise>
+                    </xsl:choose>
                 </xsl:otherwise>
             </xsl:choose>
             <a href="#{$sLink}">

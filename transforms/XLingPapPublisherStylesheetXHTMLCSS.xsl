@@ -596,9 +596,9 @@ align--center {
                 <xsl:text>left;</xsl:text>
             </xsl:otherwise>
         </xsl:choose>
-        <xsl:text>
-}
-</xsl:text>
+            <xsl:text>
+                }
+            </xsl:text>
         </xsl:if>
         <xsl:if test="string-length($tocHangingIndent) &gt; 0">
             <xsl:call-template name="SetTocHangingIndentClass">
@@ -616,55 +616,145 @@ align--center {
             <xsl:call-template name="SetTocHangingIndentClass">
                 <xsl:with-param name="sClassName" select="'tocSection1HangingIndent'"/>
                 <xsl:with-param name="value" select="$tocSection1HangingIndent"/>
+                <xsl:with-param name="sIndent">
+                    <xsl:call-template name="GetIndentLevel">
+                        <xsl:with-param name="sLevel" select="'0'"/>
+                    </xsl:call-template>
+                </xsl:with-param>
             </xsl:call-template>
         </xsl:if>
         <xsl:if test="string-length($tocSection2HangingIndent) &gt; 0">
             <xsl:call-template name="SetTocHangingIndentClass">
                 <xsl:with-param name="sClassName" select="'tocSection2HangingIndent'"/>
                 <xsl:with-param name="value" select="$tocSection2HangingIndent"/>
+                <xsl:with-param name="sIndent">
+                    <xsl:call-template name="GetIndentLevel">
+                        <xsl:with-param name="sLevel" select="'1'"/>
+                    </xsl:call-template>
+                </xsl:with-param>
             </xsl:call-template>
         </xsl:if>
         <xsl:if test="string-length($tocSection3HangingIndent) &gt; 0">
             <xsl:call-template name="SetTocHangingIndentClass">
                 <xsl:with-param name="sClassName" select="'tocSection3HangingIndent'"/>
                 <xsl:with-param name="value" select="$tocSection3HangingIndent"/>
+                <xsl:with-param name="sIndent">
+                    <xsl:call-template name="GetIndentLevel">
+                        <xsl:with-param name="sLevel" select="'2'"/>
+                    </xsl:call-template>
+                </xsl:with-param>
             </xsl:call-template>
         </xsl:if>
         <xsl:if test="string-length($tocSection4HangingIndent) &gt; 0">
             <xsl:call-template name="SetTocHangingIndentClass">
                 <xsl:with-param name="sClassName" select="'tocSection4HangingIndent'"/>
                 <xsl:with-param name="value" select="$tocSection4HangingIndent"/>
+                <xsl:with-param name="sIndent">
+                    <xsl:call-template name="GetIndentLevel">
+                        <xsl:with-param name="sLevel" select="'3'"/>
+                    </xsl:call-template>
+                </xsl:with-param>
             </xsl:call-template>
         </xsl:if>
         <xsl:if test="string-length($tocSection5HangingIndent) &gt; 0">
             <xsl:call-template name="SetTocHangingIndentClass">
                 <xsl:with-param name="sClassName" select="'tocSection5HangingIndent'"/>
                 <xsl:with-param name="value" select="$tocSection5HangingIndent"/>
+                <xsl:with-param name="sIndent">
+                    <xsl:call-template name="GetIndentLevel">
+                        <xsl:with-param name="sLevel" select="'4'"/>
+                    </xsl:call-template>
+                </xsl:with-param>
             </xsl:call-template>
         </xsl:if>
         <xsl:if test="string-length($tocSection6HangingIndent) &gt; 0">
             <xsl:call-template name="SetTocHangingIndentClass">
                 <xsl:with-param name="sClassName" select="'tocSection6HangingIndent'"/>
                 <xsl:with-param name="value" select="$tocSection6HangingIndent"/>
+                <xsl:with-param name="sIndent">
+                    <xsl:call-template name="GetIndentLevel">
+                        <xsl:with-param name="sLevel" select="'5'"/>
+                    </xsl:call-template>
+                </xsl:with-param>
+            </xsl:call-template>
+            <xsl:call-template name="SetTocHangingIndentClass">
+                <xsl:with-param name="sClassName" select="'tocSection7HangingIndent'"/>
+                <xsl:with-param name="value" select="$tocSection6HangingIndent"/>
+                <xsl:with-param name="sIndent">
+                    <xsl:call-template name="GetIndentLevel">
+                        <xsl:with-param name="sLevel" select="'6'"/>
+                    </xsl:call-template>
+                </xsl:with-param>
             </xsl:call-template>
         </xsl:if>
     </xsl:template>
+    <!--
+        SetTocHangingIndentClass
+    -->
     <xsl:template name="SetTocHangingIndentClass">
         <xsl:param name="sClassName"/>
         <xsl:param name="value"/>
+        <xsl:param name="sIndent" select="'0'"/>
         <xsl:if test="$value!='0pt'">
             <xsl:text>.</xsl:text>
             <xsl:value-of select="$sClassName"/>
             <xsl:text> {
 </xsl:text>
-            <xsl:text>        text-indent:-</xsl:text>
-            <xsl:value-of select="$value"/>
-            <xsl:text>;
+            <xsl:choose>
+                <xsl:when test="$sIndent!='0' and $sIndent!='0pt'">
+                    <xsl:variable name="sSpaceBefore" select="$frontMatterLayoutInfo/contentsLayout/spacebefore"/>
+                    <xsl:if test="$sSpaceBefore!='0'">
+                        <xsl:text>margin-top:</xsl:text>
+                        <xsl:value-of select="$sSpaceBefore"/>
+                        <xsl:text>;
 </xsl:text>
-            <xsl:text>        padding-left:</xsl:text>
-            <xsl:value-of select="$value"/>
-            <xsl:text>;
+                    </xsl:if>
+                    <xsl:variable name="indentValue" select="substring($sIndent,1,string-length($sIndent)-2)"/>
+                    <xsl:choose>
+                        <xsl:when test="$indentValue='' and string(number($sIndent))!='NaN'">
+                            <xsl:text>        text-indent:-</xsl:text>
+                            <xsl:value-of select="$sIndent div 2 + 1.5"/>
+                            <xsl:text>em;
+        padding-left:</xsl:text>
+                            <xsl:value-of select="1.5 * $sIndent + 1.5"/>
+                            <xsl:text>em;
 </xsl:text>
+                        </xsl:when>
+                        <xsl:when test="string(number($indentValue))!='NaN' and substring($sIndent,string-length($sIndent)-1)='em'">
+                            <xsl:text>        text-indent:-</xsl:text>
+                            <xsl:value-of select="$indentValue div 2 + 1.5"/>
+                            <xsl:text>em;
+        padding-left:</xsl:text>
+                            <xsl:value-of select="1.5 * $indentValue + 1.5"/>
+                            <xsl:text>em;
+</xsl:text>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:text>        text-indent:-1em;
+        padding-left:</xsl:text>
+                            <xsl:value-of select="$sIndent"/>
+                            <xsl:text>;
+</xsl:text>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                    <xsl:if test="$frontMatterLayoutInfo/contentsLayout/@singlespaceeachcontentline='yes'">
+                        <xsl:text>line-height:</xsl:text>
+                        <xsl:value-of select="$sSinglespacingLineHeight"/>
+                        <xsl:text>;
+</xsl:text>
+                    </xsl:if>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:text>        text-indent:-</xsl:text>
+                    <xsl:value-of select="$value"/>
+                    <xsl:text>;
+</xsl:text>
+                    <xsl:text>        padding-left:</xsl:text>
+                    <xsl:value-of select="$value"/>
+                    <xsl:text>;
+</xsl:text>
+                </xsl:otherwise>
+            </xsl:choose>
             <xsl:text>}
 </xsl:text>
         </xsl:if>
@@ -2340,6 +2430,32 @@ align--center {
 }
 </xsl:text>
         </xsl:if>
+    </xsl:template>
+    <!--
+        GetIndentLevel
+    -->
+    <xsl:template name="GetIndentLevel">
+        <xsl:param name="sLevel"/>
+        <xsl:variable name="sChapterLineIndent" select="normalize-space($contentLayoutInfo/@chapterlineindent)"/>
+        <xsl:variable name="sUnits" select="substring($sChapterLineIndent,string-length($sChapterLineIndent)-1)"/>
+        <xsl:choose>
+            <xsl:when test="string-length($sChapterLineIndent)&gt;0 and $sChapterLineIndent!='0pt'">
+                <xsl:choose>
+                    <xsl:when test="$sUnits='pt' or $sUnits='in' or $sUnits='mm' or $sUnits='cm'">
+                        <xsl:variable name="sAmount" select="substring($sChapterLineIndent,1,string-length($sChapterLineIndent)-2)"/>
+                        <xsl:value-of select="$sAmount * ($sLevel + 1)"/>
+                        <xsl:value-of select="$sUnits"/>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:value-of select="$sLevel + 1"/>
+                        <xsl:value-of select="$sUnits"/>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:value-of select="$sLevel"/>
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
     <!--
         GetLangDataLayoutLanguage

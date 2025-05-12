@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <a:addon
-location="XLingPap-3.16.0-xxe-8.2.0.zip"
+location="XLingPap-3.17.0-xxe-8.2.0.zip"
 xmlns:a="http://www.xmlmind.com/xmleditor/schema/addon"
 ><a:category
 ><a:configuration
@@ -9,7 +9,7 @@ xmlns:a="http://www.xmlmind.com/xmleditor/schema/addon"
 ><a:name
 >A configuration for creating XLingPaper documents.</a:name
 ><a:version
->3.16.6</a:version
+>3.17.0</a:version
 ><a:author
 ><a
 href="mailto::xlingpaper_support@sil.org"
@@ -17,7 +17,7 @@ xmlns="http://www.w3.org/1999/xhtml"
 >Andy Black</a
 ></a:author
 ><a:date
->2025-05-05</a:date
+>2025-05-13</a:date
 ><a:abstract
 >A way to author and archive linguistic documents using XML.</a:abstract
 ><a:documentation
@@ -40,13 +40,7 @@ xmlns="http://www.w3.org/1999/xhtml"
 ><ul
 xmlns="http://www.w3.org/1999/xhtml"
 ><li
->3.16.6 5 May 2025<ul
-><li
->Improve internals of EPUB output.</li
-></ul
-></li
-><li
->3.16.5 17 April 2025<ul
+>3.17.0 13 May 2025<ul
 ><li
 >Rework EPUB production to not need Calibre; the new output should also pass EPUBCheck.</li
 ><li
@@ -54,37 +48,19 @@ xmlns="http://www.w3.org/1999/xhtml"
 ><li
 >Add Schematron check for empty citations.</li
 ><li
+>Fix info on mediaOject appendix entry in documentation.</li
+><li
+>Add ability to control hanging indent in contents items via the hangingindent attribute of the contentsLayout element.</li
+><li
+>Add ability to control hanging indent in chapter and section1 through 6 contents items via new attributes of the contentsLayout element.</li
+><li
+>Add ability to control hanging indent in the list of figures and in the list of tables. For figures, added a listOfFiguresHangingIndent attribute to the figureLayout element. For tables, added a listOfTablesHangingIndent attribute to th tablenumberedLayout element.</li
+><li
 >For the web page output using a publisher style sheet<ul
 ><li
 >Fix bug: endnotes could get the wrong chapter number</li
 ></ul
 ></li
-></ul
-></li
-><li
->3.16.4 20 February 2025<ul
-><li
->Fix info on mediaOject appendix entry in documentation.</li
-></ul
-></li
-><li
->3.16.3 19 February 2025<ul
-><li
->Add ability to control hanging indent in chapter and section1 through 6 contents items via new attributes of the contentsLayout element.</li
-></ul
-></li
-><li
->3.16.2 13 February 2025<ul
-><li
->Add ability to control hanging indent in contents items via the hangingindent attribute of the contentsLayout element.</li
-></ul
-></li
-><li
->3.16.1 7 February 2025<ul
-><li
->Add ability to control hanging indent in the list of figures and in the list of tables. For figures, added a listOfFiguresHangingIndent attribute to the figureLayout element. For tables, added a listOfTablesHangingIndent attribute to th tablenumberedLayout element.</li
-><li
->Added alt attribute to img elements for web page outputs.</li
 ></ul
 ></li
 ><li

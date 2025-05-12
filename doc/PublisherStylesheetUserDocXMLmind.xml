@@ -18,13 +18,13 @@ type="tXLingPap"
 ><emailAddress
 >xlingpaper_support@sil.org</emailAddress
 ><date
->19 February 2025</date
+>13 May 2025</date
 ><version
 contentType="ctVersion5.3"
->2.46.3</version
+>2.47.0</version
 ><version
 contentType="ctVersion7Plus"
->3.16.3</version
+>3.17.0</version
 ><contents
 showLevel="6"
 ></contents
@@ -2965,7 +2965,7 @@ type="tElement"
 > title will use if the line is long. This will override any value set in the <object
 type="tAttribute"
 >hangingindent</object
-> attribute.  Use a number and a unit of measure (see example <exampleRef
+> attribute. Use a number and a unit of measure (see example <exampleRef
 letter="xUnitsOfMeasure"
 num="xUnitsOfMeasure"
 ></exampleRef

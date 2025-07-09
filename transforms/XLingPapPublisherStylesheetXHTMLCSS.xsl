@@ -164,13 +164,16 @@ text-indent:</xsl:text>
         font-weight:bold;
 }
 .itxwrap {
-    display: -moz-inline-box;
-    display: inline-block;
-    vertical-align: top;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1em;
 }
 .itxitem {
-    padding-left: .25em;
-    vertical-align: top;
+    display: grid;
+    grid-template-rows: auto auto auto;
+}
+.itxitem div {
+    padding: 0 0.5em;
 }
 li.disc {
     list-style-type:disc;

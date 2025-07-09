@@ -4460,6 +4460,93 @@
         </xsl:if>
     </xsl:template>
     <!--  
+        DoWrapableInterlinearFree
+    -->
+    <xsl:template name="DoWrapableInterlinearFree">
+        <xsl:param name="originalContext"/>
+        <xsl:param name="mode"/>
+        <div class="itxwrap">
+            <!--<xsl:if test="following-sibling::interlinearSource and $sInterlinearSourceStyle='AfterFree' and not(following-sibling::free or following-sibling::literal)">
+                <xsl:attribute name="text-align-last">justify</xsl:attribute>
+                </xsl:if>-->
+            <!-- add extra indent for when have an embedded interlinear;
+                be sure to allow for the case of when a listInterlinear begins with an interlinear -->
+            <xsl:variable name="parent" select=".."/>
+            <xsl:variable name="iParentPosition">
+                <xsl:for-each select="../../*">
+                    <xsl:if test=".=$parent">
+                        <xsl:value-of select="position()"/>
+                    </xsl:if>
+                </xsl:for-each>
+            </xsl:variable>
+            <xsl:variable name="sCurrentLanguage" select="@lang"/>
+            <xsl:choose>
+                <xsl:when test="name()='literal'">
+                    <xsl:if
+                        test="preceding-sibling::literal[@lang=$sCurrentLanguage][position()=1] or preceding-sibling::*[1][name()='literal'][not(@lang)][position()=1] or name(../..)='interlinear' or name(../..)='listInterlinear' and name(..)='interlinear' and $iParentPosition!=1">
+                        <xsl:attribute name="style">
+                            <xsl:text>margin-left:0.1in;</xsl:text>
+                        </xsl:attribute>
+                    </xsl:if>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:if
+                        test="preceding-sibling::free[@lang=$sCurrentLanguage][position()=1]or preceding-sibling::*[1][name()='free'][not(@lang)][position()=1] or name(../..)='interlinear' or name(../..)='listInterlinear' and name(..)='interlinear' and $iParentPosition!=1">
+                        <xsl:attribute name="style">
+                            <xsl:text>margin-left:0.1in;</xsl:text>
+                        </xsl:attribute>
+                    </xsl:if>
+                </xsl:otherwise>
+            </xsl:choose>
+            <xsl:variable name="language" select="key('LanguageID',@lang)"/>
+            <div class="itxitem">
+                <div>
+                    <xsl:choose>
+                        <xsl:when test="name()='free'">
+                            <xsl:call-template name="DoInterlinearFreeContent">
+                                <xsl:with-param name="freeLayout" select="$contentLayoutInfo/freeLayout"/>
+                                <xsl:with-param name="originalContext" select="$originalContext"/>
+                            </xsl:call-template>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:call-template name="DoLiteralLabel"/>
+                            <xsl:call-template name="DoInterlinearFreeContent">
+                                <xsl:with-param name="freeLayout" select="$contentLayoutInfo/literalLayout/literalContentLayout"/>
+                                <xsl:with-param name="originalContext" select="$originalContext"/>
+                            </xsl:call-template>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                </div>
+                <xsl:if test="$sInterlinearSourceStyle='AfterFree' and not(following-sibling::free or following-sibling::literal) and $mode!='NoTextRef'">
+                    <xsl:if test="name(../..)='example'  or name(../..)='listInterlinear' or ancestor::interlinear[@textref]">
+                        <div>
+                            <xsl:call-template name="OutputInterlinearTextReference">
+                                <xsl:with-param name="sRef" select="../@textref"/>
+                                <xsl:with-param name="sSource" select="../interlinearSource"/>
+                            </xsl:call-template>
+                        </div>
+                    </xsl:if>
+                </xsl:if>
+            </div>
+        </div>
+        <xsl:if test="$sInterlinearSourceStyle='UnderFree' and not(following-sibling::free or following-sibling::literal) and $mode!='NoTextRef'">
+            <xsl:if test="name(../..)='example' or name(../..)='listInterlinear' or ancestor::interlinear[@textref]">
+                <xsl:if test="../interlinearSource or string-length(normalize-space(../@textref)) &gt; 0">
+                    <div class="itxwrap">
+                        <div class="itxitem">
+                            <div>
+                                <xsl:call-template name="OutputInterlinearTextReference">
+                                    <xsl:with-param name="sRef" select="../@textref"/>
+                                    <xsl:with-param name="sSource" select="../interlinearSource"/>
+                                </xsl:call-template>
+                            </div>
+                        </div>
+                    </div>
+                </xsl:if>
+            </xsl:if>
+        </xsl:if>
+    </xsl:template>
+    <!--  
         GetAbstractLayoutClassNumber
     -->
     <xsl:template name="GetAbstractLayoutClassNumber">

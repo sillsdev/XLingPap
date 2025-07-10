@@ -172,9 +172,10 @@ text-indent:</xsl:text>
     display: grid;
     grid-template-rows: auto auto auto;
 }
+/* Thinking about just using the gap value
 .itxitem div {
     padding: 0 0.5em;
-}
+}*/
 li.disc {
     list-style-type:disc;
 }
@@ -186,6 +187,13 @@ li.lower-alpha {
 }
 li.lower-roman {
     list-style-type:lower-roman;
+}
+.ltr {
+    text-align:left;
+}
+.rtl {
+    direction:rtl;;
+    unicode-bidi: bidi-override;
 }
 .figureAlignLeft {
         text-align:left;

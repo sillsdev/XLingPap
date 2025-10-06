@@ -5,7 +5,7 @@
      Version 2.28.0
      (Revision history is at the end.)
   -->
-<!ELEMENT publisherStyleSheet (publisherStyleSheetName?, comment?, publisherStyleSheetVersion?, publisherStyleSheetPublisher?, pageLayout, frontMatterLayout, bodyLayout, backMatterLayout, contentLayout) >
+<!ELEMENT publisherStyleSheet (publisherStyleSheetName?, comment?, publisherStyleSheetVersion?, publisherStyleSheetPublisher?, publisherStyleSheetDate?, publisherStyleSheetUrl?, publisherStyleSheetDateAccessed?, pageLayout, frontMatterLayout, bodyLayout, backMatterLayout, contentLayout) >
 <!ATTLIST publisherStyleSheet
  version CDATA #IMPLIED
  contentType IDREF #IMPLIED
@@ -34,6 +34,9 @@
 <!ELEMENT  publisherStyleSheetName (#PCDATA)>
 <!ELEMENT  publisherStyleSheetVersion (#PCDATA)>
 <!ELEMENT  publisherStyleSheetPublisher  (#PCDATA)>
+<!ELEMENT  publisherStyleSheetDate (#PCDATA)>
+<!ELEMENT  publisherStyleSheetUrl (#PCDATA)>
+<!ELEMENT  publisherStyleSheetDateAccessed (#PCDATA)>
 
 <!-- 
   ===================================================
@@ -56,6 +59,7 @@ Page Layout
                         blockQuoteIndent?,
                         hangingIndentInitialIndent?,
                         hangingIndentNormalIndent?,
+                        paragraphAlignment?,
                         lineSpacing?,
                         defaultFontFamily?,
                         basicPointSize?,
@@ -73,6 +77,9 @@ Page Layout
 >
     <!ELEMENT basicPointSize (#PCDATA) >
     <!ELEMENT blockQuoteIndent (#PCDATA) >
+    <!ATTLIST blockQuoteIndent
+        rightIndent CDATA #IMPLIED
+    >
     <!ELEMENT defaultFontFamily (#PCDATA) >
     <!ATTLIST defaultFontFamily
         XeLaTeXSpecial CDATA #IMPLIED
@@ -93,6 +100,10 @@ Page Layout
     <!ELEMENT footnoteIndent (#PCDATA) >
     <!ELEMENT hangingIndentInitialIndent (#PCDATA) >
     <!ELEMENT hangingIndentNormalIndent (#PCDATA) >
+    <!ELEMENT paragraphAlignment EMPTY>
+    <!ATTLIST paragraphAlignment
+      textalign (justify | left) "justify"
+    >
     <!ELEMENT headerMargin (#PCDATA) >
     <!ELEMENT footerMargin (#PCDATA) >
     <!ELEMENT pageWidth (#PCDATA) >
@@ -369,7 +380,7 @@ Front MatterLayout
 -->
 <!ELEMENT frontMatterLayout (comment?, titleHeaderFooterPageStyles?, subtitleLayout?, titleLayout, subtitleLayout?, copyrightPageLayout?, headerFooterPageStyles?, (authorLayout | affiliationLayout | 
                                                        emailAddressLayout  | authorContactInfoLayout | publishingBlurbLayout |
-                                                       presentedAtLayout | dateLayout | keywordsLayout | versionLayout | (contentsLayout, authorLayout?) | acknowledgementsLayout | prefaceLayout | (abstractLayout, abstractTextFontInfo?))*) >    
+                                                       presentedAtLayout | dateLayout | keywordsLayout | versionLayout | (contentsLayout, authorLayout?, volumeLayout?) | acknowledgementsLayout | prefaceLayout | (abstractLayout, abstractTextFontInfo?))*) >    
 <!ELEMENT chapterInCollectionFrontMatterLayout (comment?, subtitleLayout?, (authorLayout | affiliationLayout | emailAddressLayout  | authorContactInfoLayout | 
                                                        presentedAtLayout | dateLayout | keywordsLayout | versionLayout | contentsLayout | acknowledgementsLayout | prefaceLayout | (abstractLayout, abstractTextFontInfo?))*) >    
 <!ELEMENT titleLayout EMPTY >
@@ -388,6 +399,7 @@ Front MatterLayout
 <!ELEMENT authorLayout EMPTY >
 <!ATTLIST authorLayout
      %frontmatterformatinfo;
+     useDigitsForEndnoteNumbering (no|yes) "no"
     >
 <!ELEMENT affiliationLayout EMPTY >
 <!ATTLIST affiliationLayout
@@ -467,6 +479,14 @@ Front MatterLayout
      usechapterlabelbeforechapters (yes | no) 'no'
      chapterlabel CDATA #IMPLIED
      chapterlineindent CDATA #IMPLIED
+     hangingindent CDATA #IMPLIED
+     chapterhangingindent CDATA #IMPLIED
+     section1hangingindent CDATA #IMPLIED
+     section2hangingindent CDATA #IMPLIED
+     section3hangingindent CDATA #IMPLIED
+     section4hangingindent CDATA #IMPLIED
+     section5hangingindent CDATA #IMPLIED
+     section6hangingindent CDATA #IMPLIED
      singlespaceeachcontentline (yes | no) 'no'
      useappendixlabelbeforeappendixletter (yes | no) 'no'
      useperiodafterappendixletter (yes | no) 'no'
@@ -480,7 +500,17 @@ Front MatterLayout
      partSpaceAfter CDATA #IMPLIED
      partSpaceBefore CDATA #IMPLIED
      contentType IDREF #IMPLIED
+     usePageHeader (no | yes) "no"
+     usePageHeaderLabel CDATA #IMPLIED
     >
+<!ELEMENT volumeLayout EMPTY >
+<!ATTLIST volumeLayout
+     contentBetweenLabelAndNumber CDATA #IMPLIED
+     spaceafter CDATA #IMPLIED
+     spacebefore CDATA #IMPLIED
+     textalign (start | left | center | end | right) 'start'
+     %fontinfo;
+>
 <!ELEMENT acknowledgementsLayout EMPTY >
 <!ATTLIST acknowledgementsLayout
      %titleformatinfo;
@@ -513,8 +543,11 @@ Body Layout
   In a book, if headerFooterPageStyles is missing, it uses the frontMatterLayout headerFooterPageStyles info.
 -->
 <!ELEMENT bodyLayout (comment?, headerFooterPageStyles?, partLayout?, chapterLayout?, chapterInCollectionLayout?, chapterInCollectionFrontMatterLayout?, 
-				section1Layout, section2Layout, section3Layout, section4Layout, section5Layout, section6Layout, chapterInCollectionBackMatterLayout?) >    
+				section1Layout, section2Layout, section3Layout, section4Layout, section5Layout, section6Layout, shortSubsectionLayout?, chapterInCollectionBackMatterLayout?) >
 <!ELEMENT partLayout (partTitleLayout | numberLayout)+ >
+<!ATTLIST partLayout
+         numeralFormat (arabic | lowerroman | upperroman) "upperroman"
+>
 <!ELEMENT partTitleLayout EMPTY >
 <!ATTLIST partTitleLayout
      %titleformatinfo; 
@@ -551,23 +584,40 @@ Body Layout
        >
     <!ELEMENT section2Layout (sectionTitleLayout | numberLayout)+ >
     <!ATTLIST section2Layout
-     %sectionformatinfo; 
+     %sectionformatinfo;
     >
     <!ELEMENT section3Layout (sectionTitleLayout | numberLayout)+ >
     <!ATTLIST section3Layout
-     %sectionformatinfo; 
+     %sectionformatinfo;
     >
     <!ELEMENT section4Layout (sectionTitleLayout | numberLayout)+ >
     <!ATTLIST section4Layout
-     %sectionformatinfo; 
+     %sectionformatinfo;
     >
     <!ELEMENT section5Layout (sectionTitleLayout | numberLayout)+ >
     <!ATTLIST section5Layout
-     %sectionformatinfo; 
+     %sectionformatinfo;
     >
     <!ELEMENT section6Layout (sectionTitleLayout | numberLayout)+ >
     <!ATTLIST section6Layout
-     %sectionformatinfo; 
+     %sectionformatinfo;
+    >
+    <!ELEMENT shortSubsectionLayout (shortSectionTitleLayout) >
+    <!ATTLIST shortSubsectionLayout
+     beginsparagraph (yes | no) 'no'
+     ignore (yes | no) 'no'
+     showNumber (no) 'no'
+     firstParagraphHasIndent (yes | no) 'no'
+     showInHeader (yes | no) 'no'
+    >
+    <!ELEMENT shortSectionTitleLayout EMPTY >
+    <!ATTLIST shortSectionTitleLayout
+     usetitleinheader (yes | no) 'no'
+     useemptyheaderfooter (yes | no) 'no'
+     linebefore (yes | no) 'no'
+     linebefore-weight CDATA #IMPLIED
+     %pagebreakformatinfo;
+     %frontmatterformatinfo;
     >
 <!-- 
   ===================================================
@@ -577,7 +627,7 @@ Back Matter Layout
   In a book, if headerFooterPageStyles is missing, it uses the bodyLayout headerFooterPageStyles info (and,if tthat is empty, it uses the front matter one)
 -->
 <!ELEMENT backMatterLayout (comment?, headerFooterPageStyles?, (acknowledgementsLayout | appendicesTitlePageLayout  | appendixLayout| glossaryLayout | useEndNotesLayout | 
-                                                        (referencesTitleLayout, referencesLayout) | (contentsLayout, authorLayout?) | keywordsLayout | indexLayout | authorContactInfoLayout)*) >    
+                                                        (referencesTitleLayout, referencesLayout) | (contentsLayout, authorLayout?, volumeLayout?) | keywordsLayout | indexLayout | authorContactInfoLayout)*) >    
 
 <!ELEMENT chapterInCollectionBackMatterLayout (comment?, (acknowledgementsLayout | appendicesTitlePageLayout  | appendixLayout | glossaryLayout | contentsLayout | useEndNotesLayout | 
                                                         referencesTitleLayout | keywordsLayout | authorContactInfoLayout)*) >    
@@ -630,7 +680,7 @@ Content Layout
                                                       endnoteRefLayout?, figureLayout?, figureRefLayout?, figureRefCaptionLayout?, tablenumberedLayout?, tablenumberedRefLayout?, tablenumberedRefCaptionLayout?, 
                                                       tableCaptionLayout?, magnificationFactor?, langDataLayout*, glossLayout?, freeLayout?, literalLayout?, citationLayout?, abbreviationsInFootnoteLayout?, abbreviationsInTableLayout?,
                                                       glossaryTermsInDefinitionListLayout?, glossaryTermsInTableLayout?, iso639-3CodesInTableLayout?, prose-textTextLayout?, quoteLayout?, blockQuoteLayout?,
-                                                      annotationLayout?, definitionListLayout?, footnoteLayout?) >
+                                                      annotationLayout?, definitionListLayout?, footnoteLayout?, imageBorderLayout?) >
    <!ELEMENT paragraphLayout EMPTY >
    <!ATTLIST paragraphLayout
      spaceafter CDATA #IMPLIED
@@ -712,9 +762,12 @@ Content Layout
     >
     <!ELEMENT figureLayout (figureLabelLayout, figureNumberLayout, figureCaptionLayout) >
     <!ATTLIST figureLayout
+        align (left | center | right | useAlignOfFigure) "useAlignOfFigure"
         captionLocation (before|after) "after"
         spaceBetweenFigureAndCaption CDATA #IMPLIED
+        listOfFiguresHangingIndent CDATA #IMPLIED
         listOfFiguresUsesFigureAndPageHeaders (no | yes) "no"
+        listOfFiguresUsesFigureHeader (no | yes) "yes"
         useSingleSpacingForLongCaptions (no | yes) "no"
         pageLabelInListOfFigures CDATA #IMPLIED
 >
@@ -749,9 +802,12 @@ Content Layout
 
     <!ELEMENT tablenumberedLayout (tablenumberedLabelLayout, tablenumberedNumberLayout, tablenumberedCaptionLayout) >
     <!ATTLIST tablenumberedLayout
+        align (left | center | right | useAlignOfTable) "useAlignOfTable"
         captionLocation (before|after) "after"
         spaceBetweenTableAndCaption CDATA #IMPLIED
+        listOfTablesHangingIndent CDATA #IMPLIED
         listOfTablesUsesTableAndPageHeaders (no | yes) "no"
+        listOfTablesUsesTableHeader (no | yes) "yes"
         useSingleSpacingForLongCaptions (no | yes) "no"
         pageLabelInListOfTables CDATA #IMPLIED
 >
@@ -860,6 +916,7 @@ Content Layout
       textbeforetimestamp CDATA #IMPLIED
       textbetweenauthoranddate CDATA #IMPLIED
       italicizeetal (no | yes) 'no'
+      defaultparenvalue (citationBoth | both) 'both'
     >
     <!ELEMENT abbreviationsInFootnoteLayout  EMPTY>
     <!ATTLIST abbreviationsInFootnoteLayout
@@ -941,6 +998,11 @@ Content Layout
 <!ATTLIST footnoteLayout 
      linkNumberToText (yes | no) "no"
 >
+<!ELEMENT imageBorderLayout EMPTY >
+<!ATTLIST imageBorderLayout
+        separation CDATA #IMPLIED
+        width CDATA #IMPLIED
+    >
    <!-- REVISION HISTORY
 1.0.0 31-Aug-2007 Andy Black  Initial draft.
 

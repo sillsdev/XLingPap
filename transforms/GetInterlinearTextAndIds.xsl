@@ -59,7 +59,7 @@
          <xsl:text> </xsl:text>
          <xsl:for-each select="lineGroup/line[1]">
          <xsl:for-each select="descendant-or-self::langData">
-            <xsl:value-of select="."/>
+            <xsl:apply-templates select="node()[name() != 'endnote']"/>
             <xsl:text> </xsl:text>
          </xsl:for-each>   
          </xsl:for-each>

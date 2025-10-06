@@ -34,13 +34,13 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >xlingpaper_support@sil.org</emailAddress
 ><date
->5 May 2022</date
+>13 May 2025</date
 ><version
 contentType="ctVersion5.3"
->2.40.3</version
+>2.17.0</version
 ><version
 contentType="ctVersion7Plus"
->3.10.3</version
+>3.17.0</version
 ><contents
 showLevel="4"
 ></contents
@@ -101,7 +101,7 @@ type="tXLingPap"
 ></object
 > also creates a hyperlink between the abbreviation in the text and the abbreviation in the list of abbreviations. Thus, a reader can click on the abbreviation and see what it means.</p
 ><p
->In addition, in some formatting systems such as HTML, headers (i.e. <object
+>In addition, in some formatting systems such as HTML, headers (i.e., <object
 type="tElement"
 >h1</object
 >, <object
@@ -179,7 +179,7 @@ type="tXLingPap"
 ><indexedItem
 term="iWebpage"
 ></indexedItem
->Webpages (i.e. HTML) which can be loaded into a web browser (e.g. <object
+>Webpages (i.e., HTML) which can be loaded into a web browser (e.g., <object
 type="tTool"
 >Internet Explorer</object
 > version 5.5 or later).</li
@@ -187,7 +187,7 @@ type="tTool"
 ><indexedItem
 term="iPDF"
 ></indexedItem
->PDF file which can be read with a PDF Reader (e.g. <object
+>PDF file which can be read with a PDF Reader (e.g., <object
 type="tTool"
 >Adobe Reader</object
 > 7.0)</li
@@ -485,7 +485,7 @@ term="iEditTool"
 >Notice the cursor is in the Edit tool<endnoteRef
 note="nEditTool"
 ></endnoteRef
-> in the upper right hand corner. The list of elements shown (i.e. <object
+> in the upper right hand corner. The list of elements shown (i.e., <object
 type="tElement"
 >abstract, <object
 type="tElement"
@@ -672,7 +672,7 @@ id="sIntroLang"
 ><indexedItem
 term="iLanguage"
 ></indexedItem
->Besides the main text of the paper, one may also define the languages used within the paper. One can then tag individual data items as belonging to one of these languages. Each language definition has font-related information associated with it, so one can set the font, size, color, etc. for each language. When the paper is formatted, each data item tagged with a given language will consistently be shown in the specified way.</p
+>Besides the main text of the paper, one may also define the languages used within the paper. One can then tag individual data items as belonging to one of these languages. Each language definition has font-related information associated with it, so one can set the font, size, color, etc., for each language. When the paper is formatted, each data item tagged with a given language will consistently be shown in the specified way.</p
 ><p
 >To add or edit languages, <indexedItem
 term="iExpandSection"
@@ -722,7 +722,7 @@ src="resources/ChooseFontInfoDialog.png"
 ></chart
 ></example
 ><p
->You can use it to set the font family, the style (i.e. bold and/or italic) and the font size. The “Use default” values indicate to use whatever family, style, or size is currently in effect. You override the default by specifying a particular value.</p
+>You can use it to set the font family, the style (i.e., bold and/or italic) and the font size. The “Use default” values indicate to use whatever family, style, or size is currently in effect. You override the default by specifying a particular value.</p
 ><p
 >We recommend that you use a percentage for the font size. This way, if the language data item is in a section header, it will show at the correct size. If you use an absolute point size, then it may well be smaller than the surrounding words in the section header.</p
 ><p
@@ -752,7 +752,7 @@ id="nChooseColorDialog"
 ></endnote
 ></p
 ><p
->In the Attributes tool on the right, you can click in an attribute field and type in the appropriate information (e.g. the language name). You can thus fill in the appropriate information for the language(s) you will be writing about.</p
+>In the Attributes tool on the right, you can click in an attribute field and type in the appropriate information (e.g., the language name). You can thus fill in the appropriate information for the language(s) you will be writing about.</p
 ><p
 >The gloss language is there for use with glosses (in case you want the glosses to come out in a special color or font).</p
 ><p
@@ -926,7 +926,7 @@ lang="lEng"
 ><td
 ><langData
 lang="lEng"
->This is the font name to use (e.g. <object
+>This is the font name to use (e.g., <object
 type="tAttrValue"
 >Times New Roman</object
 > or <object
@@ -1502,6 +1502,115 @@ type="tAttribute"
 href="http://about.orcid.org/"
 >http://about.orcid.org/</link
 >.</p
+><p
+>You can insert an <object
+type="tElement"
+>endnote</object
+> element within the <object
+type="tElement"
+>author</object
+> element. By default, the endnote/footnote symbol used will be what is shown in example <exampleRef
+letter="xEndnoteInAuthorSymbol"
+num="xEndnoteInAuthorSymbol"
+></exampleRef
+>. Note that the symbol shown depends on how many <object
+type="tElement"
+>author</object
+> elements with an <object
+type="tElement"
+>endnote</object
+> element precede it.</p
+><example
+num="xEndnoteInAuthorSymbol"
+><table
+border="1"
+><tr
+><th
+>Number of preceding <object
+type="tElement"
+>author</object
+> elements with an <object
+type="tElement"
+>endnote</object
+> element</th
+><th
+>Symbol shown</th
+></tr
+><tr
+><td
+>0</td
+><td
+>* (asterisk)</td
+></tr
+><tr
+><td
+>1</td
+><td
+>† (dagger)</td
+></tr
+><tr
+><td
+>2</td
+><td
+>‡ (double dagger)</td
+></tr
+><tr
+><td
+>3</td
+><td
+>§ (section sign)</td
+></tr
+><tr
+><td
+>4</td
+><td
+>¶ (pilcrow sign)</td
+></tr
+><tr
+><td
+>5</td
+><td
+>ǁ (full stop)<endnote
+id="nFullStopSymbol"
+><p
+>This is used for the default way of producing PDF. Other output methods will use a raised period.</p
+></endnote
+></td
+></tr
+><tr
+><td
+>6</td
+><td
+>** (two asterisks)</td
+></tr
+><tr
+><td
+>7</td
+><td
+>†† (two daggers)</td
+></tr
+><tr
+><td
+>8</td
+><td
+>‡‡ (two double daggers)</td
+></tr
+><tr
+><td
+>9 and higher</td
+><td
+>uses the same symbol as for 0, 1, etc.</td
+></tr
+></table
+></example
+><p
+>If you need a different symbol to show, you can set the <object
+type="tAttribute"
+>symbolOverride</object
+> attribute of the <object
+type="tElement"
+>endnote</object
+> element to be the symbol you need.</p
 ></section2
 ><section2
 id="sFMAuthorContactInfo"
@@ -1726,6 +1835,17 @@ type="tElement"
 type="tBold"
 >plus</object
 > the chapter). It can also be set to "0" (zero) if you do not want any sections to show in the table of contents such as you might in a book with chapters.</p
+><p
+>For the <object
+type="tXeTeX"
+></object
+> way of producing PDF output, you can control the number of levels showing in the PDF bookmarks portion by setting the <object
+type="tAttribute"
+>bookmarksShowLevel</object
+> attribute. The number here indicates how many levels including <object
+type="tElement"
+>chapter</object
+> elements if any. Thus, it can be any integer number between “0” and “7”. When it is set to “0,” no bookmarks will be shown.</p
 ><p
 >The table of contents will also include acknowledgements (if any), the abstract (if present), endnotes (if needed), any indexes and references.</p
 ><p
@@ -2886,7 +3006,7 @@ type="tAttrValue"
 >none</object
 ></td
 ><td
->No text will be inserted. This is useful for when you have a list of section references and you do not want to insert any text before the second, third, etc. references.</td
+>No text will be inserted. This is useful for when you have a list of section references and you do not want to insert any text before the second, third, etc., references.</td
 ></tr
 ><tr
 ><td
@@ -3192,6 +3312,36 @@ type="tElement"
 type="tInstruction"
 >File / New</object
 >), choose the option for “Multi-part book (part-oriented) ”.</p
+></section2
+><section2
+id="sSectionShort"
+><secTitle
+>Short Subsections</secTitle
+><p
+><indexedItem
+term="iSectionShortSubsections"
+></indexedItem
+>Sometimes you have a series of very short subsections in a document and you want to have them format differently than normal subsections do. In particular, you want just the section title in bold at the left edge; no number is needed. To get this effect, in the parent section level element, use the Attributes tool<endnoteRef
+note="nAttributesToolReminder"
+></endnoteRef
+> and set the <object
+type="tAttribute"
+>subsectionsAreShort</object
+> attribute to <object
+type="tAttrValue"
+>yes</object
+>.</p
+><p
+>By default, <object
+type="tXLingPap"
+></object
+> will not show these short subsections in the table of contents, even if their section level would normally appear in the contents. If you do want them to appear in the table of contents, then in the parent section level element, use the Attributes tool to set the <object
+type="tAttribute"
+>excludeShortSubsectionsFromContents</object
+> attribute to <object
+type="tAttrValue"
+>no</object
+>.</p
 ></section2
 ></section1
 ><section1
@@ -3964,7 +4114,7 @@ type="tAttribute"
 >chapterLabel</object
 > attribute to be what you need.</p
 ><p
->One keys an endnote in the text at the point where the reference to the endnote should go (i.e. the <q
+>One keys an endnote in the text at the point where the reference to the endnote should go (i.e., the <q
 >endnote number</q
 >, usually rendered in superscript). For example, suppose one wants to key an endnote where the vertical red cursor is in example <exampleRef
 num="xBMEndnoteBefore"
@@ -4276,7 +4426,7 @@ term="iDateOfCitedWork"
 >The <object
 type="tElement"
 >refDate</object
-> element contains the date (i.e. year) of the work. If there is more than one work by the same author within a given year, merely list the year for each such work. <object
+> element contains the date (i.e., year) of the work. If there is more than one work by the same author within a given year, merely list the year for each such work. <object
 type="tXLingPap"
 ></object
 > will automatically append a letter after the year as appropriate. If you want any citations to use a different date than what is in the <object
@@ -4547,28 +4697,65 @@ type="tElement"
 >book</object
 ></secTitle
 ><p
->This is for a book. Besides the date and the title, a book also has optional <object
+>This is for a book. Besides the date and the title, a book also has</p
+><ol
+><li
+>an optional <object
 type="tElement"
 >translatedBy</object
->, <object
+> element,</li
+><li
+>an optional <object
 type="tElement"
 >editor</object
->, <object
+> element,</li
+><li
+>an optional <object
+type="tElement"
+>editorInitials</object
+> element,</li
+><li
+>an optional <object
+type="tElement"
+>editorSurnameGivenName</object
+> element,</li
+><li
+>an optional <object
+type="tElement"
+>bookversion</object
+> element,</li
+><li
+>an optional <object
 type="tElement"
 >edition</object
->, <object
+> element,</li
+><li
+>an optional <object
 type="tElement"
 >seriesEd</object
->, <object
+> element,</li
+><li
+>an optional <object
 type="tElement"
 >seriesEdInitials</object
->, <object
+> element,</li
+><li
+>an optional <object
+type="tElement"
+>seriesEdSurnameGivenName</object
+> element,</li
+><li
+>an optional <object
 type="tElement"
 >series</object
->, <object
+> element,</li
+><li
+>an optional <object
 type="tElement"
 >bVol</object
-> (book volume), <indexedItem
+> (book volume) element,</li
+><li
+>an optional <indexedItem
 term="iMultivoumeWork"
 ></indexedItem
 ><object
@@ -4582,28 +4769,43 @@ type="tItalic"
 >Chicago Manual of Style</object
 > or see sections 14.124 and 14.131 of the 16th edtion.</p
 ></endnote
->), and <object
+>) element,</li
+><li
+>an optional <object
 type="tElement"
 >reprintInfo</object
-> elements, a recommended <object
+> element,</li
+><li
+>a recommended <object
 type="tElement"
 >location</object
-> element and a recommended <object
+> element,</li
+><li
+>an recommended <object
 type="tElement"
 >publisher</object
-> element. It can optionally include <object
+> element,</li
+><li
+>an optional <object
 type="tElement"
 >url</object
->, <object
+> element,</li
+><li
+>an optional <object
 type="tElement"
 >dateAccessed</object
->, <object
+> element,</li
+><li
+>an optional <object
 type="tElement"
 >iso639-3code</object
->, and/or <object
+> element, and</li
+><li
+>an optional <object
 type="tElement"
 >doi</object
-> elements.</p
+> element.</li
+></ol
 ></section3
 ><section3
 id="sBMRefCollection"
@@ -4630,10 +4832,20 @@ type="tElement"
 >collEdInitials</object
 > (collection volume editor(s), using initials instead of first name, etc.) element,</li
 ><li
+>an optional <object
+type="tElement"
+>collEdSurnameGivenName</object
+> (collection volume editor(s), using a "surname, given name" form for all editors) element,</li
+><li
 >a required <object
 type="tElement"
 >collTitle</object
 > (collection volume title) element,</li
+><li
+>an optional <object
+type="tElement"
+>bookversion</object
+> (version number of the collection volume) element,</li
 ><li
 >an optional <object
 type="tElement"
@@ -4662,13 +4874,21 @@ type="tElement"
 ><li
 >an optional <object
 type="tElement"
+>seriesEdSurnameGivenName</object
+> (series editor(s) of the series that the volume is in, using a "surname, given name" form for all editors) element,</li
+><li
+>an optional <object
+type="tElement"
 >series</object
-> (series title that the volume is in) element,</li
+> (series title and number that the volume is in) element,</li
 ><li
 >an optional <object
 type="tElement"
 >bVol</object
-> (volume number of the series that the volume is in) element,</li
+> (volume number of the series that the volume is in) element - only use this is if you need to format the series number differently from the series title; otherwise put the series number in the <object
+type="tElement"
+>series</object
+> element,</li
 ><li
 ><indexedItem
 term="iMultivoumeWork"
@@ -4770,7 +4990,7 @@ src="resources/CollectionSamplesJIPA.png"
 ></chart
 ></example
 ><p
->Notice that for Bauer &amp; Warren (2004) and for Sampson (1987), the reference entry itself contains the information about the collection volume (i.e. the book) the paper occurs in. For Barry (1992) and Browman &amp; Goldstein (1992), however, the reference entry refers to another reference entry for the collection: Docherty &amp; Ladd (1992).</p
+>Notice that for Bauer &amp; Warren (2004) and for Sampson (1987), the reference entry itself contains the information about the collection volume (i.e., the book) the paper occurs in. For Barry (1992) and Browman &amp; Goldstein (1992), however, the reference entry refers to another reference entry for the collection: Docherty &amp; Ladd (1992).</p
 ><p
 >Why should some collection entries have the full information about the collection volume while others merely refer to the collection volume which is a distinct entry itself? The key difference is that when two or more papers from the same collection volume are cited, then for those papers, we need to refer to the collection volume itself instead of spelling out the collection volume information.</p
 ><p
@@ -4982,7 +5202,7 @@ type="tXLingPap"
 >For each collection volume, create a <object
 type="tElement"
 >book</object
-> element. That book has all the editor, collection title, etc. information in it (one should be sure to insert an <object
+> element. That book has all the editor, collection title, etc., information in it (one should be sure to insert an <object
 type="tElement"
 >authorRole</object
 > element at the beginning to indicate that the author(s) is/are the editor(s) of the work). Also see below for a possibly easier way to do this.</li
@@ -5026,7 +5246,7 @@ type="tElement"
 >, <object
 type="tElement"
 >collTitle</object
->, etc. elements with a <object
+>, etc., elements with a <object
 type="tElement"
 >collCitation</object
 > element. There is, however, a menu option that will attempt to both create the needed <object
@@ -5038,7 +5258,7 @@ type="tElement"
 >, <object
 type="tElement"
 >collTitle</object
->, etc. elements with a <object
+>, etc., elements with a <object
 type="tElement"
 >collCitation</object
 > element. It is not perfect and you will almost certainly need to do some editing by hand.</p
@@ -5433,6 +5653,11 @@ type="tElement"
 >procEdInitials</object
 > (proceedings volume editor(s), using initials instead of first name, etc.) element,</li
 ><li
+>an optional <object
+type="tElement"
+>procEdSurnameGivenName</object
+> (proceedings volume editor(s), using a "surname, given name" form for all editors) element,</li
+><li
 >a required <object
 type="tElement"
 >procTitle</object
@@ -5460,13 +5685,21 @@ type="tElement"
 ><li
 >an optional <object
 type="tElement"
+>seriesEdSurnameGivenName</object
+> (series editor(s) of the series that the volume is in, using a "surname, given name" form for all editors) element,</li
+><li
+>an optional <object
+type="tElement"
 >series</object
-> (series title that the volume is in) element,</li
+> (series title and number that the volume is in) element,</li
 ><li
 >an optional <object
 type="tElement"
 >bVol</object
-> (volume number of the series that the volume is in) element,</li
+> (volume number of the series that the volume is in) element - only use this is if you need to format the series number differently from the series title; otherwise put the series number in the <object
+type="tElement"
+>series</object
+> element,</li
 ><li
 ><indexedItem
 term="iMultivoumeWork"
@@ -5753,6 +5986,28 @@ type="tAttrValue"
 lang="lValue"
 ><object
 type="tAttrValue"
+>all</object
+></langData
+></td
+><td
+><langData
+lang="lMeaning"
+>In the <object
+type="tXMLmindXMLEditor"
+></object
+>, show all the possible versions of the author(s) name(s)</langData
+></td
+></tr
+><tr
+><td
+type="tAttribute"
+></td
+><td
+type="tAttrValue"
+><langData
+lang="lValue"
+><object
+type="tAttrValue"
 >both</object
 ></langData
 ></td
@@ -5803,6 +6058,31 @@ type="tAttrValue"
 lang="lValue"
 ><object
 type="tAttrValue"
+>fullsurnamegivenname</object
+></langData
+></td
+><td
+><langData
+lang="lMeaning"
+>In the <object
+type="tXMLmindXMLEditor"
+></object
+>, show just the full and "surname, given name" versions of the author(s) name(s)</langData
+></td
+></tr
+><tr
+><td
+type="tAttribute"
+><langData
+lang="lAttribute"
+></langData
+></td
+><td
+type="tAttrValue"
+><langData
+lang="lValue"
+><object
+type="tAttrValue"
 >initials</object
 ></langData
 ></td
@@ -5813,6 +6093,31 @@ lang="lMeaning"
 type="tXMLmindXMLEditor"
 ></object
 >, show just the initials-only version of the author(s) name(s)</langData
+></td
+></tr
+><tr
+><td
+type="tAttribute"
+><langData
+lang="lAttribute"
+></langData
+></td
+><td
+type="tAttrValue"
+><langData
+lang="lValue"
+><object
+type="tAttrValue"
+>surnamegivenname</object
+></langData
+></td
+><td
+><langData
+lang="lMeaning"
+>In the <object
+type="tXMLmindXMLEditor"
+></object
+>, show just the "surname, given name" version of the author(s) name(s)</langData
 ></td
 ></tr
 ><tr
@@ -6665,7 +6970,7 @@ term="iAnnotatedBibliography"
 ><li
 >In the references section:<ol
 ><li
->Create a set of annotated bibliography types (e.g. evaluation, purpose/scope, format, etc.)</li
+>Create a set of annotated bibliography types (e.g., evaluation, purpose/scope, format, etc.)</li
 ><li
 >Create annotations for relevant reference works and associate each one with its annotated bibliography type.</li
 ></ol
@@ -6871,7 +7176,7 @@ type="tAttribute"
 > attribute. You will need to key in the id of one of the <object
 type="tElement"
 >language</object
-> elements in your document (e.g. <object
+> elements in your document (e.g., <object
 type="tAttrValue"
 >en</object
 > for English, <object
@@ -6988,7 +7293,7 @@ note="nInitialIDLetter"
 > then comes the abbreviation, an equals sign, and the definition. You can insert new abbreviations by clicking on an <object
 type="tElement"
 >abbreviation</object
-> element (e.g. by clicking on the ID) and using the usual insert before or insert after commands.<endnoteRef
+> element (e.g., by clicking on the ID) and using the usual insert before or insert after commands.<endnoteRef
 note="nInsertElementReminder"
 ></endnoteRef
 > Note that you need to maintain the alphabetical order by hand. That is, the list of abbreviations will be shown in the order you have them here.</p
@@ -7018,7 +7323,7 @@ type="tAttribute"
 > attribute of the <object
 type="tElement"
 >abbreviations</object
-> element to the name of that font (e.g. <object
+> element to the name of that font (e.g., <object
 type="tAttrValue"
 >Charis SIL Small Caps</object
 >). You can do this by clicking on “abbreviations” in the node path bar<endnoteRef
@@ -8047,7 +8352,12 @@ term="iGlossaryTerm"
 >If you wish, you can create a list of glossary terms used throughout your document. Just like references and citations, the idea here is that while the list of glossary terms can be large, <object
 type="tXLingPap"
 ></object
-> will only show those that are actually used somewhere within the document. You can thus maintain a file that is just the list of glossary terms (and their definitions), include it in your document, and then, while writing, make a reference to a glossary term in the list. Besides only including glossary terms actually used somewhere in the document, <object
+> will only show those that are actually used somewhere within the document.<endnote
+id="nGlossaryTerms"
+><p
+>If the definition of a cited glossary term refers to another term that is not cited, that referred to term will also be included in the output.</p
+></endnote
+> You can thus maintain a file that is just the list of glossary terms (and their definitions), include it in your document, and then, while writing, make a reference to a glossary term in the list. Besides only including glossary terms actually used somewhere in the document, <object
 type="tXLingPap"
 ></object
 > will also create a hyperlink between the glossary term in the text and the actual glossary term in the list of glossary terms. Of course, the list will also include the definition of the glossary term.</p
@@ -8073,7 +8383,7 @@ type="tAttribute"
 > attribute. You will need to key in the id of one of the <object
 type="tElement"
 >language</object
-> elements in your document (e.g. <object
+> elements in your document (e.g., <object
 type="tAttrValue"
 >en</object
 > for English, <object
@@ -8769,7 +9079,7 @@ type="tXLingPap"
 ><li
 >Creating the set of terms to be included in the index, including their relative hierarchical structure and any cross-referencing. This set of terms is what will show in the index section(s) in the output.</li
 ><li
->Marking the document body for indexed items (i.e. tagging the places in the text that correspond to one of the index terms in the set of terms). If the indexed item covers a range of the document, then the beginning and ending points need to be marked.</li
+>Marking the document body for indexed items (i.e., tagging the places in the text that correspond to one of the index terms in the set of terms). If the indexed item covers a range of the document, then the beginning and ending points need to be marked.</li
 ><li
 >Adding one or more <object
 type="tElement"
@@ -9089,7 +9399,7 @@ type="tAttribute"
 > attribute which refers to a <object
 type="tElement"
 >language</object
-> element. This is a way to tag the term as being for a particular language (e.g. English or Spanish or French). The <object
+> element. This is a way to tag the term as being for a particular language (e.g., English or Spanish or French). The <object
 type="tElement"
 >index</object
 > element also has a <object
@@ -10701,7 +11011,7 @@ type="tElement"
 > element or a single <object
 type="tElement"
 >gloss</object
-> element on each line. If you insert any other field (e.g. to emphasize or highlight some portion of the interlinear line and/or if you want to use the special abbreviation capability of <object
+> element on each line. If you insert any other field (e.g., to emphasize or highlight some portion of the interlinear line and/or if you want to use the special abbreviation capability of <object
 type="tXLingPap"
 ></object
 ><endnote
@@ -12081,7 +12391,7 @@ sec="sExInterlinearMorph"
 > above, <object
 type="tXLingPap"
 ></object
-> does not automatically break lengthy (i.e. wide) interlinear examples with two exceptions:</p
+> does not automatically break lengthy (i.e., wide) interlinear examples with two exceptions:</p
 ><ul
 ><li
 ><indexedItem
@@ -12305,7 +12615,7 @@ sec="sInterlinearTextReferencedInterlinearText"
 >Create an example which contains an <object
 type="tElement"
 >interlinearRef</object
-> element (i.e. choose <object
+> element (i.e., choose <object
 type="tInTextExample"
 >example(interlinearRef)</object
 > or <object
@@ -12554,7 +12864,7 @@ src="resources/InterlinearSource.png"
 ></chart
 ></example
 ><p
->If you have the cursor at the end of the free translation line and then perform an insert after command (e.g. press <object
+>If you have the cursor at the end of the free translation line and then perform an insert after command (e.g., press <object
 type="tKey"
 >Ctrl+j</object
 > or right-click and choose <object
@@ -13301,7 +13611,7 @@ type="tElement"
 >Currently, there are no example types (see section <sectionRef
 sec="sExamples"
 ></sectionRef
->) that include an example heading. You will need to create the kind of example you want (e.g. interlinear or list interlinear), click on the element as described in the previous paragraph in the node path bar<endnoteRef
+>) that include an example heading. You will need to create the kind of example you want (e.g., interlinear or list interlinear), click on the element as described in the previous paragraph in the node path bar<endnoteRef
 note="nNodePathBarReminder"
 ></endnoteRef
 > and then do an insert before operation and choose “exampleHeader”.</p
@@ -14383,7 +14693,7 @@ id="nNonBreakingSpaceInTables"
 >The little raised dot in the upper left corner of the table is a non-breaking space character. One way to key this is to use <object
 type="tKey"
 >Esc-C</object
-> (i.e. hit the Escape key and then a capital C) and, in the resulting dialog box, type <object
+> (i.e., hit the Escape key and then a capital C) and, in the resulting dialog box, type <object
 type="tInstruction"
 >nbsp</object
 > and the <object
@@ -15263,7 +15573,7 @@ term="iChart"
 >One can also create charts. <object
 type="tElement"
 >Chart</object
-> elements can be placed between paragraphs or as examples. The content of a chart can either be “plain” text or an image (i.e. graphic) file.<endnote
+> elements can be placed between paragraphs or as examples. The content of a chart can either be “plain” text or an image (i.e., graphic) file.<endnote
 id="nSVGGraphBuilders"
 ><p
 ><indexedItem
@@ -15416,7 +15726,7 @@ src="resources/SrcBrowseButton.png"
 >If you want, you can also type in a text description of the image in the <object
 type="tAttribute"
 >description</object
-> attribute (on a web page, this description will be used if the image file is not available). Once you type the name of the image file (and press the <object
+> attribute (on a web page, this description will be used if the image file is not available and an audio file reader can use for web page output). Once you type the name of the image file (and press the <object
 type="tKey"
 >Enter</object
 > key), the image will appear within the <object
@@ -15485,6 +15795,20 @@ type="tXMLmindXMLEditor"
 type="tXLingPap"
 ></object
 > output formats.</p
+><p
+><indexedItem
+term="iBorderAroundGraphic"
+></indexedItem
+>If you want a border around the image file, then set the <object
+type="tAttribute"
+>borderaround</object
+> attribute to <object
+type="tAttrValue"
+>yes</object
+> (the default is <object
+type="tAttrValue"
+>no</object
+>).</p
 ><p
 ><indexedItem
 term="iCenterGraphic"
@@ -15586,7 +15910,7 @@ id="nNonBreakingSpace"
 >One way to key this is to use <object
 type="tKey"
 >Esc-C</object
-> (i.e. hit the Escape key and then a capital C) and, in the resulting dialog box, type <object
+> (i.e., hit the Escape key and then a capital C) and, in the resulting dialog box, type <object
 type="tInstruction"
 >nbsp</object
 > and the <object
@@ -15619,7 +15943,7 @@ note="nNonBreakingSpace"
 > at the beginning of lines and <object
 type="tElement"
 >br</object
-> elements at the end of each line, for example) or you can use some tool to produce a tree image file (e.g. <link
+> elements at the end of each line, for example) or you can use some tool to produce a tree image file (e.g., <link
 href="http://software.sil.org/lingtree/"
 >LingTree</link
 ><endnote
@@ -15907,7 +16231,7 @@ type="tOpenOfficeWriter"
 ></endnote
 ></p
 ><p
->Something else to keep in mind is that these floats are intended to occur relatively infrequently. There should be lots of text and/or examples and/or other tables, etc. between them. If you have many of these in a row, the <object
+>Something else to keep in mind is that these floats are intended to occur relatively infrequently. There should be lots of text and/or examples and/or other tables, etc., between them. If you have many of these in a row, the <object
 type="tXeTeX"
 ></object
 > way of producing PDF may well fail or the results may be very ugly.</p
@@ -15922,16 +16246,25 @@ term="iFigureFloat"
 ><indexedItem
 term="iFigures"
 ></indexedItem
->Figures consist of a required <object
+><indexedItem
+term="iChart"
+></indexedItem
+><indexedItem
+term="iFramedUnit"
+></indexedItem
+>Figures consist of either a required <object
 type="tElement"
 >chart</object
-> element and an optional <object
+> element or a required <object
+type="tElement"
+>framedUnit</object
+> element. They also can have an optional <object
 type="tElement"
 >caption</object
 > element. <object
 type="tXLingPap"
 ></object
-> will automatically number the figures in your document. (Figures are numbered independently of numbered tables.) For papers, each figure is numbered consecutively. For books (i.e. documents containing <object
+> will automatically number the figures in your document. (Figures are numbered independently of numbered tables.) For papers, each figure is numbered consecutively. For books (i.e., documents containing <object
 type="tElement"
 >chapter</object
 > elements), the numbering for figures starts over with each <object
@@ -16215,6 +16548,50 @@ type="tAttrValue"
 ><langData
 lang="lEng"
 >Horizontal alignment for the figure.</langData
+></td
+></tr
+><tr
+><td
+><langData
+lang="lEng"
+> <object
+type="tAttribute"
+>alignoverride</object
+></langData
+></td
+><td
+><langData
+lang="lEng"
+> <object
+type="tAttrValue"
+>left</object
+>, <object
+type="tAttrValue"
+>center</object
+>, <object
+type="tAttrValue"
+>right</object
+>, or <object
+type="tAttrValue"
+>none</object
+> (the default is <object
+type="tAttrValue"
+>none</object
+>)</langData
+></td
+><td
+><langData
+lang="lEng"
+>Use this to override any value set by the <object
+type="tAttribute"
+>align</object
+> attribute of the <object
+type="tElement"
+>figureLayout</object
+> element in a <object
+type="tPublisherStyleSheet"
+></object
+> for a given figure.</langData
 ></td
 ></tr
 ><tr
@@ -16773,7 +17150,7 @@ type="tAttrValue"
 >none</object
 ></td
 ><td
->No text will be inserted. This is useful for when you have a list of figure references and you do not want to insert any text before the second, third, etc. references.</td
+>No text will be inserted. This is useful for when you have a list of figure references and you do not want to insert any text before the second, third, etc., references.</td
 ></tr
 ><tr
 ><td
@@ -17049,7 +17426,7 @@ href="http://www.r-project.org/"
 > <object
 type="tXLingPap"
 ></object
-> will automatically number the tables in your document. (These tables are numbered independently of figures.) For papers, each numbered table is numbered consecutively. For books (i.e. documents containing <object
+> will automatically number the tables in your document. (These tables are numbered independently of figures.) For papers, each numbered table is numbered consecutively. For books (i.e., documents containing <object
 type="tElement"
 >chapter</object
 > elements), the numbering for numbered tables starts over with each <object
@@ -17304,6 +17681,50 @@ lang="lEng"
 lang="lEng"
 >Meaning</langData
 ></th
+></tr
+><tr
+><td
+><langData
+lang="lEng"
+> <object
+type="tAttribute"
+>alignoverride</object
+></langData
+></td
+><td
+><langData
+lang="lEng"
+> <object
+type="tAttrValue"
+>left</object
+>, <object
+type="tAttrValue"
+>center</object
+>, <object
+type="tAttrValue"
+>right</object
+>, or <object
+type="tAttrValue"
+>none</object
+> (the default is <object
+type="tAttrValue"
+>none</object
+>)</langData
+></td
+><td
+><langData
+lang="lEng"
+>Use this to override any value set by the <object
+type="tAttribute"
+>align</object
+> attribute of the <object
+type="tElement"
+>tablenumberedLayout</object
+> element in a <object
+type="tPublisherStyleSheet"
+></object
+> for a given figure.</langData
+></td
 ></tr
 ><tr
 ><td
@@ -17847,7 +18268,7 @@ type="tAttrValue"
 >none</object
 ></td
 ><td
->No text will be inserted. This is useful for when you have a list of numbered table references and you do not want to insert any text before the second, third, etc. references.</td
+>No text will be inserted. This is useful for when you have a list of numbered table references and you do not want to insert any text before the second, third, etc., references.</td
 ></tr
 ><tr
 ><td
@@ -18450,7 +18871,7 @@ num="xOrderedListNumberFormatBasic"
 > shows the possible values you can use.<endnote
 id="nOrderedListNumberFormat"
 ><p
->For the default way of producing PDF, you can also use some other items such as Unicode digits in non-Roman languages (e.g. Hebrew, Thai or Tamil).</p
+>For the default way of producing PDF, you can also use some other items such as Unicode digits in non-Roman languages (e.g., Hebrew, Thai or Tamil).</p
 ></endnote
 ></p
 ><example
@@ -18928,7 +19349,7 @@ src="resources/CitationMultiYear.png"
 ></chart
 ></example
 ><p
->If only the second such entry is cited in the text (i.e. via a <object
+>If only the second such entry is cited in the text (i.e., via a <object
 type="tElement"
 >citation</object
 > element), then the date should be produced as <object
@@ -19689,7 +20110,7 @@ type="tXLingPap"
 ></object
 > section and choose “Interlinear text (part of a modular document).”</p
 ><p
->The other way is to merely create the text within your current document. To do this, one can, say, perform an insert after command (e.g. press <object
+>The other way is to merely create the text within your current document. To do this, one can, say, perform an insert after command (e.g., press <object
 type="tKey"
 >Ctrl+j</object
 > or right-click and choose <object
@@ -20152,12 +20573,15 @@ src="resources/ReferencedInterlinearTexts2.png"
 ></chart
 ></example
 ><p
->Click on "Interlinear text:" and do a paste. This will link in the interlinear text from your other document. Now click on where it says "url" and type in the (relative) location of the file containing the interlinear text. Do not include any file extension. The extension will be supplied automatically by the output.</p
+>Click on "Interlinear text:" and do a paste. This will link in the interlinear text from your other document. Now click on where it says "url" and type in the location of the <object
+type="tXLingPap"
+></object
+> file containing the interlinear text. Do not include any file extension. The extension will be supplied automatically by the output. This location can be relative to where the current document is. For example, if the file is named “MyText.xml” and is in a subdirectory called “Texts,” use “Texts/MyText” as the url. If the file is located on the Internet, then use its full URL value minus the final file extension. An example might be “https://mexico.sil.org/sites/mexico/files/zorra_atrapada” for a file on the Internet.</p
 ><p
 >You can now refer to any interlinear within the interlinear text by following the steps outlined in section <sectionRef
 sec="sExInterlinearSourceIncluded"
 ></sectionRef
->. Note, however, that the interlinear text itself will not appear in the output.</p
+>. Note, however, that the interlinear text itself will not appear in the output. The output will, however, have a source reference for the line in the interlinear and this reference will be a hyperlink to the line in the text file located via the value you gave in the “url” field. When you click on this hyperlink, it will open up the file and show the line of the text.</p
 ><p
 >While using the <object
 type="tXMLmindXMLEditor"
@@ -20543,7 +20967,7 @@ lang="lEng"
 ><td
 ><langData
 lang="lEng"
->This is the font name to use (e.g. <object
+>This is the font name to use (e.g., <object
 type="tAttrValue"
 >Times New Roman</object
 > or <object
@@ -20572,7 +20996,7 @@ lang="lEng"
 >This is the font size. If it is expressed in points, it should have the value followed by <object
 type="tAttrValue"
 >pt</object
->. Perhaps the wisest way to specify a font size is to use a percentage (e.g. <object
+>. Perhaps the wisest way to specify a font size is to use a percentage (e.g., <object
 type="tAttrValue"
 >120%</object
 >). Then, if you use this element in a <object
@@ -20955,7 +21379,7 @@ lang="lEng"
 ><td
 ><langData
 lang="lEng"
->This is the font name to use (e.g. <object
+>This is the font name to use (e.g., <object
 type="tAttrValue"
 >Times New Roman</object
 > or <object
@@ -20984,7 +21408,7 @@ lang="lEng"
 >This is the font size. If it is expressed in points, it should have the value followed by <object
 type="tAttrValue"
 >pt</object
->. Perhaps the wisest way to specify a font size is to use a percentage (e.g. <object
+>. Perhaps the wisest way to specify a font size is to use a percentage (e.g., <object
 type="tAttrValue"
 >120%</object
 >). Then, if you use this element in a <object
@@ -21412,16 +21836,30 @@ term="iHypertextLinksWithout"
 >For links to items outside of the document, one can use the <object
 type="tElement"
 >link</object
-> element within text or other constructs to link to a media object (for example, a sound file). The <object
+> element within text or other constructs to link to another document or a media object (for example, a sound file). The <object
 type="tElement"
 >link</object
-> element has one attribute: <object
+> element has an <object
 type="tAttribute"
 >href</object
-> which should be the <indexedItem
+> attribute which should be the <indexedItem
 term="iURI"
 ></indexedItem
->URI of the media object you wish to link to. Type some text or embed an image (via the <object
+>URI of the other document or the media object you wish to link to. It also has an <object
+type="tAttribute"
+>openInNewTab</object
+> attribute which can be set to <object
+type="tAttrValue"
+>yes</object
+> if you want to force it to be opened in a new tab when viewed with the web page output. The <object
+type="tAttribute"
+>openInNewTab</object
+> attribute is ignored in other outputs. The default value is <object
+type="tAttrValue"
+>no</object
+>.</p
+><p
+>Type some text or embed an image (via the <object
 type="tElement"
 >img</object
 > element) between the begin <object
@@ -21635,7 +22073,7 @@ lang="lEng"
 >This is the font size. If it is expressed in points, it should have the value followed by <object
 type="tAttrValue"
 >pt</object
->. Perhaps the wisest way to specify a font size is to use a percentage (e.g. <object
+>. Perhaps the wisest way to specify a font size is to use a percentage (e.g., <object
 type="tAttrValue"
 >120%</object
 >). Then, if you use this element in a <object
@@ -21911,10 +22349,10 @@ type="tElement"
 >lingPaper</object
 > element to be <object
 type="tAttrValue"
->no</object
+>yes</object
 > (the default is <object
 type="tAttrValue"
->yes</object
+>no</object
 >). To set the <object
 type="tAttribute"
 >includemediaobjects</object
@@ -22085,7 +22523,7 @@ term="iLangDataFontSize"
 ><indexedItem
 term="iFontSize"
 ></indexedItem
->If you have, say, language data that you need to use a large font size for (as often happens with non-roman fonts), if you use a font size set to a particular point size (e.g. 24pt), then your data will always have that size wherever it occurs. This can be problematic for text within elements like <object
+>If you have, say, language data that you need to use a large font size for (as often happens with non-roman fonts), if you use a font size set to a particular point size (e.g., 24pt), then your data will always have that size wherever it occurs. This can be problematic for text within elements like <object
 type="tElement"
 >secTitle</object
 > or <object
@@ -22093,7 +22531,7 @@ type="tElement"
 >endnote</object
 >. The language data will come out either too small or too large.</p
 ><p
->The solution is to specify a font size that is a percentage (e.g. <object
+>The solution is to specify a font size that is a percentage (e.g., <object
 type="tAttrValue"
 >120%</object
 >). Then, if you use this element in a <object
@@ -22251,7 +22689,7 @@ term="iAbbreviaitonSmallCaps"
 ><indexedItem
 term="iSmallCaps"
 ></indexedItem
->Many authors prefer to use small caps for “grammatical” glosses (e.g. inflectional affix glosses). How does one do this?</p
+>Many authors prefer to use small caps for “grammatical” glosses (e.g., inflectional affix glosses). How does one do this?</p
 ><p
 >One can select the portion of a gloss that is the “grammatical gloss” and then press <object
 type="tKey"
@@ -22416,9 +22854,9 @@ type="tXMLmindXMLEditor"
 ></object
 > along with your master references document.</li
 ><li
->Go to your master references document (i.e. click on its file name tab above the text).</li
+>Go to your master references document (i.e., click on its file name tab above the text).</li
 ><li
->Select the entire document (i.e. click on the bolded References at the top).</li
+>Select the entire document (i.e., click on the bolded References at the top).</li
 ><li
 >Use menu items <object
 type="tInstruction"
@@ -22458,6 +22896,11 @@ type="tInstruction"
 >The next time you need to make an addition to the master references document, you can use menu item <object
 type="tInstruction"
 >Edit / Reference / Edit Referenced Document</object
+>.</p
+><p
+>If you find that you need to sort your master references file, see section <sectionRef
+sec="sFAQSortReferences"
+></sectionRef
 >.</p
 ></section2
 ><section2
@@ -22950,9 +23393,9 @@ num="xValidityErrors"
 >, there are instances of the two errors I mentioned above:</p
 ><ol
 ><li
->Error [1] is an instance where an id for an example, section, etc. has already been defined. These ids must be unique, so to have such a message is nice (I just wish the wording was clearer!).</li
+>Error [1] is an instance where an id for an example, section, etc., has already been defined. These ids must be unique, so to have such a message is nice (I just wish the wording was clearer!).</li
 ><li
->Errors [2] and [3] are instances of the opposite: there is a reference element (e.g. <object
+>Errors [2] and [3] are instances of the opposite: there is a reference element (e.g., <object
 type="tElement"
 >citation</object
 >, <object
@@ -23358,10 +23801,10 @@ type="tElement"
 > or <object
 type="tElement"
 >th</object
-> element that is in the wrong location.  See appendix <appendixRef
+> element that is in the wrong location. See appendix <appendixRef
 app="aXeLaTeXSpecial"
 ></appendixRef
->.  If that does not help, please send an email to <link
+>. If that does not help, please send an email to <link
 href="mailto:xlingpaper_support@sil.org"
 >xlingpaper_support@sil.org</link
 > and we'll work on a solution for you.</li
@@ -23376,7 +23819,7 @@ type="tItalic"
 ><li
 >Background colors in a table cell that spans more than one row do not come out correctly. Only the first row will have the color.</li
 ><li
->While background colors can be used in tables, they will not show in other material (e.g. within a <object
+>While background colors can be used in tables, they will not show in other material (e.g., within a <object
 type="tElement"
 >chart</object
 > element).</li
@@ -23886,7 +24329,7 @@ type="tRenderX"
 >Installing the <object
 type="tRenderX"
 ></object
-> tool, unfortunately, is non-trivial, to put it mildly. I have no idea why they make it so challenging to do... and it is not just with the free versions that they do this! On the bright side, you can get a free version and it really does do a great job of formatting. No other similar tool (i.e. one that uses XSL-FO technologies) that I have tried could even come close to getting the proper output, especially for interlinear examples. All of the other ones would require you to do custom hand-editing for each example.</p
+> tool, unfortunately, is non-trivial, to put it mildly. I have no idea why they make it so challenging to do... and it is not just with the free versions that they do this! On the bright side, you can get a free version and it really does do a great job of formatting. No other similar tool (i.e., one that uses XSL-FO technologies) that I have tried could even come close to getting the proper output, especially for interlinear examples. All of the other ones would require you to do custom hand-editing for each example.</p
 ><p
 >The steps to follow are below. You may want to have someone help you with these steps since they are so complicated. (These steps are for installing on a Windows machine. For Unix or Mac, see the footnote.)<endnote
 id="nRenderXOnUnixOrMac"
@@ -23915,7 +24358,7 @@ href="http://www.renderx.com/download/personal.html"
 ><li
 >Scroll down on the license page to the bottom.</li
 ><li
->Click on the Next button, etc. until it is installed.</li
+>Click on the Next button, etc., until it is installed.</li
 ><li
 >Go to the directory where you installed the RenderX XEP program.</li
 ><li
@@ -23995,7 +24438,7 @@ type="tInstruction"
 ><li
 >Scroll down on the license page to the bottom.</li
 ><li
->Click on the Next button, etc. until it is installed.</li
+>Click on the Next button, etc., until it is installed.</li
 ><li
 >Go to the Program Files\RenderX\XEP directory.</li
 ><li
@@ -24911,10 +25354,10 @@ id="sFAQConvertTextToSubsection"
 ><indexedItem
 term="iSectionConvertTextToSubSection"
 ></indexedItem
->Sometimes while writing, one realizes that the paragraphs, examples, etc. one has just written should really be put into a sub-section. For example, one might be working in a <object
+>Sometimes while writing, one realizes that the paragraphs, examples, etc., one has just written should really be put into a sub-section. For example, one might be working in a <object
 type="tElement"
 >section2</object
-> element and then decide to convert several paragraphs, etc. into a <object
+> element and then decide to convert several paragraphs, etc., into a <object
 type="tElement"
 >section3</object
 > element.</p
@@ -24958,7 +25401,7 @@ type="tXLingPap"
 ><li
 >Go to the last element in the section (most likely a paragraph, but not necessarily).</li
 ><li
->Select that last element (e.g. by clicking on the element name in the node path bar<endnoteRef
+>Select that last element (e.g., by clicking on the element name in the node path bar<endnoteRef
 note="nNodePathBarReminder"
 ></endnoteRef
 >).</li
@@ -25261,10 +25704,15 @@ type="tKey"
 >L</object
 > keys at the same time.</p
 ></endnote
-> Please be aware that the "Redraw” command will close all opened sections (i.e. when the "Redraw” command finishes, the window iin the <object
+> Please be aware that the "Redraw” command will close all opened sections (i.e., when the "Redraw” command finishes, the window iin the <object
 type="tXMLmindXMLEditor"
 ></object
 > will look just like it does when you first open the file).</p
+><p
+>For more on language data, see section <sectionRef
+sec="sIntroLang"
+></sectionRef
+>.</p
 ></section2
 ><section2
 id="sFAQChangeDefaultLangIDs"
@@ -26437,7 +26885,34 @@ type="tAttribute"
 > attribute of the <object
 type="tElement"
 >lingPaper</object
-> element. Then set the <object
+> element. For example, if the <object
+type="tAttribute"
+>xml:lang</object
+> attribute of the <object
+type="tElement"
+>lingPaper</object
+> element is set to <object
+type="tAttrValue"
+>de</object
+> or <object
+type="tAttrValue"
+>en</object
+>, then you may need to create a new <object
+type="tElement"
+>language</object
+> element whose <object
+type="tAttribute"
+>id</object
+> attribute is set to <object
+type="tAttrValue"
+>de</object
+> or <object
+type="tAttrValue"
+>en</object
+>. Recall that the <object
+type="tElement"
+>language</object
+> elements are created in the "Languages" section of the XML editor, which is typically below the "Reference" section. Then set the <object
 type="tAttribute"
 >hyphenationExceptionsFile</object
 > attribute of that <object
@@ -26560,7 +27035,7 @@ type="tInTextExample"
 > and <object
 type="tInTextExample"
 >e.g.</object
->. This makes good sense because if you were to use the English equivalents of these abbreviations, chances are that you would use a comma after them. This means that for these two common abbreviations, if you use a comma after them, you will not need to do anything special. The <object
+> This makes good sense because if you were to use the English equivalents of these abbreviations, chances are that you would use a comma after them. This means that for these two common abbreviations, if you use a comma after them, you will not need to do anything special. The <object
 type="tXeTeX"
 ></object
 > output will come out the way it should automatically.</p
@@ -26680,7 +27155,10 @@ term="iEbook"
 >In section <sectionRef
 sec="sIntroUsing"
 ></sectionRef
->, I mentioned that you can use the <object
+>, I mentioned that you can use <object
+type="tXLingPap"
+></object
+> with the <object
 type="tXMLmindXMLEditor"
 > </object
 > to produce a file in <object
@@ -26688,52 +27166,12 @@ type="tTool"
 >EPUB</object
 > format for your document. This can be done for both papers and for books. How does one do it?</p
 ><p
->First, you need to install the (free) <object
-type="tTool"
->Calibre</object
-> program on your computer. Go to <link
-href="http://calibre-ebook.com/"
->http://calibre-ebook.com/</link
-> and download the version appropriate for your computer. When you run the installer or the first time you run <object
-type="tTool"
->Calibre</object
->, the welcome wizard will run. <object
-type="tBold"
->Very Important</object
->: You must use the default location for storing your books in the Calibre Library. If you use some other location, <object
-type="tXLingPap"
-></object
-> will not be able to find it and thus will not succeed in producing the EBook for you. Also, you may find that the EBook fails to be produced if the file name is long. Try to keep the name under 24 characters. While counting, a space counts as 3 characters as do some other non-A-Z or digit characters. If the name is too long, the EBook will fail to be produced.</p
-><p
->For users of <object
-type="tXLingPap"
-></object
-> on Mac OS X computers, you must also do another step before <object
-type="tXLingPap"
-></object
-> will know that you have installed <object
-type="tTool"
->Calibre</object
->. (This is for version 1.x of <object
-type="tTool"
->Calibre</object
->; versions 2.x and 3.x do not need this additional step.) When you have <object
-type="tTool"
->Calibre</object
-> running, use <object
-type="tInstruction"
->Preferences / Advanced / Miscellaneous</object
-> and click on <object
-type="tInstruction"
->install command line tools</object
->.</p
-><p
->Second, this process only works when you have associated a publisher style sheet with your file. See section <sectionRef
+>First note that this process only works when you have associated a publisher style sheet with your file. See section <sectionRef
 sec="sFAQAssociatePublisherStyleSheet"
 ></sectionRef
 >.</p
 ><p
->Finally, use the menu items <object
+>Use the menu items <object
 type="tInstruction"
 >XLingPaper / Produce EBook (in EPUB format) Ctrl+Shift+F7</object
 >.<endnote
@@ -26750,10 +27188,7 @@ type="tKey"
 >F7</object
 > key.</p
 ></endnote
-> This first tries to tell if you have installed <object
-type="tTool"
->Calibre</object
->. If so, it then starts a four step process to convert your document into an EBook in <object
+> This starts a four step process to convert your document into an EBook in <object
 type="tTool"
 >EPUB</object
 > format. It may take quite a while depending on the size of your document. It will produce a file with the same name as your <object
@@ -26768,37 +27203,43 @@ type="tXLingPap"
 > document. When it is done processing, there should be an audible beep and then <object
 type="tXLingPap"
 ></object
-> will try and load the newly created EBook into <object
-type="tTool"
->Calibre</object
->'s EBook viewer program.</p
+> will try and load the newly created EBook into your system's default's EBook viewer program.</p
 ><p
->If you wish to try and convert the resulting <object
+>We try to produce an <object
 type="tTool"
 >EPUB</object
-> file to some other EBook format (such as <object
+> document that passes <object
 type="tTool"
->MOBI</object
-> for the Kindle), you can use the <object
-type="tInstruction"
->Convert Books</object
-> capability of <object
+>EPUBCheck</object
+> (<link
+href="https://www.w3.org/publishing/epubcheck/"
+>https://www.w3.org/publishing/epubcheck/</link
+>). If you have a choice between using a JPG or a PNG file for a graphic, then please use the PNG. <object
 type="tTool"
->Calibre</object
->. Please note, however, that the <object
+>EPUBCheck</object
+> will report a “fallback” error if you use the JPG. Better yet, if you can, please use an SVG file for the image. This is because SVG images do not deteriorate or pixelate when enlarged.</p
+><p
+>The cover image provided by <object
+type="tXLingPap"
+></object
+> is very simple. When you publish your EBook, most likely you will want to create your own. Many EPUB creators use <object
 type="tTool"
->MOBI</object
-> format is rather limited in what it can do so complicated tables and interlinears do not come out well.</p
+>Sigil</object
+> (<link
+href="https://sigil-ebook.com/"
+>https://sigil-ebook.com/</link
+>) to finalize the publishing of a document. Besides the cover, you can use it to handle metadata, the title page, copyright page, and more. As we note in section <sectionRef
+sec="sFAQCreateZipFile"
+></sectionRef
+>, <object
+type="tXLingPap"
+></object
+> does not try to handle publisher-specific front matter pages.</p
 ><p
 >If you note any odd results or errors, please send an email message to <link
 href="mailto:xlingpaper_support@sil.org"
 >xlingpaper_support@sil.org</link
->.<endnote
-id="nCalibreFailSpaceInDirectoryName"
-><p
->Some have had the process fail when there was a space in a directory name on the path to your file. Try putting your file(s) in a directory without a space in the name.</p
-></endnote
-></p
+>.</p
 ></section2
 ><section2
 id="sFAQHandleBookFrontMatter"
@@ -27370,7 +27811,7 @@ type="tAttrValue"
 ><section2
 id="sFindAnElement"
 ><secTitle
->Find an Element (e.g. <object
+>Find an Element (e.g., <object
 type="tElement"
 >comment</object
 >)?</secTitle
@@ -27795,6 +28236,126 @@ type="tMathML"
 ></object
 > file. The output will then use the SVG or the PDF version as appropriate and the mathematical formula or matrix will show in the output.</p
 ></section2
+><section2
+id="sFAQSortReferences"
+><secTitle
+>Sort a master list of references file</secTitle
+><p
+><indexedItem
+term="iReferencesSortMasterFile"
+></indexedItem
+>Sometimes you may find that your master list of references file (see section <sectionRef
+sec="sFAQReferences"
+></sectionRef
+>) is not sorted by author name. You can sort this by doing the following:<endnote
+id="nSortReferences"
+><p
+>We are indebted to Kent Rasmussen for providing the transform to make this possible.</p
+></endnote
+></p
+><ol
+><li
+>In <object
+type="tXMLmindXMLEditor"
+></object
+>, open your <object
+type="tXLingPap"
+></object
+> master references document.</li
+><li
+>Use <object
+type="tInstruction"
+>Tools</object
+> menu item / <object
+type="tInstruction"
+>Execute Command...</object
+>.<endnoteRef
+note="nToolMenuExecuteCommand"
+></endnoteRef
+></li
+><li
+>In the dialog box that comes up, in the “Command” text box, type “So” (it should then fill in “SortReferences” for you). Note that there is another command called “SortReferencesUnified” available. This command will sort your references using the Unified style sheet method.</li
+><li
+>Press the <object
+type="tKey"
+>Enter</object
+> key or click on <object
+type="tInstruction"
+>OK</object
+>.</li
+><li
+>This will then create a new <object
+type="tXLingPap"
+></object
+> document with the same name as the master references document but with the addition of “Sorted” at the end of the file name proper. This new file will appear in the same directory as your master references document. This new document will also be automatically loaded into the <object
+type="tXMLmindXMLEditor"
+></object
+> for your perusal.</li
+></ol
+><p
+>You can then copy the <object
+type="tElement"
+>references</object
+> element from that new document into your master references file at its <object
+type="tElement"
+>references</object
+> element.</p
+></section2
+><section2
+id="sFAQFindDiuplicateAuthors"
+><secTitle
+>Find duplicate <object
+type="tElement"
+>refAuthor</object
+> elements</secTitle
+><p
+><indexedItem
+term="iReferencesFindDuplicateAuthors"
+></indexedItem
+>Sometimes you may inadvertently create two or more <object
+type="tElement"
+>refAuthor</object
+> elements with the same author name. There is a special command you can use to find these. Do the following:</p
+><ol
+><li
+>In <object
+type="tXMLmindXMLEditor"
+></object
+>, open your <object
+type="tXLingPap"
+></object
+> document.</li
+><li
+>Use <object
+type="tInstruction"
+>Tools</object
+> menu item / <object
+type="tInstruction"
+>Execute Command...</object
+>.<endnoteRef
+note="nToolMenuExecuteCommand"
+></endnoteRef
+></li
+><li
+>In the dialog box that comes up, in the “Command” text box, type “Fi” (it should then fill in “FindAnyDuplicateAuthors” for you).</li
+><li
+>Press the <object
+type="tKey"
+>Enter</object
+> key or click on <object
+type="tInstruction"
+>OK</object
+>.</li
+><li
+>This will then check for duplicate author names. If it finds any, then it will display a dialog box showing the duplicates. You can click on the number within square brackets and <object
+type="tXLingPap"
+></object
+> will take you to where the duplicate <object
+type="tElement"
+>refAuthor</object
+> element is. If it does not find any duplicates, it will give a message saying so.</li
+></ol
+></section2
 ></section1
 ><section1
 id="sBeingProductive"
@@ -27843,7 +28404,7 @@ type="tInstruction"
 >Convert...</object
 ></li
 ><li
->Select the element you want to wrap the text in (e.g. <object
+>Select the element you want to wrap the text in (e.g., <object
 type="tElement"
 >object</object
 >).</li
@@ -27871,7 +28432,7 @@ type="tInstruction"
 >Convert[Wrap]...</object
 ></li
 ><li
->Select the element you want to wrap the text in (e.g. <object
+>Select the element you want to wrap the text in (e.g., <object
 type="tElement"
 >object</object
 >).</li
@@ -28278,6 +28839,32 @@ lang="lEng"
 ><td
 ><langData
 lang="lEng"
+> <object
+type="tAttribute"
+>showVolumeInContents</object
+></langData
+></td
+><td
+><object
+type="tAttrValue"
+>yes</object
+> or <object
+type="tAttrValue"
+>no</object
+>; the default value is <object
+type="tAttrValue"
+>no</object
+>.</td
+><td
+>Whether or not to include volume information in the table of contents. See section <sectionRef
+sec="sMultivolumeBook"
+></sectionRef
+>.</td
+></tr
+><tr
+><td
+><langData
+lang="lEng"
 > <indexedItem
 term="iStartingPageNumber"
 ></indexedItem
@@ -28339,6 +28926,59 @@ lang="lEng"
 ></td
 ><td
 >This is to notate what version this paper is in. It is not output.</td
+></tr
+><tr
+><td
+><langData
+lang="lEng"
+> <object
+type="tAttribute"
+>whichVolumeToShowInContents</object
+></langData
+></td
+><td
+><object
+type="tAttrValue"
+>all</object
+>, <object
+type="tAttrValue"
+>1</object
+>, <object
+type="tAttrValue"
+>2</object
+>, <object
+type="tAttrValue"
+>3</object
+>, <object
+type="tAttrValue"
+>4</object
+>, <object
+type="tAttrValue"
+>5</object
+>, <object
+type="tAttrValue"
+>6</object
+>, <object
+type="tAttrValue"
+>7</object
+>, <object
+type="tAttrValue"
+>8</object
+>, <object
+type="tAttrValue"
+>9</object
+>, <object
+type="tAttrValue"
+>10</object
+>; the default value is <object
+type="tAttrValue"
+>all</object
+>.</td
+><td
+>This indicates which volume(s) to include in the table of contents when producing output. See section <sectionRef
+sec="sMultivolumeBook"
+></sectionRef
+>.</td
 ></tr
 ></table
 ></example
@@ -28552,6 +29192,7 @@ id="sFramedUnits"
 >Framed Units</secTitle
 ><p
 ><indexedItem
+main="yes"
 term="iFramedUnit"
 ></indexedItem
 >When writing a text book or perhaps when providing certain kinds of documentation, you may want to set off some material within a frame. For example, in a text book you may want to show what a sample write-up for a given topic might look like, including one or more examples along with a prose description. For such things, one wants to have a line around some indented material and maybe even have a special background color to set it off from the rest of the text material.</p
@@ -28693,7 +29334,7 @@ lang="lEng"
 ><td
 ><langData
 lang="lEng"
->Some descriptive text you can use to help yourself remember what kind of framed unit this framed type is for. For example, “Sample write-up”, "Program output", etc..</langData
+>Some descriptive text you can use to help yourself remember what kind of framed unit this framed type is for. For example, “Sample write-up”, "Program output", etc.</langData
 ></td
 ></tr
 ><tr
@@ -29684,6 +30325,9 @@ type="tAttrValue"
 >no</object
 > (which is the default).</p
 ><p
+><indexedItem
+term="iInterlinearLinesToInclude"
+></indexedItem
 >When it comes to lines in an interlinear text, there may also be times when you wish only certain lines to be included in the output. You can do this by first making sure that the <object
 type="tElement"
 >interlinear-text</object
@@ -29977,7 +30621,7 @@ type="tAttribute"
 > attribute. You will need to key in the id of one of the <object
 type="tElement"
 >language</object
-> elements in your document (e.g. <object
+> elements in your document (e.g., <object
 type="tAttrValue"
 >en</object
 > for English, <object
@@ -30582,6 +31226,101 @@ type="tElement"
 > element, type in its label in its language, and then set its content type to its language.</p
 ></section2
 ></section1
+><section1
+id="sMultivolumeBook"
+><secTitle
+>Multi-volume Book</secTitle
+><p
+><indexedItem
+term="iMultivolumeBook"
+></indexedItem
+>When you have a book that is too long to be printed as a single volume, one can follow the following process. The idea is that the table of contents for the first volume will include everything in the entire document, including labels for where each volume begins. The table of contents for the last volume will only have the volume label for that last volume and all content in that volume, including all the back matter. If there are any middle volumes, each one's table of contents will only have the volume label for that volume and the content for that volume.</p
+><p
+>In order to ensure that all material is present, you will need to produce a separate (PDF) output for each volume that includes all of the document with the exception of the table of contents portion. That is, when you produce volume 2, say, the output will have everything in the entire document in it, but the table of contents will only have what needs to be in volume 2.</p
+><p
+>After producing these PDF files, you then will need to manually create the PDF that will be used to print each volume. See section <sectionRef
+sec="sFAQHandleBookFrontMatter"
+></sectionRef
+> for ideas on this. You will need to use a PDF editing tool to copy the volume one portions into the volume one output file, the volume two portions into the volume two output file, etc.</p
+><p
+>The following sections provide some more details.</p
+><section2
+id="MultivolumeBookColume"
+><secTitle
+>Insert <object
+type="tElement"
+>volume</object
+> Elements</secTitle
+><p
+>In your document, insert <object
+type="tElement"
+>volume</object
+> elements before the <object
+type="tElement"
+>contents</object
+> element and before the <object
+type="tElement"
+>part</object
+>, <object
+type="tElement"
+>chapter</object
+>, or <object
+type="tElement"
+>chapterICollection</object
+> element that begins the next volume. <indexedItem
+term="iMultivolumeBookVolumeNumber"
+></indexedItem
+>For each <object
+type="tElement"
+>volume</object
+> element, set its <object
+type="tAttribute"
+>number</object
+> attribute. Unlike other elements, we leave it up to you to choose how you want to represent the number (e.g., digit, roman numeral, the number word in the language of the document, etc.). <indexedItem
+term="iMultivolumeBookVolumeLabel"
+></indexedItem
+>If “Volume” is the incorrect label, change its <object
+type="tAttribute"
+>label</object
+> attribute.</p
+></section2
+><section2
+id="sMultivolumeBookPublishingInfo"
+><secTitle
+>Adjust the <object
+type="tElement"
+>publishingInfo</object
+> Element</secTitle
+><p
+>You will need to produce the PDF separately for each volume. You control which volumes show in the table of contents by setting the following two attributes in the <object
+type="tElement"
+>publishingInfo</object
+> element:</p
+><ol
+><li
+>Set the <object
+type="tAttribute"
+>showVolumeInContents</object
+> attribute to <object
+type="tAttribute"
+></object
+><object
+type="tAttrValue"
+>yes</object
+>.</li
+><li
+>Set the <object
+type="tAttribute"
+>whichVolumeToShowInContents</object
+> attribute to <object
+type="tAttrValue"
+>all</object
+> for the first volume; set it to the number of the volume for each other volume.</li
+></ol
+><p
+>Then produce the output. Check the table of contents to make sure each is correct. When it is, use a PDF editing tool to produce your volume's final PDF file.</p
+></section2
+></section1
 ><backMatter
 ><appendix
 id="aElements"
@@ -30772,7 +31511,7 @@ type="tElement"
 >authorRole</object
 ></dt
 ><dd
->The role of the author in the paper (e.g. editor, illustrator, etc.)</dd
+>The role of the author in the paper (e.g., editor, illustrator, etc.)</dd
 ><dt
 ><object
 type="tElement"
@@ -30808,6 +31547,13 @@ type="tElement"
 ></dt
 ><dd
 >Total page count for a book</dd
+><dt
+><object
+type="tElement"
+>bookversion</object
+></dt
+><dd
+>The version number of a book</dd
 ><dt
 ><object
 type="tElement"
@@ -30909,6 +31655,13 @@ type="tElement"
 ></dt
 ><dd
 >Reference information for an editor of a collection of papers volume; using initials instead of author's first (etc.) name(s)</dd
+><dt
+><object
+type="tElement"
+>collEdSurnameGivenName</object
+></dt
+><dd
+>Reference information for an editor of a collection of papers volume, using the "surname, given name" form for all author names</dd
 ><dt
 ><object
 type="tElement"
@@ -31142,6 +31895,20 @@ type="tElement"
 ><dt
 ><object
 type="tElement"
+>editorInitials</object
+></dt
+><dd
+>The editor of a book that has authors and is not a collection, using initials instead of author's first (etc.) name(s)</dd
+><dt
+><object
+type="tElement"
+>editorSurnameGivenName</object
+></dt
+><dd
+>The editor of a book that has authors and is not a collection, using the "surname, given name" form for all author names</dd
+><dt
+><object
+type="tElement"
 >emailAddress</object
 ></dt
 ><dd
@@ -31194,7 +31961,7 @@ type="tElement"
 >exampleHeading</object
 ></dt
 ><dd
->A “heading” in an example; this is a way to label or tag what is being shown in an example; e.g. a language or a construction</dd
+>A “heading” in an example; this is a way to label or tag what is being shown in an example; e.g., a language or a construction</dd
 ><dt
 ><object
 type="tElement"
@@ -31784,7 +32551,10 @@ type="tElement"
 >mediaObject</object
 ></dt
 ><dd
->Used to embed a sound or movie file. Only works with the <object
+>Used to embed a sound or movie file. Only works with the default <object
+type="tXeTeX"
+></object
+> way of producing PDF and the <object
 type="tRenderX"
 ></object
 > way of producing PDF.</dd
@@ -31942,6 +32712,13 @@ type="tElement"
 ><dt
 ><object
 type="tElement"
+>procEdSurnameGivenName</object
+></dt
+><dd
+>Reference information for the editor(s) of a proceedings volume, using the "surname, given name" form for all author names</dd
+><dt
+><object
+type="tElement"
 >procPages</object
 ></dt
 ><dd
@@ -32054,6 +32831,13 @@ type="tElement"
 ><dt
 ><object
 type="tElement"
+>refAuthorSurnameGivenName</object
+></dt
+><dd
+>Reference information for an author, using the "surname, given name" form for all author names</dd
+><dt
+><object
+type="tElement"
 >refDate</object
 ></dt
 ><dd
@@ -32136,7 +32920,7 @@ type="tElement"
 >section2</object
 ></dt
 ><dd
->A level two section of the paper (i.e. a sub-section)</dd
+>A level two section of the paper (i.e., a sub-section)</dd
 ><dt
 ><object
 type="tElement"
@@ -32231,6 +33015,13 @@ type="tElement"
 ><dt
 ><object
 type="tElement"
+>seriesEdSurnameGivenName</object
+></dt
+><dd
+>Reference information for the editor(s) (using the "surname, given name" form for all author names) of a book that is published within a series</dd
+><dt
+><object
+type="tElement"
 >secTitle</object
 ></dt
 ><dd
@@ -32268,7 +33059,7 @@ type="tElement"
 >source</object
 ></dt
 ><dd
->The source information of an interlinear text (e.g. who gave the textl, where, when, etc.)</dd
+>The source information of an interlinear text (e.g., who gave the text, where, when, etc.)</dd
 ><dt
 ><object
 type="tElement"
@@ -32442,6 +33233,13 @@ type="tElement"
 ></dt
 ><dd
 >The version number of the paper</dd
+><dt
+><object
+type="tElement"
+>volume</object
+></dt
+><dd
+>Indicates the beginning of a volume in a multi-volume book</dd
 ><dt
 ><object
 type="tElement"
@@ -32691,6 +33489,13 @@ type="tElement"
 ></dt
 ><dd
 >Layout info for the total pages of a book (within references)</dd
+><dt
+><object
+type="tElement"
+>bookversionItem</object
+></dt
+><dd
+>Layout info for the version number of a book (within references)</dd
 ><dt
 ><object
 type="tElement"
@@ -33183,7 +33988,7 @@ type="tElement"
 >Layout info for <object
 type="tElement"
 >gloss</object
-> elements which are in prose (i.e. non-<object
+> elements which are in prose (i.e., non-<object
 type="tElement"
 >example</object
 > and non-<object
@@ -33331,6 +34136,13 @@ type="tElement"
 ></dt
 ><dd
 >Margin to use for the header</dd
+><dt
+><object
+type="tElement"
+>imageBorderLayout</object
+></dt
+><dd
+>Layout for a border on an image</dd
 ><dt
 ><object
 type="tElement"
@@ -33498,7 +34310,7 @@ type="tElement"
 >Layout info for <object
 type="tElement"
 >langData</object
-> elements which are in prose (i.e. non-<object
+> elements which are in prose (i.e., non-<object
 type="tElement"
 >example</object
 > and non-<object
@@ -33767,6 +34579,13 @@ type="tElement"
 ><dt
 ><object
 type="tElement"
+>paragraphAlignment</object
+></dt
+><dd
+>Alignment to use for paragraphs</dd
+><dt
+><object
+type="tElement"
 >paragraphIndent</object
 ></dt
 ><dd
@@ -33903,6 +34722,23 @@ type="tElement"
 ><dt
 ><object
 type="tElement"
+>publisherStyleSheetDate</object
+></dt
+><dd
+>A date for the style sheet</dd
+><dt
+><object
+type="tElement"
+>publisherStyleSheetDateAccessed</object
+></dt
+><dd
+>The date when the url was accessed (see <object
+type="tElement"
+>publisherStyleSheetUrl</object
+> below)</dd
+><dt
+><object
+type="tElement"
 >publisherStyleSheetName</object
 ></dt
 ><dd
@@ -33928,6 +34764,13 @@ type="tElement"
 ></dt
 ><dd
 >The name of the publisher for which this is a style sheet</dd
+><dt
+><object
+type="tElement"
+>publisherStyleSheetUrl</object
+></dt
+><dd
+>A URL indicating where the style sheet information came from</dd
 ><dt
 ><object
 type="tElement"
@@ -34147,7 +34990,14 @@ type="tElement"
 >seriesItem</object
 ></dt
 ><dd
->Layout info for a series item (withiin references)</dd
+>Layout info for a series item (within references)</dd
+><dt
+><object
+type="tElement"
+>shortSubsectionLayout</object
+></dt
+><dd
+>Layout info for a short subsection</dd
 ><dt
 ><object
 type="tElement"
@@ -34321,6 +35171,13 @@ type="tElement"
 ></dt
 ><dd
 >Indicates to use the author(s) of the volume in a header or footer</dd
+><dt
+><object
+type="tElement"
+>volumeLayout</object
+></dt
+><dd
+>Layout info for a volume element in the table of contents</dd
 ><dt
 ><object
 type="tElement"
@@ -35021,10 +35878,10 @@ type="tElement"
 > or <object
 type="tElement"
 >th</object
-> element.  The value to use is the number of extra columns the cell should have before it.  For example, if a cell should be in column four, but shows in column three and there are no other cells before it, use <object
+> element. The value to use is the number of extra columns the cell should have before it. For example, if a cell should be in column four, but shows in column three and there are no other cells before it, use <object
 type="tAttrValue"
 >extra-columns-before='3'</object
->.  If the cell is in column six and there is a cell in column four of this same row (and column five is empty because a row span takes its place), use <object
+>. If the cell is in column six and there is a cell in column four of this same row (and column five is empty because a row span takes its place), use <object
 type="tAttrValue"
 >extra-columns-before='1'</object
 >.</td
@@ -37199,6 +38056,11 @@ id="iImageFiles"
 >Image files</term
 ><indexTerms
 ><indexTerm
+id="iBorderAroundGraphic"
+><term
+>Border around an image</term
+></indexTerm
+><indexTerm
 id="iCenterGraphic"
 ><term
 >Center an image</term
@@ -37383,6 +38245,11 @@ id="iInterlinearList"
 id="iInterlinearGloss"
 ><term
 >Gloss in</term
+></indexTerm
+><indexTerm
+id="iInterlinearLinesToInclude"
+><term
+>Lines to include</term
 ></indexTerm
 ><indexTerm
 id="iInterlinearLiteral"
@@ -37709,6 +38576,23 @@ id="iMultilingualDoc"
 >Multilingual document</term
 ></indexTerm
 ><indexTerm
+id="iMultivolumeBook"
+><term
+>Mulitvolume book, producing</term
+><indexTerms
+><indexTerm
+id="iMultivolumeBookVolumeLabel"
+><term
+>Volume label</term
+></indexTerm
+><indexTerm
+id="iMultivolumeBookVolumeNumber"
+><term
+>Volume number</term
+></indexTerm
+></indexTerms
+></indexTerm
+><indexTerm
 id="iMultivoumeWork"
 ><term
 >Volume in a multivolume work in a reference entry</term
@@ -38031,6 +38915,11 @@ type="tEndnoteXML"
 ></term
 ></indexTerm
 ><indexTerm
+id="iReferencesFindDuplicateAuthors"
+><term
+>Find duplicate authors</term
+></indexTerm
+><indexTerm
 id="iJumpToReferences"
 ><term
 >Jump to References</term
@@ -38048,7 +38937,12 @@ id="iReferencesSelectedReferences"
 ><indexTerm
 id="iReferencesSort"
 ><term
->Sort by author name</term
+>Sort by author name on output</term
+></indexTerm
+><indexTerm
+id="iReferencesSortMasterFile"
+><term
+>Sort master references file by author name</term
 ></indexTerm
 ><indexTerm
 id="iReferencesWorksCited"
@@ -38148,6 +39042,11 @@ id="iSectionReferenceShowTitle"
 ></indexTerms
 ></indexTerm
 ><indexTerm
+id="iSectionShortSubsections"
+><term
+>Short subsections</term
+></indexTerm
+><indexTerm
 id="iSectionTitle"
 see="iTitleSection"
 ><term
@@ -38199,7 +39098,13 @@ see="iIndexesSorting"
 id="iSortReferences"
 see="iReferencesSort"
 ><term
->References</term
+>References on output</term
+></indexTerm
+><indexTerm
+id="iSortReferencesMaster"
+see="iReferencesSortMasterFile"
+><term
+>References in master list</term
 ></indexTerm
 ></indexTerms
 ></indexTerm
@@ -38575,6 +39480,12 @@ id="iValidityTool"
 id="iVersion"
 ><term
 >Version</term
+></indexTerm
+><indexTerm
+id="iVolumeMultiProduce"
+see="iMultivolumeBook"
+><term
+>Volume in a multivolume document, producing</term
 ></indexTerm
 ><indexTerm
 id="iVolumeOfPapers"

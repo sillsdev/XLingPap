@@ -1,5 +1,58 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet version="1.1" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:saxon="http://icl.com/saxon">
+    <xsl:variable name="tocHangingIndent">
+        <xsl:variable name="value" select="normalize-space($frontMatterLayoutInfo/contentsLayout/@hangingindent)"/>
+        <xsl:choose>
+            <xsl:when test="string-length($value) &gt; 0">
+                <xsl:value-of select="$value"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:text>0pt</xsl:text>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:variable>
+    <xsl:variable name="tocChapterHangingIndent">
+        <xsl:variable name="value" select="normalize-space($frontMatterLayoutInfo/contentsLayout/@chapterhangingindent)"/>
+        <xsl:call-template name="SetTocHangingIndent">
+            <xsl:with-param name="value" select="$value"/>
+        </xsl:call-template>
+    </xsl:variable>
+    <xsl:variable name="tocSection1HangingIndent">
+        <xsl:variable name="value" select="normalize-space($frontMatterLayoutInfo/contentsLayout/@section1hangingindent)"/>
+        <xsl:call-template name="SetTocHangingIndent">
+            <xsl:with-param name="value" select="$value"/>
+        </xsl:call-template>
+    </xsl:variable>
+    <xsl:variable name="tocSection2HangingIndent">
+        <xsl:variable name="value" select="normalize-space($frontMatterLayoutInfo/contentsLayout/@section2hangingindent)"/>
+        <xsl:call-template name="SetTocHangingIndent">
+            <xsl:with-param name="value" select="$value"/>
+        </xsl:call-template>
+    </xsl:variable>
+    <xsl:variable name="tocSection3HangingIndent">
+        <xsl:variable name="value" select="normalize-space($frontMatterLayoutInfo/contentsLayout/@section3hangingindent)"/>
+        <xsl:call-template name="SetTocHangingIndent">
+            <xsl:with-param name="value" select="$value"/>
+        </xsl:call-template>
+    </xsl:variable>
+    <xsl:variable name="tocSection4HangingIndent">
+        <xsl:variable name="value" select="normalize-space($frontMatterLayoutInfo/contentsLayout/@section4hangingindent)"/>
+        <xsl:call-template name="SetTocHangingIndent">
+            <xsl:with-param name="value" select="$value"/>
+        </xsl:call-template>
+    </xsl:variable>
+    <xsl:variable name="tocSection5HangingIndent">
+        <xsl:variable name="value" select="normalize-space($frontMatterLayoutInfo/contentsLayout/@section5hangingindent)"/>
+        <xsl:call-template name="SetTocHangingIndent">
+            <xsl:with-param name="value" select="$value"/>
+        </xsl:call-template>
+    </xsl:variable>
+    <xsl:variable name="tocSection6HangingIndent">
+        <xsl:variable name="value" select="normalize-space($frontMatterLayoutInfo/contentsLayout/@section6hangingindent)"/>
+        <xsl:call-template name="SetTocHangingIndent">
+            <xsl:with-param name="value" select="$value"/>
+        </xsl:call-template>
+    </xsl:variable>
     <!--
         abstract  (contents)
     -->
@@ -143,64 +196,43 @@
                 </xsl:call-template>
             </xsl:if>
         </xsl:if>
-        <xsl:variable name="sChapterLineIndent" select="normalize-space($contentsLayoutToUse/@chapterlineindent)"/>
-        <xsl:if test="string-length($sChapterLineIndent)&gt;0">
-            <xsl:call-template name="SetChapterNumberWidth">
+        <xsl:variable name="precedingVolume" select="preceding-sibling::*[1][name()='volume']"/>
+        <xsl:if test="$precedingVolume and name(.)!='chapterBeforePart'">
+            <xsl:call-template name="OutputVolumeInContents">
+                <xsl:with-param name="volume" select="$precedingVolume"/>
                 <xsl:with-param name="contentsLayoutToUse" select="$contentsLayoutToUse"/>
             </xsl:call-template>
         </xsl:if>
-        <xsl:call-template name="OutputTOCLine">
-            <xsl:with-param name="sLink" select="@id"/>
-            <xsl:with-param name="sLabel">
-                <xsl:call-template name="OutputChapterNumber">
-                    <xsl:with-param name="fDoingContents" select="'Y'"/>
-                </xsl:call-template>
-                <xsl:if test="saxon:node-set($contentsLayoutToUse)/@useperiodafterchapternumber='yes'">
-                    <xsl:text>.</xsl:text>
-                </xsl:if>
-                <xsl:text>&#xa0; </xsl:text>
-                <xsl:if test="string-length($sChapterLineIndent)&gt;0">
-                    <xsl:call-template name="AddWordSpace"/>
-                </xsl:if>
-                <xsl:apply-templates select="secTitle" mode="contents"/>
-            </xsl:with-param>
-            <xsl:with-param name="sSpaceBefore">
-                <xsl:call-template name="DoSpaceBeforeContentsLine"/>
-            </xsl:with-param>
-            <xsl:with-param name="sIndent">
+        <xsl:choose>
+            <xsl:when test="$volumes and $publishingInfo/@showVolumeInContents='yes'">
                 <xsl:choose>
-                    <xsl:when test="string-length($sChapterLineIndent)&gt;0">
-                        <xsl:value-of select="$sChapterLineIndent"/>
+                    <xsl:when test="$publishingInfo/@whichVolumeToShowInContents='all'">
+                        <xsl:call-template name="OutputContentsChapter">
+                            <xsl:with-param name="nLevel" select="$nLevel"/>
+                            <xsl:with-param name="contentsLayoutToUse" select="$contentsLayoutToUse"/>
+                        </xsl:call-template>
                     </xsl:when>
-                    <xsl:otherwise>
-                        <xsl:text>0pt</xsl:text>
-                    </xsl:otherwise>
+                    <xsl:when test="$publishingInfo/@whichVolumeToShowInContents=count(preceding-sibling::volume)+1">
+                        <xsl:call-template name="OutputContentsChapter">
+                            <xsl:with-param name="nLevel" select="$nLevel"/>
+                            <xsl:with-param name="contentsLayoutToUse" select="$contentsLayoutToUse"/>
+                        </xsl:call-template>
+                    </xsl:when>
+                    <xsl:when test="parent::part">
+                        <xsl:call-template name="OutputContentsChapter">
+                            <xsl:with-param name="nLevel" select="$nLevel"/>
+                            <xsl:with-param name="contentsLayoutToUse" select="$contentsLayoutToUse"/>
+                        </xsl:call-template>
+                    </xsl:when>
                 </xsl:choose>
-            </xsl:with-param>
-            <xsl:with-param name="sNumWidth">
-                <xsl:call-template name="DoChapterNumberWidth">
-                    <xsl:with-param name="sChapterLineIndent" select="$sChapterLineIndent"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:call-template name="OutputContentsChapter">
+                    <xsl:with-param name="nLevel" select="$nLevel"/>
+                    <xsl:with-param name="contentsLayoutToUse" select="$contentsLayoutToUse"/>
                 </xsl:call-template>
-            </xsl:with-param>
-            <xsl:with-param name="fUseHalfSpacing">
-                <xsl:choose>
-                    <xsl:when test="position()=1">
-                        <xsl:text>Y</xsl:text>
-                    </xsl:when>
-                    <xsl:otherwise>
-                        <xsl:text>N</xsl:text>
-                    </xsl:otherwise>
-                </xsl:choose>
-            </xsl:with-param>
-            <xsl:with-param name="contentsLayoutToUse" select="$contentsLayoutToUse"/>
-        </xsl:call-template>
-        <xsl:apply-templates select="shortTitle" mode="contents"/>
-        <xsl:if test="$nLevel!=0">
-            <xsl:apply-templates select="section1 | section2" mode="contents">
-                <xsl:with-param name="nLevel" select="$nLevel"/>
-                <xsl:with-param name="contentsLayoutToUse" select="$contentsLayoutToUse"/>
-            </xsl:apply-templates>
-        </xsl:if>
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
     <xsl:template match="chapterInCollection" mode="contents">
         <xsl:param name="nLevel" select="$nLevel"/>
@@ -212,71 +244,37 @@
                 </xsl:call-template>
             </xsl:if>
         </xsl:if>
-        <xsl:variable name="sChapterLineIndent" select="normalize-space($contentsLayoutToUse/@chapterlineindent)"/>
-        <xsl:if test="string-length($sChapterLineIndent)&gt;0">
-            <xsl:call-template name="SetChapterNumberWidth"/>
+        <xsl:variable name="precedingVolume" select="preceding-sibling::*[1][name()='volume']"/>
+        <xsl:if test="$precedingVolume">
+            <xsl:call-template name="OutputVolumeInContents">
+                <xsl:with-param name="volume" select="$precedingVolume"/>
+                <xsl:with-param name="contentsLayoutToUse" select="$contentsLayoutToUse"/>
+            </xsl:call-template>
         </xsl:if>
-        <xsl:call-template name="OutputTOCLine">
-            <xsl:with-param name="sLink" select="@id"/>
-            <xsl:with-param name="sLabel">
-                <xsl:call-template name="OutputChapterNumber"/>
-                <xsl:if test="$contentsLayoutToUse/@useperiodafterchapternumber='yes'">
-                    <xsl:text>.</xsl:text>
-                </xsl:if>
-                <xsl:text>&#xa0;</xsl:text>
-                <xsl:if test="string-length($sChapterLineIndent)&gt;0">
-                    <xsl:call-template name="AddWordSpace"/>
-                </xsl:if>
-                <xsl:apply-templates select="frontMatter/title" mode="contents"/>
-            </xsl:with-param>
-            <xsl:with-param name="sSpaceBefore">
-                <xsl:call-template name="DoSpaceBeforeContentsLine">
+        <xsl:choose>
+            <xsl:when test="$volumes and $publishingInfo/@showVolumeInContents='yes'">
+                <xsl:choose>
+                    <xsl:when test="$publishingInfo/@whichVolumeToShowInContents='all'">
+                        <xsl:call-template name="OutputContentsChapterInCollection">
+                            <xsl:with-param name="nLevel" select="$nLevel"/>
+                            <xsl:with-param name="contentsLayoutToUse" select="$contentsLayoutToUse"/>
+                        </xsl:call-template>
+                    </xsl:when>
+                    <xsl:when test="$publishingInfo/@whichVolumeToShowInContents=count(preceding-sibling::volume)+1">
+                        <xsl:call-template name="OutputContentsChapterInCollection">
+                            <xsl:with-param name="nLevel" select="$nLevel"/>
+                            <xsl:with-param name="contentsLayoutToUse" select="$contentsLayoutToUse"/>
+                        </xsl:call-template>
+                    </xsl:when>
+                </xsl:choose>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:call-template name="OutputContentsChapterInCollection">
+                    <xsl:with-param name="nLevel" select="$nLevel"/>
                     <xsl:with-param name="contentsLayoutToUse" select="$contentsLayoutToUse"/>
                 </xsl:call-template>
-            </xsl:with-param>
-            <xsl:with-param name="sIndent">
-                <xsl:choose>
-                    <xsl:when test="string-length($sChapterLineIndent)&gt;0">
-                        <xsl:value-of select="$sChapterLineIndent"/>
-                    </xsl:when>
-                    <xsl:otherwise>
-                        <xsl:text>0pt</xsl:text>
-                    </xsl:otherwise>
-                </xsl:choose>
-            </xsl:with-param>
-            <xsl:with-param name="sNumWidth">
-                <xsl:call-template name="DoChapterNumberWidth">
-                    <xsl:with-param name="sChapterLineIndent" select="$sChapterLineIndent"/>
-                </xsl:call-template>
-            </xsl:with-param>
-            <xsl:with-param name="fUseHalfSpacing">
-                <xsl:choose>
-                    <xsl:when test="position()=1">
-                        <xsl:text>Y</xsl:text>
-                    </xsl:when>
-                    <xsl:otherwise>
-                        <xsl:text>N</xsl:text>
-                    </xsl:otherwise>
-                </xsl:choose>
-            </xsl:with-param>
-            <xsl:with-param name="contentsLayoutToUse" select="$contentsLayoutToUse"/>
-        </xsl:call-template>
-        <xsl:call-template name="DoAuthorOfChapterInCollectionInContents"/>
-        <xsl:if test="$nLevel!=0">
-            <xsl:call-template name="DoFrontMatterContentsPerLayout">
-                <xsl:with-param name="frontMatter" select="frontMatter"/>
-            </xsl:call-template>
-            <xsl:apply-templates select="section1" mode="contents">
-                <xsl:with-param name="nLevel" select="$nLevel"/>
-                <xsl:with-param name="contentsLayoutToUse" select="$contentsLayoutToUse"/>
-            </xsl:apply-templates>
-            <xsl:call-template name="DoBackMatterContentsPerLayout">
-                <xsl:with-param name="nLevel" select="$nLevel"/>
-                <xsl:with-param name="backMatter" select="backMatter"/>
-                <xsl:with-param name="backMatterLayout" select="$bodyLayoutInfo/chapterInCollectionBackMatterLayout"/>
-                <xsl:with-param name="contentsLayoutToUse" select="$contentsLayoutToUse"/>
-            </xsl:call-template>
-        </xsl:if>
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
     <!--
         contents  (contents)
@@ -443,6 +441,44 @@
             <xsl:with-param name="contentsLayoutToUse" select="$contentsLayoutToUse"/>
         </xsl:call-template>
     </xsl:template>
+    <!-- 
+        part (contents) 
+    -->
+    <xsl:template match="part" mode="contents">
+        <xsl:param name="nLevel" select="$nLevel"/>
+        <xsl:param name="contentsLayoutToUse" select="saxon:node-set($contentsLayout)/contentsLayout"/>
+        <xsl:variable name="precedingVolume" select="preceding-sibling::*[1][name()='volume']"/>
+        <xsl:if test="$precedingVolume">
+            <xsl:call-template name="OutputVolumeInContents">
+                <xsl:with-param name="volume" select="$precedingVolume"/>
+                <xsl:with-param name="contentsLayoutToUse" select="$contentsLayoutToUse"/>
+            </xsl:call-template>
+        </xsl:if>
+        <xsl:choose>
+            <xsl:when test="$volumes and $publishingInfo/@showVolumeInContents='yes'">
+                <xsl:choose>
+                    <xsl:when test="$publishingInfo/@whichVolumeToShowInContents='all'">
+                        <xsl:call-template name="OutputContentsPart">
+                            <xsl:with-param name="nLevel" select="$nLevel"/>
+                            <xsl:with-param name="contentsLayoutToUse" select="$contentsLayoutToUse"/>
+                        </xsl:call-template>
+                    </xsl:when>
+                    <xsl:when test="$publishingInfo/@whichVolumeToShowInContents=count(preceding-sibling::volume)+1">
+                        <xsl:call-template name="OutputContentsPart">
+                            <xsl:with-param name="nLevel" select="$nLevel"/>
+                            <xsl:with-param name="contentsLayoutToUse" select="$contentsLayoutToUse"/>
+                        </xsl:call-template>
+                    </xsl:when>
+                </xsl:choose>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:call-template name="OutputContentsPart">
+                    <xsl:with-param name="nLevel" select="$nLevel"/>
+                    <xsl:with-param name="contentsLayoutToUse" select="$contentsLayoutToUse"/>
+                </xsl:call-template>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
     <!--
         preface (contents)
     -->
@@ -497,7 +533,9 @@
     <xsl:template match="references" mode="contents">
         <xsl:param name="text-transform"/>
         <xsl:param name="contentsLayoutToUse"/>
-        <xsl:variable name="authors" select="//refAuthor[refWork/@id=//citation[not(ancestor::comment)]/@ref]"/>
+<!--        <xsl:variable name="authors" select="//refAuthor[refWork/@id=//citation[not(ancestor::comment)]/@ref]"/>-->
+        <xsl:variable name="authors"
+            select="//refAuthor[refWork[@id=$citations[not(ancestor::comment) and not(ancestor::referencedInterlinearText) and not(ancestor::glossaryTerm) and not(ancestor::abbrDefinition)][not(ancestor::refWork) or ancestor::annotation[@id=//annotationRef/@annotation] or ancestor::refWork[@id=$citations[not(ancestor::refWork)]/@ref]]/@ref]]"/>
         <xsl:if test="$authors">
             <xsl:call-template name="OutputTOCLine">
                 <xsl:with-param name="sLink">
@@ -535,15 +573,17 @@
         <xsl:variable name="iLevel">
             <xsl:value-of select="count(ancestor::section1) + count(ancestor::chapter | ancestor::chapterInCollection) + count(ancestor::chapterBeforePart) + count(ancestor::appendix)"/>
         </xsl:variable>
-        <xsl:call-template name="OutputSectionTOC">
-            <xsl:with-param name="sLevel" select="$iLevel"/>
-            <xsl:with-param name="contentsLayoutToUse" select="$contentsLayoutToUse"/>
-        </xsl:call-template>
-        <xsl:if test="$nLevel>=3 and $bodyLayoutInfo/section3Layout/@ignore!='yes'">
-            <xsl:apply-templates select="section3" mode="contents">
-                <xsl:with-param name="nLevel" select="$nLevel"/>
+        <xsl:if test="parent::*[@subsectionsAreShort!='yes' or @excludeShortSubsectionsFromContents!='yes' or name()='appendix']">
+            <xsl:call-template name="OutputSectionTOC">
+                <xsl:with-param name="sLevel" select="$iLevel"/>
                 <xsl:with-param name="contentsLayoutToUse" select="$contentsLayoutToUse"/>
-            </xsl:apply-templates>
+            </xsl:call-template>
+            <xsl:if test="$nLevel>=3 and $bodyLayoutInfo/section3Layout/@ignore!='yes'">
+                <xsl:apply-templates select="section3" mode="contents">
+                    <xsl:with-param name="nLevel" select="$nLevel"/>
+                    <xsl:with-param name="contentsLayoutToUse" select="$contentsLayoutToUse"/>
+                </xsl:apply-templates>
+            </xsl:if>
         </xsl:if>
     </xsl:template>
     <!-- 
@@ -555,15 +595,17 @@
         <xsl:variable name="iLevel">
             <xsl:value-of select="1 + count(ancestor::section1) + count(ancestor::chapter | ancestor::chapterInCollection) + count(ancestor::chapterBeforePart) + count(ancestor::appendix)"/>
         </xsl:variable>
-        <xsl:call-template name="OutputSectionTOC">
-            <xsl:with-param name="sLevel" select="$iLevel"/>
-            <xsl:with-param name="contentsLayoutToUse" select="$contentsLayoutToUse"/>
-        </xsl:call-template>
-        <xsl:if test="$nLevel>=4 and $bodyLayoutInfo/section4Layout/@ignore!='yes'">
-            <xsl:apply-templates select="section4" mode="contents">
-                <xsl:with-param name="nLevel" select="$nLevel"/>
+        <xsl:if test="parent::*[@subsectionsAreShort!='yes' or @excludeShortSubsectionsFromContents!='yes']">
+            <xsl:call-template name="OutputSectionTOC">
+                <xsl:with-param name="sLevel" select="$iLevel"/>
                 <xsl:with-param name="contentsLayoutToUse" select="$contentsLayoutToUse"/>
-            </xsl:apply-templates>
+            </xsl:call-template>
+            <xsl:if test="$nLevel>=4 and $bodyLayoutInfo/section4Layout/@ignore!='yes'">
+                <xsl:apply-templates select="section4" mode="contents">
+                    <xsl:with-param name="nLevel" select="$nLevel"/>
+                    <xsl:with-param name="contentsLayoutToUse" select="$contentsLayoutToUse"/>
+                </xsl:apply-templates>
+            </xsl:if>
         </xsl:if>
     </xsl:template>
     <!-- 
@@ -575,15 +617,17 @@
         <xsl:variable name="iLevel">
             <xsl:value-of select="2 + count(ancestor::section1) + count(ancestor::chapter | ancestor::chapterInCollection) + count(ancestor::chapterBeforePart) + count(ancestor::appendix)"/>
         </xsl:variable>
-        <xsl:call-template name="OutputSectionTOC">
-            <xsl:with-param name="sLevel" select="$iLevel"/>
-            <xsl:with-param name="contentsLayoutToUse" select="$contentsLayoutToUse"/>
-        </xsl:call-template>
-        <xsl:if test="$nLevel>=5 and $bodyLayoutInfo/section5Layout/@ignore!='yes'">
-            <xsl:apply-templates select="section5" mode="contents">
-                <xsl:with-param name="nLevel" select="$nLevel"/>
+        <xsl:if test="parent::*[@subsectionsAreShort!='yes' or @excludeShortSubsectionsFromContents!='yes']">
+            <xsl:call-template name="OutputSectionTOC">
+                <xsl:with-param name="sLevel" select="$iLevel"/>
                 <xsl:with-param name="contentsLayoutToUse" select="$contentsLayoutToUse"/>
-            </xsl:apply-templates>
+            </xsl:call-template>
+            <xsl:if test="$nLevel>=5 and $bodyLayoutInfo/section5Layout/@ignore!='yes'">
+                <xsl:apply-templates select="section5" mode="contents">
+                    <xsl:with-param name="nLevel" select="$nLevel"/>
+                    <xsl:with-param name="contentsLayoutToUse" select="$contentsLayoutToUse"/>
+                </xsl:apply-templates>
+            </xsl:if>
         </xsl:if>
     </xsl:template>
     <!-- 
@@ -595,15 +639,17 @@
         <xsl:variable name="iLevel">
             <xsl:value-of select="3 + count(ancestor::section1) + count(ancestor::chapter | ancestor::chapterInCollection) + count(ancestor::chapterBeforePart) + count(ancestor::appendix)"/>
         </xsl:variable>
-        <xsl:call-template name="OutputSectionTOC">
-            <xsl:with-param name="sLevel" select="$iLevel"/>
-            <xsl:with-param name="contentsLayoutToUse" select="$contentsLayoutToUse"/>
-        </xsl:call-template>
-        <xsl:if test="$nLevel>=6 and $bodyLayoutInfo/section6Layout/@ignore!='yes'">
-            <xsl:apply-templates select="section6" mode="contents">
-                <xsl:with-param name="nLevel" select="$nLevel"/>
+        <xsl:if test="parent::*[@subsectionsAreShort!='yes' or @excludeShortSubsectionsFromContents!='yes']">
+            <xsl:call-template name="OutputSectionTOC">
+                <xsl:with-param name="sLevel" select="$iLevel"/>
                 <xsl:with-param name="contentsLayoutToUse" select="$contentsLayoutToUse"/>
-            </xsl:apply-templates>
+            </xsl:call-template>
+            <xsl:if test="$nLevel>=6 and $bodyLayoutInfo/section6Layout/@ignore!='yes'">
+                <xsl:apply-templates select="section6" mode="contents">
+                    <xsl:with-param name="nLevel" select="$nLevel"/>
+                    <xsl:with-param name="contentsLayoutToUse" select="$contentsLayoutToUse"/>
+                </xsl:apply-templates>
+            </xsl:if>
         </xsl:if>
     </xsl:template>
     <!-- 
@@ -615,10 +661,12 @@
         <xsl:variable name="iLevel">
             <xsl:value-of select="4 + count(ancestor::section1) + count(ancestor::chapter | ancestor::chapterInCollection) + count(ancestor::chapterBeforePart) + count(ancestor::appendix)"/>
         </xsl:variable>
-        <xsl:call-template name="OutputSectionTOC">
-            <xsl:with-param name="sLevel" select="$iLevel"/>
-            <xsl:with-param name="contentsLayoutToUse" select="$contentsLayoutToUse"/>
-        </xsl:call-template>
+        <xsl:if test="parent::*[@subsectionsAreShort!='yes' or @excludeShortSubsectionsFromContents!='yes']">
+            <xsl:call-template name="OutputSectionTOC">
+                <xsl:with-param name="sLevel" select="$iLevel"/>
+                <xsl:with-param name="contentsLayoutToUse" select="$contentsLayoutToUse"/>
+            </xsl:call-template>
+        </xsl:if>
     </xsl:template>
     <!-- 
         shortTitle (contents) 
@@ -673,6 +721,145 @@
             <xsl:with-param name="text-transform" select="$text-transform"/>
             <xsl:with-param name="contentsLayoutToUse" select="$contentsLayoutToUse"/>
         </xsl:call-template>
+    </xsl:template>
+    <!-- 
+        OutputContentsChapter
+    -->
+    <xsl:template name="OutputContentsChapter">
+        <xsl:param name="contentsLayoutToUse"/>
+        <xsl:param name="nLevel"/>
+        <xsl:variable name="sChapterLineIndent" select="normalize-space($contentsLayoutToUse/@chapterlineindent)"/>
+        <xsl:if test="string-length($sChapterLineIndent)&gt;0">
+            <xsl:call-template name="SetChapterNumberWidth">
+                <xsl:with-param name="contentsLayoutToUse" select="$contentsLayoutToUse"/>
+            </xsl:call-template>
+        </xsl:if>
+        <xsl:call-template name="OutputTOCLine">
+            <xsl:with-param name="sLink" select="@id"/>
+            <xsl:with-param name="sLabel">
+                <xsl:call-template name="OutputChapterNumber">
+                    <xsl:with-param name="fDoingContents" select="'Y'"/>
+                </xsl:call-template>
+                <xsl:if test="saxon:node-set($contentsLayoutToUse)/@useperiodafterchapternumber='yes'">
+                    <xsl:text>.</xsl:text>
+                </xsl:if>
+                <xsl:text>&#xa0; </xsl:text>
+                <xsl:if test="string-length($sChapterLineIndent)&gt;0">
+                    <xsl:call-template name="AddWordSpace"/>
+                </xsl:if>
+                <xsl:apply-templates select="secTitle" mode="contents"/>
+            </xsl:with-param>
+            <xsl:with-param name="sSpaceBefore">
+                <xsl:call-template name="DoSpaceBeforeContentsLine"/>
+            </xsl:with-param>
+            <xsl:with-param name="sIndent">
+                <xsl:choose>
+                    <xsl:when test="string-length($sChapterLineIndent)&gt;0">
+                        <xsl:value-of select="$sChapterLineIndent"/>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:text>0pt</xsl:text>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </xsl:with-param>
+            <xsl:with-param name="sNumWidth">
+                <xsl:call-template name="DoChapterNumberWidth">
+                    <xsl:with-param name="sChapterLineIndent" select="$sChapterLineIndent"/>
+                </xsl:call-template>
+            </xsl:with-param>
+            <xsl:with-param name="fUseHalfSpacing">
+                <xsl:choose>
+                    <xsl:when test="position()=1">
+                        <xsl:text>Y</xsl:text>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:text>N</xsl:text>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </xsl:with-param>
+            <xsl:with-param name="contentsLayoutToUse" select="$contentsLayoutToUse"/>
+            <xsl:with-param name="hangingIndent" select="$tocChapterHangingIndent"/>
+        </xsl:call-template>
+        <xsl:apply-templates select="shortTitle" mode="contents"/>
+        <xsl:if test="$nLevel!=0">
+            <xsl:apply-templates select="section1 | section2" mode="contents">
+                <xsl:with-param name="nLevel" select="$nLevel"/>
+                <xsl:with-param name="contentsLayoutToUse" select="$contentsLayoutToUse"/>
+            </xsl:apply-templates>
+        </xsl:if>
+    </xsl:template>
+    <!-- 
+        OutputContentsChapterInCollection
+    -->
+    <xsl:template name="OutputContentsChapterInCollection">
+        <xsl:param name="contentsLayoutToUse"/>
+        <xsl:param name="nLevel"/>
+        <xsl:variable name="sChapterLineIndent" select="normalize-space($contentsLayoutToUse/@chapterlineindent)"/>
+        <xsl:if test="string-length($sChapterLineIndent)&gt;0">
+            <xsl:call-template name="SetChapterNumberWidth"/>
+        </xsl:if>
+        <xsl:call-template name="OutputTOCLine">
+            <xsl:with-param name="sLink" select="@id"/>
+            <xsl:with-param name="sLabel">
+                <xsl:call-template name="OutputChapterNumber"/>
+                <xsl:if test="$contentsLayoutToUse/@useperiodafterchapternumber='yes'">
+                    <xsl:text>.</xsl:text>
+                </xsl:if>
+                <xsl:text>&#xa0;</xsl:text>
+                <xsl:if test="string-length($sChapterLineIndent)&gt;0">
+                    <xsl:call-template name="AddWordSpace"/>
+                </xsl:if>
+                <xsl:apply-templates select="frontMatter/title" mode="contents"/>
+            </xsl:with-param>
+            <xsl:with-param name="sSpaceBefore">
+                <xsl:call-template name="DoSpaceBeforeContentsLine">
+                    <xsl:with-param name="contentsLayoutToUse" select="$contentsLayoutToUse"/>
+                </xsl:call-template>
+            </xsl:with-param>
+            <xsl:with-param name="sIndent">
+                <xsl:choose>
+                    <xsl:when test="string-length($sChapterLineIndent)&gt;0">
+                        <xsl:value-of select="$sChapterLineIndent"/>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:text>0pt</xsl:text>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </xsl:with-param>
+            <xsl:with-param name="sNumWidth">
+                <xsl:call-template name="DoChapterNumberWidth">
+                    <xsl:with-param name="sChapterLineIndent" select="$sChapterLineIndent"/>
+                </xsl:call-template>
+            </xsl:with-param>
+            <xsl:with-param name="fUseHalfSpacing">
+                <xsl:choose>
+                    <xsl:when test="position()=1">
+                        <xsl:text>Y</xsl:text>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:text>N</xsl:text>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </xsl:with-param>
+            <xsl:with-param name="contentsLayoutToUse" select="$contentsLayoutToUse"/>
+            <xsl:with-param name="hangingIndent" select="$tocChapterHangingIndent"/>
+        </xsl:call-template>
+        <xsl:call-template name="DoAuthorOfChapterInCollectionInContents"/>
+        <xsl:if test="$nLevel!=0">
+            <xsl:call-template name="DoFrontMatterContentsPerLayout">
+                <xsl:with-param name="frontMatter" select="frontMatter"/>
+            </xsl:call-template>
+            <xsl:apply-templates select="section1" mode="contents">
+                <xsl:with-param name="nLevel" select="$nLevel"/>
+                <xsl:with-param name="contentsLayoutToUse" select="$contentsLayoutToUse"/>
+            </xsl:apply-templates>
+            <xsl:call-template name="DoBackMatterContentsPerLayout">
+                <xsl:with-param name="nLevel" select="$nLevel"/>
+                <xsl:with-param name="backMatter" select="backMatter"/>
+                <xsl:with-param name="backMatterLayout" select="$bodyLayoutInfo/chapterInCollectionBackMatterLayout"/>
+                <xsl:with-param name="contentsLayoutToUse" select="$contentsLayoutToUse"/>
+            </xsl:call-template>
+        </xsl:if>
     </xsl:template>
     <!-- 
         OutputGlossaryTOCLine
@@ -773,5 +960,77 @@
             <xsl:with-param name="text-transform" select="$text-transform"/>
             <xsl:with-param name="contentsLayoutToUse" select="$contentsLayoutToUse"/>
         </xsl:call-template>
+    </xsl:template>
+    <!--  
+        OutputVolumeInContents
+    -->
+    <xsl:template name="OutputVolumeInContents">
+        <xsl:param name="volume"/>
+        <xsl:param name="contentsLayoutToUse"/>
+        <xsl:if test="$volumes and $publishingInfo/@showVolumeInContents='yes'">
+            <xsl:choose>
+                <xsl:when test="$publishingInfo/@whichVolumeToShowInContents='all'">
+                    <xsl:for-each select="$volume">
+                        <xsl:call-template name="OutputTOCVolumeLine">
+                            <xsl:with-param name="volume" select="$volume"/>
+                            <xsl:with-param name="contentsLayoutToUse" select="$contentsLayoutToUse"/>
+                        </xsl:call-template>
+                    </xsl:for-each>
+                </xsl:when>
+                <xsl:when test="$publishingInfo/@whichVolumeToShowInContents=count(preceding-sibling::volume[parent::lingPaper])+1">
+                    <xsl:for-each select="$volume">
+                        <xsl:call-template name="OutputTOCVolumeLine">
+                            <xsl:with-param name="volume" select="$volume"/>
+                            <xsl:with-param name="contentsLayoutToUse" select="$contentsLayoutToUse"/>
+                        </xsl:call-template>
+                    </xsl:for-each>
+                </xsl:when>
+                <xsl:otherwise>
+                    <!-- do nothing -->
+                </xsl:otherwise>
+            </xsl:choose>
+        </xsl:if>
+    </xsl:template>
+    <!--
+        SetSectionTocHangingIndent
+    -->
+    <xsl:template name="SetSectionTocHangingIndent">
+        <xsl:choose>
+            <xsl:when test="name()='section1'">
+                <xsl:value-of select="$tocSection1HangingIndent"/>
+            </xsl:when>
+            <xsl:when test="name()='section2'">
+                <xsl:value-of select="$tocSection2HangingIndent"/>
+            </xsl:when>
+            <xsl:when test="name()='section3'">
+                <xsl:value-of select="$tocSection3HangingIndent"/>
+            </xsl:when>
+            <xsl:when test="name()='section4'">
+                <xsl:value-of select="$tocSection4HangingIndent"/>
+            </xsl:when>
+            <xsl:when test="name()='section5'">
+                <xsl:value-of select="$tocSection5HangingIndent"/>
+            </xsl:when>
+            <xsl:when test="name()='section6'">
+                <xsl:value-of select="$tocSection6HangingIndent"/>
+            </xsl:when>
+        </xsl:choose>
+    </xsl:template>
+    <!--
+        SetTocHangingIndent
+    -->
+    <xsl:template name="SetTocHangingIndent">
+        <xsl:param name="value"/>
+        <xsl:choose>
+            <xsl:when test="string-length($value) &gt; 0">
+                <xsl:value-of select="$value"/>
+            </xsl:when>
+            <xsl:when test="string-length($tocHangingIndent) &gt; 0">
+                <xsl:value-of select="$tocHangingIndent"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:text>0pt</xsl:text>
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
 </xsl:stylesheet>

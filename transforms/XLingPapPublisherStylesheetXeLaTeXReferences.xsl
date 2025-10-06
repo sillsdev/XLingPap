@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:tex="http://getfo.sourceforge.net/texml/ns1" xmlns:saxon="http://icl.com/saxon">
-    <xsl:variable name="authorForm" select="//publisherStyleSheet[1]/backMatterLayout/referencesLayout/@authorform"/>
     <xsl:variable name="titleForm" select="//publisherStyleSheet[1]/backMatterLayout/referencesLayout/@titleform"/>
     <xsl:variable name="iso639-3codeItem" select="//publisherStyleSheet[1]/backMatterLayout/referencesLayout/iso639-3codeItem"/>
     <xsl:variable name="sDateIndent" select="normalize-space($referencesLayoutInfo/@dateIndentAuthorOverDateStyle)"/>
@@ -144,7 +143,7 @@
         </xsl:variable>
         <xsl:choose>
             <xsl:when
-                test="$sAuthorName!='______' and $authorForm='full' and $referencesLayoutInfo/refAuthorLayouts/refAuthorLastNameLayout or not(refAuthorInitials) and $referencesLayoutInfo/refAuthorLayouts/refAuthorLastNameLayout">
+                test="$sAuthorName!='______' and $authorForm='full' and $referencesLayoutInfo/refAuthorLayouts/refAuthorLastNameLayout or not(refAuthorInitials or refAuthorSurnameGivenName) and $referencesLayoutInfo/refAuthorLayouts/refAuthorLastNameLayout">
                 <xsl:apply-templates select="$work/.."/>
             </xsl:when>
             <xsl:otherwise>
@@ -335,6 +334,30 @@
         </xsl:call-template>
     </xsl:template>
     <!--  
+        OutputReferenceEditorItem
+    -->
+    <xsl:template name="OutputReferenceEditorItem">
+        <xsl:param name="item"/>
+        <xsl:call-template name="OutputFontAttributes">
+            <xsl:with-param name="language" select="."/>
+            <xsl:with-param name="originalContext" select="$item"/>
+        </xsl:call-template>
+        <xsl:call-template name="DoFormatLayoutInfoTextBefore">
+            <xsl:with-param name="layoutInfo" select="."/>
+        </xsl:call-template>
+        <xsl:call-template name="OutputReferencedEditorNode">
+            <xsl:with-param name="item" select="$item"/>
+        </xsl:call-template>
+        <xsl:call-template name="DoFormatLayoutInfoTextAfter">
+            <xsl:with-param name="layoutInfo" select="."/>
+            <xsl:with-param name="sPrecedingText" select="$item"/>
+        </xsl:call-template>
+        <xsl:call-template name="OutputFontAttributesEnd">
+            <xsl:with-param name="language" select="."/>
+            <xsl:with-param name="originalContext" select="$item"/>
+        </xsl:call-template>
+    </xsl:template>
+    <!--  
         OutputReferenceItem
     -->
     <xsl:template name="OutputReferenceItem">
@@ -391,7 +414,6 @@
             <xsl:with-param name="sMessage">
                 <xsl:text>Sorry, but there is no matching layout for this item in the publisher style sheet.  Please add  (or have someone add) the pattern.</xsl:text>
                 <xsl:call-template name="ReportPattern"/>
-
             </xsl:with-param>
         </xsl:call-template>
     </xsl:template>

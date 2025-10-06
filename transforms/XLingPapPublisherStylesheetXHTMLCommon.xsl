@@ -72,7 +72,12 @@
         <xsl:variable name="iTitleEndnote">
             <xsl:call-template name="GetCountOfEndnoteInTitleUsingSymbol"/>
         </xsl:variable>
-        <xsl:variable name="iAuthorPosition" select="count(parent::author/preceding-sibling::author[endnote]) + $iTitleEndnote + 1"/>
+        <xsl:variable name="iAuthorPosition">
+            <xsl:call-template name="GetAuthorFootnoteNumber">
+                <xsl:with-param name="iTitleEndnote" select="$iTitleEndnote"/>
+            </xsl:call-template>
+        </xsl:variable>
+<!--        <xsl:variable name="iAuthorPosition" select="count(parent::author/preceding-sibling::author[endnote]) + $iTitleEndnote + 1"/>-->
         <xsl:call-template name="OutputAuthorFootnoteSymbol">
             <xsl:with-param name="iAuthorPosition" select="$iAuthorPosition"/>
         </xsl:call-template>

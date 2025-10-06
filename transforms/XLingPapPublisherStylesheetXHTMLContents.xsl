@@ -3,47 +3,6 @@
     xmlns:xfc="http://www.xmlmind.com/foconverter/xsl/extensions" exclude-result-prefixes="fo xfc saxon" xmlns:saxon="http://icl.com/saxon">
     <xsl:include href="XLingPapPublisherStylesheetCommonContents.xsl"/>
     <!-- 
-        part (contents) 
-    -->
-    <xsl:template match="part" mode="contents">
-        <xsl:param name="nLevel" select="$nLevel"/>
-        <xsl:param name="contentsLayoutToUse"/>
-        <xsl:if test="position()=1">
-            <xsl:for-each select="preceding-sibling::*[name()='chapterBeforePart']">
-                <xsl:apply-templates select="." mode="contents">
-                    <xsl:with-param name="nLevel" select="$nLevel"/>
-                    <xsl:with-param name="contentsLayoutToUse" select="$contentsLayoutToUse"/>
-                </xsl:apply-templates>
-            </xsl:for-each>
-        </xsl:if>
-        <div>
-            <div>
-                <xsl:attribute name="class">
-                    <xsl:text>partContents</xsl:text>
-                    <xsl:if test="$contentsLayoutToUse[ancestor::backMatterLayout]">
-                        <xsl:value-of select="$sBackMatterContentsIdAddOn"/>
-                    </xsl:if>
-                </xsl:attribute>
-                <a href="#{@id}" class="contentsLinkLayout">
-                    <xsl:variable name="linkLayout" select="$pageLayoutInfo/linkLayout/contentsLinkLayout"/>
-                    <xsl:call-template name="OutputTOCTitle">
-                        <xsl:with-param name="linkLayout" select="$linkLayout"/>
-                        <xsl:with-param name="sLabel">
-                            <xsl:call-template name="OutputPartLabelNumberAndTitle">
-                                <xsl:with-param name="contentsLayoutToUse" select="$contentsLayoutToUse"/>
-                                <xsl:with-param name="fInContents" select="'Y'"/>
-                            </xsl:call-template>
-                        </xsl:with-param>
-                    </xsl:call-template>
-                </a>
-            </div>
-            <xsl:apply-templates select="child::*[contains(name(),'chapter')]" mode="contents">
-                <xsl:with-param name="nLevel" select="$nLevel"/>
-                <xsl:with-param name="contentsLayoutToUse" select="$contentsLayoutToUse"/>
-            </xsl:apply-templates>
-        </div>
-    </xsl:template>
-    <!-- 
         section1 (contents) 
     -->
     <xsl:template match="section1" mode="contents">
@@ -83,6 +42,47 @@
         </span>
     </xsl:template>
     <!--  
+        OutputContentsPart
+    -->
+    <xsl:template name="OutputContentsPart">
+        <xsl:param name="contentsLayoutToUse"/>
+        <xsl:param name="nLevel"/>
+            <xsl:if test="position()=1">
+                <xsl:for-each select="preceding-sibling::*[name()='chapterBeforePart']">
+                    <xsl:apply-templates select="." mode="contents">
+                        <xsl:with-param name="nLevel" select="$nLevel"/>
+                        <xsl:with-param name="contentsLayoutToUse" select="$contentsLayoutToUse"/>
+                    </xsl:apply-templates>
+                </xsl:for-each>
+            </xsl:if>
+        <div>
+            <div>
+                <xsl:attribute name="class">
+                    <xsl:text>partContents</xsl:text>
+                    <xsl:if test="$contentsLayoutToUse[ancestor::backMatterLayout]">
+                        <xsl:value-of select="$sBackMatterContentsIdAddOn"/>
+                    </xsl:if>
+                </xsl:attribute>
+                <a href="#{@id}" class="contentsLinkLayout">
+                    <xsl:variable name="linkLayout" select="$pageLayoutInfo/linkLayout/contentsLinkLayout"/>
+                    <xsl:call-template name="OutputTOCTitle">
+                        <xsl:with-param name="linkLayout" select="$linkLayout"/>
+                        <xsl:with-param name="sLabel">
+                            <xsl:call-template name="OutputPartLabelNumberAndTitle">
+                                <xsl:with-param name="contentsLayoutToUse" select="$contentsLayoutToUse"/>
+                                <xsl:with-param name="fInContents" select="'Y'"/>
+                            </xsl:call-template>
+                        </xsl:with-param>
+                    </xsl:call-template>
+                </a>
+            </div>
+            <xsl:apply-templates select="child::*[contains(name(),'chapter')]" mode="contents">
+                <xsl:with-param name="nLevel" select="$nLevel"/>
+                <xsl:with-param name="contentsLayoutToUse" select="$contentsLayoutToUse"/>
+            </xsl:apply-templates>
+        </div>
+    </xsl:template>
+    <!--  
         OutputSectionTOC
     -->
     <xsl:template name="OutputSectionTOC">
@@ -120,6 +120,34 @@
             </xsl:with-param>
             <xsl:with-param name="sSpaceBefore" select="$sSpaceBefore"/>
             <xsl:with-param name="contentsLayoutToUse" select="$contentsLayoutToUse"/>
+            <xsl:with-param name="hangingIndent">
+                <xsl:call-template name="SetSectionTocHangingIndent"/>
+            </xsl:with-param>
+            <xsl:with-param name="sHangingIndentClass">
+                <xsl:choose>
+                    <xsl:when test="$sLevel='0'">
+                        <xsl:text>tocSection1HangingIndent</xsl:text>
+                    </xsl:when>
+                    <xsl:when test="$sLevel='1'">
+                        <xsl:text>tocSection2HangingIndent</xsl:text>
+                    </xsl:when>
+                    <xsl:when test="$sLevel='2'">
+                        <xsl:text>tocSection3HangingIndent</xsl:text>
+                    </xsl:when>
+                    <xsl:when test="$sLevel='3'">
+                        <xsl:text>tocSection4HangingIndent</xsl:text>
+                    </xsl:when>
+                    <xsl:when test="$sLevel='4'">
+                        <xsl:text>tocSection5HangingIndent</xsl:text>
+                    </xsl:when>
+                    <xsl:when test="$sLevel='5'">
+                        <xsl:text>tocSection6HangingIndent</xsl:text>
+                    </xsl:when>
+                    <xsl:when test="$sLevel='6'">
+                        <xsl:text>tocSection7HangingIndent</xsl:text>
+                    </xsl:when>
+                </xsl:choose>
+            </xsl:with-param>
         </xsl:call-template>
     </xsl:template>
     <!--  
@@ -135,6 +163,9 @@
         <xsl:param name="text-transform"/>
         <xsl:param name="contentsLayoutToUse" select="$frontMatterLayoutInfo/contentsLayout"/>
         <xsl:param name="fInListOfItems" select="'no'"/>
+        <xsl:param name="fIgnoreHangingIndent" select="'N'"/>
+        <xsl:param name="hangingIndent" select="$tocHangingIndent"/>
+        <xsl:param name="sHangingIndentClass" select="'tocHangingIndent'"/>
         <xsl:variable name="linkLayout" select="$pageLayoutInfo/linkLayout/contentsLinkLayout"/>
         <xsl:if test="$sLineSpacing and $sLineSpacing!='single' and $contentsLayoutToUse/@singlespaceeachcontentline='yes'">
             <div>
@@ -167,57 +198,66 @@
         </xsl:if>
         <div>
             <xsl:choose>
-                <xsl:when test="$sIndent!='0' and $sIndent!='0pt'">
-                    <xsl:attribute name="style">
-                        <xsl:if test="$sSpaceBefore!='0'">
-                            <xsl:text>margin-top:</xsl:text>
-                            <xsl:value-of select="$sSpaceBefore"/>
-                            <xsl:text>; </xsl:text>
-                        </xsl:if>
-                        <xsl:variable name="indentValue" select="substring($sIndent,1,string-length($sIndent)-2)"/>
-                        <xsl:choose>
-                            <xsl:when test="$indentValue='' and string(number($sIndent))!='NaN' and $fInListOfItems='no'">
-                                <xsl:text>text-indent:-</xsl:text>
-                                <xsl:value-of select="$sIndent div 2 + 1.5"/>
-                                <xsl:text>em; padding-left:</xsl:text>
-                                <xsl:value-of select="1.5 * $sIndent + 1.5"/>
-                                <xsl:text>em;</xsl:text>
-                            </xsl:when>
-                            <xsl:when test="string(number($indentValue))!='NaN' and $fInListOfItems='no' and substring($sIndent,string-length($sIndent)-1)='em'">
-                                <xsl:text>text-indent:-</xsl:text>
-                                <xsl:value-of select="$indentValue div 2 + 1.5"/>
-                                <xsl:text>em; padding-left:</xsl:text>
-                                <xsl:value-of select="1.5 * $indentValue + 1.5"/>
-                                <xsl:text>em;</xsl:text>
-                            </xsl:when>
-                            <xsl:otherwise>
-                                <xsl:text>text-indent:-1em; padding-left:</xsl:text>
-                                <xsl:value-of select="$sIndent"/>
-                                <xsl:text>; </xsl:text>
-                            </xsl:otherwise>
-                        </xsl:choose>
-                        <xsl:if test="$contentsLayoutToUse/@singlespaceeachcontentline='yes'">
-                            <xsl:text>line-height:</xsl:text>
-                            <xsl:value-of select="$sSinglespacingLineHeight"/>
-                            <xsl:text>;</xsl:text>
-                        </xsl:if>
+                <xsl:when test="$fIgnoreHangingIndent='N' and string-length($hangingIndent) &gt; 0 and $hangingIndent != '0pt'">
+                    <xsl:attribute name="class">
+                        <xsl:value-of select="$sHangingIndentClass"/>
                     </xsl:attribute>
                 </xsl:when>
                 <xsl:otherwise>
-                    <xsl:if test="$contentsLayoutToUse/@singlespaceeachcontentline='yes'">
-                        <xsl:attribute name="style">
-                            <xsl:text>line-height:</xsl:text>
-                            <xsl:value-of select="$sSinglespacingLineHeight"/>
-                            <xsl:text>;</xsl:text>
-                        </xsl:attribute>
-                    </xsl:if>
+                    <xsl:choose>
+                        <xsl:when test="$sIndent!='0' and $sIndent!='0pt'">
+                            <xsl:attribute name="style">
+                                <xsl:if test="$sSpaceBefore!='0'">
+                                    <xsl:text>margin-top:</xsl:text>
+                                    <xsl:value-of select="$sSpaceBefore"/>
+                                    <xsl:text>; </xsl:text>
+                                </xsl:if>
+                                <xsl:variable name="indentValue" select="substring($sIndent,1,string-length($sIndent)-2)"/>
+                                <xsl:choose>
+                                    <xsl:when test="$indentValue='' and string(number($sIndent))!='NaN' and $fInListOfItems='no'">
+                                        <xsl:text>text-indent:-</xsl:text>
+                                        <xsl:value-of select="$sIndent div 2 + 1.5"/>
+                                        <xsl:text>em; padding-left:</xsl:text>
+                                        <xsl:value-of select="1.5 * $sIndent + 1.5"/>
+                                        <xsl:text>em;</xsl:text>
+                                    </xsl:when>
+                                    <xsl:when test="string(number($indentValue))!='NaN' and $fInListOfItems='no' and substring($sIndent,string-length($sIndent)-1)='em'">
+                                        <xsl:text>text-indent:-</xsl:text>
+                                        <xsl:value-of select="$indentValue div 2 + 1.5"/>
+                                        <xsl:text>em; padding-left:</xsl:text>
+                                        <xsl:value-of select="1.5 * $indentValue + 1.5"/>
+                                        <xsl:text>em;</xsl:text>
+                                    </xsl:when>
+                                    <xsl:otherwise>
+                                        <xsl:text>text-indent:-1em; padding-left:</xsl:text>
+                                        <xsl:value-of select="$sIndent"/>
+                                        <xsl:text>; </xsl:text>
+                                    </xsl:otherwise>
+                                </xsl:choose>
+                                <xsl:if test="$contentsLayoutToUse/@singlespaceeachcontentline='yes'">
+                                    <xsl:text>line-height:</xsl:text>
+                                    <xsl:value-of select="$sSinglespacingLineHeight"/>
+                                    <xsl:text>;</xsl:text>
+                                </xsl:if>
+                            </xsl:attribute>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:if test="$contentsLayoutToUse/@singlespaceeachcontentline='yes'">
+                                <xsl:attribute name="style">
+                                    <xsl:text>line-height:</xsl:text>
+                                    <xsl:value-of select="$sSinglespacingLineHeight"/>
+                                    <xsl:text>;</xsl:text>
+                                </xsl:attribute>
+                            </xsl:if>
+                        </xsl:otherwise>
+                    </xsl:choose>
                 </xsl:otherwise>
             </xsl:choose>
             <a href="#{$sLink}">
                 <xsl:call-template name="AddAnyLinkAttributes">
                     <xsl:with-param name="override" select="$linkLayout"/>
                 </xsl:call-template>
-                <span>
+<!--                <span>-->
                     <xsl:call-template name="OutputTOCTitle">
                         <xsl:with-param name="linkLayout" select="$linkLayout"/>
                         <xsl:with-param name="sLabel" select="$sLabel"/>
@@ -225,7 +265,7 @@
                         <xsl:with-param name="contentsLayoutToUse" select="$contentsLayoutToUse"/>
                     </xsl:call-template>
                     <xsl:text>&#xa0;</xsl:text>
-                </span>
+<!--                </span>-->
             </a>
         </div>
     </xsl:template>
@@ -268,5 +308,41 @@
             </xsl:if>
             <xsl:copy-of select="$sLabel"/>
         </span>
+    </xsl:template>
+    <!--
+        OutputVolumeTOCLine
+    -->
+    <xsl:template name="OutputTOCVolumeLine">
+        <xsl:param name="volume"/>
+        <!-- insert a new line so we don't get everything all on one line -->
+        <xsl:text>&#xa;</xsl:text>
+        <xsl:if test="$sLineSpacing and $sLineSpacing!='single' and $frontMatterLayoutInfo/contentsLayout/@singlespaceeachcontentline='yes'">
+            <fo:block>
+                <xsl:attribute name="line-height">
+                    <xsl:choose>
+                        <xsl:when test="$sLineSpacing='double'">
+                            <xsl:text>1.2</xsl:text>
+                        </xsl:when>
+                        <xsl:when test="$sLineSpacing='spaceAndAHalf'">
+                            <xsl:text>.9</xsl:text>
+                        </xsl:when>
+                    </xsl:choose>
+                </xsl:attribute>
+                <xsl:text>&#xa0;</xsl:text>
+            </fo:block>
+        </xsl:if>
+        <div class="volumeContents">
+            <xsl:call-template name="OutputVolumeLabel"/>
+            <xsl:variable name="sContentBetween" select="$volumeLayout/@contentBetweenLabelAndNumber"/>
+            <xsl:choose>
+                <xsl:when test="string-length($sContentBetween) &gt; 0">
+                    <xsl:value-of select="$sContentBetween"/>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:text>&#x20;</xsl:text>
+                </xsl:otherwise>
+            </xsl:choose>
+            <xsl:value-of select="$volume/@number"/>
+        </div>
     </xsl:template>
 </xsl:stylesheet>

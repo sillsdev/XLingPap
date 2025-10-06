@@ -84,6 +84,22 @@
 	;
 	font-size:smaller;
 } 
+@property-group authorSurnameGivennameBefore( )
+{
+	content:" (Name(s) surname, given name: "
+	;
+	font-size: smaller;
+} 
+@property-group authorSurnameGivenname( )
+{
+	display:inline;
+} 
+@property-group authorSurnameGivennameAfter( )
+{
+	content:") "
+	;
+	font-size:smaller;
+} 
 @property-group chapterBeforePartBefore( )
 {	
     content: collapser(collapsed-icon, icon(url(resources/plus-box-chapter.png)), expanded-icon, icon(url(resources/minus-box-chapter.png))) 
@@ -761,6 +777,15 @@ bookTotalPages:after
 	content:".";
 }
 
+bookversion
+{
+	display:inline;
+}
+bookversion:after
+{
+	content: ". ";
+}
+
 bVol
 {
 	display:inline;
@@ -1189,6 +1214,19 @@ collEdInitials:after
 	property-group: authorInitialsAfter();
 }
 
+collEdSurnameGivenName:before
+{
+	property-group: authorSurnameGivennameBefore();
+}
+collEdSurnameGivenName
+{
+	property-group: authorSurnameGivenname();
+}
+collEdSurnameGivenName:after
+{
+	property-group: authorSurnameGivennameAfter();
+}
+
 collPages
 {
 	display:inline;
@@ -1429,7 +1467,7 @@ sectionRef[contentType]
 {
 	display:concatenate(xpath("if(not((/xlingpaper/styledPaper/lingPaper|/lingPaper)/contentControl/@showOnlyChosenItemsInEditor) or (/xlingpaper/styledPaper/lingPaper|/lingPaper)/contentControl/@showOnlyChosenItemsInEditor='no','inline',contains((/xlingpaper/styledPaper/lingPaper|/lingPaper)/contentControl/contentControlChoices/contentControlChoice[@active='yes']/@exclude,@contentType),'none','inline')"));
 }
-tablenumberedRef[contentType] 
+tablenumberedRef[contentType]
 {
 	display:concatenate(xpath("if(not((/xlingpaper/styledPaper/lingPaper|/lingPaper)/contentControl/@showOnlyChosenItemsInEditor) or (/xlingpaper/styledPaper/lingPaper|/lingPaper)/contentControl/@showOnlyChosenItemsInEditor='no','inline',contains((/xlingpaper/styledPaper/lingPaper|/lingPaper)/contentControl/contentControlChoices/contentControlChoice[@active='yes']/@exclude,@contentType),'none','inline')"));
 }
@@ -1605,6 +1643,18 @@ editorInitials
 editorInitials:after
 {
 	property-group: authorInitialsAfter();
+}
+editorSurnameGivenName:before
+{
+	property-group: authorSurnameGivennameBefore();
+}
+editorSurnameGivenName
+{
+	property-group: authorSurnameGivenname();
+}
+editorSurnameGivenName:after
+{
+	property-group: authorSurnameGivennameAfter();
 }
 
 emailAddress { 
@@ -3364,6 +3414,19 @@ procEdInitials:after
 	property-group: authorInitialsAfter();
 }
 
+procEdSurnameGivenName:before
+{
+	property-group: authorSurnameGivennameBefore();
+}
+procEdSurnameGivenName
+{
+	property-group: authorSurnameGivenname();
+}
+procEdSurnameGivenName:after
+{
+	property-group: authorSurnameGivennameAfter();
+}
+
 procPages
 {
 	display:inline;
@@ -3549,29 +3612,157 @@ refAuthorName
 	padding-left: .5in;
 }
 
+references[authorformtoshowineditor="all"] refAuthorInitials:before
+{
+	property-group: authorInitialsBefore();
+}
 references[authorformtoshowineditor="both"] refAuthorInitials:before
 {
 	property-group: authorInitialsBefore();
 }
+references[authorformtoshowineditor="full"] refAuthorInitials:before
+{
+	display:none;
+}
+references[authorformtoshowineditor="fullsurnamegivenname"] refAuthorInitials:before
+{
+	display:none;
+}
 references[authorformtoshowineditor="initials"] refAuthorInitials:before
 {
 	content:" name (initials): ";
+}
+references[authorformtoshowineditor="surnamegivenname"] refAuthorInitials:before
+{
+	display:none;
+}
+references[authorformtoshowineditor="all"] refAuthorInitials
+{
+	property-group: authorInitials();
+	padding-left: .25in;
 }
 references[authorformtoshowineditor="both"] refAuthorInitials
 {
 	property-group: authorInitials();
 	padding-left: .25in;
 }
+references[authorformtoshowineditor="full"] refAuthorInitials
+{
+	display:none;
+}
+references[authorformtoshowineditor="fullsurnamegivenname"] refAuthorInitials
+{
+	display:none;
+}
 references[authorformtoshowineditor="initials"] refAuthorInitials
 {
 	property-group: authorInitials();
 	padding-left: .25in;
 }
+references[authorformtoshowineditor="surnamegivenname"] refAuthorInitials
+{
+	display:none;
+}
+references[authorformtoshowineditor="all"] refAuthorInitials:after
+{
+	property-group: authorInitialsAfter();
+}
 references[authorformtoshowineditor="both"] refAuthorInitials:after
 {
 	property-group: authorInitialsAfter();
 }
+references[authorformtoshowineditor="full"] refAuthorInitials:after
+{
+	display:none;
+}
+references[authorformtoshowineditor="fullsurnamegivenname"] refAuthorInitials:after
+{
+	display:none;
+}
+references[authorformtoshowineditor="initials"] refAuthorInitials:after
+{
+	property-group: authorInitialsAfter();
+}
+references[authorformtoshowineditor="surnamegivenname"] refAuthorInitials:after
+{
+	display:none;
+}
 
+references[authorformtoshowineditor="all"] refAuthorSurnameGivenName:before
+{
+	property-group: authorSurnameGivennameBefore();
+}
+references[authorformtoshowineditor="both"] refAuthorSurnameGivenName:before
+{
+    display:none;
+}
+references[authorformtoshowineditor="full"] refAuthorSurnameGivenName:before
+{
+    display:none;
+}
+references[authorformtoshowineditor="fullsurnamegivenname"] refAuthorSurnameGivenName:before
+{
+	property-group: authorSurnameGivennameBefore();
+}
+references[authorformtoshowineditor="initials"] refAuthorSurnameGivenName:before
+{
+    display:none;
+}
+references[authorformtoshowineditor="surnamegivenname"] refAuthorSurnameGivenName:before
+{
+	property-group: authorSurnameGivennameBefore();
+}
+references[authorformtoshowineditor="all"] refAuthorSurnameGivenName
+{
+	property-group: authorSurnameGivenname();
+	padding-left: .25in;
+}
+references[authorformtoshowineditor="both"] refAuthorSurnameGivenName
+{
+	display:none;
+}
+references[authorformtoshowineditor="full"] refAuthorSurnameGivenName
+{
+	display:none;
+}
+references[authorformtoshowineditor="fullsurnamegivenname"] refAuthorSurnameGivenName
+{
+	property-group: authorSurnameGivenname();
+	padding-left: .25in;
+}
+references[authorformtoshowineditor="initials"] refAuthorSurnameGivenName
+{
+	display:none;
+}
+references[authorformtoshowineditor="surnamegivenname"] refAuthorSurnameGivenName
+{
+	property-group: authorSurnameGivenname();
+	padding-left: .25in;
+}
+references[authorformtoshowineditor="all"] refAuthorSurnameGivenName:after
+{
+	property-group: authorSurnameGivennameAfter();
+}
+references[authorformtoshowineditor="both"] refAuthorSurnameGivenName:after
+{
+	display:none;
+}
+references[authorformtoshowineditor="full"] refAuthorSurnameGivenName:after
+{
+	display:none;
+}
+references[authorformtoshowineditor="fullsurnamegivenname"] refAuthorSurnameGivenName:after
+{
+	property-group: authorSurnameGivennameAfter();
+}
+references[authorformtoshowineditor="initial"] refAuthorSurnameGivenName:after
+{
+	display:none;
+}
+references[authorformtoshowineditor="surnamegivenname"] refAuthorSurnameGivenName:after
+{
+	property-group: authorSurnameGivennameAfter();
+}
 refDate:before
 {
 	content: " ";
@@ -4293,6 +4484,18 @@ seriesEdInitials:after
 {
 	property-group: authorInitialsAfter();
 }
+seriesEdSurnameGivenName:before
+{
+	property-group: authorSurnameGivennameBefore();
+}
+seriesEdSurnameGivenName
+{
+	property-group: authorSurnameGivenname();
+}
+seriesEdSurnameGivenName:after
+{
+	property-group: authorSurnameGivennameAfter();
+}
 shortAuthor:before
 {
 	content:" shortened author(s): ";
@@ -4356,6 +4559,15 @@ subtitle {
     color: black;
     margin-top: .67ex;
     margin-bottom: .67ex;
+}
+
+table[contentType] {
+    display:concatenate(xpath("if(not((/xlingpaper/styledPaper/lingPaper|/lingPaper)/contentControl/@showOnlyChosenItemsInEditor) or (/xlingpaper/styledPaper/lingPaper|/lingPaper)/contentControl/@showOnlyChosenItemsInEditor='no','table',contains((/xlingpaper/styledPaper/lingPaper|/lingPaper)/contentControl/contentControlChoices/contentControlChoice[@active='yes']/@exclude,@contentType),'none','table')"));
+    border-style: solid;
+    border-width: concatenate(attr(border));
+    margin-top: 1.33ex;
+    margin-bottom: 1.33ex;
+    counter-reset:row-counter;
 }
 
 table { 
@@ -4612,6 +4824,29 @@ version
     color: maroon;
     margin-top: .67ex;
     margin-bottom: .67ex;
+}
+
+volume[label]:before
+{
+    content:text-field(attribute,label,columns,10)
+	    " "
+	    text-field(attribute,number,columns,5);
+	font-weight: bold;
+	font-size:large;
+	text-align:center;
+}
+volume:before
+{
+    content: " Volume "
+	     text-field(attribute,number,columns,5);
+	font-weight: bold;
+	font-size:large;
+	text-align:center;
+}
+volume
+{
+	display:block;
+	text-align:center;
 }
 
 webpage
@@ -5444,6 +5679,30 @@ bookTotalPagesItem[font-weight]
 bookTotalPagesItem
 {
 	property-group: referencesItem("456");
+}
+bookversionItem[color]
+{
+	color:concatenate(attr(color));
+}
+bookversionItem[font-family]
+{
+	font-family:concatenate(attr(font-family));
+}
+bookversionItem[font-size]
+{
+	font-size:concatenate(attr(font-size));
+}
+bookversionItem[font-style]
+{
+	font-style:concatenate(attr(font-style));
+}
+bookversionItem[font-weight]
+{
+	font-weight:concatenate(attr(font-weight));
+}
+bookversionItem
+{
+	property-group: referencesItem("2023.4");
 }
 bVolItem[color]
 {
@@ -7651,6 +7910,10 @@ headerMargin
 {
 	property-group: layoutParameter(.67ex);
 }
+imageBorderLayout
+{
+	property-group: titledItem("Image border");
+}
 indexLayout[color]
 {
 	color:concatenate(attr(color));
@@ -9015,6 +9278,15 @@ paperTitle
 	content:"";
 	display:inline;
 }
+paragraphAlignment:before
+{
+	property-group:layoutParameterLabel( "paragraph alignment attribute" );
+/*	color:Blue; */
+}
+paragraphAlignment
+{
+	property-group: layoutParameter(.67ex);
+}
 paragraphIndent:before
 {
 	property-group:layoutParameterLabel( "paragraph indent" );
@@ -9455,6 +9727,30 @@ publisherStyleSheet
 	display:block;
 	property-group: isCollapsible( no, 1);
 }
+publisherStyleSheetDate:before
+{
+   content:"Date: ";
+}
+publisherStyleSheetDate
+{
+    display:block;
+    text-align: center;
+    color: black;
+    margin-top: .37ex;
+    margin-bottom: .37ex;
+}
+publisherStyleSheetDateAccessed:before
+{
+   content:"Date Accessed: ";
+}
+publisherStyleSheetDateAccessed
+{
+    display:block;
+    text-align: center;
+    color: black;
+    margin-top: .37ex;
+    margin-bottom: .37ex;
+}
 publisherStyleSheetName:before
 {
 	display: block;
@@ -9478,15 +9774,29 @@ publisherStyleSheetPublisher:before
 {
    content:"Publisher: ";
    font-size:12pt;
+   font-weight:normal;
 }
 publisherStyleSheetPublisher
 {
-	display:block;
-	text-align: center;
+    display:block;
+    text-align: center;
     color: black;
     margin-top: .37ex;
     margin-bottom: .37ex;
     font-size:larger;
+    font-weight:bold;
+}
+publisherStyleSheetUrl:before
+{
+   content:"URL: ";
+}
+publisherStyleSheetUrl
+{
+    display:block;
+    text-align: center;
+    color: black;
+    margin-top: .37ex;
+    margin-bottom: .37ex;
 }
 publisherStyleSheetVersion
 {
@@ -10395,6 +10705,61 @@ seriesItem
 	property-group: referencesItem("Occasional Publications in Academic Computing No. 16");
 }
 
+shortSectionTitleLayout[color]
+{
+	color:concatenate(attr(color));
+}
+shortSectionTitleLayout[font-family]
+{
+	font-family:concatenate(attr(font-family));
+}
+shortSectionTitleLayout[font-size]
+{
+	font-size:concatenate(attr(font-size));
+}
+shortSectionTitleLayout[font-style]
+{
+	font-style:concatenate(attr(font-style));
+}
+shortSectionTitleLayout[font-weight]
+{
+	font-weight:concatenate(attr(font-weight));
+}
+shortSectionTitleLayout[pagebreakbefore='no']
+{
+    property-group: pagebreakBeforeIsNo();
+}
+shortSectionTitleLayout[pagebreakbefore='yes']
+{
+    property-group: pagebreakBeforeIsYes();
+}
+shortSectionTitleLayout[spacebefore]
+{
+	padding-top:concatenate(attr(spacebefore));
+}
+shortSectionTitleLayout[spaceafter]
+{
+	padding-bottom:concatenate(attr(spaceafter));
+}
+shortSectionTitleLayout[textalign]
+{
+	text-align:concatenate(attr(textalign));
+}
+
+shortSubsectionLayout shortSectionTitleLayout
+{
+	property-group: titledItem("Short subsection");
+}
+shortSubsectionLayout[ignore='yes']
+{
+	display:block;
+	color:Gray;
+}
+shortSubsectionLayout
+{
+	display:block;
+}
+
 subtitleLayout[color]
 {
 	color:concatenate(attr(color));
@@ -10968,6 +11333,42 @@ volumeAuthorRef:before
 }
 volumeAuthorRef
 {
+}
+volumeLayout[color]
+{
+	color:concatenate(attr(color));
+}
+volumeLayout[font-family]
+{
+	font-family:concatenate(attr(font-family));
+}
+volumeLayout[font-size]
+{
+	font-size:concatenate(attr(font-size));
+}
+volumeLayout[font-style]
+{
+	font-style:concatenate(attr(font-style));
+}
+volumeLayout[font-weight]
+{
+    font-weight:concatenate(attr(font-weight));
+}
+volumeLayout[spacebefore]
+{
+	padding-top:concatenate(attr(spacebefore));
+}
+volumeLayout[spaceafter]
+{
+	padding-bottom:concatenate(attr(spaceafter));
+}
+volumeLayout[textalign]
+{
+	text-align:concatenate(attr(textalign));
+}
+volumeLayout
+{
+	property-group: titledItem("Volume in contents");
 }
 volumeTitle:before
 {

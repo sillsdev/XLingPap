@@ -15,6 +15,25 @@
         <xsl:value-of select="$iExampleWidth"/>
         <xsl:text>pt</xsl:text>
     </xsl:variable>
+    <xsl:variable name="imgBorderSeparation">
+        <xsl:call-template name="GetBorderAroundImageSeparation"/>
+    </xsl:variable>
+    <xsl:variable name="imgBorderWidth">
+        <xsl:call-template name="GetBorderAroundImageWidth"/>
+    </xsl:variable>
+    <!-- ===========================================================
+        dd
+        =========================================================== -->
+    <xsl:template match="dd" mode="dt">
+        <fo:list-item-body start-indent="body-start()">
+            <xsl:if test="example">
+                <fo:block>&#xa0;</fo:block>
+            </xsl:if>
+            <fo:block>
+                <xsl:apply-templates/>
+            </fo:block>
+        </fo:list-item-body>
+    </xsl:template>
     <!-- ===========================================================
         IMG
         =========================================================== -->
@@ -274,7 +293,11 @@
         <xsl:variable name="iTitleEndnote">
             <xsl:call-template name="GetCountOfEndnoteInTitleUsingSymbol"/>
         </xsl:variable>
-        <xsl:variable name="iAuthorPosition" select="count(parent::author/preceding-sibling::author[endnote]) + $iTitleEndnote + 1"/>
+        <xsl:variable name="iAuthorPosition">
+            <xsl:call-template name="GetAuthorFootnoteNumber">
+                <xsl:with-param name="iTitleEndnote" select="$iTitleEndnote"/>
+            </xsl:call-template>
+        </xsl:variable>
         <xsl:call-template name="OutputAuthorFootnoteSymbol">
             <xsl:with-param name="iAuthorPosition" select="$iAuthorPosition"/>
         </xsl:call-template>
@@ -517,6 +540,9 @@
                 </xsl:choose>
                 <xsl:text>)</xsl:text>
             </xsl:attribute>
+            <xsl:if test="@borderaround='yes'">
+                <xsl:call-template name="InsertImageBorderAttributes"/>
+            </xsl:if>
         </fo:external-graphic>
     </xsl:template>
     <!--  
@@ -555,6 +581,47 @@
             </xsl:choose>
             <xsl:text> is missing here.  You will need to add it manually.</xsl:text>
         </fo:inline>
+    </xsl:template>
+    <!--  
+        InsertImageBorderAttributes
+    -->
+    <xsl:template name="InsertImageBorderAttributes">
+        <xsl:attribute name="border-left-style">
+            <xsl:text>solid</xsl:text>
+        </xsl:attribute>
+        <xsl:attribute name="border-top-style">
+            <xsl:text>solid</xsl:text>
+        </xsl:attribute>
+        <xsl:attribute name="border-right-style">
+            <xsl:text>solid</xsl:text>
+        </xsl:attribute>
+        <xsl:attribute name="border-bottom-style">
+            <xsl:text>solid</xsl:text>
+        </xsl:attribute>
+        <xsl:attribute name="padding-left">
+            <xsl:value-of select="$imgBorderSeparation"/>
+        </xsl:attribute>
+        <xsl:attribute name="padding-top">
+            <xsl:value-of select="$imgBorderSeparation"/>
+        </xsl:attribute>
+        <xsl:attribute name="padding-right">
+            <xsl:value-of select="$imgBorderSeparation"/>
+        </xsl:attribute>
+        <xsl:attribute name="padding-bottom">
+            <xsl:value-of select="$imgBorderSeparation"/>
+        </xsl:attribute>
+        <xsl:attribute name="border-left-width">
+            <xsl:value-of select="$imgBorderWidth"/>
+        </xsl:attribute>
+        <xsl:attribute name="border-top-width">
+            <xsl:value-of select="$imgBorderWidth"/>
+        </xsl:attribute>
+        <xsl:attribute name="border-right-width">
+            <xsl:value-of select="$imgBorderWidth"/>
+        </xsl:attribute>
+        <xsl:attribute name="border-bottom-width">
+            <xsl:value-of select="$imgBorderWidth"/>
+        </xsl:attribute>
     </xsl:template>
     <!--
         OutputAbbreviationInTable
@@ -665,6 +732,12 @@
     -->
     <xsl:template name="OutputAllChapterTOC">
         <xsl:param name="nLevel" select="3"/>
+        <xsl:variable name="precedingVolume" select="preceding-sibling::*[1][name()='volume']"/>
+        <xsl:if test="$precedingVolume">
+            <xsl:call-template name="OutputVolumeInContents">
+                <xsl:with-param name="volume" select="$precedingVolume"/>
+            </xsl:call-template>
+        </xsl:if>
         <xsl:call-template name="OutputTOCLine">
             <xsl:with-param name="sLink" select="@id"/>
             <xsl:with-param name="sLabel">
@@ -727,36 +800,46 @@
                 </xsl:call-template>
                 <xsl:if test="section2 and $nLevel>=2">
                     <xsl:for-each select="section2">
-                        <xsl:call-template name="OutputSectionTOC">
-                            <xsl:with-param name="sLevel" select="'2'"/>
-                        </xsl:call-template>
-                        <xsl:if test="section3 and $nLevel>=3">
-                            <xsl:for-each select="section3">
-                                <xsl:call-template name="OutputSectionTOC">
-                                    <xsl:with-param name="sLevel" select="'3'"/>
-                                </xsl:call-template>
-                                <xsl:if test="section4 and $nLevel>=4">
-                                    <xsl:for-each select="section4">
+                        <xsl:if test="parent::*[@subsectionsAreShort!='yes' or @excludeShortSubsectionsFromContents!='yes']">
+                            <xsl:call-template name="OutputSectionTOC">
+                                <xsl:with-param name="sLevel" select="'2'"/>
+                            </xsl:call-template>
+                            <xsl:if test="section3 and $nLevel>=3">
+                                <xsl:for-each select="section3">
+                                    <xsl:if test="parent::*[@subsectionsAreShort!='yes' or @excludeShortSubsectionsFromContents!='yes']">
                                         <xsl:call-template name="OutputSectionTOC">
-                                            <xsl:with-param name="sLevel" select="'4'"/>
+                                            <xsl:with-param name="sLevel" select="'3'"/>
                                         </xsl:call-template>
-                                        <xsl:if test="section5 and $nLevel>=5">
-                                            <xsl:for-each select="section5">
-                                                <xsl:call-template name="OutputSectionTOC">
-                                                    <xsl:with-param name="sLevel" select="'5'"/>
-                                                </xsl:call-template>
-                                                <xsl:if test="section6 and $nLevel>=6">
-                                                    <xsl:for-each select="section6">
-                                                        <xsl:call-template name="OutputSectionTOC">
-                                                            <xsl:with-param name="sLevel" select="'6'"/>
-                                                        </xsl:call-template>
-                                                    </xsl:for-each>
+                                        <xsl:if test="section4 and $nLevel>=4">
+                                            <xsl:for-each select="section4">
+                                                <xsl:if test="parent::*[@subsectionsAreShort!='yes' or @excludeShortSubsectionsFromContents!='yes']">
+                                                    <xsl:call-template name="OutputSectionTOC">
+                                                        <xsl:with-param name="sLevel" select="'4'"/>
+                                                    </xsl:call-template>
+                                                    <xsl:if test="section5 and $nLevel>=5">
+                                                        <xsl:for-each select="section5">
+                                                            <xsl:if test="parent::*[@subsectionsAreShort!='yes' or @excludeShortSubsectionsFromContents!='yes']">
+                                                                <xsl:call-template name="OutputSectionTOC">
+                                                                    <xsl:with-param name="sLevel" select="'5'"/>
+                                                                </xsl:call-template>
+                                                                <xsl:if test="section6 and $nLevel>=6">
+                                                                    <xsl:for-each select="section6">
+                                                                        <xsl:if test="parent::*[@subsectionsAreShort!='yes' or @excludeShortSubsectionsFromContents!='yes']">
+                                                                            <xsl:call-template name="OutputSectionTOC">
+                                                                                <xsl:with-param name="sLevel" select="'6'"/>
+                                                                            </xsl:call-template>
+                                                                        </xsl:if>
+                                                                    </xsl:for-each>
+                                                                </xsl:if>
+                                                            </xsl:if>
+                                                        </xsl:for-each>
+                                                    </xsl:if>
                                                 </xsl:if>
                                             </xsl:for-each>
                                         </xsl:if>
-                                    </xsl:for-each>
-                                </xsl:if>
-                            </xsl:for-each>
+                                    </xsl:if>
+                                </xsl:for-each>
+                            </xsl:if>
                         </xsl:if>
                     </xsl:for-each>
                 </xsl:if>
@@ -1088,11 +1171,9 @@
                 </xsl:attribute>
             </xsl:if>
             <xsl:if test="count($glossaryTermsUsed) &gt; 0">
-                <fo:list-block>
-                    <xsl:call-template name="SortGlossaryTermsAsDefinitionList">
-                        <xsl:with-param name="glossaryTermsUsed" select="$glossaryTermsUsed"/>
-                    </xsl:call-template>
-                </fo:list-block>
+                <xsl:call-template name="SortGlossaryTermsAsDefinitionList">
+                    <xsl:with-param name="glossaryTermsUsed" select="$glossaryTermsUsed"/>
+                </xsl:call-template>
             </xsl:if>
         </fo:block>
     </xsl:template>
@@ -1355,6 +1436,30 @@
                     </fo:block>
                 </fo:table-cell>
             </xsl:if>
+        </xsl:if>
+    </xsl:template>
+    <!--  
+        OutputSpaceAfter
+    -->
+    <xsl:template name="OutputSpaceAfter">
+        <xsl:param name="spacing"/>
+        <xsl:variable name="sSpacing" select="normalize-space($spacing)"/>
+        <xsl:if test="string-length($sSpacing)&gt; 2">
+            <xsl:attribute name="space-after">
+                <xsl:value-of select="$sSpacing"/>
+            </xsl:attribute>
+        </xsl:if>
+    </xsl:template>
+    <!--  
+        OutputSpaceBefore
+    -->
+    <xsl:template name="OutputSpaceBefore">
+        <xsl:param name="spacing"/>
+        <xsl:variable name="sSpacing" select="normalize-space($spacing)"/>
+        <xsl:if test="string-length($sSpacing)&gt; 2">
+            <xsl:attribute name="space-before">
+                <xsl:value-of select="$sSpacing"/>
+            </xsl:attribute>
         </xsl:if>
     </xsl:template>
     <!-- 

@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:fo="http://www.w3.org/1999/XSL/Format" xmlns:saxon="http://icl.com/saxon">
-    <xsl:variable name="authorForm" select="//publisherStyleSheet[1]/backMatterLayout/referencesLayout/@authorform"/>
     <xsl:variable name="titleForm" select="//publisherStyleSheet[1]/backMatterLayout/referencesLayout/@titleform"/>
     <xsl:variable name="iso639-3codeItem" select="//publisherStyleSheet[1]/backMatterLayout/referencesLayout/iso639-3codeItem"/>
     <!--  
@@ -46,7 +45,7 @@
                                         </xsl:variable>
                                         <xsl:choose>
                                             <xsl:when
-                                                test="$sAuthorName!='______' and $authorForm='full' and $referencesLayoutInfo/refAuthorLayouts/refAuthorLastNameLayout or not(refAuthorInitials) and $referencesLayoutInfo/refAuthorLayouts/refAuthorLastNameLayout">
+                                                test="$sAuthorName!='______' and $authorForm='full' and $referencesLayoutInfo/refAuthorLayouts/refAuthorLastNameLayout or not(refAuthorInitials or refAuthorSurnameGivenName) and $referencesLayoutInfo/refAuthorLayouts/refAuthorLastNameLayout">
                                                 <xsl:apply-templates select="$work/.."/>
                                             </xsl:when>
                                             <xsl:otherwise>
@@ -224,6 +223,27 @@
             <xsl:if test="position() = last()">
                 <xsl:value-of select="$iso639-3codeItem/@textafterlast"/>
             </xsl:if>
+        </fo:inline>
+    </xsl:template>
+    <!--  
+        OutputReferenceEditorItem
+    -->
+    <xsl:template name="OutputReferenceEditorItem">
+        <xsl:param name="item"/>
+        <fo:inline>
+            <xsl:call-template name="OutputFontAttributes">
+                <xsl:with-param name="language" select="."/>
+            </xsl:call-template>
+            <xsl:call-template name="DoFormatLayoutInfoTextBefore">
+                <xsl:with-param name="layoutInfo" select="."/>
+            </xsl:call-template>
+            <xsl:call-template name="OutputReferencedEditorNode">
+                <xsl:with-param name="item" select="$item"/>
+            </xsl:call-template>
+            <xsl:call-template name="DoFormatLayoutInfoTextAfter">
+                <xsl:with-param name="layoutInfo" select="."/>
+                <xsl:with-param name="sPrecedingText" select="$item"/>
+            </xsl:call-template>
         </fo:inline>
     </xsl:template>
     <!--  

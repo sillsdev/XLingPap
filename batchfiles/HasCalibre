@@ -1,8 +1,0 @@
-#!/bin/sh
-# following looks for calibreb in the path
-PATH=$PATH:/Applications/calibre.app/Contents/MacOS/	
-if [ "$(which calibredb)" != "" ]; then
-	echo XLingPaper-Yes-XLingPaper
-else
-	echo XLingPaper-No-XLingPaper
-fi

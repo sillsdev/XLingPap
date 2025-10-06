@@ -406,7 +406,7 @@
                 </xsl:choose>
             </tex:parm>
             <tex:parm>
-                <xsl:value-of select="$sBlockQuoteIndent"/>
+                <xsl:value-of select="$sBlockQuoteRightIndent"/>
             </tex:parm>
             <tex:parm>
                 <xsl:if test="$sLineSpacing and $sLineSpacing!='single' and $lineSpacing/@singlespaceblockquotes='yes'">
@@ -654,6 +654,9 @@
                                 </xsl:with-param>
                                 <xsl:with-param name="sListItemIndent">
                                     <xsl:choose>
+                                        <xsl:when test="ancestor::listDefinition">
+                                            <xsl:value-of select="'0.0em'"/>
+                                        </xsl:when>
                                         <xsl:when test="ancestor::example">
                                             <tex:spec cat="esc"/>
                                             <xsl:text>XLingPaperlistinexampleindent</xsl:text>
@@ -978,6 +981,9 @@
                             <xsl:apply-templates>
                                 <xsl:with-param name="sListItemIndent">
                                     <xsl:choose>
+                                        <xsl:when test="ancestor::listDefinition">
+                                            <xsl:value-of select="'0.0em'"/>
+                                        </xsl:when>
                                         <xsl:when test="ancestor::example">
                                             <tex:spec cat="esc"/>
                                             <xsl:text>XLingPaperlistinexampleindent</xsl:text>
@@ -1023,7 +1029,7 @@
         </xsl:choose>
     </xsl:template>
     <xsl:template name="VerticalSkipAroundList">
-        <xsl:variable name="nearestRelevantElement" select="ancestor::*[name()='endnote' or name()='example'][1]"/>
+        <xsl:variable name="nearestRelevantElement" select="ancestor::*[name()='endnote' or name()='example' or name()='listDefinition'][1]"/>
         <xsl:if test="name($nearestRelevantElement)='example'">
             <xsl:text>-</xsl:text>
         </xsl:if>
@@ -1145,7 +1151,17 @@
     <xsl:template match="dl">
         <xsl:if test="count(dt) &gt; 0">
             <xsl:call-template name="OKToBreakHere"/>
-            <tex:env name="description">
+            <xsl:variable name="sDescription">
+                <xsl:choose>
+                    <xsl:when test="dd/example">
+                        <xsl:text>descriptionwithexample</xsl:text>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:text>description</xsl:text>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </xsl:variable>
+            <tex:env name="{$sDescription}">
                 <!-- unsuccessful attempt to get space between embedded lists to be more like the normal spacing
             <xsl:if test="count(ancestor::ul | ancestor::ol) &gt; 0">
             <tex:cmd name="vspace*">
@@ -1155,7 +1171,10 @@
             </tex:parm>
             </tex:cmd>
             </xsl:if>
-         -->
+                -->
+                <xsl:if test="dd/example">
+                    <tex:opt>0em</tex:opt>
+                </xsl:if>
                 <xsl:call-template name="SetListLengths"/>
                 <xsl:call-template name="DoType"/>
                 <xsl:if test="$contentLayoutInfo/definitionListLayout/@useRaggedRight='yes'">
@@ -1202,8 +1221,18 @@
         <xsl:param name="mydt"/>
         <xsl:if test="parent::dl/@showddOnNewLineInPDF='yes'">
             <tex:cmd name="hfill" gr="0"/>
-            <tex:spec cat="esc"/>
-            <tex:spec cat="esc"/>
+            <xsl:choose>
+                <xsl:when test="example">
+                    <!-- 
+                    Do not add yet another line; we do need to adjust the left indent of the example number, though.
+                    That is done in the example processing code.
+                    -->
+                </xsl:when>
+                <xsl:otherwise>
+                    <tex:spec cat="esc"/>
+                    <tex:spec cat="esc"/>
+                </xsl:otherwise>
+            </xsl:choose>
         </xsl:if>
         <xsl:apply-templates/>
         <xsl:if test="count(preceding-sibling::dd[preceding-sibling::dt[1]=$mydt])=0">
@@ -1531,19 +1560,34 @@
         <xsl:variable name="originalContext" select="."/>
         <xsl:for-each select="key('InterlinearReferenceID',@textref)[1]">
             <xsl:choose>
-                <xsl:when test="$bAutomaticallyWrapInterlinears='yes' and $sInterlinearSourceStyle='AfterFirstLine'">
-                    <xsl:call-template name="DoInterlinearWrappedWithSourceAfterFirstLine">
-                        <xsl:with-param name="bHasExampleHeading" select="$bHasExampleHeading"/>
-                        <xsl:with-param name="originalContext" select="$originalContext"/>
-                        <xsl:with-param name="bListsShareSameCode" select="$bListsShareSameCode"/>
-                    </xsl:call-template>
+                <xsl:when test="$originalContext[parent::td]">
+                    <!-- when we are in a table, any attempt to insert a new row for a free translation 
+                        causes a Missing \endgroup message. By embedding the interlinear within
+                        a tabular, we avoid that problem (although, the interlinear may be indented a
+                        bit more than we'd like). -->
+                    <tex:env name="tabular">
+                        <tex:opt>t</tex:opt>
+                        <tex:spec cat="bg"/>
+                        <xsl:text>@</xsl:text>
+                        <tex:spec cat="bg"/>
+                        <tex:spec cat="eg"/>
+                        <xsl:text>l@</xsl:text>
+                        <tex:spec cat="bg"/>
+                        <tex:spec cat="eg"/>
+                        <tex:spec cat="eg"/>
+                        <xsl:call-template name="DoInterlinearRefContents">
+                            <xsl:with-param name="bHasExampleHeading" select="$bHasExampleHeading"/>
+                            <xsl:with-param name="bListsShareSameCode" select="$bListsShareSameCode"/>
+                            <xsl:with-param name="originalContext" select="$originalContext"/>
+                        </xsl:call-template>
+                    </tex:env>
                 </xsl:when>
                 <xsl:otherwise>
-                    <xsl:apply-templates>
+                    <xsl:call-template name="DoInterlinearRefContents">
                         <xsl:with-param name="bHasExampleHeading" select="$bHasExampleHeading"/>
-                        <xsl:with-param name="originalContext" select="$originalContext"/>
                         <xsl:with-param name="bListsShareSameCode" select="$bListsShareSameCode"/>
-                    </xsl:apply-templates>
+                        <xsl:with-param name="originalContext" select="$originalContext"/>
+                    </xsl:call-template>
                 </xsl:otherwise>
             </xsl:choose>
         </xsl:for-each>
@@ -2047,7 +2091,7 @@
     <!--
         chart
     -->
-    <xsl:template match="chart">
+    <xsl:template match="chart | tree">
         <xsl:if test="not(ancestor::figure or ancestor::tablenumbered or ancestor::example)">
             <tex:cmd name="vspace" nl1="1">
                 <tex:parm>
@@ -2094,6 +2138,11 @@
                 <xsl:otherwise>
                     <tex:spec cat="esc"/>
                     <tex:spec cat="esc"/>
+                    <xsl:if test="not(child::ul) and not(child::ol) and following-sibling::*[1][starts-with(name(),'section')] and ancestor::styledPaper">
+                        <!-- rare case where chart just has text and is followed by a section level element -->
+                        <tex:spec cat="esc"/>
+                        <tex:spec cat="esc"/>
+                    </xsl:if>
                 </xsl:otherwise>
             </xsl:choose>
         </xsl:if>
@@ -2101,17 +2150,7 @@
     <!--
         tree
     -->
-    <xsl:template match="tree">
-        <xsl:call-template name="DoType"/>
-        <xsl:call-template name="OutputTypeAttributes">
-            <xsl:with-param name="sList" select="@XeLaTeXSpecial"/>
-        </xsl:call-template>
-        <xsl:apply-templates/>
-        <xsl:call-template name="OutputTypeAttributesEnd">
-            <xsl:with-param name="sList" select="@XeLaTeXSpecial"/>
-        </xsl:call-template>
-        <xsl:call-template name="DoTypeEnd"/>
-    </xsl:template>
+<!--    Moved tree match to chart match -->
     <!--
         table
     -->
@@ -2223,6 +2262,9 @@
         <xsl:call-template name="DoTypeEnd"/>
         <!--   with new ay of handling examples, trying without this     <xsl:if test="not(parent::example)">-->
         <tex:spec cat="eg"/>
+        <xsl:if test="parent::tablenumbered and $lingPaper/@tablenumberedLabelAndCaptionLocation='before' and not(ancestor::styledPaper)">
+            <tex:spec cat="eg"/>
+        </xsl:if>
         <!--        </xsl:if>-->
         <xsl:choose>
             <xsl:when test="not(parent::example) and not(ancestor::table) and not(ancestor::li)">
@@ -4399,7 +4441,7 @@
                         <xsl:value-of select="$sBlockQuoteIndent"/>
                         <tex:cmd name="rightmargin" gr="0"/>
                         <xsl:text>=</xsl:text>
-                        <xsl:value-of select="$sBlockQuoteIndent"/>
+                        <xsl:value-of select="$sBlockQuoteRightIndent"/>
                     </tex:parm>
                 </tex:cmd>
                 <tex:cmd name="item">
@@ -4487,7 +4529,11 @@
         <xsl:variable name="iTitleEndnote">
             <xsl:call-template name="GetCountOfEndnoteInTitleUsingSymbol"/>
         </xsl:variable>
-        <xsl:variable name="iAuthorPosition" select="count(parent::author/preceding-sibling::author[endnote]) + $iTitleEndnote + 1"/>
+        <xsl:variable name="iAuthorPosition">
+            <xsl:call-template name="GetAuthorFootnoteNumber">
+                <xsl:with-param name="iTitleEndnote" select="$iTitleEndnote"/>
+            </xsl:call-template>
+        </xsl:variable>
         <xsl:choose>
             <xsl:when test="$iAuthorPosition &lt; 10">
                 <xsl:value-of select="$iAuthorPosition"/>
@@ -5271,6 +5317,9 @@
                         <tex:spec cat="esc"/>
                         <xsl:text>*</xsl:text>
                     </xsl:when>
+                    <xsl:when test="$originalContext and $originalContext[ancestor::td]">
+                        <!-- do nothing when have an interlinearRef in a table cell -->
+                    </xsl:when>
                     <xsl:otherwise>
                         <xsl:if test="not(endnote) or not(contains(@XeLaTeXSpecial,'fix-free-literal-footnote-placement'))">
                             <!-- endnotes get put on next page if we try and use \vskip and it is near the bottom of the page -->
@@ -5317,7 +5366,7 @@
                 <xsl:choose>
                     <xsl:when test="not(ancestor::td) and count(following-sibling::*) =0 and not(../following-sibling::interlinear and ancestor::example) or following-sibling::*[1][name()!='interlinear' and name()!='lineGroup']">
                         <xsl:choose>
-                            <xsl:when test="following-sibling::*[1][name()='free' or name()='literal'] and $sInterlinearSourceStyle='AfterFirstLine'">
+                            <xsl:when test="following-sibling::*[1][name()='free' or name()='literal'] and $sInterlinearSourceStyle='AfterFirstLine' and not(ancestor::table)">
                                 <!-- do nothing because already done above -->
                             </xsl:when>
                             <xsl:otherwise>
@@ -5346,6 +5395,13 @@
                     </tex:cmd>
                     <tex:cmd name="newline"/>
                 </xsl:when>
+                <xsl:when test="ancestor::td or $originalContext and $originalContext[ancestor::td]">
+                    <tex:spec cat="esc"/>
+                    <tex:spec cat="esc"/>
+                    <tex:spec cat="lsb"/>
+                    <xsl:call-template name="GetCurrentPointSize"/>
+                    <tex:spec cat="rsb"/>
+                </xsl:when>
                 <xsl:when test="../following-sibling::*[1][name()='interlinear']">
                     <xsl:choose>
                         <xsl:when test="count(ancestor::interlinear) &gt; 1">
@@ -5360,13 +5416,6 @@
                         </xsl:when>
                         <xsl:otherwise/>
                     </xsl:choose>
-                </xsl:when>
-                <xsl:when test="ancestor::td">
-                    <tex:spec cat="esc"/>
-                    <tex:spec cat="esc"/>
-                    <tex:spec cat="lsb"/>
-                    <xsl:call-template name="GetCurrentPointSize"/>
-                    <tex:spec cat="rsb"/>
                 </xsl:when>
                 <xsl:otherwise/>
             </xsl:choose>
@@ -5707,6 +5756,30 @@
         <xsl:call-template name="DoFootnoteTextAtEndOfInLineGroup">
             <xsl:with-param name="originalContext" select="$originalContext"/>
         </xsl:call-template>
+    </xsl:template>
+    <!--  
+        DoInterlinearRefContents
+    -->
+    <xsl:template name="DoInterlinearRefContents">
+        <xsl:param name="bHasExampleHeading"/>
+        <xsl:param name="bListsShareSameCode"/>
+        <xsl:param name="originalContext"/>
+        <xsl:choose>
+            <xsl:when test="$bAutomaticallyWrapInterlinears='yes' and $sInterlinearSourceStyle='AfterFirstLine'">
+                <xsl:call-template name="DoInterlinearWrappedWithSourceAfterFirstLine">
+                    <xsl:with-param name="bHasExampleHeading" select="$bHasExampleHeading"/>
+                    <xsl:with-param name="originalContext" select="$originalContext"/>
+                    <xsl:with-param name="bListsShareSameCode" select="$bListsShareSameCode"/>
+                </xsl:call-template>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:apply-templates>
+                    <xsl:with-param name="bHasExampleHeading" select="$bHasExampleHeading"/>
+                    <xsl:with-param name="originalContext" select="$originalContext"/>
+                    <xsl:with-param name="bListsShareSameCode" select="$bListsShareSameCode"/>
+                </xsl:apply-templates>
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
     <!--  
         DoInterlinearTabularMainPattern
@@ -6479,7 +6552,7 @@
                 <tex:spec cat="esc"/>
                 <tex:spec cat="esc"/>
             </xsl:when>
-            <xsl:when test="ancestor::td">
+            <xsl:when test="ancestor::td or $originalContext and $originalContext[ancestor::td]">
                 <tex:spec cat="esc"/>
                 <tex:spec cat="esc"/>
                 <tex:spec cat="lsb"/>
@@ -7603,7 +7676,7 @@
         </xsl:if>
     </xsl:template>
     <!--  
-        HandleEndnoteTextInExampleInTable
+        HandleEndnotesTextInCaptionAfterTablenumbered
     -->
     <xsl:template name="HandleEndnotesTextInCaptionAfterTablenumbered">
         <xsl:if test="not($backMatterLayoutInfo/useEndNotesLayout)">
@@ -7620,6 +7693,24 @@
                         <xsl:with-param name="sPrecalculatedNumber" select="$sFootnoteNumberOffOne + $iEndnotesInTable"/>
                     </xsl:apply-templates>
                 </xsl:for-each>
+            </xsl:for-each>
+        </xsl:if>
+    </xsl:template>
+    <!--  
+        HandleEndnotesTextInCaptionTablenumberedImg
+    -->
+    <xsl:template name="HandleEndnotesTextInCaptionTablenumberedImg">
+        <xsl:if test="./caption[descendant-or-self::endnote] and ./img">
+            <xsl:for-each select="descendant-or-self::endnote">
+                <xsl:variable name="sFootnoteNumberOffOne">
+                    <xsl:call-template name="CalculateFootnoteNumber">
+                        <xsl:with-param name="bInTableNumbered" select="'Y'"/>
+                    </xsl:call-template>
+                </xsl:variable>
+                <xsl:apply-templates select=".">
+                    <xsl:with-param name="sTeXFootnoteKind" select="'footnotetext'"/>
+                    <xsl:with-param name="sPrecalculatedNumber" select="$sFootnoteNumberOffOne"/>
+                </xsl:apply-templates>
             </xsl:for-each>
         </xsl:if>
     </xsl:template>
@@ -7851,11 +7942,39 @@
         <xsl:text>&#x0a;</xsl:text>
     </xsl:template>
     <!--  
+        HandleImageBorders
+    -->
+    <xsl:template name="HandleImageBorders">
+        <xsl:if test="//img/@borderaround='yes'">
+            <tex:cmd name="setlength">
+                <tex:parm>
+                    <tex:cmd name="fboxsep" gr="0"/>
+                </tex:parm>
+                <tex:parm>
+                    <xsl:call-template name="GetBorderAroundImageSeparation"/>
+                </tex:parm>
+            </tex:cmd>
+            <tex:cmd name="setlength">
+                <tex:parm>
+                    <tex:cmd name="fboxrule" gr="0"/>
+                </tex:parm>
+                <tex:parm>
+                    <xsl:call-template name="GetBorderAroundImageWidth"/>
+                </tex:parm>
+            </tex:cmd>
+        </xsl:if>
+    </xsl:template>
+    <!--  
         HandleImg
     -->
     <xsl:template name="HandleImg">
         <xsl:variable name="sImgFile" select="normalize-space(translate(@src,'\','/'))"/>
         <xsl:variable name="sExtension" select="substring($sImgFile,string-length($sImgFile)-3,4)"/>
+        <xsl:if test="@borderaround='yes'">
+            <tex:spec cat="esc"/>
+            <xsl:text>fbox</xsl:text>
+            <tex:spec cat="bg"/>
+        </xsl:if>
         <xsl:choose>
             <xsl:when test="translate($sExtension,'GIF','gif')='.gif'">
                 <xsl:if test="not(ancestor::example)">
@@ -7906,7 +8025,8 @@
                             </tex:parm>
                         </tex:cmd>
                     </xsl:when>
-                    <xsl:when test="parent::chart and not(ancestor::figure)">
+                    <xsl:when test="parent::chart and not(ancestor::figure) or parent::tree and not(ancestor::figure)">
+                        <!-- or parent::tree and not(ancestor::figure) -->
                         <tex:cmd name="hbox">
                             <tex:parm>
                                 <xsl:call-template name="DoImageFile">
@@ -7925,6 +8045,9 @@
                 </xsl:choose>
             </xsl:otherwise>
         </xsl:choose>
+        <xsl:if test="@borderaround='yes'">
+            <tex:spec cat="eg"/>
+        </xsl:if>
     </xsl:template>
     <!--  
         HandleISO639-3CodesInTableColumnSpecColumns
@@ -9689,13 +9812,13 @@
                                     </xsl:call-template>
                                 </xsl:if>
                                 <!--                        <tex:cmd name="par" nl2="1"/>-->
-                                <xsl:call-template name="OutputIndexTerms">
-                                    <xsl:with-param name="sIndexKind" select="$sIndexKind"/>
-                                    <xsl:with-param name="lang" select="$lang"/>
-                                    <xsl:with-param name="terms" select="indexTerms"/>
-                                </xsl:call-template>
                             </tex:parm>
                         </tex:cmd>
+                        <xsl:call-template name="OutputIndexTerms">
+                            <xsl:with-param name="sIndexKind" select="$sIndexKind"/>
+                            <xsl:with-param name="lang" select="$lang"/>
+                            <xsl:with-param name="terms" select="indexTerms"/>
+                        </xsl:call-template>
                     </xsl:when>
                     <xsl:when test="$bHasSeeAttribute='Y' and contains($bSeeTargetIsCitedOrItsDescendantIsCited, 'Y')">
                         <!-- neither this term nor its decendants are cited, but it has a @see attribute which refers to a term that is cited or for which one of its descendants is cited -->
@@ -10321,6 +10444,20 @@
         </tex:cmd>
     </xsl:template>
     <!--  
+        OutputSpaceBeforeOrAfter
+    -->
+    <xsl:template name="OutputSpaceBeforeOrAfter">
+        <xsl:param name="spacing"/>
+        <xsl:variable name="sSpacing" select="normalize-space($spacing)"/>
+        <xsl:if test="string-length($sSpacing)&gt; 2">
+            <tex:cmd name="vspace">
+                <tex:parm>
+                    <xsl:value-of select="$sSpacing"/>
+                </tex:parm>
+            </tex:cmd>
+        </xsl:if>
+    </xsl:template>
+    <!--  
         OutputTable
     -->
     <xsl:template name="OutputTable">
@@ -10508,7 +10645,9 @@
                 <xsl:choose>
                     <xsl:when test="parent::example or ancestor::table">t</xsl:when>
                     <xsl:otherwise>
-                        <xsl:variable name="sAlign" select="normalize-space(@align)"/>
+                        <xsl:variable name="sAlign">
+                            <xsl:call-template name="GetTableAlignment"/>
+                        </xsl:variable>
                         <xsl:choose>
                             <xsl:when test="string-length($sAlign) &gt; 0">
                                 <xsl:choose>
@@ -11917,22 +12056,6 @@
             </tex:parm>
         </tex:cmd>
         <xsl:call-template name="SetStartingPageNumber"/>
-        <xsl:variable name="sFootnoteIndent" select="normalize-space($pageLayoutInfo/footnoteIndent)"/>
-        <xsl:if test="string-length($sFootnoteIndent)&gt;0">
-            <tex:cmd name="makeatletter" gr="0" nl2="1"/>
-            <tex:cmd name="renewcommand" gr="0"/>
-            <tex:cmd name="@makefntext">
-                <tex:opt>1</tex:opt>
-                <tex:parm>
-                    <tex:cmd name="hskip" gr="0"/>
-                    <xsl:value-of select="$sFootnoteIndent"/>
-                    <tex:cmd name="@makefnmark" gr="0"/>
-                    <tex:spec cat="parm"/>
-                    <xsl:text>1</xsl:text>
-                </tex:parm>
-            </tex:cmd>
-            <tex:cmd name="makeatother" gr="0" nl1="1" nl2="1"/>
-        </xsl:if>
         <xsl:if test="contains(@XeLaTeXSpecial,'overfullhbox')">
             <xsl:variable name="sValue">
                 <xsl:call-template name="GetXeLaTeXSpecialCommand">
@@ -12662,6 +12785,9 @@
             <tex:parm>fontspec</tex:parm>
         </tex:cmd>
         <tex:cmd name="usepackage" nl2="1">
+            <xsl:if test="contains(//secTitle,'%')">
+                <tex:opt>unicode</tex:opt>
+            </xsl:if>
             <tex:parm>hyperref</tex:parm>
         </tex:cmd>
         <xsl:if test="//language[@rtl='yes'] and $lingPaper/@automaticallywrapinterlinears='yes'">
@@ -12670,6 +12796,11 @@
         <tex:cmd name="hypersetup" nl2="1">
             <tex:parm>
                 <xsl:text>colorlinks=true, citecolor=black, filecolor=black, linkcolor=black, urlcolor=blue, bookmarksopen=true, </xsl:text>
+                <xsl:if test="$contents">
+                    <xsl:text>bookmarksdepth=</xsl:text>
+                    <xsl:value-of select="$contents/@bookmarksShowLevel"/>
+                    <xsl:text>, </xsl:text>
+                </xsl:if>
                 <xsl:if test="$sLineSpacing and $sLineSpacing!='single' and $lineSpacing/@singlespaceendnotes!='yes' and not($backMatterLayoutInfo/useEndNotesLayout)">
                     <xsl:text>hyperfootnotes=false, </xsl:text>
                 </xsl:if>
@@ -12875,6 +13006,36 @@ What might go in a TeX package file
                 </tex:group>
             </tex:parm>
         </tex:cmd>
+        <xsl:if test="//dd/example">
+            <tex:cmd name="newenvironment" nl2="1">
+                <tex:parm>
+                    <xsl:text>descriptionwithexample</xsl:text>
+                </tex:parm>
+                <tex:opt>1</tex:opt>
+                <tex:opt>0pt</tex:opt>
+                <tex:parm>
+                    <tex:cmd name="list"/>
+                    <tex:parm>
+                        <tex:spec cat="esc"/>
+                        <xsl:text>labelwidth=0pt </xsl:text>
+                        <tex:spec cat="esc"/>
+                        <xsl:text>leftmargin=</xsl:text>
+                        <tex:spec cat="parm"/>
+                        <xsl:text>1</xsl:text>
+                        <tex:spec cat="esc"/>
+                        <xsl:text>let</xsl:text>
+                        <tex:spec cat="esc"/>
+                        <xsl:text>makelabel</xsl:text>
+                        <tex:spec cat="esc"/>
+                        <xsl:text>descriptionlabel</xsl:text>
+                    </tex:parm>
+                </tex:parm>
+                <tex:parm>
+                    <tex:spec cat="esc"/>
+                    <xsl:text>endlist</xsl:text>
+                </tex:parm>
+            </tex:cmd>
+        </xsl:if>
     </xsl:template>
     <!-- 
         \newcommand{\XLingPaperexampleintable}[5]{
@@ -13261,7 +13422,7 @@ What might go in a TeX package file
             <tex:parm>
                 <tex:cmd name="XLingPaperdottedtocline" gr="0" nl2="0"/>
             </tex:parm>
-            <tex:opt>4</tex:opt>
+            <tex:opt>5</tex:opt>
             <tex:parm>
                 <xsl:if test="contains($sXeLaTeXVersion,'2020')">
                     <!-- following vspace* command needed for TeX Live 2020 hyperlink command; not sure why  -->
@@ -13312,6 +13473,9 @@ What might go in a TeX package file
                     <tex:cmd name="hskip" gr="0" nl2="0"/>
                     <xsl:text>-</xsl:text>
                     <tex:cmd name="leftskip" gr="0" nl2="0"/>
+                    <tex:cmd name="hangindent" gr="0" nl2="0"/>
+                    <tex:spec cat="parm"/>
+                    <xsl:text>5</xsl:text>
                     <tex:spec cat="bg"/>
                     <tex:spec cat="parm"/>
                     <xsl:text>3</xsl:text>
@@ -13543,6 +13707,9 @@ What might go in a TeX package file
                         <xsl:text>-</xsl:text>
                         <tex:cmd name="parindent" gr="0" nl2="0"/>
                         <tex:spec cat="bg"/>
+                        <xsl:if test="$pageLayoutInfo/paragraphAlignment/@textalign='left'">
+                            <tex:cmd name="iraggedright"/>
+                        </xsl:if>
                         <tex:spec cat="parm"/>
                         <xsl:text>3</xsl:text>
                         <tex:spec cat="eg"/>

@@ -82,7 +82,7 @@
      When the xml:lang attribute is set, it is the default xml:lang for the document.
      The version attribute is the version of XLingPap the document is for.
   -->
-<!ELEMENT lingPaper (comment*, frontMatter?, ((chapterBeforePart?, part*) | chapter* | chapterInCollection* | section1*), backMatter?, referencedInterlinearTexts?, languages?, types?, framedTypes?, indexTerms*, comment*, publishingInfo?, contentControl?, validation?)>
+<!ELEMENT lingPaper (comment*, frontMatter?, ((chapterBeforePart?, part*, (volume, part*)*) | ((volume?, chapter*)*) | ((volume?, chapterInCollection*)*) | section1*), backMatter?, referencedInterlinearTexts?, languages?, types?, framedTypes?, indexTerms*, comment*, publishingInfo?, contentControl?, validation?)>
 <!ATTLIST lingPaper
     partlabel CDATA #IMPLIED
     chapterlabel CDATA #IMPLIED
@@ -150,7 +150,7 @@
 >
 <!-- Front matter -->
 <!-- We allow more than one abstract and more than one contents for cases where one needs the abstract or contents to be in more than one language. -->
-<!ELEMENT frontMatter (title, shortTitle?, subtitle?, ((author, affiliation*, emailAddress*) | authorContactInfo)+, shortAuthor?, presentedAt?, date?, version*, keywordsShownHere?, contents?, acknowledgements?, abstract*, preface*)>
+<!ELEMENT frontMatter (title, shortTitle?, subtitle?, ((author, affiliation*, emailAddress*) | authorContactInfo)+, shortAuthor?, presentedAt?, date?, version*, keywordsShownHere?, volume?, contents?, acknowledgements?, abstract*, preface*)>
 <!ELEMENT title (#PCDATA | %embedded; | titleContentChoices)*>
 <!ATTLIST title
     xml:lang CDATA #IMPLIED
@@ -247,6 +247,7 @@
     backmatterlabel CDATA #IMPLIED
     contentType IDREF #IMPLIED
     showinlandscapemode (yes | no) "no"
+    bookmarksShowLevel (0 | 1 | 2 | 3 | 4 | 5 | 6 | 7) "3"
 >
 <!-- an keywordsShownHere element can be placed in front matter or back matter.
     The list of keywords defined within publishingInfo will be listed one after the other separated by what is in the separationText attribute.
@@ -259,6 +260,12 @@
 >
 
 <!-- Main content -->
+<!ELEMENT volume (part* | (chapter* | chapterInCollection*))>
+<!ATTLIST volume
+    XeLaTeXSpecial CDATA #IMPLIED
+    label CDATA #IMPLIED
+    number CDATA #IMPLIED
+>
 <!ELEMENT part (secTitle, shortTitle?,(%chunk; | landscape | framedUnit)*, (chapter* | chapterInCollection*))>
 <!ATTLIST part
     XeLaTeXSpecial CDATA #IMPLIED
@@ -267,13 +274,17 @@
     showinlandscapemode (yes | no) "no"
     startingPageNumber CDATA #IMPLIED
 >
-<!ELEMENT chapter (secTitle, shortTitle?, (%chunk; | landscape | framedUnit)*, section1*)>
+    <!-- N.B. we include excludeShortSubsectionsFromContents and subsectionsAreShort attributes from sections to prevent validity errors
+    after promoting a section1 to a chapter.  They are not used, normally. -->
+<!ELEMENT chapter (secTitle, shortTitle?, (%chunk; | landscape | framedUnit | abbreviationsShownHere)*, section1*)>
 <!ATTLIST chapter
     id ID #REQUIRED
     XeLaTeXSpecial CDATA #IMPLIED
     contentType IDREF #IMPLIED
     showinlandscapemode (yes | no) "no"
     startingPageNumber CDATA #IMPLIED
+    excludeShortSubsectionsFromContents (yes | no) "yes"
+    subsectionsAreShort (yes | no) "no"
 >
 <!ELEMENT chapterBeforePart (secTitle, shortTitle?, (%chunk; | landscape | framedUnit)*, section1*)>
 <!ATTLIST chapterBeforePart
@@ -289,40 +300,50 @@
     contentType IDREF #IMPLIED
     showinlandscapemode (yes | no) "no"
 >
-<!ELEMENT section1 (secTitle, shortTitle?, (%chunk; | landscape | framedUnit)*, section2*)>
+<!ELEMENT section1 (secTitle, shortTitle?, (%chunk; | landscape | framedUnit | abbreviationsShownHere)*, section2*)>
 <!ATTLIST section1
     id ID #REQUIRED
     XeLaTeXSpecial CDATA #IMPLIED
     contentType IDREF #IMPLIED
+    excludeShortSubsectionsFromContents (yes | no) "yes"
     showinlandscapemode (yes | no) "no"
+    subsectionsAreShort (yes | no) "no"
 >
 <!ELEMENT section2 (secTitle, shortTitle?, (%chunk; | landscape | framedUnit)*, section3*)>
 <!ATTLIST section2
     id ID #REQUIRED
     XeLaTeXSpecial CDATA #IMPLIED
     contentType IDREF #IMPLIED
+    excludeShortSubsectionsFromContents (yes | no) "yes"
     showinlandscapemode (yes | no) "no"
+    subsectionsAreShort (yes | no) "no"
 >
 <!ELEMENT section3 (secTitle, shortTitle?, (%chunk; | landscape | framedUnit)*, section4*)>
 <!ATTLIST section3
     id ID #REQUIRED
     XeLaTeXSpecial CDATA #IMPLIED
     contentType IDREF #IMPLIED
+    excludeShortSubsectionsFromContents (yes | no) "yes"
     showinlandscapemode (yes | no) "no"
+    subsectionsAreShort (yes | no) "no"
 >
 <!ELEMENT section4 (secTitle, shortTitle?, (%chunk; | landscape | framedUnit)*, section5*)>
 <!ATTLIST section4
     id ID #REQUIRED
     XeLaTeXSpecial CDATA #IMPLIED
     contentType IDREF #IMPLIED
+    excludeShortSubsectionsFromContents (yes | no) "yes"
     showinlandscapemode (yes | no) "no"
+    subsectionsAreShort (yes | no) "no"
 >
 <!ELEMENT section5 (secTitle, shortTitle?, (%chunk; | landscape | framedUnit)*, section6*)>
 <!ATTLIST section5
     id ID #REQUIRED
     XeLaTeXSpecial CDATA #IMPLIED
     contentType IDREF #IMPLIED
+    excludeShortSubsectionsFromContents (yes | no) "yes"
     showinlandscapemode (yes | no) "no"
+    subsectionsAreShort (yes | no) "no"
 >
 <!ELEMENT section6 (secTitle, shortTitle?, (%chunk; | landscape | framedUnit)*)>
 <!ATTLIST section6
@@ -676,6 +697,7 @@
 >
 <!ELEMENT tablenumbered (shortCaption?, (table | (caption?, img)))>
 <!ATTLIST tablenumbered
+    alignoverride (left | center | right | none) "none"
     location (here | topOfPage | bottomOfPage) "here"
     id ID #REQUIRED
     type IDREF #IMPLIED
@@ -763,7 +785,7 @@
     direction (ltr | rtl | inherit) #IMPLIED
     xml:lang CDATA #IMPLIED
 >
-<!ELEMENT td (#PCDATA | %embedded; | table | interlinear | example | counter)*>
+<!ELEMENT td (#PCDATA | %embedded; | table | interlinear | interlinearRef | example | counter)*>
 <!ATTLIST td
     align (left | center | right | justify) "left"
     backgroundcolor CDATA #IMPLIED
@@ -784,10 +806,11 @@
     %special;
     contentType IDREF #IMPLIED
 >
-<!ELEMENT figure (chart, (caption, shortCaption?)?)>
+<!ELEMENT figure ((chart | framedUnit), (caption, shortCaption?)?)>
 <!ATTLIST figure
     location (here | topOfPage | bottomOfPage) "here"
     align (left | center | right | justify) "left"
+    alignoverride (left | center | right | none) "none"
     id ID #REQUIRED
     type IDREF #IMPLIED
     %special;
@@ -842,6 +865,7 @@
     description CDATA #IMPLIED
     width CDATA #IMPLIED
     height CDATA #IMPLIED
+    borderaround (no | yes ) 'no'
     %special;
 >
 <!ELEMENT mediaObject EMPTY >
@@ -930,6 +954,7 @@
     href CDATA #REQUIRED
     xml:lang CDATA #IMPLIED
     XeLaTeXSpecial CDATA #IMPLIED
+    openInNewTab ( no | yes) "no"
 >
 <!-- backmatter includes appendices, endnotes and references -->
 <!ELEMENT backMatter (acknowledgements?, appendix*, glossary*, abbreviations?, glossaryTerms?, endnotes?, (references, selectedBibliography?)?, keywordsShownHere?, index*, authorContactInfo*)>
@@ -1056,6 +1081,8 @@ Can have more than one (for names, languages, and subjects, e.g.).
  startingPageNumber CDATA #IMPLIED
  startingPageNumberInBook CDATA #IMPLIED
  version CDATA #IMPLIED
+ showVolumeInContents (yes | no) "no"
+ whichVolumeToShowInContents (all | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10) "all"
  >
 <!ELEMENT publishingBlurb (#PCDATA | %embedded;)* >
 

@@ -13,7 +13,7 @@
     labelPaper CDATA #IMPLIED
     labelThesis CDATA #IMPLIED
     version CDATA #IMPLIED
-    authorformtoshowineditor (full | initials | both) "full"
+    authorformtoshowineditor (full | initials | surnamegivenname | both | fullsurnamegivenname | all) "full"
     titleformtoshowineditor (uppercase | lowercase | both) "uppercase"
     showrefWorkIconsInEditor (yes | no) "no"
     showrefTitleInBoldInEditor (yes | no) "no"
@@ -22,7 +22,7 @@
     pageRangeSeparator CDATA #IMPLIED
 >
 <!-- the citename is the string to use in a citation within the text body -->
-<!ELEMENT refAuthor (refAuthorInitials?, refAuthorName?, citeName?, refWork+)>
+<!ELEMENT refAuthor (refAuthorInitials?, refAuthorSurnameGivenName?, refAuthorName?, citeName?, refWork+)>
 <!ATTLIST refAuthor
     name CDATA #REQUIRED
     citename CDATA #REQUIRED
@@ -35,6 +35,7 @@
      There are a number of kinds of references, each of which has different
      content. -->
 <!ELEMENT  refAuthorInitials (#PCDATA | %embedded;)* >
+<!ELEMENT  refAuthorSurnameGivenName (#PCDATA | %embedded;)* >
 <!ELEMENT  refAuthorName (#PCDATA | refAuthorLastName)* >
 <!ELEMENT  refAuthorLastName (#PCDATA) >     
 <!ELEMENT  citeName (#PCDATA | %embedded;)* >
@@ -93,7 +94,7 @@
     xml:lang CDATA #IMPLIED
 >
 <!-- book -->
-<!ELEMENT book (translatedBy?, (editor, editorInitials?)?, edition?, (seriesEd?, seriesEdInitials?, series)?, bVol?, multivolumeWork?, location?, publisher?, reprintInfo?, bookTotalPages?, url?, dateAccessed?, doi?, iso639-3code*, comment?, annotations?, keywords?)>
+<!ELEMENT book (translatedBy?, (editor, editorInitials?, editorSurnameGivenName?)?, bookversion?, edition?, (seriesEd?, seriesEdInitials?, seriesEdSurnameGivenName?, series)?, bVol?, multivolumeWork?, location?, publisher?, reprintInfo?, bookTotalPages?, url?, dateAccessed?, doi?, iso639-3code*, comment?, annotations?, keywords?)>
 <!ELEMENT translatedBy (#PCDATA | %embedded;)*>
 <!ATTLIST translatedBy
     xml:lang CDATA #IMPLIED
@@ -103,7 +104,12 @@
     xml:lang CDATA #IMPLIED
 >
 <!ELEMENT editorInitials (#PCDATA | %embedded;)*>
+<!ELEMENT editorSurnameGivenName (#PCDATA | %embedded;)*>
 
+<!ELEMENT bookversion (#PCDATA | %embedded;)*>
+<!ATTLIST bookversion
+    xml:lang CDATA #IMPLIED
+>
 <!ELEMENT edition (#PCDATA | %embedded;)*>
 <!ATTLIST edition
     xml:lang CDATA #IMPLIED
@@ -118,6 +124,7 @@
     xml:lang CDATA #IMPLIED
 >
 <!ELEMENT seriesEdInitials (#PCDATA | %embedded;)*>
+<!ELEMENT seriesEdSurnameGivenName (#PCDATA | %embedded;)*>
 
 <!ELEMENT bVol (#PCDATA)>
 <!ATTLIST bVol
@@ -144,7 +151,7 @@
        a one-off method that includes all the information about the collection volume itself
        a reference to a book element (for the collection volume) and a possible set of pages for this paper
 -->
-<!ELEMENT collection ((((collEd, collEdInitials?)?, collTitle, collTitleLowerCase?, edition?, collVol?, collPages?, (seriesEd?, seriesEdInitials?, series)?, bVol?, multivolumeWork?, location?, publisher?) | collCitation),
+<!ELEMENT collection ((((collEd, collEdInitials?, collEdSurnameGivenName?)?, collTitle, collTitleLowerCase?, bookversion?, edition?, collVol?, collPages?, (seriesEd?, seriesEdInitials?, seriesEdSurnameGivenName?, series)?, bVol?, multivolumeWork?, location?, publisher?) | collCitation),
                          reprintInfo?, url?, dateAccessed?, doi?, iso639-3code*, comment?, annotations?, keywords?)>
 
 <!ELEMENT collEd (#PCDATA | %embedded;)*>
@@ -153,6 +160,7 @@
     xml:lang CDATA #IMPLIED
 >
 <!ELEMENT collEdInitials (#PCDATA | %embedded;)*>
+<!ELEMENT collEdSurnameGivenName (#PCDATA | %embedded;)*>
 <!ELEMENT collTitle (#PCDATA | %embedded;)*>
 <!ATTLIST collTitle
     xml:lang CDATA #IMPLIED
@@ -207,7 +215,7 @@
        a one-off method that includes all the information about the proceedings volume itself
        a reference to a book element (for the proceedings volume) and a possible set of pages for this paper
 -->
-<!ELEMENT proceedings ((((procEd, procEdInitials?)?, procTitle, procTitleLowerCase?, procVol?, procPages?,(seriesEd?, seriesEdInitials?, series)?, bVol?, multivolumeWork?, location?, publisher?) | procCitation),
+<!ELEMENT proceedings ((((procEd, procEdInitials?, procEdSurnameGivenName?)?, procTitle, procTitleLowerCase?, procVol?, procPages?,(seriesEd?, seriesEdInitials?, seriesEdSurnameGivenName?, series)?, bVol?, multivolumeWork?, location?, publisher?) | procCitation),
                         reprintInfo?, url?, dateAccessed?, doi?, iso639-3code*, comment?, annotations?, keywords?)>
 <!ELEMENT procEd (#PCDATA | %embedded;)*>
 <!ATTLIST procEd
@@ -215,6 +223,7 @@
     xml:lang CDATA #IMPLIED
 >
 <!ELEMENT procEdInitials (#PCDATA | %embedded;)*>
+<!ELEMENT procEdSurnameGivenName (#PCDATA | %embedded;)*>
 <!ELEMENT procTitle (#PCDATA | %embedded;)*>
 <!ATTLIST procTitle
     xml:lang CDATA #IMPLIED

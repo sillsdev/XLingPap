@@ -2,22 +2,32 @@
 <!DOCTYPE referencesLayout PUBLIC "-//XMLmind//DTD XLingPap//EN"
 "XLingPap.dtd">
 <referencesLayout
+authorform="initials"
 defaultfontsize="12pt"
 hangingindentsize=".25in"
-removecommonhundredsdigitsinpages="yes"
+ignoreLocations="yes"
 ><publisherStyleSheetReferencesName
->SIL-UND Thesis References Stylesheet</publisherStyleSheetReferencesName
+>APA References Style Sheet</publisherStyleSheetReferencesName
 ><publisherStyleSheetReferencesVersion
->1.2.0</publisherStyleSheetReferencesVersion
+>1.0.0 September 1, 2022</publisherStyleSheetReferencesVersion
+><publisherStyleSheetPublisher
+>American Psychological Association</publisherStyleSheetPublisher
+><publisherStyleSheetDate
+>7 September 2022</publisherStyleSheetDate
+><publisherStyleSheetUrl
+>https://apastyle.apa.org/style-grammar-guidelines/references</publisherStyleSheetUrl
+><publisherStyleSheetDateAccessed
+>1 September 2022</publisherStyleSheetDateAccessed
 ><refAuthorLayouts
 ><comment
 >Author Layouts</comment
 ><refAuthorLayout
 ><refAuthorItem
-textafter=",  "
+textafter="  "
 ></refAuthorItem
 ><authorRoleItem
-textafter=".  "
+textafter="). "
+textbefore="("
 ></authorRoleItem
 ><refDateItem
 textafter=".  "
@@ -37,22 +47,20 @@ textafter=".  "
 >Article in a Journal Layouts</comment
 ><articleLayout
 ><refTitleItem
-font-style="normal"
 textafter=".  "
 ></refTitleItem
 ><jTitleItem
 font-style="italic"
-textafter=" "
+textafter=", "
 ></jTitleItem
 ><jVolItem
-font-style="normal"
+font-style="italic"
 ></jVolItem
 ><jIssueNumberItem
-textafter="). "
+textafter="), "
 textbefore="("
 ></jIssueNumberItem
 ><jPagesItem
-font-style="normal"
 textafter=".  "
 ></jPagesItem
 ><locationPublisherLayoutsRef
@@ -62,106 +70,100 @@ textafter=".  "
 ></articleLayout
 ><articleLayout
 ><refTitleItem
-font-style="normal"
 textafter=".  "
 ></refTitleItem
 ><jTitleItem
 font-style="italic"
-textafter=" "
+textafter=", "
 ></jTitleItem
 ><jVolItem
-font-style="normal"
+font-style="italic"
+textafter=", "
+></jVolItem
+><jPagesItem
+textafter=".  "
+></jPagesItem
+><locationPublisherLayoutsRef
+></locationPublisherLayoutsRef
+><urlDateAccessedLayoutsRef
+></urlDateAccessedLayoutsRef
+></articleLayout
+><articleLayout
+><refTitleItem
+textafter=".  "
+></refTitleItem
+><jTitleItem
+font-style="italic"
+textafter=", "
+></jTitleItem
+><jVolItem
+font-style="italic"
+></jVolItem
+><jIssueNumberItem
+textafter="), "
+textbefore="("
+></jIssueNumberItem
+><jArticleNumberItem
+textafter=".  "
+textbefore="Article "
+></jArticleNumberItem
+><locationPublisherLayoutsRef
+></locationPublisherLayoutsRef
+><urlDateAccessedLayoutsRef
+></urlDateAccessedLayoutsRef
+></articleLayout
+><articleLayout
+><refTitleItem
+textafter=".  "
+></refTitleItem
+><jTitleItem
+font-style="italic"
+textafter=", "
+></jTitleItem
+><jVolItem
+font-style="italic"
+textafter=", "
+></jVolItem
+><jArticleNumberItem
+textafter=".  "
+textbefore="Article "
+></jArticleNumberItem
+><locationPublisherLayoutsRef
+></locationPublisherLayoutsRef
+><urlDateAccessedLayoutsRef
+></urlDateAccessedLayoutsRef
+></articleLayout
+><articleLayout
+><refTitleItem
+textafter=".  "
+></refTitleItem
+><jTitleItem
+font-style="italic"
+textafter=", "
+></jTitleItem
+><jVolItem
+font-style="italic"
+></jVolItem
+><jIssueNumberItem
+textafter=")."
+textbefore="("
+></jIssueNumberItem
+><locationPublisherLayoutsRef
+></locationPublisherLayoutsRef
+><urlDateAccessedLayoutsRef
+></urlDateAccessedLayoutsRef
+></articleLayout
+><articleLayout
+><refTitleItem
+textafter=".  "
+></refTitleItem
+><jTitleItem
+font-style="italic"
+textafter=", "
+></jTitleItem
+><jVolItem
+font-style="italic"
 textafter=". "
-></jVolItem
-><jPagesItem
-font-style="normal"
-textafter=".  "
-></jPagesItem
-><locationPublisherLayoutsRef
-></locationPublisherLayoutsRef
-><urlDateAccessedLayoutsRef
-></urlDateAccessedLayoutsRef
-></articleLayout
-><articleLayout
-><refTitleItem
-font-style="normal"
-textafter=".  "
-></refTitleItem
-><jTitleItem
-font-style="italic"
-textafter=" "
-></jTitleItem
-><jVolItem
-font-style="normal"
-></jVolItem
-><jIssueNumberItem
-textafter=")-"
-textbefore="("
-></jIssueNumberItem
-><jArticleNumberItem
-font-style="normal"
-textafter=".  "
-></jArticleNumberItem
-><locationPublisherLayoutsRef
-></locationPublisherLayoutsRef
-><urlDateAccessedLayoutsRef
-></urlDateAccessedLayoutsRef
-></articleLayout
-><articleLayout
-><refTitleItem
-font-style="normal"
-textafter=".  "
-></refTitleItem
-><jTitleItem
-font-style="italic"
-textafter=" "
-></jTitleItem
-><jVolItem
-font-style="normal"
-textafter="-"
-></jVolItem
-><jArticleNumberItem
-font-style="normal"
-textafter=".  "
-></jArticleNumberItem
-><locationPublisherLayoutsRef
-></locationPublisherLayoutsRef
-><urlDateAccessedLayoutsRef
-></urlDateAccessedLayoutsRef
-></articleLayout
-><articleLayout
-><refTitleItem
-font-style="normal"
-textafter=".  "
-></refTitleItem
-><jTitleItem
-font-style="italic"
-textafter=" "
-></jTitleItem
-><jVolItem
-font-style="normal"
-></jVolItem
-><jIssueNumberItem
-textafter=").  "
-textbefore="("
-></jIssueNumberItem
-><locationPublisherLayoutsRef
-></locationPublisherLayoutsRef
-><urlDateAccessedLayoutsRef
-></urlDateAccessedLayoutsRef
-></articleLayout
-><articleLayout
-><refTitleItem
-font-style="normal"
-textafter=".  "
-></refTitleItem
-><jTitleItem
-font-style="italic"
-textafter=" "
-></jTitleItem
-><jVolItem
-font-style="normal"
-textafter=".  "
 ></jVolItem
 ><locationPublisherLayoutsRef
 ></locationPublisherLayoutsRef
@@ -185,10 +187,11 @@ textafter=".  "
 ><bookLayout
 ><refTitleItem
 font-style="italic"
-textafter=".  "
+textafter=" "
 ></refTitleItem
 ><bVolItem
-textafter=". "
+textafter="). "
+textbefore="(Vol. "
 ></bVolItem
 ><locationPublisherLayoutsRef
 ></locationPublisherLayoutsRef
@@ -198,10 +201,11 @@ textafter=". "
 ><bookLayout
 ><refTitleItem
 font-style="italic"
-textafter=".  "
+textafter=" "
 ></refTitleItem
 ><editionItem
-textafter=" edn.  "
+textafter=" ed.).  "
+textbefore="("
 ></editionItem
 ><locationPublisherLayoutsRef
 ></locationPublisherLayoutsRef
@@ -211,13 +215,15 @@ textafter=" edn.  "
 ><bookLayout
 ><refTitleItem
 font-style="italic"
-textafter=".  "
+textafter=" "
 ></refTitleItem
 ><editionItem
-textafter=" edn.  "
+textafter=" ed., "
+textbefore="("
 ></editionItem
 ><bVolItem
-textafter=". "
+textafter="). "
+textbefore="Vol. "
 ></bVolItem
 ><locationPublisherLayoutsRef
 ></locationPublisherLayoutsRef
@@ -230,8 +236,7 @@ font-style="italic"
 textafter=".  "
 ></refTitleItem
 ><seriesItem
-textafter=".) "
-textbefore="("
+textafter=". "
 ></seriesItem
 ><locationPublisherLayoutsRef
 ></locationPublisherLayoutsRef
@@ -244,14 +249,10 @@ font-style="italic"
 textafter=".  "
 ></refTitleItem
 ><seriesEdItem
-appendEdAbbreviation="yes"
-edTextPlural="eds."
-edTextSingular="ed."
-edTextbefore=", "
+textafter=". "
 ></seriesEdItem
 ><seriesItem
-textafter=".) "
-textbefore="("
+textafter=". "
 ></seriesItem
 ><locationPublisherLayoutsRef
 ></locationPublisherLayoutsRef
@@ -261,31 +262,14 @@ textbefore="("
 ><bookLayout
 ><refTitleItem
 font-style="italic"
-textafter=".  "
-></refTitleItem
-><editorItem
-textafter=", ed. "
-></editorItem
-><seriesItem
-textafter=".) "
-textbefore="("
-></seriesItem
-><locationPublisherLayoutsRef
-></locationPublisherLayoutsRef
-><urlDateAccessedLayoutsRef
-></urlDateAccessedLayoutsRef
-></bookLayout
-><bookLayout
-><refTitleItem
-font-style="italic"
-textafter=".  "
+textafter=" "
 ></refTitleItem
 ><bVolItem
-textafter=". "
+textafter="). "
+textbefore="(Vol. "
 ></bVolItem
 ><seriesItem
-textafter=".) "
-textbefore="("
+textafter=".  "
 ></seriesItem
 ><locationPublisherLayoutsRef
 ></locationPublisherLayoutsRef
@@ -295,17 +279,17 @@ textbefore="("
 ><bookLayout
 ><refTitleItem
 font-style="italic"
-textafter=".  "
+textafter=" "
 ></refTitleItem
 ><bVolItem
-textafter=". "
+textafter="). "
+textbefore="(Vol. "
 ></bVolItem
 ><seriesEdItem
 textafter=". "
 ></seriesEdItem
 ><seriesItem
-textafter=".) "
-textbefore="("
+textafter=".  "
 ></seriesItem
 ><locationPublisherLayoutsRef
 ></locationPublisherLayoutsRef
@@ -315,14 +299,14 @@ textbefore="("
 ><bookLayout
 ><refTitleItem
 font-style="italic"
-textafter=".  "
+textafter=" "
 ></refTitleItem
 ><editionItem
-textafter=" edn.  "
+textafter=" ed.).  "
+textbefore="("
 ></editionItem
 ><seriesItem
-textafter=".) "
-textbefore="("
+textafter=".  "
 ></seriesItem
 ><locationPublisherLayoutsRef
 ></locationPublisherLayoutsRef
@@ -332,257 +316,17 @@ textbefore="("
 ><bookLayout
 ><refTitleItem
 font-style="italic"
-textafter=".  "
+textafter=" "
 ></refTitleItem
 ><editionItem
-textafter=" edn.  "
-></editionItem
-><seriesEdItem
-textafter=". "
-></seriesEdItem
-><seriesItem
-textafter=".) "
+textafter=" ed.).  "
 textbefore="("
-></seriesItem
-><locationPublisherLayoutsRef
-></locationPublisherLayoutsRef
-><urlDateAccessedLayoutsRef
-></urlDateAccessedLayoutsRef
-></bookLayout
-><bookLayout
-><refTitleItem
-font-style="italic"
-textafter=".  "
-></refTitleItem
-><editionItem
-textafter=" edn.  "
-></editionItem
-><bVolItem
-textafter=". "
-></bVolItem
-><seriesItem
-textafter=".) "
-textbefore="("
-></seriesItem
-><locationPublisherLayoutsRef
-></locationPublisherLayoutsRef
-><urlDateAccessedLayoutsRef
-></urlDateAccessedLayoutsRef
-></bookLayout
-><bookLayout
-><refTitleItem
-font-style="italic"
-textafter=".  "
-></refTitleItem
-><editionItem
-textafter=" edn.  "
-></editionItem
-><bVolItem
-textafter=". "
-></bVolItem
-><seriesEdItem
-textafter=". "
-></seriesEdItem
-><seriesItem
-textafter=".) "
-textbefore="("
-></seriesItem
-><locationPublisherLayoutsRef
-></locationPublisherLayoutsRef
-><urlDateAccessedLayoutsRef
-></urlDateAccessedLayoutsRef
-></bookLayout
-><bookLayout
-><translatedByItem
-textafter=".  "
-textbefore="translated by "
-></translatedByItem
-><refTitleItem
-font-style="italic"
-textafter=".  "
-></refTitleItem
-><locationPublisherLayoutsRef
-></locationPublisherLayoutsRef
-><urlDateAccessedLayoutsRef
-></urlDateAccessedLayoutsRef
-></bookLayout
-><bookLayout
-><translatedByItem
-textafter=".  "
-textbefore="translated by "
-></translatedByItem
-><refTitleItem
-font-style="italic"
-textafter=".  "
-></refTitleItem
-><bVolItem
-textafter=". "
-></bVolItem
-><locationPublisherLayoutsRef
-></locationPublisherLayoutsRef
-><urlDateAccessedLayoutsRef
-></urlDateAccessedLayoutsRef
-></bookLayout
-><bookLayout
-><translatedByItem
-textafter=".  "
-textbefore="translated by "
-></translatedByItem
-><refTitleItem
-font-style="italic"
-textafter=".  "
-></refTitleItem
-><editionItem
-textafter=" edn.  "
-></editionItem
-><locationPublisherLayoutsRef
-></locationPublisherLayoutsRef
-><urlDateAccessedLayoutsRef
-></urlDateAccessedLayoutsRef
-></bookLayout
-><bookLayout
-><translatedByItem
-textafter=".  "
-textbefore="translated by "
-></translatedByItem
-><refTitleItem
-font-style="italic"
-textafter=".  "
-></refTitleItem
-><seriesItem
-textafter=".) "
-textbefore="("
-></seriesItem
-><locationPublisherLayoutsRef
-></locationPublisherLayoutsRef
-><urlDateAccessedLayoutsRef
-></urlDateAccessedLayoutsRef
-></bookLayout
-><bookLayout
-><translatedByItem
-textafter=".  "
-textbefore="translated by "
-></translatedByItem
-><refTitleItem
-font-style="italic"
-textafter=".  "
-></refTitleItem
-><seriesEdItem
-textafter=". "
-></seriesEdItem
-><seriesItem
-textafter=".) "
-textbefore="("
-></seriesItem
-><locationPublisherLayoutsRef
-></locationPublisherLayoutsRef
-><urlDateAccessedLayoutsRef
-></urlDateAccessedLayoutsRef
-></bookLayout
-><bookLayout
-><translatedByItem
-textafter=".  "
-textbefore="translated by "
-></translatedByItem
-><refTitleItem
-font-style="italic"
-textafter=".  "
-></refTitleItem
-><editionItem
-textafter=" edn.  "
-></editionItem
-><bVolItem
-textafter=". "
-></bVolItem
-><locationPublisherLayoutsRef
-></locationPublisherLayoutsRef
-><urlDateAccessedLayoutsRef
-></urlDateAccessedLayoutsRef
-></bookLayout
-><bookLayout
-><translatedByItem
-textafter=".  "
-textbefore="translated by "
-></translatedByItem
-><refTitleItem
-font-style="italic"
-textafter=".  "
-></refTitleItem
-><bVolItem
-textafter=". "
-></bVolItem
-><seriesItem
-textafter=".) "
-textbefore="("
-></seriesItem
-><locationPublisherLayoutsRef
-></locationPublisherLayoutsRef
-><urlDateAccessedLayoutsRef
-></urlDateAccessedLayoutsRef
-></bookLayout
-><bookLayout
-><translatedByItem
-textafter=".  "
-textbefore="translated by "
-></translatedByItem
-><refTitleItem
-font-style="italic"
-textafter=".  "
-></refTitleItem
-><bVolItem
-textafter=". "
-></bVolItem
-><seriesEdItem
-textafter=". "
-></seriesEdItem
-><seriesItem
-textafter=".) "
-textbefore="("
-></seriesItem
-><locationPublisherLayoutsRef
-></locationPublisherLayoutsRef
-><urlDateAccessedLayoutsRef
-></urlDateAccessedLayoutsRef
-></bookLayout
-><bookLayout
-><translatedByItem
-textafter=".  "
-textbefore="translated by "
-></translatedByItem
-><refTitleItem
-font-style="italic"
-textafter=".  "
-></refTitleItem
-><editionItem
-textafter=" edn.  "
-></editionItem
-><seriesItem
-textafter=".) "
-textbefore="("
-></seriesItem
-><locationPublisherLayoutsRef
-></locationPublisherLayoutsRef
-><urlDateAccessedLayoutsRef
-></urlDateAccessedLayoutsRef
-></bookLayout
-><bookLayout
-><translatedByItem
-textafter=".  "
-textbefore="translated by "
-></translatedByItem
-><refTitleItem
-font-style="italic"
-textafter=".  "
-></refTitleItem
-><editionItem
-textafter=" edn.  "
 ></editionItem
 ><seriesEdItem
 textafter=". "
 ></seriesEdItem
 ><seriesItem
-textafter=".) "
-textbefore="("
+textafter=".  "
 ></seriesItem
 ><locationPublisherLayoutsRef
 ></locationPublisherLayoutsRef
@@ -590,23 +334,20 @@ textbefore="("
 ></urlDateAccessedLayoutsRef
 ></bookLayout
 ><bookLayout
-><translatedByItem
-textafter=".  "
-textbefore="translated by "
-></translatedByItem
 ><refTitleItem
 font-style="italic"
-textafter=".  "
+textafter=" "
 ></refTitleItem
 ><editionItem
-textafter=" edn.  "
+textafter=" ed., "
+textbefore="("
 ></editionItem
 ><bVolItem
-textafter=". "
+textafter="). "
+textbefore="Vol. "
 ></bVolItem
 ><seriesItem
-textafter=".) "
-textbefore="("
+textafter=".  "
 ></seriesItem
 ><locationPublisherLayoutsRef
 ></locationPublisherLayoutsRef
@@ -614,26 +355,275 @@ textbefore="("
 ></urlDateAccessedLayoutsRef
 ></bookLayout
 ><bookLayout
-><translatedByItem
-textafter=".  "
-textbefore="translated by "
-></translatedByItem
 ><refTitleItem
 font-style="italic"
-textafter=".  "
+textafter=" "
 ></refTitleItem
 ><editionItem
-textafter=" edn.  "
+textafter=" ed., "
+textbefore="("
 ></editionItem
 ><bVolItem
-textafter=". "
+textafter="). "
+textbefore="Vol. "
 ></bVolItem
 ><seriesEdItem
 textafter=". "
 ></seriesEdItem
 ><seriesItem
-textafter=".) "
+textafter=".  "
+></seriesItem
+><locationPublisherLayoutsRef
+></locationPublisherLayoutsRef
+><urlDateAccessedLayoutsRef
+></urlDateAccessedLayoutsRef
+></bookLayout
+><bookLayout
+><refTitleItem
+font-style="italic"
+textafter=" "
+></refTitleItem
+><translatedByItem
+textafter=".  "
+textbefore="translated by "
+></translatedByItem
+><locationPublisherLayoutsRef
+></locationPublisherLayoutsRef
+><urlDateAccessedLayoutsRef
+></urlDateAccessedLayoutsRef
+></bookLayout
+><bookLayout
+><refTitleItem
+font-style="italic"
+textafter=" "
+></refTitleItem
+><translatedByItem
+textafter=".  "
+textbefore="translated by "
+></translatedByItem
+><bVolItem
+textafter="). "
+textbefore="(Vol. "
+></bVolItem
+><locationPublisherLayoutsRef
+></locationPublisherLayoutsRef
+><urlDateAccessedLayoutsRef
+></urlDateAccessedLayoutsRef
+></bookLayout
+><bookLayout
+><refTitleItem
+font-style="italic"
+textafter=" "
+></refTitleItem
+><translatedByItem
+textafter=".  "
+textbefore="translated by "
+></translatedByItem
+><editionItem
+textafter=" ed.).  "
 textbefore="("
+></editionItem
+><locationPublisherLayoutsRef
+></locationPublisherLayoutsRef
+><urlDateAccessedLayoutsRef
+></urlDateAccessedLayoutsRef
+></bookLayout
+><bookLayout
+><refTitleItem
+font-style="italic"
+textafter=" "
+></refTitleItem
+><translatedByItem
+textafter=".  "
+textbefore="translated by "
+></translatedByItem
+><seriesItem
+textafter=".  "
+></seriesItem
+><locationPublisherLayoutsRef
+></locationPublisherLayoutsRef
+><urlDateAccessedLayoutsRef
+></urlDateAccessedLayoutsRef
+></bookLayout
+><bookLayout
+><refTitleItem
+font-style="italic"
+textafter=" "
+></refTitleItem
+><translatedByItem
+textafter=".  "
+textbefore="translated by "
+></translatedByItem
+><seriesEdItem
+textafter=". "
+></seriesEdItem
+><seriesItem
+textafter=".  "
+></seriesItem
+><locationPublisherLayoutsRef
+></locationPublisherLayoutsRef
+><urlDateAccessedLayoutsRef
+></urlDateAccessedLayoutsRef
+></bookLayout
+><bookLayout
+><refTitleItem
+font-style="italic"
+textafter=" "
+></refTitleItem
+><translatedByItem
+textafter=".  "
+textbefore="translated by "
+></translatedByItem
+><editionItem
+textafter=" ed., "
+textbefore="("
+></editionItem
+><bVolItem
+textafter="). "
+textbefore="Vol. "
+></bVolItem
+><locationPublisherLayoutsRef
+></locationPublisherLayoutsRef
+><urlDateAccessedLayoutsRef
+></urlDateAccessedLayoutsRef
+></bookLayout
+><bookLayout
+><refTitleItem
+font-style="italic"
+textafter=" "
+></refTitleItem
+><translatedByItem
+textafter=".  "
+textbefore="translated by "
+></translatedByItem
+><bVolItem
+textafter="). "
+textbefore="(Vol. "
+></bVolItem
+><seriesItem
+textafter=".  "
+></seriesItem
+><locationPublisherLayoutsRef
+></locationPublisherLayoutsRef
+><urlDateAccessedLayoutsRef
+></urlDateAccessedLayoutsRef
+></bookLayout
+><bookLayout
+><refTitleItem
+font-style="italic"
+textafter=" "
+></refTitleItem
+><translatedByItem
+textafter=".  "
+textbefore="translated by "
+></translatedByItem
+><bVolItem
+textafter="). "
+textbefore="(Vol. "
+></bVolItem
+><seriesEdItem
+textafter=". "
+></seriesEdItem
+><seriesItem
+textafter=".  "
+></seriesItem
+><locationPublisherLayoutsRef
+></locationPublisherLayoutsRef
+><urlDateAccessedLayoutsRef
+></urlDateAccessedLayoutsRef
+></bookLayout
+><bookLayout
+><refTitleItem
+font-style="italic"
+textafter=" "
+></refTitleItem
+><translatedByItem
+textafter=".  "
+textbefore="translated by "
+></translatedByItem
+><editionItem
+textafter=" ed.).  "
+textbefore="("
+></editionItem
+><seriesItem
+textafter=".  "
+></seriesItem
+><locationPublisherLayoutsRef
+></locationPublisherLayoutsRef
+><urlDateAccessedLayoutsRef
+></urlDateAccessedLayoutsRef
+></bookLayout
+><bookLayout
+><refTitleItem
+font-style="italic"
+textafter=" "
+></refTitleItem
+><translatedByItem
+textafter=".  "
+textbefore="translated by "
+></translatedByItem
+><editionItem
+textafter=" ed.).  "
+textbefore="("
+></editionItem
+><seriesEdItem
+textafter=". "
+></seriesEdItem
+><seriesItem
+textafter=".  "
+></seriesItem
+><locationPublisherLayoutsRef
+></locationPublisherLayoutsRef
+><urlDateAccessedLayoutsRef
+></urlDateAccessedLayoutsRef
+></bookLayout
+><bookLayout
+><refTitleItem
+font-style="italic"
+textafter=" "
+></refTitleItem
+><translatedByItem
+textafter=".  "
+textbefore="translated by "
+></translatedByItem
+><editionItem
+textafter=" ed., "
+textbefore="("
+></editionItem
+><bVolItem
+textafter="). "
+textbefore="Vol. "
+></bVolItem
+><seriesItem
+textafter=".  "
+></seriesItem
+><locationPublisherLayoutsRef
+></locationPublisherLayoutsRef
+><urlDateAccessedLayoutsRef
+></urlDateAccessedLayoutsRef
+></bookLayout
+><bookLayout
+><refTitleItem
+font-style="italic"
+textafter=" "
+></refTitleItem
+><translatedByItem
+textafter=".  "
+textbefore="translated by "
+></translatedByItem
+><editionItem
+textafter=" ed., "
+textbefore="("
+></editionItem
+><bVolItem
+textafter="). "
+textbefore="Vol. "
+></bVolItem
+><seriesEdItem
+textafter=". "
+></seriesEdItem
+><seriesItem
+textafter=".  "
 ></seriesItem
 ><locationPublisherLayoutsRef
 ></locationPublisherLayoutsRef
@@ -649,23 +639,24 @@ textbefore="("
 textafter=".  "
 ></refTitleItem
 ><collEdItem
-appendEdAbbreviation="no"
-textafter=", "
+edTextPlural="Eds."
+edTextSingular="Ed."
+edTextafter="), "
+edTextbefore=" ("
 textbefore="In "
 ></collEdItem
-><authorRoleItem
-textafter="), "
-textbefore=" ("
-></authorRoleItem
 ><collTitleItem
 font-style="italic"
-textafter=", "
+textafter=" "
+textbefore="  "
 ></collTitleItem
 ><collVolItem
 textafter=", "
+textbefore="("
 ></collVolItem
 ><collPagesItem
-textafter=".  "
+textafter=").  "
+textbefore="pp. "
 ></collPagesItem
 ><locationPublisherLayoutsRef
 ></locationPublisherLayoutsRef
@@ -677,20 +668,20 @@ textafter=".  "
 textafter=".  "
 ></refTitleItem
 ><collEdItem
-appendEdAbbreviation="no"
-textafter=", "
+edTextPlural="Eds."
+edTextSingular="Ed."
+edTextafter="), "
+edTextbefore=" ("
 textbefore="In "
 ></collEdItem
-><authorRoleItem
-textafter="), "
-textbefore=" ("
-></authorRoleItem
 ><collTitleItem
 font-style="italic"
-textafter=", "
+textafter=" "
+textbefore="  "
 ></collTitleItem
 ><collVolItem
-textafter=".  "
+textafter=").  "
+textbefore="("
 ></collVolItem
 ><locationPublisherLayoutsRef
 ></locationPublisherLayoutsRef
@@ -702,33 +693,20 @@ textafter=".  "
 textafter=".  "
 ></refTitleItem
 ><collEdItem
-appendEdAbbreviation="no"
-textafter=", "
+edTextPlural="Eds."
+edTextSingular="Ed."
+edTextafter="), "
+edTextbefore=" ("
 textbefore="In "
 ></collEdItem
-><authorRoleItem
-textafter="), "
-textbefore=" ("
-></authorRoleItem
 ><collTitleItem
 font-style="italic"
 textafter=" "
+textbefore="  "
 ></collTitleItem
-><seriesEdItem
-textbefore="In "
-></seriesEdItem
-><seriesItem
-textafter="), "
-textbefore="("
-></seriesItem
-><bVolItem
-textafter=", "
-></bVolItem
-><collVolItem
-textafter=", "
-></collVolItem
 ><collPagesItem
-textafter=".  "
+textafter=").  "
+textbefore="(pp. "
 ></collPagesItem
 ><locationPublisherLayoutsRef
 ></locationPublisherLayoutsRef
@@ -740,166 +718,38 @@ textafter=".  "
 textafter=".  "
 ></refTitleItem
 ><collEdItem
-appendEdAbbreviation="no"
-textafter=", "
+edTextPlural="Eds."
+edTextSingular="Ed."
+edTextafter="), "
+edTextbefore=" ("
 textbefore="In "
 ></collEdItem
 ><collTitleItem
 font-style="italic"
-textafter=" "
-></collTitleItem
-><seriesItem
-textafter="), "
-textbefore="("
-></seriesItem
-><bVolItem
-textafter=", "
-></bVolItem
-><collPagesItem
-textafter=".  "
-></collPagesItem
-><locationPublisherLayoutsRef
-></locationPublisherLayoutsRef
-><urlDateAccessedLayoutsRef
-></urlDateAccessedLayoutsRef
-></collectionLayout
-><collectionLayout
-><refTitleItem
-textafter=".  "
-></refTitleItem
-><collEdItem
-appendEdAbbreviation="no"
-textafter=", "
-textbefore="In "
-></collEdItem
-><authorRoleItem
-textafter="), "
-textbefore=" ("
-></authorRoleItem
-><collTitleItem
-font-style="italic"
-textafter=" "
-></collTitleItem
-><seriesEdItem
-textbefore="In "
-></seriesEdItem
-><seriesItem
-textafter="), "
-textbefore="("
-></seriesItem
-><collVolItem
-textafter=", "
-></collVolItem
-><collPagesItem
-textafter=".  "
-></collPagesItem
-><locationPublisherLayoutsRef
-></locationPublisherLayoutsRef
-><urlDateAccessedLayoutsRef
-></urlDateAccessedLayoutsRef
-></collectionLayout
-><collectionLayout
-><refTitleItem
-textafter=".  "
-></refTitleItem
-><collEdItem
-appendEdAbbreviation="no"
-textafter=", "
-textbefore="In "
-></collEdItem
-><authorRoleItem
-textafter="), "
-textbefore=" ("
-></authorRoleItem
-><collTitleItem
-font-style="italic"
-textafter=" "
-></collTitleItem
-><seriesEdItem
-textbefore="In "
-></seriesEdItem
-><seriesItem
-textafter="), "
-textbefore="("
-></seriesItem
-><collPagesItem
-textafter=".  "
-></collPagesItem
-><locationPublisherLayoutsRef
-></locationPublisherLayoutsRef
-><urlDateAccessedLayoutsRef
-></urlDateAccessedLayoutsRef
-></collectionLayout
-><collectionLayout
-><refTitleItem
-textafter=".  "
-></refTitleItem
-><collEdItem
-appendEdAbbreviation="no"
-textafter=", "
-textbefore="In "
-></collEdItem
-><authorRoleItem
-textafter="), "
-textbefore=" ("
-></authorRoleItem
-><collTitleItem
-font-style="italic"
-textafter=" "
-></collTitleItem
-><seriesItem
-textafter="), "
-textbefore="("
-></seriesItem
-><collPagesItem
-textafter=".  "
-></collPagesItem
-><locationPublisherLayoutsRef
-></locationPublisherLayoutsRef
-><urlDateAccessedLayoutsRef
-></urlDateAccessedLayoutsRef
-></collectionLayout
-><collectionLayout
-><refTitleItem
-textafter=".  "
-></refTitleItem
-><collEdItem
-appendEdAbbreviation="no"
-textafter=", "
-textbefore="In "
-></collEdItem
-><authorRoleItem
-textafter="), "
-textbefore=" ("
-></authorRoleItem
-><collTitleItem
-font-style="italic"
-textafter=", "
-></collTitleItem
-><locationPublisherLayoutsRef
-></locationPublisherLayoutsRef
-><urlDateAccessedLayoutsRef
-></urlDateAccessedLayoutsRef
-></collectionLayout
-><collectionLayout
-><refTitleItem
-textafter=".  "
-></refTitleItem
-><collEdItem
-appendEdAbbreviation="no"
-textafter=", "
-textbefore="In "
-></collEdItem
-><authorRoleItem
-textafter="), "
-textbefore=" ("
-></authorRoleItem
-><collTitleItem
-font-style="italic"
-textafter=", "
-></collTitleItem
-><collPagesItem
 textafter=". "
+textbefore="  "
+></collTitleItem
+><locationPublisherLayoutsRef
+></locationPublisherLayoutsRef
+><urlDateAccessedLayoutsRef
+></urlDateAccessedLayoutsRef
+></collectionLayout
+><collectionLayout
+><refTitleItem
+textafter=".  "
+></refTitleItem
+><collTitleItem
+font-style="italic"
+textafter=" "
+textbefore="  "
+></collTitleItem
+><collVolItem
+textafter=", "
+textbefore="("
+></collVolItem
+><collPagesItem
+textafter=").  "
+textbefore="pp. "
 ></collPagesItem
 ><locationPublisherLayoutsRef
 ></locationPublisherLayoutsRef
@@ -910,81 +760,46 @@ textafter=". "
 ><refTitleItem
 textafter=".  "
 ></refTitleItem
-><collEdItem
-appendEdAbbreviation="no"
-textafter=", "
-textbefore="In "
-></collEdItem
 ><collTitleItem
 font-style="italic"
-textafter=", "
+textafter=" "
+textbefore="  "
+></collTitleItem
+><collVolItem
+textafter=").  "
+textbefore="("
+></collVolItem
+><locationPublisherLayoutsRef
+></locationPublisherLayoutsRef
+><urlDateAccessedLayoutsRef
+></urlDateAccessedLayoutsRef
+></collectionLayout
+><collectionLayout
+><refTitleItem
+textafter=".  "
+></refTitleItem
+><collTitleItem
+font-style="italic"
+textafter=" "
+textbefore="  "
 ></collTitleItem
 ><collPagesItem
+textafter=").  "
+textbefore="(pp. "
+></collPagesItem
+><locationPublisherLayoutsRef
+></locationPublisherLayoutsRef
+><urlDateAccessedLayoutsRef
+></urlDateAccessedLayoutsRef
+></collectionLayout
+><collectionLayout
+><refTitleItem
+textafter=".  "
+></refTitleItem
+><collTitleItem
+font-style="italic"
 textafter=". "
-></collPagesItem
-><locationPublisherLayoutsRef
-></locationPublisherLayoutsRef
-><urlDateAccessedLayoutsRef
-></urlDateAccessedLayoutsRef
-></collectionLayout
-><collectionLayout
-><refTitleItem
-textafter=".  "
-></refTitleItem
-><collTitleItem
-font-style="italic"
-textafter=", "
-></collTitleItem
-><collVolItem
-textafter=", "
-></collVolItem
-><collPagesItem
-textafter=".  "
-></collPagesItem
-><locationPublisherLayoutsRef
-></locationPublisherLayoutsRef
-><urlDateAccessedLayoutsRef
-></urlDateAccessedLayoutsRef
-></collectionLayout
-><collectionLayout
-><refTitleItem
-textafter=".  "
-></refTitleItem
-><collTitleItem
-font-style="italic"
-textafter=", "
-></collTitleItem
-><collVolItem
-textafter=".  "
-></collVolItem
-><locationPublisherLayoutsRef
-></locationPublisherLayoutsRef
-><urlDateAccessedLayoutsRef
-></urlDateAccessedLayoutsRef
-></collectionLayout
-><collectionLayout
-><refTitleItem
-textafter=".  "
-></refTitleItem
-><collTitleItem
-font-style="italic"
-textafter=", "
-></collTitleItem
-><collPagesItem
-textafter=".  "
-></collPagesItem
-><locationPublisherLayoutsRef
-></locationPublisherLayoutsRef
-><urlDateAccessedLayoutsRef
-></urlDateAccessedLayoutsRef
-></collectionLayout
-><collectionLayout
-><refTitleItem
-textafter=".  "
-></refTitleItem
-><collTitleItem
-font-style="italic"
-textafter=", "
+textbefore="  "
 ></collTitleItem
 ><locationPublisherLayoutsRef
 ></locationPublisherLayoutsRef
@@ -999,14 +814,16 @@ textafter=".  "
 textbefore="In "
 ></collCitationItem
 ><authorRoleItem
-textafter="). "
-textbefore=", ("
+textafter="), "
+textbefore=" ("
 ></authorRoleItem
 ><collVolItem
-textafter=","
+textafter=", "
+textbefore="("
 ></collVolItem
 ><collPagesItem
-textafter="."
+textafter=").  "
+textbefore="pp. "
 ></collPagesItem
 ><urlDateAccessedLayoutsRef
 ></urlDateAccessedLayoutsRef
@@ -1019,11 +836,12 @@ textafter=".  "
 textbefore="In "
 ></collCitationItem
 ><authorRoleItem
-textafter="). "
-textbefore=", ("
+textafter="), "
+textbefore=" ("
 ></authorRoleItem
 ><collVolItem
-textafter=".  "
+textafter=").  "
+textbefore="("
 ></collVolItem
 ><urlDateAccessedLayoutsRef
 ></urlDateAccessedLayoutsRef
@@ -1036,11 +854,12 @@ textafter=".  "
 textbefore="In "
 ></collCitationItem
 ><authorRoleItem
-textafter="). "
-textbefore=", ("
+textafter="), "
+textbefore=" ("
 ></authorRoleItem
 ><collPagesItem
-textafter="."
+textafter=").  "
+textbefore="(pp. "
 ></collPagesItem
 ><urlDateAccessedLayoutsRef
 ></urlDateAccessedLayoutsRef
@@ -1053,8 +872,8 @@ textafter=".  "
 textbefore="In "
 ></collCitationItem
 ><authorRoleItem
-textafter="). "
-textbefore=", ("
+textafter="), "
+textbefore=" ("
 ></authorRoleItem
 ><urlDateAccessedLayoutsRef
 ></urlDateAccessedLayoutsRef
@@ -1068,10 +887,12 @@ textafter=".  "
 textbefore="In "
 ></collCitationItem
 ><collVolItem
-textafter=","
+textafter=", "
+textbefore="("
 ></collVolItem
 ><collPagesItem
-textafter="."
+textafter=").  "
+textbefore="pp. "
 ></collPagesItem
 ><urlDateAccessedLayoutsRef
 ></urlDateAccessedLayoutsRef
@@ -1085,7 +906,8 @@ textafter=".  "
 textbefore="In "
 ></collCitationItem
 ><collVolItem
-textafter=".  "
+textafter=").  "
+textbefore="("
 ></collVolItem
 ><urlDateAccessedLayoutsRef
 ></urlDateAccessedLayoutsRef
@@ -1099,7 +921,8 @@ textafter=".  "
 textbefore="In "
 ></collCitationItem
 ><collPagesItem
-textafter="."
+textafter=").  "
+textbefore="(pp. "
 ></collPagesItem
 ><urlDateAccessedLayoutsRef
 ></urlDateAccessedLayoutsRef
@@ -1120,26 +943,27 @@ textbefore="In "
 textafter=".  "
 ></refTitleItem
 ><collEdItem
-appendEdAbbreviation="no"
-textafter=", "
+edTextPlural="Eds."
+edTextSingular="Ed."
+edTextafter="), "
+edTextbefore=" ("
 textbefore="In "
 ></collEdItem
-><authorRoleItem
-textafter="), "
-textbefore=" ("
-></authorRoleItem
 ><collTitleItem
 font-style="italic"
-textafter=", "
+textafter=" "
+textbefore="  "
 ></collTitleItem
 ><editionItem
-textafter=" edn.  "
+textafter=" ed., "
+textbefore="("
 ></editionItem
 ><collVolItem
-textafter=","
+textafter=", "
 ></collVolItem
 ><collPagesItem
-textafter=".  "
+textafter=").  "
+textbefore="pp. "
 ></collPagesItem
 ><locationPublisherLayoutsRef
 ></locationPublisherLayoutsRef
@@ -1151,23 +975,23 @@ textafter=".  "
 textafter=".  "
 ></refTitleItem
 ><collEdItem
-appendEdAbbreviation="no"
-textafter=", "
+edTextPlural="Eds."
+edTextSingular="Ed."
+edTextafter="), "
+edTextbefore=" ("
 textbefore="In "
 ></collEdItem
-><authorRoleItem
-textafter="), "
-textbefore=" ("
-></authorRoleItem
 ><collTitleItem
 font-style="italic"
-textafter=", "
+textafter=" "
+textbefore="  "
 ></collTitleItem
 ><editionItem
-textafter=" edn.  "
+textafter=" ed., "
+textbefore="("
 ></editionItem
 ><collVolItem
-textafter=".  "
+textafter=").  "
 ></collVolItem
 ><locationPublisherLayoutsRef
 ></locationPublisherLayoutsRef
@@ -1179,23 +1003,24 @@ textafter=".  "
 textafter=".  "
 ></refTitleItem
 ><collEdItem
-appendEdAbbreviation="no"
-textafter=", "
+edTextPlural="Eds."
+edTextSingular="Ed."
+edTextafter="), "
+edTextbefore=" ("
 textbefore="In "
 ></collEdItem
-><authorRoleItem
-textafter="), "
-textbefore=" ("
-></authorRoleItem
 ><collTitleItem
 font-style="italic"
-textafter=", "
+textafter=" "
+textbefore="  "
 ></collTitleItem
 ><editionItem
-textafter=" edn.  "
+textafter=" ed., "
+textbefore="("
 ></editionItem
 ><collPagesItem
-textafter=".  "
+textafter=").  "
+textbefore="pp. "
 ></collPagesItem
 ><locationPublisherLayoutsRef
 ></locationPublisherLayoutsRef
@@ -1209,48 +1034,48 @@ textafter=".  "
 ><dissertationLayout
 ><refTitleItem
 font-style="italic"
-textafter=".  "
-></refTitleItem
-><institutionItem
 textafter=" "
-></institutionItem
+></refTitleItem
 ><dissertationLabelItem
-label="dissertation"
-textafter=".  "
+textafter=" doctoral dissertation]. "
+textbefore="[Unpublished "
 ></dissertationLabelItem
+><institutionItem
+textafter=".  "
+></institutionItem
 ><urlDateAccessedLayoutsRef
 ></urlDateAccessedLayoutsRef
 ></dissertationLayout
 ><dissertationLayout
 ><refTitleItem
 font-style="italic"
-textafter=".  "
+textafter=" "
 ></refTitleItem
+><dissertationLabelItem
+textafter=" doctoral dissertation]. "
+textbefore="[Unpublished "
+></dissertationLabelItem
 ><locationItem
-textafter=": "
+textafter=".  "
 ></locationItem
 ><institutionItem
-textafter=" "
-></institutionItem
-><dissertationLabelItem
-label="dissertation"
 textafter=".  "
-></dissertationLabelItem
+></institutionItem
 ><urlDateAccessedLayoutsRef
 ></urlDateAccessedLayoutsRef
 ></dissertationLayout
 ><dissertationLayout
 ><refTitleItem
 font-style="italic"
-textafter=".  "
-></refTitleItem
-><institutionItem
 textafter=" "
-></institutionItem
+></refTitleItem
 ><dissertationLabelItem
-label="dissertation"
-textafter=".  "
+textafter=" doctoral dissertation]. "
+textbefore="[Unpublished "
 ></dissertationLabelItem
+><institutionItem
+textafter=".  "
+></institutionItem
 ><publishedLayoutRef
 ></publishedLayoutRef
 ><urlDateAccessedLayoutsRef
@@ -1259,18 +1084,18 @@ textafter=".  "
 ><dissertationLayout
 ><refTitleItem
 font-style="italic"
-textafter=".  "
+textafter=" "
 ></refTitleItem
+><dissertationLabelItem
+textafter=" doctoral dissertation]. "
+textbefore="[Unpublished "
+></dissertationLabelItem
 ><locationItem
-textafter=": "
+textafter=".  "
 ></locationItem
 ><institutionItem
-textafter=" "
-></institutionItem
-><dissertationLabelItem
-label="dissertation"
 textafter=".  "
-></dissertationLabelItem
+></institutionItem
 ><publishedLayoutRef
 ></publishedLayoutRef
 ><urlDateAccessedLayoutsRef
@@ -1283,7 +1108,6 @@ textafter=".  "
 ><fieldNotesLayout
 ><refTitleItem
 textafter=".  "
-textbefore=""
 ></refTitleItem
 ><locationItem
 textafter=":"
@@ -1297,7 +1121,6 @@ textafter="."
 ><fieldNotesLayout
 ><refTitleItem
 textafter=".  "
-textbefore=""
 ></refTitleItem
 ><institutionItem
 textafter="."
@@ -1312,14 +1135,12 @@ textafter="."
 ><msLayout
 ><refTitleItem
 textafter=".  "
-textbefore=""
 ></refTitleItem
 ><locationItem
 textafter=":"
 ></locationItem
 ><institutionItem
-textafter=", ms."
-textbefore=" "
+textafter=".  ms."
 ></institutionItem
 ><urlDateAccessedLayoutsRef
 ></urlDateAccessedLayoutsRef
@@ -1327,11 +1148,9 @@ textbefore=" "
 ><msLayout
 ><refTitleItem
 textafter=".  "
-textbefore=""
 ></refTitleItem
 ><institutionItem
-textafter=", ms."
-textbefore=" "
+textafter=".  ms."
 ></institutionItem
 ><urlDateAccessedLayoutsRef
 ></urlDateAccessedLayoutsRef
@@ -1339,10 +1158,9 @@ textbefore=" "
 ><msLayout
 ><refTitleItem
 textafter=".  "
-textbefore=""
 ></refTitleItem
 ><emptyItem
-textafter="MS."
+textafter="ms."
 ></emptyItem
 ><urlDateAccessedLayoutsRef
 ></urlDateAccessedLayoutsRef
@@ -1353,11 +1171,11 @@ textafter="MS."
 >Paper Presented at a Conference Layouts</comment
 ><paperLayout
 ><refTitleItem
+font-style="italic"
 textafter=".  "
-textbefore=""
 ></refTitleItem
 ><conferenceItem
-textafter=".  "
+textafter=", "
 ></conferenceItem
 ><locationItem
 textafter="."
@@ -1367,8 +1185,8 @@ textafter="."
 ></paperLayout
 ><paperLayout
 ><refTitleItem
+font-style="italic"
 textafter=".  "
-textbefore=""
 ></refTitleItem
 ><conferenceItem
 textafter=".  "
@@ -1385,16 +1203,15 @@ textafter=".  "
 textafter=".  "
 ></refTitleItem
 ><procEdItem
-appendEdAbbreviation="no"
-textafter=" (eds), "
-textbefore="In  "
+textafter=".  "
 ></procEdItem
 ><procTitleItem
 font-style="italic"
-textafter=".  "
+textafter=", "
 ></procTitleItem
 ><procVolItem
-textafter=":"
+font-style="italic"
+textafter=", "
 ></procVolItem
 ><procPagesItem
 textafter=".  "
@@ -1409,16 +1226,15 @@ textafter=".  "
 textafter=".  "
 ></refTitleItem
 ><procEdItem
-appendEdAbbreviation="no"
-textafter=" (eds), "
-textbefore="In  "
+textafter=".  "
 ></procEdItem
 ><procTitleItem
 font-style="italic"
-textafter=".  "
+textafter=", "
 ></procTitleItem
 ><procVolItem
-textafter=".  "
+font-style="italic"
+textafter=". "
 ></procVolItem
 ><locationPublisherLayoutsRef
 ></locationPublisherLayoutsRef
@@ -1430,13 +1246,11 @@ textafter=".  "
 textafter=".  "
 ></refTitleItem
 ><procEdItem
-appendEdAbbreviation="no"
-textafter=" (eds), "
-textbefore="In  "
+textafter=".  "
 ></procEdItem
 ><procTitleItem
 font-style="italic"
-textafter=".  "
+textafter=", "
 ></procTitleItem
 ><procPagesItem
 textafter=".  "
@@ -1451,16 +1265,15 @@ textafter=".  "
 textafter=".  "
 ></refTitleItem
 ><procEdItem
-appendEdAbbreviation="no"
-textafter=" (eds), "
-textbefore="In  "
+textafter=".  "
 ></procEdItem
 ><procTitleItem
 font-style="italic"
-textafter=".  "
+textafter=", "
 ></procTitleItem
 ><procVolItem
-textafter=":"
+font-style="italic"
+textafter=", "
 ></procVolItem
 ><procPagesItem
 textafter=".  "
@@ -1473,16 +1286,15 @@ textafter=".  "
 textafter=".  "
 ></refTitleItem
 ><procEdItem
-appendEdAbbreviation="no"
-textafter=" (eds), "
-textbefore="In  "
+textafter=".  "
 ></procEdItem
 ><procTitleItem
 font-style="italic"
-textafter=".  "
+textafter=", "
 ></procTitleItem
 ><procVolItem
-textafter=".  "
+font-style="italic"
+textafter=". "
 ></procVolItem
 ><urlDateAccessedLayoutsRef
 ></urlDateAccessedLayoutsRef
@@ -1492,13 +1304,11 @@ textafter=".  "
 textafter=".  "
 ></refTitleItem
 ><procEdItem
-appendEdAbbreviation="no"
-textafter=" (eds), "
-textbefore="In  "
+textafter=".  "
 ></procEdItem
 ><procTitleItem
 font-style="italic"
-textafter=".  "
+textafter=", "
 ></procTitleItem
 ><procPagesItem
 textafter=".  "
@@ -1512,10 +1322,11 @@ textafter=".  "
 ></refTitleItem
 ><procTitleItem
 font-style="italic"
-textafter=".  "
+textafter=", "
 ></procTitleItem
 ><procVolItem
-textafter=":"
+font-style="italic"
+textafter=", "
 ></procVolItem
 ><procPagesItem
 textafter=".  "
@@ -1531,10 +1342,11 @@ textafter=".  "
 ></refTitleItem
 ><procTitleItem
 font-style="italic"
-textafter=".  "
+textafter=", "
 ></procTitleItem
 ><procVolItem
-textafter=".  "
+font-style="italic"
+textafter=". "
 ></procVolItem
 ><locationPublisherLayoutsRef
 ></locationPublisherLayoutsRef
@@ -1547,7 +1359,7 @@ textafter=".  "
 ></refTitleItem
 ><procTitleItem
 font-style="italic"
-textafter=".  "
+textafter=", "
 ></procTitleItem
 ><procPagesItem
 textafter=".  "
@@ -1569,7 +1381,8 @@ textafter=".).  "
 textbefore=" ("
 ></authorRoleItem
 ><procVolItem
-textafter=":"
+font-style="italic"
+textafter=", "
 ></procVolItem
 ><procPagesItem
 textafter="."
@@ -1589,6 +1402,7 @@ textafter=".).  "
 textbefore=" ("
 ></authorRoleItem
 ><procVolItem
+font-style="italic"
 textafter=". "
 ></procVolItem
 ><urlDateAccessedLayoutsRef
@@ -1632,18 +1446,18 @@ textbefore=" ("
 ><thesisLayout
 ><refTitleItem
 font-style="italic"
-textafter=".  "
+textafter=" "
 ></refTitleItem
+><thesisLabelItem
+textafter="]. "
+textbefore="[Unpublished "
+></thesisLabelItem
 ><locationItem
-textafter=": "
+textafter=".  "
 ></locationItem
 ><institutionItem
-textafter=" "
-></institutionItem
-><thesisLabelItem
-label="thesis"
 textafter=".  "
-></thesisLabelItem
+></institutionItem
 ><publishedLayoutRef
 ></publishedLayoutRef
 ><urlDateAccessedLayoutsRef
@@ -1652,15 +1466,15 @@ textafter=".  "
 ><thesisLayout
 ><refTitleItem
 font-style="italic"
-textafter=".  "
-></refTitleItem
-><institutionItem
 textafter=" "
-></institutionItem
+></refTitleItem
 ><thesisLabelItem
-label="thesis"
-textafter=".  "
+textafter="]. "
+textbefore="[Unpublished "
 ></thesisLabelItem
+><institutionItem
+textafter=".  "
+></institutionItem
 ><publishedLayoutRef
 ></publishedLayoutRef
 ><urlDateAccessedLayoutsRef
@@ -1669,33 +1483,33 @@ textafter=".  "
 ><thesisLayout
 ><refTitleItem
 font-style="italic"
-textafter=".  "
+textafter=" "
 ></refTitleItem
+><thesisLabelItem
+textafter="]. "
+textbefore="[Unpublished "
+></thesisLabelItem
 ><locationItem
-textafter=": "
+textafter=".  "
 ></locationItem
 ><institutionItem
-textafter=" "
-></institutionItem
-><thesisLabelItem
-label="thesis"
 textafter=".  "
-></thesisLabelItem
+></institutionItem
 ><urlDateAccessedLayoutsRef
 ></urlDateAccessedLayoutsRef
 ></thesisLayout
 ><thesisLayout
 ><refTitleItem
 font-style="italic"
-textafter=".  "
-></refTitleItem
-><institutionItem
 textafter=" "
-></institutionItem
+></refTitleItem
 ><thesisLabelItem
-label="thesis"
-textafter=".  "
+textafter="]. "
+textbefore="[Unpublished "
 ></thesisLabelItem
+><institutionItem
+textafter=".  "
+></institutionItem
 ><urlDateAccessedLayoutsRef
 ></urlDateAccessedLayoutsRef
 ></thesisLayout
@@ -1705,10 +1519,11 @@ textafter=".  "
 >Web Page Layouts</comment
 ><webPageLayout
 ><refTitleItem
+font-style="italic"
 textafter=".  "
 ></refTitleItem
 ><editionItem
-textafter=" edn.  "
+textafter=".  "
 ></editionItem
 ><locationItem
 textafter=": "
@@ -1721,10 +1536,11 @@ textafter=".  "
 ></webPageLayout
 ><webPageLayout
 ><refTitleItem
+font-style="italic"
 textafter=".  "
 ></refTitleItem
 ><editionItem
-textafter=" edn.  "
+textafter=".  "
 ></editionItem
 ><locationItem
 textafter=": "
@@ -1737,10 +1553,11 @@ textafter=".  "
 ></webPageLayout
 ><webPageLayout
 ><refTitleItem
+font-style="italic"
 textafter=".  "
 ></refTitleItem
 ><editionItem
-textafter=" edn.  "
+textafter=".  "
 ></editionItem
 ><locationItem
 textafter=".  "
@@ -1750,10 +1567,11 @@ textafter=".  "
 ></webPageLayout
 ><webPageLayout
 ><refTitleItem
+font-style="italic"
 textafter=".  "
 ></refTitleItem
 ><editionItem
-textafter=" edn.  "
+textafter=".  "
 ></editionItem
 ><publisherItem
 textafter=".  "
@@ -1763,16 +1581,18 @@ textafter=".  "
 ></webPageLayout
 ><webPageLayout
 ><refTitleItem
+font-style="italic"
 textafter=".  "
 ></refTitleItem
 ><editionItem
-textafter=" edn.  "
+textafter=".  "
 ></editionItem
 ><urlDateAccessedLayoutsRef
 ></urlDateAccessedLayoutsRef
 ></webPageLayout
 ><webPageLayout
 ><refTitleItem
+font-style="italic"
 textafter=".  "
 ></refTitleItem
 ><locationItem
@@ -1786,6 +1606,7 @@ textafter=".  "
 ></webPageLayout
 ><webPageLayout
 ><refTitleItem
+font-style="italic"
 textafter=".  "
 ></refTitleItem
 ><locationItem
@@ -1799,6 +1620,7 @@ textafter=".  "
 ></webPageLayout
 ><webPageLayout
 ><refTitleItem
+font-style="italic"
 textafter=".  "
 ></refTitleItem
 ><locationItem
@@ -1809,6 +1631,7 @@ textafter=".  "
 ></webPageLayout
 ><webPageLayout
 ><refTitleItem
+font-style="italic"
 textafter=".  "
 ></refTitleItem
 ><institutionItem
@@ -1819,6 +1642,7 @@ textafter=".  "
 ></webPageLayout
 ><webPageLayout
 ><refTitleItem
+font-style="italic"
 textafter=".  "
 ></refTitleItem
 ><publisherItem
@@ -1829,6 +1653,7 @@ textafter=".  "
 ></webPageLayout
 ><webPageLayout
 ><refTitleItem
+font-style="italic"
 textafter=".  "
 ></refTitleItem
 ><urlDateAccessedLayoutsRef
@@ -1872,33 +1697,31 @@ textafter="."
 ><comment
 >Url and/or DateAccessed Layouts</comment
 ><urlDateAccessedLayout
-><urlItem
-textbefore="  "
-></urlItem
 ><dateAccessedItem
-textafter=")"
-textbefore="  ("
+textafter=", from "
+textbefore="Retrieved "
 ></dateAccessedItem
+><urlItem
+textbefore=" "
+></urlItem
 ><doiItem
-textafter="."
 textbefore="  doi:"
 ></doiItem
 ></urlDateAccessedLayout
 ><urlDateAccessedLayout
-><urlItem
-textbefore="  "
-></urlItem
 ><dateAccessedItem
-textafter=")"
-textbefore="  ("
+textafter=", from "
+textbefore="Retrieved "
 ></dateAccessedItem
+><urlItem
+textbefore=" "
+></urlItem
 ></urlDateAccessedLayout
 ><urlDateAccessedLayout
 ><urlItem
 textbefore="  "
 ></urlItem
 ><doiItem
-textafter="."
 textbefore="  doi:"
 ></doiItem
 ></urlDateAccessedLayout

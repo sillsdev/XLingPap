@@ -3,6 +3,8 @@
     <!-- 
         Variables and templates common to all "canned" style sheets.
     -->
+    <xsl:variable name="gtAuthors" select="//refAuthor[refWork/@id=//citation[ancestor::glossaryTerm[key('GlossaryTermRefs',@id)]]/@ref]"/>
+    <xsl:variable name="otherAuthors" select="//refAuthor[refWork[@id=$citations[not(ancestor::comment) and not(ancestor::referencedInterlinearText) and not(ancestor::glossaryTerm) and not(ancestor::abbrDefinition)][not(ancestor::refWork) or ancestor::annotation[@id=//annotationRef/@annotation] or ancestor::refWork[@id=$citations[not(ancestor::refWork)]/@ref]]/@ref]]"/>
     <!--  
         dateLetter
     -->
@@ -132,6 +134,11 @@
             </xsl:when>
             <xsl:otherwise>
                 <xsl:value-of select="$sDefault"/>
+                <!-- a plain space is removed here, so we have to overtly add a non-breaking space -->
+                <xsl:variable name="sLastChar" select="substring($sDefault,string-length($sDefault),1)"/>
+                <xsl:if test="$sLastChar != ' ' and $sLastChar != '&#xa0;'">
+                    <xsl:text>&#xa0;</xsl:text>
+                </xsl:if>
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
@@ -476,5 +483,43 @@
                 </xsl:choose>
             </xsl:with-param>
         </xsl:call-template>
+    </xsl:template>
+    <!--  
+        OutputVolumeInContents
+    -->
+    <xsl:template name="OutputVolumeInContents">
+        <xsl:param name="volume"/>
+        <xsl:if test="$volumes and $publishingInfo/@showVolumeInContents='yes'">
+            <xsl:variable name="iPreceds" select="count($volume[parent::lingPaper]/preceding-sibling::volume)"/>
+            <xsl:choose>
+                <xsl:when test="$publishingInfo/@whichVolumeToShowInContents='all'">
+                    <xsl:for-each select="$volume">
+                        <xsl:call-template name="OutputTOCVolumeLine">
+                            <xsl:with-param name="sSpaceBefore" select="'10'"/>
+                            <xsl:with-param name="sLabel">
+                                <xsl:call-template name="OutputVolumeLabel"/>
+                                <xsl:text>&#x20;</xsl:text>
+                                <xsl:value-of select="@number"/>
+                            </xsl:with-param>
+                        </xsl:call-template>
+                    </xsl:for-each>
+                </xsl:when>
+                <xsl:when test="$volume[parent::lingPaper] and $publishingInfo/@whichVolumeToShowInContents=count($volume/preceding-sibling::volume[parent::lingPaper])+2">
+                    <xsl:for-each select="$volume">
+                        <xsl:call-template name="OutputTOCVolumeLine">
+                            <xsl:with-param name="sSpaceBefore" select="'10'"/>
+                            <xsl:with-param name="sLabel">
+                                <xsl:call-template name="OutputVolumeLabel"/>
+                                <xsl:text>&#x20;</xsl:text>
+                                <xsl:value-of select="@number"/>
+                            </xsl:with-param>
+                        </xsl:call-template>
+                    </xsl:for-each>
+                </xsl:when>
+                <xsl:otherwise>
+                    <!-- do nothing -->
+                </xsl:otherwise>
+            </xsl:choose>
+        </xsl:if>
     </xsl:template>
 </xsl:stylesheet>

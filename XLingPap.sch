@@ -35,6 +35,8 @@
         <active pattern="endnoteInSecTitle"/>
         <active pattern="indexRangeInSecTitle"/>
         <active pattern="deprecatedethnCode"/>
+        <active pattern="glossaryTermRefersToItself"/>
+        <active pattern="emptycitation"/>
     </phase>
     <pattern id="line">
         <title>
@@ -436,6 +438,22 @@
         </title>
         <rule context="/lingPaper/languages/language | /xlingpaper/styledPaper/lingPaper/languages/language">
             <report test="string-length(normalize-space(@ethnCode)) &gt; 0">Warning: using an ethnCode is now deprecated.  Please use ISO639-3Code instead.</report>
+        </rule>
+    </pattern>
+    <pattern id="glossaryTermRefersToItself">
+        <title>
+            <dir value="ltr">Check for a gloosaryTerm referring to itself</dir>
+        </title>
+        <rule context="glossaryTermRef">
+            <report test="@glossaryTerm=ancestor::glossaryTerm/@id">Warning: This glossary term definition refers to itself. Only refer to other glossary terms.</report>
+        </rule>
+    </pattern>
+    <pattern id="emptycitation">
+        <title>
+            <dir value="ltr">Check for a citation that has no text in the output</dir>
+        </title>
+        <rule context="citation">
+            <report test="@author='no' and @date='no' and @paren='none' and string-length(@page)=0">Warning: This citation is empty.  Nothing will show in the output, yet the cited reference may appear in the list of references.</report>
         </rule>
     </pattern>
 </schema>

@@ -1,4 +1,0 @@
-#!/bin/sh
-PATH=$PATH:/Applications/calibre.app/Contents/MacOS/
-calibredb add -d "$1"
-calibredb list -f size >"$2XLingPaperCalibreList.txt"

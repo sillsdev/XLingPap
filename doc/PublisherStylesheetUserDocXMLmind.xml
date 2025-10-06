@@ -18,13 +18,13 @@ type="tXLingPap"
 ><emailAddress
 >xlingpaper_support@sil.org</emailAddress
 ><date
->24 March 2022</date
+>13 May 2025</date
 ><version
 contentType="ctVersion5.3"
->2.40.2</version
+>2.47.0</version
 ><version
 contentType="ctVersion7Plus"
->3.10.2</version
+>3.17.0</version
 ><contents
 showLevel="6"
 ></contents
@@ -79,7 +79,7 @@ type="tPublisherStyleSheet"
 > dictates how an <object
 type="tXLingPap"
 ></object
-> document is to be formatted. The page size and margins, order of front matter and back matter, layout of reference material, etc., etc. can be determined by a <object
+> document is to be formatted. The page size and margins, order of front matter and back matter, layout of reference material, etc., etc., can be determined by a <object
 type="tPublisherStyleSheet"
 ></object
 >.</p
@@ -87,10 +87,10 @@ type="tPublisherStyleSheet"
 >Thus, one can write one's document and then associate it with a <object
 type="tPublisherStyleSheet"
 ></object
-> to get it to format the way that publisher wants it. If at any point you decide to use a different publisher, you merely associate your document to the <object
+> to get it to format the way that a given publisher wants it. If at any point you decide to use a different publisher, you merely associate your document to the <object
 type="tPublisherStyleSheet"
 ></object
-> for that publisher (assuming one exists). The result is that an author has a lot less work to do when changing publishers.</p
+> for that other publisher (assuming one exists). The result is that an author has a lot less work to do when changing publishers.</p
 ><p
 >This document describes how to edit an <object
 type="tXLingPap"
@@ -133,6 +133,108 @@ type="tXLingPap"
 type="tXLingPap"
 ></object
 > document does not happen to have an element that the publisher style sheet describes, that is not a problem. That part of the publisher style sheet is ignored. Thus, the publisher style sheet is a kind of template with many optional components.</p
+><p
+>There are several elements at the beginning of a <object
+type="tPublisherStyleSheet"
+></object
+>. They are all optional. Example <exampleRef
+letter="xTopElements"
+num="xTopElements"
+></exampleRef
+> lists them in the order in which they occur and what they are for. None of them are ever used in any output.</p
+><example
+num="xTopElements"
+><table
+border="1"
+><tr
+><th
+>Element</th
+><th
+>Purpose</th
+></tr
+><tr
+><td
+><object
+type="tElement"
+>publisherStyleSheetName</object
+></td
+><td
+>The name or description of the <object
+type="tPublisherStyleSheet"
+></object
+></td
+></tr
+><tr
+><td
+><object
+type="tElement"
+>comment</object
+></td
+><td
+>A comment about the <object
+type="tPublisherStyleSheet"
+></object
+></td
+></tr
+><tr
+><td
+><object
+type="tElement"
+>publisherStyleSheetVersion</object
+></td
+><td
+>The version number of the <object
+type="tPublisherStyleSheet"
+></object
+></td
+></tr
+><tr
+><td
+><object
+type="tElement"
+>publisherStyleSheetPublisher</object
+></td
+><td
+>The name of the publisher for this <object
+type="tPublisherStyleSheet"
+></object
+></td
+></tr
+><tr
+><td
+><object
+type="tElement"
+>publisherStyleSheetDate</object
+></td
+><td
+>The date this <object
+type="tPublisherStyleSheet"
+></object
+> was last changed</td
+></tr
+><tr
+><td
+><object
+type="tElement"
+>publisherStyleSheetUrl</object
+></td
+><td
+>A URL for where the information for this <object
+type="tPublisherStyleSheet"
+></object
+> was found</td
+></tr
+><tr
+><td
+><object
+type="tElement"
+>publisherStyleSheetDateAccessed</object
+></td
+><td
+>The date that URL was last accessed</td
+></tr
+></table
+></example
 ><p
 >This document is organized as follows. The basic page layout information that can be controlled via a <object
 type="tPublisherStyleSheet"
@@ -227,7 +329,7 @@ type="tAttribute"
 > attribute to <object
 type="tAttrValue"
 >yes</object
->. In this case, there will be no fixed page width in the web page output (i.e. it “fills” the width like the web page output does when there is no associated publisher style sheet). The <object
+>. In this case, there will be no fixed page width in the web page output (i.e., it “fills” the width like the web page output does when there is no associated publisher style sheet). The <object
 type="tAttribute"
 >ignorePageWidthForWebPageOutput</object
 > attribute is ignored by both the <object
@@ -303,7 +405,13 @@ term="iBlockQuoteIndent"
 letter="xParagraphIndents"
 num="xParagraphIndents"
 ></exampleRef
->.</p
+>. If you need to have different values for the left and right indents of a block quote, set the <object
+type="tAttribute"
+>rightIndent</object
+> attribute of the <object
+type="tElement"
+>blockQuoteIndent</object
+> element to the value for the right indent.</p
 ><example
 num="xParagraphIndents"
 ><chart
@@ -352,6 +460,23 @@ src="resources/HangingIndentStyleSheet.png"
 ></example
 ><p
 >These use the same units of measure as the paragraph and block quote indents do.</p
+><p
+><indexedItem
+term="iParagraphLayoutAlignment"
+></indexedItem
+>The default <object
+type="tXeTeX"
+></object
+> way of producing PDF normally justifies text. To get left-justified (or ragged right) output, you can insert a <object
+type="tElement"
+>paragraphAlignment</object
+> element after the above elements and set its <object
+type="tAttribute"
+>textalign</object
+> attribute to <object
+type="tAttrValue"
+>left</object
+>.</p
 ></section2
 ><section2
 id="sLineSpacing"
@@ -1572,7 +1697,7 @@ type="tAttrValue"
 >a</object
 ></td
 ><td
->for a,b,c...aa,ab, etc.(Causes the <object
+>for a,b,c...aa,ab, etc. (Causes the <object
 type="tXeTeX"
 ></object
 > way of producing PDF to fail if there are more than 26 pages.)</td
@@ -1665,7 +1790,7 @@ showTitle="short"
 >. In addition, <object
 type="tAttribute"
 >verticalAdjustment</object
-> can be set to a measurement value (e.g. <object
+> can be set to a measurement value (e.g., <object
 type="tAttrValue"
 >-12pt</object
 >, <object
@@ -2250,7 +2375,46 @@ type="tElement"
 sec="sFrontMatterFormatInfoAttributes"
 showTitle="short"
 ></sectionRef
->.</td
+>. It also has<table
+border="1"
+><tr
+><th
+>Attribute</th
+><th
+>Possible Values</th
+></tr
+><tr
+><td
+><indexedItem
+term="iuseDigitsForEndnoteNumbering"
+></indexedItem
+><object
+type="tAttribute"
+>useDigitsForEndnoteNumbering</object
+></td
+><td
+><object
+type="tAttrValue"
+>yes</object
+> or <object
+type="tAttrValue"
+>no</object
+>. This indicates whether or not any footnotes in <object
+type="tElement"
+>author</object
+> elements should be numbered like other footnotes. The default is <object
+type="tAttrValue"
+>no</object
+>. If there are more than one <object
+type="tElement"
+>authorLayout</object
+> elements, only the value of this attribute on the first <object
+type="tElement"
+>authorLayout</object
+> element is used.</td
+></tr
+></table
+></td
 ></tr
 ><tr
 ><td
@@ -2483,6 +2647,7 @@ showTitle="short"
 ></tr
 ><tr
 ><td
+valign="top"
 ><indexedItem
 main="yes"
 term="iContentsLayout"
@@ -2495,7 +2660,7 @@ type="tElement"
 >contentsLayout</object
 ></td
 ><td
->How the table of contents are to be formatted. For books which are collections of papers (i.e., use <object
+>How the table of contents are to be formatted. For books which are collections of papers (i.e., ones which use <object
 type="tElement"
 >chapterInCollection</object
 > elements instead of <object
@@ -2510,7 +2675,19 @@ type="tElement"
 > element. This <object
 type="tElement"
 >authorLayout</object
-> element specifies how author names are to be formatted on a line immediately below the chapter (i.e. paper) title in the table of contents.</td
+> element specifies how author names are to be formatted on a line immediately below the chapter (i.e., paper) title in the table of contents. If the document is a multi-volume work, you can also insert a <object
+type="tElement"
+>volumeLayout</object
+> element immediately after the <object
+type="tElement"
+>contentsLayout</object
+> if the document is not a collection of papers or immediately after the <object
+type="tElement"
+>authorLayout</object
+> element if it is. See the information on <genericRef
+gref="gVolumeLayout"
+> volumeLayout</genericRef
+> below.</td
 ><td
 >See section <sectionRef
 sec="sTitleFormatInfoAttributes"
@@ -2564,6 +2741,28 @@ type="tAttrValue"
 ></tr
 ><tr
 ><td
+><indexedItem
+term="iContentsChapterHangingIndent"
+></indexedItem
+><object
+type="tAttribute"
+>chapterhangingindent</object
+></td
+><td
+>(User control) Use this to indicate the amount of a hanging indent each line in a <object
+type="tElement"
+>chapter</object
+> title will use if the line is long. This will override any value set in the <object
+type="tAttribute"
+>hangingindent</object
+> attribute. Use a number and a unit of measure (see example <exampleRef
+letter="xUnitsOfMeasure"
+num="xUnitsOfMeasure"
+></exampleRef
+>); no space between the number and the unit of measure.</td
+></tr
+><tr
+><td
 ><object
 type="tAttribute"
 >chapterlabel</object
@@ -2591,6 +2790,43 @@ type="tAttribute"
 type="tAttrValue"
 >yes</object
 >. Use it to indicate the amount to indent each chapter line. Use a number and a unit of measure (see example <exampleRef
+letter="xUnitsOfMeasure"
+num="xUnitsOfMeasure"
+></exampleRef
+>); no space between the number and the unit of measure.</td
+></tr
+><tr
+><td
+><indexedItem
+term="iContentsHangingIndent"
+></indexedItem
+><object
+type="tAttribute"
+>hangingindent</object
+></td
+><td
+>(User control) Use this to indicate the amount of a hanging indent each line will use if the line is long. This is overridden by any value set in any of the following attributes: <object
+type="tAttribute"
+>chapterhangingindent</object
+>, <object
+type="tAttribute"
+>section1hangingindent</object
+>, <object
+type="tAttribute"
+>section2hangingindent</object
+>, <object
+type="tAttribute"
+>section3hangingindent</object
+>, <object
+type="tAttribute"
+>section4hangingindent</object
+>, <object
+type="tAttribute"
+>section5hangingindent</object
+>, <object
+type="tAttribute"
+>section6hangingindent</object
+>. Use a number and a unit of measure (see example <exampleRef
 letter="xUnitsOfMeasure"
 num="xUnitsOfMeasure"
 ></exampleRef
@@ -2712,6 +2948,138 @@ type="tAttribute"
 ></td
 ><td
 >(User control) How many points of vertical space to use before the part line. Do not include 'pt'.</td
+></tr
+><tr
+><td
+><indexedItem
+term="iContentsSection1HangingIndent"
+></indexedItem
+><object
+type="tAttribute"
+>section1hangingindent</object
+></td
+><td
+>(User control) Use this to indicate the amount of a hanging indent each line in a <object
+type="tElement"
+>section1</object
+> title will use if the line is long. This will override any value set in the <object
+type="tAttribute"
+>hangingindent</object
+> attribute. Use a number and a unit of measure (see example <exampleRef
+letter="xUnitsOfMeasure"
+num="xUnitsOfMeasure"
+></exampleRef
+>); no space between the number and the unit of measure.</td
+></tr
+><tr
+><td
+><indexedItem
+term="iContentsSection2HangingIndent"
+></indexedItem
+><object
+type="tAttribute"
+>section2hangingindent</object
+></td
+><td
+>(User control) Use this to indicate the amount of a hanging indent each line in a <object
+type="tElement"
+>section2</object
+> title will use if the line is long. This will override any value set in the <object
+type="tAttribute"
+>hangingindent</object
+> attribute. Use a number and a unit of measure (see example <exampleRef
+letter="xUnitsOfMeasure"
+num="xUnitsOfMeasure"
+></exampleRef
+>); no space between the number and the unit of measure.</td
+></tr
+><tr
+><td
+><indexedItem
+term="iContentsSection3HangingIndent"
+></indexedItem
+><object
+type="tAttribute"
+>section3hangingindent</object
+></td
+><td
+>(User control) Use this to indicate the amount of a hanging indent each line in a <object
+type="tElement"
+>section3</object
+> title will use if the line is long. This will override any value set in the <object
+type="tAttribute"
+>hangingindent</object
+> attribute. Use a number and a unit of measure (see example <exampleRef
+letter="xUnitsOfMeasure"
+num="xUnitsOfMeasure"
+></exampleRef
+>); no space between the number and the unit of measure.</td
+></tr
+><tr
+><td
+><indexedItem
+term="iContentsSection4HangingIndent"
+></indexedItem
+><object
+type="tAttribute"
+>section4hangingindent</object
+></td
+><td
+>(User control) Use this to indicate the amount of a hanging indent each line in a <object
+type="tElement"
+>section4</object
+> title will use if the line is long. This will override any value set in the <object
+type="tAttribute"
+>hangingindent</object
+> attribute. Use a number and a unit of measure (see example <exampleRef
+letter="xUnitsOfMeasure"
+num="xUnitsOfMeasure"
+></exampleRef
+>); no space between the number and the unit of measure.</td
+></tr
+><tr
+><td
+><indexedItem
+term="iContentsSection5HangingIndent"
+></indexedItem
+><object
+type="tAttribute"
+>section5hangingindent</object
+></td
+><td
+>(User control) Use this to indicate the amount of a hanging indent each line in a <object
+type="tElement"
+>section5</object
+> title will use if the line is long. This will override any value set in the <object
+type="tAttribute"
+>hangingindent</object
+> attribute. Use a number and a unit of measure (see example <exampleRef
+letter="xUnitsOfMeasure"
+num="xUnitsOfMeasure"
+></exampleRef
+>); no space between the number and the unit of measure.</td
+></tr
+><tr
+><td
+><indexedItem
+term="iContentsSection6HangingIndent"
+></indexedItem
+><object
+type="tAttribute"
+>section6hangingindent</object
+></td
+><td
+>(User control) Use this to indicate the amount of a hanging indent each line in a <object
+type="tElement"
+>section6</object
+> title will use if the line is long. This will override any value set in the <object
+type="tAttribute"
+>hangingindent</object
+> attribute. Use a number and a unit of measure (see example <exampleRef
+letter="xUnitsOfMeasure"
+num="xUnitsOfMeasure"
+></exampleRef
+>); no space between the number and the unit of measure.</td
 ></tr
 ><tr
 ><td
@@ -2869,6 +3237,39 @@ type="tAttrValue"
 ><td
 ><object
 type="tAttribute"
+>usePageHeader</object
+></td
+><td
+><object
+type="tAttrValue"
+>yes</object
+> or <object
+type="tAttrValue"
+>no</object
+>. This indicates whether or not to insert a “Page” header above the page number in the table of contents. The default is <object
+type="tAttrValue"
+>no</object
+>.</td
+></tr
+><tr
+><td
+><object
+type="tAttribute"
+>usePageHeaderLabel</object
+></td
+><td
+>(User control) Only used when <object
+type="tAttribute"
+>usePageHeader</object
+> is <object
+type="tAttrValue"
+>yes</object
+>. Use it to override the default “Page” value.</td
+></tr
+><tr
+><td
+><object
+type="tAttribute"
 >useperiodafterappendixletter</object
 ></td
 ><td
@@ -2939,6 +3340,98 @@ type="tAttribute"
 type="tAttrValue"
 >no</object
 >.</td
+></tr
+></table
+></td
+></tr
+><tr
+><td
+><indexedItem
+term="iVolumeLayout"
+></indexedItem
+><genericTarget
+id="gVolumeLayout"
+></genericTarget
+><object
+type="tElement"
+>volumeLayout</object
+></td
+><td
+>How to format a volume label in the table of contents.</td
+><td
+>See section <sectionRef
+sec="sFontInfoAttributes"
+showTitle="short"
+></sectionRef
+>. It also has <table
+border="1"
+><tr
+><th
+>Attribute</th
+><th
+>Possible Values</th
+></tr
+><tr
+><td
+><object
+type="tAttribute"
+>contentBetweenLabelAndNumber</object
+></td
+><td
+>(User control) Indicates what should appear between the volume label and the volume number.</td
+></tr
+><tr
+><td
+><object
+type="tAttribute"
+>spaceafter</object
+></td
+><td
+>(User control) Indicates the amount of vertical space to use in the table of contents after a volume label. Use a number and a unit of measure (see example <exampleRef
+letter="xUnitsOfMeasure"
+num="xUnitsOfMeasure"
+></exampleRef
+>); no space between the number and the unit of measure.</td
+></tr
+><tr
+><td
+><object
+type="tAttribute"
+>spacebefore</object
+></td
+><td
+>(User control) Indicates the amount of vertical space to use in the table of contents before a volume label. Use a number and a unit of measure (see example <exampleRef
+letter="xUnitsOfMeasure"
+num="xUnitsOfMeasure"
+></exampleRef
+>); no space between the number and the unit of measure.</td
+></tr
+><tr
+><td
+><object
+type="tAttribute"
+>textalign</object
+></td
+><td
+><langData
+lang="lEng"
+> <object
+type="tAttrValue"
+>left</object
+>, <object
+type="tAttrValue"
+>right</object
+>, <object
+type="tAttrValue"
+>start</object
+>, <object
+type="tAttrValue"
+>end</object
+>, or <object
+type="tAttrValue"
+>center</object
+>.</langData
+></td
 ></tr
 ></table
 ></td
@@ -3112,7 +3605,7 @@ type="tElement"
 >abstractTextFontInfo</object
 ></td
 ><td
->How to format the contents of (i.e text within) an abstract..</td
+>How to format the contents of (i.e text within) an abstract.</td
 ><td
 >See section <sectionRef
 sec="sFontInfoAttributes"
@@ -3416,7 +3909,7 @@ term="iFooterHeaderLayout"
 ></indexedItem
 >For books, you may normally want to first describe the header and footer styles for pages in the body and the back matter (unless you overtly give other header and footer style information in the back matter section). Then you can define how to format parts, chapters, and the six section levels.</p
 ><p
->For the special case of a book which is a collection of papers (i.e. it uses <object
+>For the special case of a book which is a collection of papers (i.e., it uses <object
 type="tElement"
 >chapterInCollection</object
 > elements instead of <object
@@ -3461,7 +3954,7 @@ id="sChapterInCollectionFrontMatterLayout"
 ><indexedItem
 term="iiChapterInCollectionFrontMatterLayout"
 ></indexedItem
->For the special case of a book which is a collection of papers (i.e. it uses <object
+>For the special case of a book which is a collection of papers (i.e., it uses <object
 type="tElement"
 >chapterInCollection</object
 > elements instead of <object
@@ -3502,6 +3995,51 @@ type="tElement"
 sec="sTitleFormatInfoAttributes"
 ></sectionRef
 > for more on these attributes.</p
+><p
+>In addition the <object
+type="tElement"
+>partLayout</object
+> element itself has one attribute as shown in example <exampleRef
+letter="xPartLayoutAttribute"
+num="xPartLayoutAttribute"
+></exampleRef
+>.</p
+><example
+num="xPartLayoutAttribute"
+><table
+border="1"
+><tr
+><th
+>Attribute</th
+><th
+>Possible Values</th
+></tr
+><tr
+><td
+><indexedItem
+term="iPartNumeralFormat"
+></indexedItem
+><object
+type="tAttribute"
+>numeralFormat</object
+></td
+><td
+><object
+type="tAttrValue"
+>arabic</object
+>, <object
+type="tAttrValue"
+>lowerroman</object
+> or <object
+type="tAttrValue"
+>upperroman</object
+>. This indicates how the part number should be formatted. The default value is <object
+type="tAttrValue"
+>upperroman</object
+>.</td
+></tr
+></table
+></example
 ></section2
 ><section2
 id="sChapterLayout"
@@ -3534,7 +4072,7 @@ sec="sTitleFormatInfoAttributes"
 >In addition the <object
 type="tElement"
 >chapterLayout</object
-> element itself has one attribute as shown in example <exampleRef
+> element itself has three attributes as shown in example <exampleRef
 letter="xChapterLayoutAttribute"
 num="xChapterLayoutAttribute"
 ></exampleRef
@@ -3569,6 +4107,9 @@ type="tAttrValue"
 ></tr
 ><tr
 ><td
+><indexedItem
+term="iChapterNumeralFormat"
+></indexedItem
 ><object
 type="tAttribute"
 >numeralFormat</object
@@ -3590,6 +4131,12 @@ type="tAttrValue"
 ></tr
 ><tr
 ><td
+><indexedItem
+term="iChapterResetFootnoteNumbering"
+></indexedItem
+><indexedItem
+term="iResetFootnoteNumberingInChapter"
+></indexedItem
 ><object
 type="tAttribute"
 >resetEndnoteNumbering</object
@@ -3785,7 +4332,7 @@ type="tElement"
 >numberLayout</object
 > element indicates how the number of the section is to be formatted.</p
 ><p
->The attributes for the main section layout elements (i.e. <object
+>The attributes for the main section layout elements (i.e., <object
 type="tElement"
 >section1Layout</object
 >, <object
@@ -3979,6 +4526,49 @@ type="tAttrValue"
 >.</p
 ></section2
 ><section2
+id="sShortSubsectionsLayout"
+><secTitle
+>Short Subsections Layout</secTitle
+><p
+>If your document needs to format short subsections, you can insert a <object
+type="tElement"
+>shortSubsectionLayout</object
+> element after the <object
+type="tElement"
+>section6Layout</object
+> element. It has one element within it <object
+type="tElement"
+>(shortSectionTitleLayout)</object
+> which indicates how the title of any and all short subsections should be formatted.<endnote
+id="nShortSubsection"
+><p
+>Every short subsection title will be formatted this way no matter what level it is a subsection of.</p
+></endnote
+> This has the the same set of attributes as a <object
+type="tElement"
+>sectionTitleLayout</object
+> element except the <object
+type="tAttribute"
+>useperiodafternumber</object
+> attribute is not present. See section <sectionRef
+sec="sTitleFormatInfoAttributes"
+></sectionRef
+>. In addition, the <object
+type="tElement"
+>shortSubsectionLayout</object
+> element has all of the attributes given in example <exampleRef
+letter="xSectionFormatInfoAttribute"
+num="xSectionFormatInfoAttribute"
+></exampleRef
+> except that the <object
+type="tAttribute"
+>showNumber</object
+> attribute's value is always set to <object
+type="tAttrValue"
+>no</object
+>.</p
+></section2
+><section2
 id="sChapterInCollectionBackMatterLayout"
 ><secTitle
 >Embedded Back Matter in a Chapter in a Collection</secTitle
@@ -3986,7 +4576,7 @@ id="sChapterInCollectionBackMatterLayout"
 ><indexedItem
 term="iChapterInCollectionBackMatterLayout"
 ></indexedItem
->For the special case of a book which is a collection of papers (i.e. it uses <object
+>For the special case of a book which is a collection of papers (i.e., it uses <object
 type="tElement"
 >chapterInCollection</object
 > elements instead of <object
@@ -4688,7 +5278,109 @@ id="sReferences"
 ><secTitle
 >References Layout</secTitle
 ><p
->This section outlines how to control the way reference material is to be formatted in a references section of a document. The key idea to keep in mind when creating reference layout information in an <object
+>This section outlines how to control the way reference material is to be formatted in a references section of a document. Since this portion of a <object
+type="tPublisherStyleSheet"
+></object
+> can be in an independent file, it has several top level elements as shown in example <exampleRef
+letter="xReferenceTopElements"
+num="xReferenceTopElements"
+></exampleRef
+>. They are all optional. None of them are ever used in any output.</p
+><example
+num="xReferenceTopElements"
+><table
+border="1"
+><tr
+><th
+>Element</th
+><th
+>Purpose</th
+></tr
+><tr
+><td
+><object
+type="tElement"
+>publisherStyleSheetName</object
+></td
+><td
+>The name or description of this references portion of a <object
+type="tPublisherStyleSheet"
+></object
+></td
+></tr
+><tr
+><td
+><object
+type="tElement"
+>comment</object
+></td
+><td
+>A comment about this references portion of a <object
+type="tPublisherStyleSheet"
+></object
+></td
+></tr
+><tr
+><td
+><object
+type="tElement"
+>publisherStyleSheetVersion</object
+></td
+><td
+>The version number of this references portion of a <object
+type="tPublisherStyleSheet"
+></object
+></td
+></tr
+><tr
+><td
+><object
+type="tElement"
+>publisherStyleSheetPublisher</object
+></td
+><td
+>The name of the publisher for this references portion of a <object
+type="tPublisherStyleSheet"
+></object
+></td
+></tr
+><tr
+><td
+><object
+type="tElement"
+>publisherStyleSheetDate</object
+></td
+><td
+>The date this references portion of a <object
+type="tPublisherStyleSheet"
+></object
+> was last changed</td
+></tr
+><tr
+><td
+><object
+type="tElement"
+>publisherStyleSheetUrl</object
+></td
+><td
+>A URL for where the information for this references portion of a <object
+type="tPublisherStyleSheet"
+></object
+> was found</td
+></tr
+><tr
+><td
+><object
+type="tElement"
+>publisherStyleSheetDateAccessed</object
+></td
+><td
+>The date that URL was last accessed</td
+></tr
+></table
+></example
+><p
+>The key idea to keep in mind when creating reference layout information in an <object
 type="tXLingPap"
 ></object
 > publisher style sheet is that the layout elements are used to define patterns. When a given referenced work is to be output, <object
@@ -5368,6 +6060,29 @@ showTitle="short"
 ><tr
 ><td
 ><indexedItem
+term="iBookVersion"
+></indexedItem
+><object
+type="tElement"
+>bookversionItem</object
+></td
+><td
+>How the <object
+type="tElement"
+>bookversion</object
+> element is to be formatted.</td
+><td
+>See section <sectionRef
+sec="sFormatInfoAttributes"
+showTitle="short"
+></sectionRef
+>.</td
+><td
+>2023.4</td
+></tr
+><tr
+><td
+><indexedItem
 term="iEdition"
 ></indexedItem
 ><object
@@ -5740,29 +6455,6 @@ id="sRefCollectionLayouts"
 >The <object
 type="tElement"
 >collectionLayouts</object
-> element has one attribute: <object
-type="tAttribute"
->flipFirstAuthorName</object
-> which can have one of two values: <object
-type="tAttrValue"
->yes</object
-> or <object
-type="tAttrValue"
->no</object
->. The default is <object
-type="tAttrValue"
->yes</object
->. If the value is <object
-type="tAttrValue"
->no</object
->, then collection editors' names are not reversed, but will appear in the order they occur in the corresponding <object
-type="tElement"
->refAuthor</object
-> element.</p
-><p
->The <object
-type="tElement"
->collectionLayouts</object
 > element contains one or more <object
 type="tElement"
 >collectionLayout</object
@@ -6047,6 +6739,29 @@ showTitle="short"
 >.</td
 ><td
 >IV</td
+></tr
+><tr
+><td
+><indexedItem
+term="iBookVersion"
+></indexedItem
+><object
+type="tElement"
+>bookversionItem</object
+></td
+><td
+>How the <object
+type="tElement"
+>bookversion</object
+> element is to be formatted.</td
+><td
+>See section <sectionRef
+sec="sFormatInfoAttributes"
+showTitle="short"
+></sectionRef
+>.</td
+><td
+>2023.4</td
 ></tr
 ><tr
 ><td
@@ -9237,9 +9952,22 @@ type="tElement"
 > element.</langData
 ></td
 ><td
+><table
+><tr
+><td
 ><object
 type="tAttrValue"
->lowercase</object
+>yes</object
+></td
+></tr
+><tr
+><td
+><object
+type="tAttrValue"
+>no</object
+></td
+></tr
+></table
 ></td
 ></tr
 ></table
@@ -9351,12 +10079,15 @@ type="tAttribute"
 ><object
 type="tAttrValue"
 >full</object
-> or <object
+>, <object
 type="tAttrValue"
 >initials</object
+>, or <object
+type="tAttrValue"
+>surnamegivenname</object
 >.</td
 ><td
->This indicates whether the author name(s) should use initials or be shown in full. The default is <object
+>This indicates whether the author name(s) should use initials, use the "surname, given name" form or be shown in full. The default is <object
 type="tAttrValue"
 >full</object
 >. Note that if this attribute is set to <object
@@ -9368,6 +10099,24 @@ type="tXLingPap"
 > will use the contents of the <object
 type="tElement"
 >refAuthorInitials</object
+> element in the <object
+type="tElement"
+>refAuthor</object
+> element, if it exists. If it does not exist, it will use the content of the <object
+type="tAttribute"
+>name</object
+> attribute of the <object
+type="tElement"
+>refAuthor</object
+> element. Similarly, if this attribute is set to <object
+type="tAttrValue"
+>surnamegivenname</object
+>, then <object
+type="tXLingPap"
+></object
+> will use the contents of the <object
+type="tElement"
+>refAuthorSurnameGivenName</object
 > element in the <object
 type="tElement"
 >refAuthor</object
@@ -9536,6 +10285,53 @@ type="tAttrValue"
 ><object
 type="tAttrValue"
 >.25in</object
+></td
+></tr
+></table
+></td
+></tr
+><tr
+><td
+><indexedItem
+term="iRefIgnoreLocations"
+></indexedItem
+><object
+type="tAttribute"
+>ignoreLocations</object
+></td
+><td
+><object
+type="tAttrValue"
+>yes</object
+> or <object
+type="tAttrValue"
+>no</object
+>.</td
+><td
+>If this is set to <object
+type="tAttrValue"
+>yes</object
+> , then every <object
+type="tElement"
+>location</object
+> element will be ignored in the output. The default value is <object
+type="tAttrValue"
+>no</object
+>.</td
+><td
+><table
+><tr
+><td
+><object
+type="tAttrValue"
+>yes</object
+></td
+></tr
+><tr
+><td
+><object
+type="tAttrValue"
+>no</object
 ></td
 ></tr
 ></table
@@ -11229,7 +12025,7 @@ id="sInterlinearSourceStyleLayout"
 ><indexedItem
 term="iInterlinearSourceStyle"
 ></indexedItem
->How an interlinear source reference (i.e. the <object
+>How an interlinear source reference (i.e., the <object
 type="tElement"
 >interlinearSource</object
 > element in an <object
@@ -11281,7 +12077,7 @@ border="1"
 ><td
 >After first line</td
 ><td
->After the first line of the interlinear (i.e. on the same line as the first line, but off to the right).</td
+>After the first line of the interlinear (i.e., on the same line as the first line, but off to the right).</td
 ></tr
 ><tr
 ><td
@@ -11508,6 +12304,99 @@ src="resources/FigureLayout.png"
 ></chart
 ></example
 ><p
+>The <object
+type="tAttribute"
+>align</object
+> attribute of the <object
+type="tElement"
+>figureLayout</object
+> element can be set to define the default alignment of all figures in the document as shown in example <exampleRef
+letter="xFigureLayoutAlign"
+num="xFigureLayoutAlign"
+></exampleRef
+>.</p
+><example
+num="xFigureLayoutAlign"
+><table
+border="1"
+><tr
+><th
+><langData
+lang="lEng"
+>Attribute</langData
+></th
+><th
+><langData
+lang="lEng"
+>Possible Values</langData
+></th
+><th
+><langData
+lang="lEng"
+>Meaning</langData
+></th
+><th
+>Default</th
+><th
+>Shows in the <object
+type="tXMLmindXMLEditor"
+></object
+></th
+></tr
+><tr
+><td
+><langData
+lang="lEng"
+> <indexedItem
+term="iFigureAlignment"
+></indexedItem
+><object
+type="tAttribute"
+>align</object
+> </langData
+></td
+><td
+><langData
+lang="lEng"
+><object
+type="tAttrValue"
+>left</object
+>, <object
+type="tAttrValue"
+>center</object
+>, <object
+type="tAttrValue"
+>right</object
+>, or <object
+type="tAttrValue"
+>useAlignOfFigure</object
+>.</langData
+></td
+><td
+><langData
+lang="lEng"
+>This sets how the caption and the figure will be aligned horizontally throughout the document. The default is <object
+type="tAttrValue"
+>useAlignOfFigure</object
+> which means that whatever the <object
+type="tAttribute"
+>align</object
+> attrribute of the <object
+type="tElement"
+>figure</object
+> element has will be used.</langData
+></td
+><td
+><object
+type="tAttrValue"
+>useAlignOfFigure</object
+></td
+><td
+>No</td
+></tr
+></table
+></example
+><p
 >There are actually four parts here.</p
 ><section4
 id="sFiguresCaption"
@@ -11593,6 +12482,52 @@ type="tAttrValue"
 ><langData
 lang="lEng"
 > <indexedItem
+term="iFigureHangingIndent"
+></indexedItem
+><object
+type="tAttribute"
+>listOfFiguresHangingIndent</object
+> </langData
+></td
+><td
+><langData
+lang="lEng"
+>(user control)</langData
+></td
+><td
+>This is only used when the <object
+type="tAttribute"
+>listOfFiguresUsesFigureAndPageHeaders</object
+> attribute is set to <object
+type="tAttrValue"
+>no</object
+>. It determines the hanging indent to use for figure captions in the automatically generated list of figures.</td
+><td
+><table
+><tr
+><td
+><object
+type="tAttrValue"
+>2.5em</object
+></td
+></tr
+><tr
+><td
+><object
+type="tAttrValue"
+>4em</object
+></td
+></tr
+></table
+></td
+><td
+>No</td
+></tr
+><tr
+><td
+><langData
+lang="lEng"
+> <indexedItem
 term="iFigureListHasHeading"
 ></indexedItem
 ><object
@@ -11621,6 +12556,54 @@ lang="lEng"
 type="tAttrValue"
 >yes</object
 >, then the “Figure” label will not appear before the figure number in each row of the listing.</langData
+></td
+><td
+><object
+type="tAttrValue"
+>yes</object
+></td
+><td
+>No</td
+></tr
+><tr
+><td
+><langData
+lang="lEng"
+> <indexedItem
+term="iFigureListHasHeading"
+></indexedItem
+><object
+type="tAttribute"
+>listOfFiguresUsesFigureHeader</object
+> </langData
+></td
+><td
+><langData
+lang="lEng"
+> <object
+type="tAttrValue"
+>yes</object
+> or <object
+type="tAttrValue"
+>no</object
+>. The default value is <object
+type="tAttrValue"
+>yes</object
+>.</langData
+></td
+><td
+><langData
+lang="lEng"
+>This is only used when the <object
+type="tAttribute"
+>listOfFiguresUsesFigureAndPageHeaders</object
+> attribute is set to <object
+type="tAttrValue"
+>yes</object
+>. Whether or not the automatically generated list of figures uses a "Figure" heading. If set to <object
+type="tAttrValue"
+>no</object
+>, then the “Figure” header label will not appear.</langData
 ></td
 ><td
 ><object
@@ -12457,6 +13440,99 @@ src="resources/TableNumberedLayout.png"
 ></chart
 ></example
 ><p
+>The <object
+type="tAttribute"
+>align</object
+> attribute of the <object
+type="tElement"
+>tablenumberedLayout</object
+> element can be set to define the default alignment of all numbered tables in the document as shown in example <exampleRef
+letter="xTableNumberedLayoutAlign"
+num="xTableNumberedLayoutAlign"
+></exampleRef
+>.</p
+><example
+num="xTableNumberedLayoutAlign"
+><table
+border="1"
+><tr
+><th
+><langData
+lang="lEng"
+>Attribute</langData
+></th
+><th
+><langData
+lang="lEng"
+>Possible Values</langData
+></th
+><th
+><langData
+lang="lEng"
+>Meaning</langData
+></th
+><th
+>Default</th
+><th
+>Shows in the <object
+type="tXMLmindXMLEditor"
+></object
+></th
+></tr
+><tr
+><td
+><langData
+lang="lEng"
+> <indexedItem
+term="iTableNumberedAlignment"
+></indexedItem
+><object
+type="tAttribute"
+>align</object
+> </langData
+></td
+><td
+><langData
+lang="lEng"
+><object
+type="tAttrValue"
+>left</object
+>, <object
+type="tAttrValue"
+>center</object
+>, <object
+type="tAttrValue"
+>right</object
+>, or <object
+type="tAttrValue"
+>useAlignOfTable</object
+>.</langData
+></td
+><td
+><langData
+lang="lEng"
+>This sets how the caption and the (main) table will be aligned horizontally throughout the document. The default is <object
+type="tAttrValue"
+>useAlignOfTable</object
+> which means that whatever the <object
+type="tAttribute"
+>align</object
+> attrribute of the <object
+type="tElement"
+>table</object
+> element has will be used.</langData
+></td
+><td
+><object
+type="tAttrValue"
+>useAlignOfTable</object
+></td
+><td
+>No</td
+></tr
+></table
+></example
+><p
 >There are actually four parts here.</p
 ><section4
 id="sTableNumberedCaption"
@@ -12542,6 +13618,52 @@ type="tAttrValue"
 ><langData
 lang="lEng"
 > <indexedItem
+term="iTableNumberedHangingIndent"
+></indexedItem
+><object
+type="tAttribute"
+>listOfTablesHangingIndent</object
+> </langData
+></td
+><td
+><langData
+lang="lEng"
+>(user control)</langData
+></td
+><td
+>This is only used when the <object
+type="tAttribute"
+>listOfTablesUsesTableAndPageHeaders</object
+> attribute is set to <object
+type="tAttrValue"
+>no</object
+>. It determines the hanging indent to use for table captions in the automatically generated list of tables.</td
+><td
+><table
+><tr
+><td
+><object
+type="tAttrValue"
+>2.5em</object
+></td
+></tr
+><tr
+><td
+><object
+type="tAttrValue"
+>4em</object
+></td
+></tr
+></table
+></td
+><td
+>No</td
+></tr
+><tr
+><td
+><langData
+lang="lEng"
+> <indexedItem
 term="iTableNumberedListHasHeading"
 ></indexedItem
 ><object
@@ -12570,6 +13692,54 @@ lang="lEng"
 type="tAttrValue"
 >yes</object
 >, then the “Table” label will not appear before the table number in each row of the listing.</langData
+></td
+><td
+><object
+type="tAttrValue"
+>yes</object
+></td
+><td
+>No</td
+></tr
+><tr
+><td
+><langData
+lang="lEng"
+> <indexedItem
+term="iTableNumberedListHasHeading"
+></indexedItem
+><object
+type="tAttribute"
+>listOfTablesUsesTableHeader</object
+> </langData
+></td
+><td
+><langData
+lang="lEng"
+> <object
+type="tAttrValue"
+>yes</object
+> or <object
+type="tAttrValue"
+>no</object
+>. The default value is <object
+type="tAttrValue"
+>yes</object
+>.</langData
+></td
+><td
+><langData
+lang="lEng"
+>This is only used when the <object
+type="tAttribute"
+>listOfTablesUsesTableAndPageHeaders</object
+> attribute is set to <object
+type="tAttrValue"
+>yes</object
+>. Whether or not the automatically generated list of figures uses a "Table" heading. If set to <object
+type="tAttrValue"
+>no</object
+>, then the “Table” header label will not appear.</langData
 ></td
 ><td
 ><object
@@ -13504,7 +14674,7 @@ term="iMagnificationFactor"
 >When one is producing a paper for a poster session, sometimes one wants to enlarge the text of the document while maintaining the same page size. This is what the <object
 type="tElement"
 >magnificationFactor</object
-> element is for. Enter the factor you want (e.g. <object
+> element is for. Enter the factor you want (e.g., <object
 type="tInTextExample"
 >1.5</object
 > or <object
@@ -14237,7 +15407,19 @@ type="tElement"
 sec="sFontInfoAttributes"
 showTitle="short"
 ></sectionRef
->. You can use these attributes to format the label as needed.</p
+>. You can use these attributes to format the label as needed. Example <exampleRef
+letter="xLitLabel"
+num="xLitLabel"
+></exampleRef
+> shows the content of the label. Notice that the red cursor is at the end of the label.</p
+><example
+num="xLitLabel"
+><chart
+><img
+src="resources/LitLabel.png"
+></img
+></chart
+></example
 ><p
 >The second element, <object
 type="tElement"
@@ -14494,6 +15676,51 @@ lang="lEng"
 type="tXMLmindXMLEditor"
 ></object
 ></th
+></tr
+><tr
+><td
+><langData
+lang="lEng"
+> <indexedItem
+term="iDefaultParenValue"
+></indexedItem
+><object
+type="tAttribute"
+>defaultparenvalue</object
+> </langData
+></td
+><td
+><langData
+lang="lEng"
+> <object
+type="tAttrValue"
+>citationBoth</object
+>, or <object
+type="tAttrValue"
+>both</object
+>.</langData
+></td
+><td
+><langData
+lang="lEng"
+>This indicates what the default output format should be for the "paren” value if a <object
+type="tElement"
+>citation</object
+> element has nothing set for its <object
+type="tAttribute"
+>paren</object
+> attribute. The default is <object
+type="tAttrValue"
+>both</object
+>.</langData
+></td
+><td
+><object
+type="tAttrValue"
+>citationBoth</object
+></td
+><td
+>No</td
 ></tr
 ><tr
 ><td
@@ -16523,6 +17750,137 @@ type="tAttrValue"
 type="tAttrValue"
 >no</object
 >.</p
+></section2
+><section2
+id="sBorderAroundIMage"
+><secTitle
+>Controlling a Border Around Images</secTitle
+><p
+><indexedItem
+term="iImgBorder"
+></indexedItem
+>If you need to control the width of a border around an image and/or control the space between the border and an image, add the <object
+type="tElement"
+>imageBorderLayout</object
+> element. It has two attributes as described in <exampleRef
+letter="xBorderAroundImagesLayoutAttributes"
+num="xBorderAroundImagesLayoutAttributes"
+></exampleRef
+>.</p
+><example
+num="xBorderAroundImagesLayoutAttributes"
+><table
+border="1"
+><caption
+>Border Around an Image Attributes</caption
+><tr
+><th
+><langData
+lang="lEng"
+>Attribute</langData
+></th
+><th
+><langData
+lang="lEng"
+>Possible Values</langData
+></th
+><th
+><langData
+lang="lEng"
+>Meaning</langData
+></th
+><th
+>Examples</th
+><th
+>Shows in the <object
+type="tXMLmindXMLEditor"
+></object
+></th
+></tr
+><tr
+><td
+><langData
+lang="lEng"
+> <object
+type="tAttribute"
+>separation</object
+> </langData
+></td
+><td
+><langData
+lang="lEng"
+>(user control)</langData
+></td
+><td
+>The amount of space to insert between the border and the image. Use a number followed by one of the units of measure given in example <exampleRef
+letter="xUnitsOfMeasure"
+num="xUnitsOfMeasure"
+></exampleRef
+>; there should be no space between the number and the unit of measure.</td
+><td
+><table
+><tr
+><td
+><object
+type="tAttrValue"
+>0.5pt</object
+></td
+></tr
+><tr
+><td
+><object
+type="tAttrValue"
+>1pt</object
+></td
+></tr
+></table
+></td
+><td
+>No</td
+></tr
+><tr
+><td
+><langData
+lang="lEng"
+> <object
+type="tAttribute"
+>width</object
+> </langData
+></td
+><td
+><langData
+lang="lEng"
+>(user control)</langData
+></td
+><td
+>The width of the border. Use a number followed by one of the units of measure given in example <exampleRef
+letter="xUnitsOfMeasure"
+num="xUnitsOfMeasure"
+></exampleRef
+>; there should be no space between the number and the unit of measure.</td
+><td
+><table
+><tr
+><td
+><object
+type="tAttrValue"
+>1pt</object
+></td
+></tr
+><tr
+><td
+><object
+type="tAttrValue"
+>2pt</object
+></td
+></tr
+></table
+></td
+><td
+>No</td
+></tr
+></table
+></example
 ></section2
 ></section1
 ><section1
@@ -18729,6 +20087,15 @@ type="tElement"
 ><td
 >footnote number-to-text link</td
 ></tr
+><tr
+><td
+><object
+type="tElement"
+>imageBorderLayout</object
+></td
+><td
+>border around images layout</td
+></tr
 ></table
 ></appendix
 ><appendix
@@ -19667,6 +21034,31 @@ type="tElement"
 >no attributes have defaults</td
 ><td
 ></td
+></tr
+><tr
+><td
+rowspan="2"
+valign="top"
+><object
+type="tElement"
+>imageBorderLayout</object
+></td
+><td
+><object
+type="tAttribute"
+>separation</object
+></td
+><td
+>0pt</td
+></tr
+><tr
+><td
+><object
+type="tAttribute"
+>width</object
+></td
+><td
+>1pt</td
 ></tr
 ><tr
 ><td
@@ -20712,6 +22104,12 @@ see="iVolumeNumber"
 >Book volume number of a referenced work</term
 ></indexTerm
 ><indexTerm
+id="iBorderAroundImage"
+see="iImgBorder"
+><term
+>Border around an image</term
+></indexTerm
+><indexTerm
 id="iCaption"
 ><term
 >Caption</term
@@ -20746,6 +22144,11 @@ id="iChapterNumber"
 >Chapter number</term
 ></indexTerm
 ><indexTerm
+id="iChapterNumeralFormat"
+><term
+>Chapter numeral format</term
+></indexTerm
+><indexTerm
 id="iChapterTitle"
 ><term
 >Chapter title</term
@@ -20759,6 +22162,11 @@ id="iChapterTitleLayout"
 id="iChapterInitialParagraph"
 ><term
 >Initial paragraph not indented</term
+></indexTerm
+><indexTerm
+id="iChapterResetFootnoteNumbering"
+><term
+>Reset footnote numbering</term
 ></indexTerm
 ><indexTerm
 id="iChapterFigureNumber"
@@ -20801,6 +22209,11 @@ id="iCitationOverrides"
 ><term
 >Citation special formatting</term
 ><indexTerms
+><indexTerm
+id="iDefaultParenValue"
+><term
+>Default “paren” value</term
+></indexTerm
 ><indexTerm
 id="iItalicizeEtAl."
 ><term
@@ -20930,6 +22343,46 @@ id="iContentsLayoutDefaultValues"
 >Default values</term
 ></indexTerm
 ><indexTerm
+id="iContentsChapterHangingIndent"
+><term
+>Hanging indent to use for lines in a chapter title that overlap</term
+></indexTerm
+><indexTerm
+id="iContentsHangingIndent"
+><term
+>Hanging indent to use for lines that overlap</term
+></indexTerm
+><indexTerm
+id="iContentsSection1HangingIndent"
+><term
+>Hanging indent to use for lines in a section1 title that overlap</term
+></indexTerm
+><indexTerm
+id="iContentsSection2HangingIndent"
+><term
+>Hanging indent to use for lines in a section2 title that overlap</term
+></indexTerm
+><indexTerm
+id="iContentsSection3HangingIndent"
+><term
+>Hanging indent to use for lines in a section3 title that overlap</term
+></indexTerm
+><indexTerm
+id="iContentsSection4HangingIndent"
+><term
+>Hanging indent to use for lines in a section4 title that overlap</term
+></indexTerm
+><indexTerm
+id="iContentsSection5HangingIndent"
+><term
+>Hanging indent to use for lines in a section5 title that overlap</term
+></indexTerm
+><indexTerm
+id="iContentsSection6HangingIndent"
+><term
+>Hanging indent to use for lines in a section6 title that overlap</term
+></indexTerm
+><indexTerm
 id="iContentsLayoutAppendixWord"
 ><term
 >Include “Appendix” before the appendix letter</term
@@ -20980,6 +22433,12 @@ id="iContentsPartsSpaceBefore"
 >Space before</term
 ></indexTerm
 ></indexTerms
+></indexTerm
+><indexTerm
+id="iContentsVolume"
+see="iVolumeLayout"
+><term
+>Volume label</term
 ></indexTerm
 ></indexTerms
 ></indexTerm
@@ -21244,6 +22703,17 @@ id="iFigure"
 >Figure</term
 ><indexTerms
 ><indexTerm
+id="iFigureAlignment"
+><term
+>Alignment</term
+></indexTerm
+><indexTerm
+id="iFigureBorderAround"
+see="iImgBorder"
+><term
+>Border around image</term
+></indexTerm
+><indexTerm
 id="iFigureCaption"
 ><term
 >Caption before or after the figure</term
@@ -21252,6 +22722,11 @@ id="iFigureCaption"
 id="iFigureFormatOfNumber"
 ><term
 >Format of figure number</term
+></indexTerm
+><indexTerm
+id="iFigureHangingIndent"
+><term
+>Hanging indent in list of figures</term
 ></indexTerm
 ><indexTerm
 id="iFigureLabel"
@@ -21392,6 +22867,11 @@ id="iFootnoteIndentr"
 id="iFootnoteLink"
 ><term
 >Link from number to text</term
+></indexTerm
+><indexTerm
+id="iResetFootnoteNumberingInChapter"
+><term
+>Reset footnote numbering in a chapter</term
 ></indexTerm
 ><indexTerm
 id="iFootnoteSpaceAfterNumber"
@@ -21535,6 +23015,13 @@ id="iHeaderRule"
 id="iImg"
 ><term
 >img</term
+><indexTerms
+><indexTerm
+id="iImgBorder"
+><term
+>Border around</term
+></indexTerm
+></indexTerms
 ></indexTerm
 ><indexTerm
 id="iIndent"
@@ -21694,6 +23181,12 @@ see="iTableNumberedLabel"
 id="iLangDataOverrides"
 ><term
 >Language data special formatting in prose, tables, or examples</term
+></indexTerm
+><indexTerm
+id="iLeftJustification"
+see="iParagraphLayoutAlignment"
+><term
+>Left justified output</term
 ></indexTerm
 ><indexTerm
 id="iLineBeforeAttribute"
@@ -21923,6 +23416,11 @@ id="iParagraphLayout"
 >Paragraph layout</term
 ><indexTerms
 ><indexTerm
+id="iParagraphLayoutAlignment"
+><term
+>Paragraph alignment (e.g., justified, left-justified)</term
+></indexTerm
+><indexTerm
 id="iParagraphLayoutSpaceBetween"
 ><term
 >Space between paragraphs</term
@@ -21933,6 +23431,13 @@ id="iParagraphLayoutSpaceBetween"
 id="iPartLayout"
 ><term
 >Part Layout</term
+><indexTerms
+><indexTerm
+id="iPartNumeralFormat"
+><term
+>Part numeral format</term
+></indexTerm
+></indexTerms
 ></indexTerm
 ><indexTerm
 id="iPartTitleLayout"
@@ -22014,6 +23519,12 @@ id="iPublishingBlurbLayout"
 id="iQuote"
 ><term
 >Quote quotation marks</term
+></indexTerm
+><indexTerm
+id="iRaggedRight"
+see="iParagraphLayoutAlignment"
+><term
+>Ragged right output</term
 ></indexTerm
 ><indexTerm
 id="iReferences"
@@ -22125,6 +23636,11 @@ id="iRefSeriesEd"
 see="iSeriesEd"
 ><term
 >Editor of a series (part of a referenced work)</term
+></indexTerm
+><indexTerm
+id="iRefIgnoreLocations"
+><term
+>Ignore locations</term
 ></indexTerm
 ><indexTerm
 id="iRefInstitution"
@@ -22486,6 +24002,11 @@ id="iTableNumbered"
 >Table, numbered</term
 ><indexTerms
 ><indexTerm
+id="iTableNumberedAlignment"
+><term
+>Alignment</term
+></indexTerm
+><indexTerm
 id="iTableNumberedCaption"
 ><term
 >Caption before or after the numbered table</term
@@ -22494,6 +24015,11 @@ id="iTableNumberedCaption"
 id="iTableNumberedFormatOfNumber"
 ><term
 >Format of the number of a numbered table</term
+></indexTerm
+><indexTerm
+id="iTableNumberedHangingIndent"
+><term
+>Hanging indent in list of tables</term
 ></indexTerm
 ><indexTerm
 id="iTableNumberedListHasHeading"
@@ -22673,6 +24199,11 @@ id="iUseBlankExtraPage"
 >Use blank extra page attribute</term
 ></indexTerm
 ><indexTerm
+id="iuseDigitsForEndnoteNumbering"
+><term
+>Use digits for endnote numbering in author</term
+></indexTerm
+><indexTerm
 id="iUseEmptyHeaderFooter"
 ><term
 >Use an empty header and footer attribute</term
@@ -22688,6 +24219,11 @@ id="iVersionLayout"
 >Version layout</term
 ></indexTerm
 ><indexTerm
+id="iBookVersion"
+><term
+>Version of a referenced work</term
+></indexTerm
+><indexTerm
 id="iVerticalFillAfterAttribute"
 ><term
 >Vertical fill after attribute</term
@@ -22701,6 +24237,14 @@ id="iVerticalFillBeforeAttribute"
 id="iVolumeAuthorRef"
 ><term
 >Volume author ref</term
+></indexTerm
+><indexTerm
+id="iVolumeLayout"
+><term
+>Volume layout in a table of contents in a multi-volume <object
+type="tXLingPap"
+></object
+> document</term
 ></indexTerm
 ><indexTerm
 id="iVolumeNumber"

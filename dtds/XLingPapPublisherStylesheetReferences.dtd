@@ -19,14 +19,15 @@ References Layouts
     usecitationformatwhennumbereofsharedpaperis = number of shared papers required before using the citation format in 
          collections and proceedings; a value of 0 means do not use the citation format
 -->
-<!ELEMENT referencesLayout ( publisherStyleSheetReferencesName?, publisherStyleSheetReferencesVersion?, refAuthorLayouts,  
+<!ELEMENT referencesLayout ( publisherStyleSheetReferencesName?, comment?, publisherStyleSheetReferencesVersion?, publisherStyleSheetPublisher?, publisherStyleSheetDate?, publisherStyleSheetUrl?, publisherStyleSheetDateAccessed?,
+                                                         refAuthorLayouts,
                                                          articleLayouts, bookLayouts, collectionLayouts, dissertationLayouts, 
                                                          fieldNotesLayouts, msLayouts, paperLayouts, proceedingsLayouts, thesisLayouts, 
                                                          webPageLayouts, publishedLayout, locationPublisherLayouts, urlDateAccessedLayouts?, iso639-3codeItem?, refAuthorNameChange?)>
 <!ATTLIST  referencesLayout 
    hangingindentsize CDATA #REQUIRED
    defaultfontsize CDATA #IMPLIED
-   authorform (full | initials) "full"
+   authorform (full | initials | surnamegivenname) "full"
    titleform (uppercase | lowercase) "uppercase"
    uselineforrepeatedauthor (no | yes) "no"
    removecommonhundredsdigitsinpages (yes | no) "no"
@@ -39,6 +40,7 @@ References Layouts
    spaceBetweenEntriesAuthorOverDateStyle CDATA #IMPLIED
    spaceafter CDATA #IMPLIED
    spacebefore CDATA #IMPLIED
+   ignoreLocations (no | yes) "no"
    >
 
 <!-- Name and version of this references stylesheet -->
@@ -79,9 +81,9 @@ References Layouts
 
 <!ELEMENT articleLayout (refTitleItem | jTitleItem |  jVolItem | jIssueNumberItem |  jPagesItem | jArticleNumberItem |  
                                                 locationPublisherLayoutsRef | reprintInfoItem | urlDateAccessedLayoutsRef | urlItem | dateAccessedItem | doiItem | iso639-3codeItemRef)+>
-<!ELEMENT bookLayout (refTitleItem | translatedByItem  | editorItem | bVolItem |  editionItem | seriesEdItem | seriesItem |  multivolumeWorkItem |
+<!ELEMENT bookLayout (refTitleItem | translatedByItem  | editorItem | bVolItem | bookversionItem | editionItem | seriesEdItem | seriesItem |  multivolumeWorkItem |
                                                bookTotalPagesItem | locationPublisherLayoutsRef | reprintInfoItem | urlDateAccessedLayoutsRef | urlItem | dateAccessedItem | doiItem | iso639-3codeItemRef)+>
-<!ELEMENT collectionLayout (refTitleItem | collEdItem |  collTitleItem |  editionItem | collVolItem |  collPagesItem | bVolItem | seriesEdItem | seriesItem | multivolumeWorkItem |  collCitationItem | authorRoleItem |
+<!ELEMENT collectionLayout (refTitleItem | collEdItem |  collTitleItem | bookversionItem |  editionItem | collVolItem |  collPagesItem | bVolItem | seriesEdItem | seriesItem | multivolumeWorkItem |  collCitationItem | authorRoleItem |
                                                locationPublisherLayoutsRef | reprintInfoItem | urlDateAccessedLayoutsRef | urlItem | dateAccessedItem | doiItem | iso639-3codeItemRef)+>
 <!ELEMENT dissertationLayout (refTitleItem | dissertationLabelItem | locationItem |  institutionItem |  publishedLayoutRef | reprintInfoItem |
                                                urlDateAccessedLayoutsRef | urlItem | dateAccessedItem | doiItem | iso639-3codeItemRef)+>
@@ -132,6 +134,8 @@ References Layouts
 <!ATTLIST publisherItem %formatinfo;>
 <!ELEMENT editorItem EMPTY >
 <!ATTLIST editorItem %formatinfo;>
+<!ELEMENT bookversionItem EMPTY >
+<!ATTLIST bookversionItem %formatinfo;>
 <!ELEMENT editionItem EMPTY >
 <!ATTLIST editionItem %formatinfo;>
 <!ELEMENT institutionItem EMPTY >

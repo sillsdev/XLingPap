@@ -274,6 +274,48 @@
         </xsl:call-template>
     </xsl:template>
     <!-- 
+        volume (contents) 
+    -->
+    <xsl:template match="volume" mode="contents">
+        <xsl:text>.volumeContents {
+            margin-top:</xsl:text>
+        <xsl:choose>
+            <xsl:when test="$volumeLayout/@spacebefore">
+                <xsl:value-of select="$volumeLayout/@spacebefore"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:value-of select="$sBasicPointSize"/>                
+            </xsl:otherwise>
+        </xsl:choose>
+        <xsl:text>;
+            margin-bottom:</xsl:text>
+        <xsl:choose>
+            <xsl:when test="$volumeLayout/@spaceafter">
+                <xsl:value-of select="$volumeLayout/@spaceafter"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:value-of select="$sBasicPointSize"/>                
+            </xsl:otherwise>
+        </xsl:choose>
+        <xsl:text>;
+            text-align:</xsl:text>
+        <xsl:choose>
+            <xsl:when test="$volumeLayout/@textalign='center'">
+                <xsl:text>center;</xsl:text>
+            </xsl:when>
+            <xsl:when test="$volumeLayout/@textalign='right' or $volumeLayout/@textalign='end'">
+                <xsl:text>right;</xsl:text>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:text>left;</xsl:text>
+            </xsl:otherwise>
+        </xsl:choose>
+        <xsl:apply-templates select="$volumeLayout/@*[starts-with(name(.),'font')]"/>
+        <xsl:text>
+            }
+</xsl:text>
+    </xsl:template>
+    <!-- 
       DoSpaceBeforeContentsLine
    -->
     <xsl:template name="DoSpaceBeforeContentsLine">

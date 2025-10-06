@@ -166,7 +166,7 @@ text-indent:</xsl:text>
 .itxwrap {
     display: flex;
     flex-wrap: wrap;
-    gap: 1em;
+    gap: 0.25em;
 }
 .itxitem {
     display: grid;

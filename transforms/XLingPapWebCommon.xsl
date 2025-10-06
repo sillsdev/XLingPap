@@ -1,5 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:saxon="http://icl.com/saxon" version="1.1">
+    <xsl:variable name="hasInterlinears">
+        <xsl:choose>
+            <xsl:when test="//interlinear">
+                <xsl:text>Y</xsl:text>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:text>N</xsl:text>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:variable>
 
     <!--  
         BoxUpWrdsInAllLinesInLineGroup

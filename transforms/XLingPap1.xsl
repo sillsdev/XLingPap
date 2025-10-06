@@ -41,10 +41,12 @@
                 </title>
                 <style type="text/css">
                <xsl:text>.interblock { display: -moz-inline-box; display:inline-block; vertical-align: top; } </xsl:text>
-                    <xsl:text>.itxwrap {
+                    <xsl:if test="$hasInterlinears='Y'">
+                    <xsl:text>
+.itxwrap {
     display: flex;
     flex-wrap: wrap;
-    gap: 1em;
+    gap: 0.25em;
 }
 .itxitem {
     display: grid;
@@ -62,6 +64,7 @@
     padding: 0 0.5em;
 }*/
 </xsl:text>
+                    </xsl:if>
                 </style>
                 <xsl:call-template name="SetMetadata"/>
             </head>
@@ -393,11 +396,17 @@
                     </li>
                 </xsl:if>
                 <xsl:for-each select="//references[not(ancestor::chapterInCollection)]">
-                    <li>
-                        <a href="#{$sReferencesID}">
-                            <xsl:call-template name="OutputReferencesLabel"/>
-                        </a>
-                    </li>
+                    <xsl:variable name="refAuthors" select="//refAuthor"/>
+                    <xsl:variable name="gtAuthors" select="$refAuthors[refWork/@id=//citation[ancestor::glossaryTerm[key('GlossaryTermRefs',@id)]]/@ref]"/>
+                    <xsl:variable name="directlyCitedAuthors" select="$refAuthors[refWork/@id=//citation[not(ancestor::comment) and not(ancestor::annotation)]/@ref]"/>
+                    <xsl:variable name="directlyCitedAuthorsAnno" select="$refAuthors[refWork/@id=//citation[ancestor::annotation[@id=//annotationRef/@annotation]]/@ref]"/>
+                    <xsl:if test="$directlyCitedAuthors or $directlyCitedAuthorsAnno or $gtAuthors">
+                        <li>
+                            <a href="#{$sReferencesID}">
+                                <xsl:call-template name="OutputReferencesLabel"/>
+                            </a>
+                        </li>
+                    </xsl:if>
                 </xsl:for-each>
                 <xsl:if test="//keywordsShownHere[@showincontents='yes' and parent::backMatter and not(ancestor::chapterInCollection)]">
                     <li>
@@ -2472,23 +2481,29 @@
         references
     -->
     <xsl:template match="references">
-        <xsl:if test="not(ancestor::chapterInCollection)">
-            <hr size="3"/>
-        </xsl:if>
-        <xsl:variable name="sId">
-            <xsl:call-template name="GetIdToUse">
-                <xsl:with-param name="sBaseId" select="$sReferencesID"/>
+        <xsl:variable name="refAuthors" select="//refAuthor"/>
+        <xsl:variable name="gtAuthors" select="$refAuthors[refWork/@id=//citation[ancestor::glossaryTerm[key('GlossaryTermRefs',@id)]]/@ref]"/>
+        <xsl:variable name="directlyCitedAuthors" select="$refAuthors[refWork/@id=//citation[not(ancestor::comment) and not(ancestor::annotation)]/@ref]"/>
+        <xsl:variable name="directlyCitedAuthorsAnno" select="$refAuthors[refWork/@id=//citation[ancestor::annotation[@id=//annotationRef/@annotation]]/@ref]"/>
+        <xsl:if test="$directlyCitedAuthors or $directlyCitedAuthorsAnno or $gtAuthors">
+            <xsl:if test="not(ancestor::chapterInCollection)">
+                <hr size="3"/>
+            </xsl:if>
+            <xsl:variable name="sId">
+                <xsl:call-template name="GetIdToUse">
+                    <xsl:with-param name="sBaseId" select="$sReferencesID"/>
+                </xsl:call-template>
+            </xsl:variable>
+            <a name="{$sId}"/>
+            <xsl:call-template name="OutputChapTitle">
+                <xsl:with-param name="sTitle">
+                    <xsl:call-template name="OutputReferencesLabel"/>
+                </xsl:with-param>
             </xsl:call-template>
-        </xsl:variable>
-        <a name="{$sId}"/>
-        <xsl:call-template name="OutputChapTitle">
-            <xsl:with-param name="sTitle">
-                <xsl:call-template name="OutputReferencesLabel"/>
-            </xsl:with-param>
-        </xsl:call-template>
-        <div style="margin-left:0.25in">
-            <xsl:call-template name="HandleRefAuthors"/>
-        </div>
+            <div style="margin-left:0.25in">
+                <xsl:call-template name="HandleRefAuthors"/>
+            </div>
+        </xsl:if>
     </xsl:template>
     <!--
       refTitle
@@ -4337,25 +4352,26 @@
         <xsl:param name="bHasExampleHeading"/>
         <xsl:param name="bListsShareSameCode"/>
         <xsl:param name="originalContext"/>
-<!--        <xsl:if test="(count(ancestor::interlinear) + count(ancestor::listInterlinear)) &gt; 1">
+        <xsl:if test="(count(ancestor::interlinear) + count(ancestor::listInterlinear)) &gt; 1">
             <xsl:if test="$mode='NoTextRef' or  ../preceding-sibling::*[1][name()!='free' and name()!='literal']">
-                <tex:cmd name="vspace">
+                <p/>
+<!--                <tex:cmd name="vspace">
                     <tex:parm>
                         <tex:cmd name="baselineskip"/>
                     </tex:parm>
                 </tex:cmd>
-            </xsl:if>
-        </xsl:if>-->
+-->            </xsl:if>
+        </xsl:if>
         <xsl:variable name="sLeftIndent">
             <xsl:choose>
                 <xsl:when test="../preceding-sibling::*[1][name()='free' or name()='literal'] or count(ancestor::interlinear) &gt; 1">
-                    <xsl:text>1.65</xsl:text>
+                    <xsl:text>0.8</xsl:text>
                 </xsl:when>
                 <xsl:when test="preceding-sibling::*[1][name()='lineGroup']">
-                    <xsl:text>2</xsl:text>
+                    <xsl:text>1</xsl:text>
                 </xsl:when>
                 <xsl:otherwise>
-                    <xsl:text>1</xsl:text>
+                    <xsl:text>0.25</xsl:text>
                 </xsl:otherwise>
             </xsl:choose>
             <xsl:text>em</xsl:text>
@@ -4504,7 +4520,7 @@
                 </xsl:if>
             </xsl:if>
             </xsl:if>-->
-        <div class="itxwrap">
+        <div class="itxwrap" style="padding-left:{$sLeftIndent};">
             <xsl:choose>
                 <xsl:when test="line/wrd">
                     <xsl:variable name="bRtl">

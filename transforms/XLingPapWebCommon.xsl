@@ -186,10 +186,12 @@
             <xsl:choose>
                 <xsl:when test="@lang">
                     <span>
-                        <xsl:call-template name="OutputFontAttributes">
-                            <xsl:with-param name="language" select="key('LanguageID',@lang)"/>
-                            <xsl:with-param name="originalContext" select="."/>
-                        </xsl:call-template>
+                        <xsl:attribute name="style">
+                            <xsl:call-template name="OutputFontAttributes">
+                                <xsl:with-param name="language" select="key('LanguageID',@lang)"/>
+                                <xsl:with-param name="originalContext" select="."/>
+                            </xsl:call-template>
+                        </xsl:attribute>
                         <xsl:apply-templates>
                             <xsl:with-param name="originalContext" select="$originalContext"/>
                         </xsl:apply-templates>

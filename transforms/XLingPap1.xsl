@@ -41,7 +41,7 @@
                 </title>
                 <style type="text/css">
                <xsl:text>.interblock { display: -moz-inline-box; display:inline-block; vertical-align: top; } </xsl:text>
-                    <xsl:if test="$hasInterlinears='Y'">
+                    <xsl:if test="$hasInterlinears='Y' and $lingPaper/@automaticallywrapinterlinears='yes'">
                     <xsl:text>
 .itxwrap {
     display: flex;
@@ -4322,12 +4322,7 @@
         <xsl:if test="(count(ancestor::interlinear) + count(ancestor::listInterlinear)) &gt; 1">
             <xsl:if test="$mode='NoTextRef' or  ../preceding-sibling::*[1][name()!='free' and name()!='literal']">
                 <p/>
-<!--                <tex:cmd name="vspace">
-                    <tex:parm>
-                        <tex:cmd name="baselineskip"/>
-                    </tex:parm>
-                </tex:cmd>
--->            </xsl:if>
+            </xsl:if>
         </xsl:if>
         <xsl:variable name="sLeftIndent">
             <xsl:choose>
@@ -4343,150 +4338,11 @@
             </xsl:choose>
             <xsl:text>em</xsl:text>
         </xsl:variable>
-        <!--<xsl:if test="$mode='NoTextRef'">
-            <tex:cmd name="raggedright" gr="0" nl2="0"/>
-            <tex:cmd name="leavevmode" gr="0" nl2="0"/>
-            <tex:cmd name="hspace*" nl2="0">
-                <tex:parm>
-                    <xsl:value-of select="$sLeftIndent"/>
-                </tex:parm>
-            </tex:cmd>
-        </xsl:if>-->
-<!--        <xsl:if test="id(line[1]/@lang)/@rtl='yes' or id(line[1]/wrd/langData[1]/@lang)/@rtl='yes' or id(line[1]/wrd[1]/@lang)/@rtl='yes'">
-            <tex:cmd name="beginR" gr="0"/>
-        </xsl:if>
-        <tex:cmd name="XLingPaperraggedright" gr="0"/>
-        <xsl:if test="preceding-sibling::lineGroup or following-sibling::*[1][name()='lineGroup']">
-            <tex:spec cat="bg"/>
-        </xsl:if>
-        <xsl:choose>
-            <xsl:when test="string-length($sIndentOfNonInitialGroup) &gt; 0">
-                <!-\- \setlength{\XLingPapertempdim}{1em+0pt} -\->
-                <tex:cmd name="setlength">
-                    <tex:parm>
-                        <tex:spec cat="esc"/>
-                        <xsl:text>XLingPapertempdim</xsl:text>
-                    </tex:parm>
-                    <tex:parm>
-                        <xsl:if test="ancestor::interlinear-text">
-                            <xsl:value-of select="$sLeftIndent"/>
-                            <xsl:text>+</xsl:text>
-                        </xsl:if>
-                        <xsl:value-of select="$sIndentOfNonInitialGroup"/>
-                    </tex:parm>
-                </tex:cmd>
-                <tex:spec cat="esc"/>
-                <xsl:text>hangindent</xsl:text>
-                <tex:spec cat="esc"/>
-                <xsl:text>XLingPapertempdim</xsl:text>
-            </xsl:when>
-            <xsl:otherwise>
-                <tex:spec cat="esc"/>
-                <xsl:text>hangindent</xsl:text>
-                <xsl:choose>
-                    <xsl:when test="$mode='NoTextRef' and preceding-sibling::*[1][name()='lineGroup']">
-                        <xsl:text>0</xsl:text>
-                    </xsl:when>
-                    <xsl:when test="$mode='NoTextRef'">
-                        <xsl:text>2</xsl:text>
-                    </xsl:when>
-                    <xsl:when test="contains($bListsShareSameCode,'N')">
-                        <!-\- want 1 plus 2.75 -\->
-                        <xsl:text>3.75</xsl:text>
-                    </xsl:when>
-                    <xsl:otherwise>
-                        <xsl:text>1</xsl:text>
-                    </xsl:otherwise>
-                </xsl:choose>
-                <xsl:text>em</xsl:text>
-            </xsl:otherwise>
-        </xsl:choose>
-        <tex:cmd name="relax" gr="0" nl2="1"/>
-        <tex:spec cat="esc"/>
-        <xsl:text>hangafter</xsl:text>-->
-<!--        <xsl:choose>
-            <xsl:when
-                test="name(..)='listInterlinear' and ../preceding-sibling::*[1][name()='exampleHeading'] and $lingPaper/@showiso639-3codeininterlinear='yes' and contains($bListsShareSameCode,'N')">
-                <!-\- if we use 2, then longer interlinears are aligned incorrectly -\->
-                <xsl:text>1</xsl:text>
-            </xsl:when>
-            <xsl:when
-                test="name(..)='listInterlinear' and ../preceding-sibling::*[1][name()='exampleHeading'] and ancestor-or-self::example/@showiso639-3codes='yes' and contains($bListsShareSameCode,'N')">
-                <!-\- if we use 2, then longer interlinears are aligned incorrectly -\->
-                <xsl:text>1</xsl:text>
-            </xsl:when>
-            <xsl:when
-                test="name(..)='listInterlinear' and ../preceding-sibling::*[1][name()='exampleHeading'] and $originalContext and $originalContext/ancestor-or-self::example/@showiso639-3codes='yes' and contains($bListsShareSameCode,'N')">
-                <!-\- if we use 2, then longer interlinears are aligned incorrectly -\->
-                <xsl:text>1</xsl:text>
-            </xsl:when>
-            <xsl:when test="../preceding-sibling::*[1][name()='exampleHeading'] or preceding-sibling::*[1][name()='exampleHeading'] or $bHasExampleHeading='Y'">
-                <xsl:text>2</xsl:text>
-            </xsl:when>
-            <xsl:otherwise>
-                <xsl:text>1</xsl:text>
-            </xsl:otherwise>
-        </xsl:choose>
-        <tex:cmd name="relax" gr="0" nl2="1"/>-->
-<!--        <xsl:if
-            test="$lingPaper/@showiso639-3codeininterlinear='yes' and contains($bListsShareSameCode,'N') or ancestor-or-self::example/@showiso639-3codes='yes' and contains($bListsShareSameCode,'N') or $originalContext and $originalContext/ancestor-or-self::example/@showiso639-3codes='yes' and contains($bListsShareSameCode,'N')">
-            <xsl:variable name="sListIsoCode">
-                <xsl:call-template name="GetISOCode">
-                    <xsl:with-param name="originalContext" select="$originalContext"/>
-                </xsl:call-template>
-            </xsl:variable>
-            <xsl:if test="$sListIsoCode!=''">
-                <xsl:choose>
-                    <xsl:when test="string-length($sListIsoCode) &gt; 3">
-                        <tex:cmd name="parbox">
-                            <tex:opt>
-                                <xsl:text>t</xsl:text>
-                            </tex:opt>
-                            <tex:parm>
-                                <xsl:text>2.75em</xsl:text>
-                            </tex:parm>
-                            <tex:parm>
-                                <tex:cmd name="small">
-                                    <tex:parm>
-                                        <xsl:text>[</xsl:text>
-                                        <xsl:value-of select="$sListIsoCode"/>
-                                        <xsl:text>]</xsl:text>
-                                    </tex:parm>
-                                </tex:cmd>
-                            </tex:parm>
-                        </tex:cmd>
-                    </xsl:when>
-                    <xsl:otherwise>
-                        <tex:cmd name="hbox">
-                            <tex:parm>
-                                <tex:cmd name="small">
-                                    <tex:parm>
-                                        <xsl:text>[</xsl:text>
-                                        <xsl:value-of select="$sListIsoCode"/>
-                                        <xsl:text>]</xsl:text>
-                                    </tex:parm>
-                                </tex:cmd>
-                            </tex:parm>
-                        </tex:cmd>
-                    </xsl:otherwise>
-                </xsl:choose>
-            </xsl:if>
-            <xsl:text>&#x20;</xsl:text>
-        </xsl:if> -->
         <xsl:variable name="iColCount">
             <xsl:call-template name="GetMaxColumnCountForLineGroup">
                 <xsl:with-param name="bListsShareSameCode" select="'Y'"/>
             </xsl:call-template>
         </xsl:variable>
-<!--        <xsl:if test="$sInterlinearSourceStyle='AfterFirstLine'">
-            <xsl:if test="parent::interlinear[string-length(@textref) &gt; 0] or following-sibling::interlinearSource">
-                <xsl:variable name="nearestRelevantElement" select="ancestor::*[name()='endnote' or name()='td'][1]"/>
-                <xsl:if test="not($bAutomaticallyWrapInterlinears='yes') or not(name($nearestRelevantElement)='td')">
-                    <!-\- When a reference comes after the first line, without this a wrapped line will get justified and will be right-aligned. -\->
-                    <tex:cmd name="raggedright" gr="0" nl2="1"/>
-                </xsl:if>
-            </xsl:if>
-            </xsl:if>-->
         <div class="itxwrap" style="padding-left:{$sLeftIndent};">
             <xsl:choose>
                 <xsl:when test="line/wrd">
@@ -4530,96 +4386,13 @@
                     </xsl:for-each>
                 </xsl:otherwise>
             </xsl:choose>
+                <xsl:if test="$sInterlinearSourceStyle='AfterFirstLine'">
+                    <xsl:call-template name="OutputInterlinearTextReference">
+                        <xsl:with-param name="sRef" select="../@textref"/>
+                        <xsl:with-param name="sSource" select="../interlinearSource"/>
+                    </xsl:call-template>
+                </xsl:if>
         </div>
-<!--        <xsl:choose>
-            <xsl:when test="$mode!='NoTextRef' and following-sibling::*[1][name()='interlinear' or name()='lineGroup']">
-                <xsl:if test="preceding-sibling::lineGroup or following-sibling::*[1][name()='lineGroup']">
-                    <tex:spec cat="eg"/>
-                </xsl:if>
-                <tex:cmd name="newline" nl2="1"/>
-            </xsl:when>
-            <xsl:when test="ancestor::endnote and ancestor::td">
-                <xsl:variable name="iEndnotePosition" select="count(ancestor::*[name()!='endnote' and ancestor::endnote])"/>
-                <xsl:variable name="iTdPosition" select="count(ancestor::*[name()!='td' and ancestor::td])"/>
-                <xsl:choose>
-                    <xsl:when test="$iEndnotePosition &lt; $iTdPosition">
-                        <tex:spec cat="esc"/>
-                        <tex:spec cat="esc"/>
-                    </xsl:when>
-                    <xsl:otherwise>
-                        <tex:spec cat="esc"/>
-                        <tex:spec cat="esc"/>
-                        <tex:spec cat="lsb"/>
-                        <xsl:text>-</xsl:text>
-                        <!-\-                        <xsl:call-template name="GetCurrentPointSize"/>-\->
-                        <xsl:call-template name="GetSpaceBetweenGroups"/>
-                        <tex:spec cat="rsb"/>
-                    </xsl:otherwise>
-                </xsl:choose>
-            </xsl:when>
-            <xsl:when test="ancestor::endnote">
-                <tex:spec cat="esc"/>
-                <tex:spec cat="esc"/>
-            </xsl:when>
-            <xsl:when test="ancestor::td">
-                <tex:spec cat="esc"/>
-                <tex:spec cat="esc"/>
-                <tex:spec cat="lsb"/>
-                <xsl:text>-</xsl:text>
-                <!-\-                <xsl:call-template name="GetCurrentPointSize"/>-\->
-                <xsl:call-template name="GetSpaceBetweenGroups"/>
-                <tex:spec cat="rsb"/>
-            </xsl:when>
-            <xsl:when test="../preceding-sibling::lineGroup and ../following-sibling::*[1][name()='interlinear'] and ../preceding-sibling::*[1][name()='interlinear' or name()='lineGroup']">
-                <xsl:if test="preceding-sibling::lineGroup or following-sibling::*[1][name()='lineGroup']">
-                    <tex:spec cat="eg"/>
-                </xsl:if>
-                <tex:cmd name="newline" nl2="1"/>
-            </xsl:when>
-            <xsl:otherwise>
-                <xsl:if test="preceding-sibling::lineGroup or following-sibling::*[1][name()='lineGroup']">
-                    <tex:spec cat="eg"/>
-                </xsl:if>
-                <xsl:if test="id(line[1]/@lang)/@rtl='yes' or id(line[1]/wrd/langData[1]/@lang)/@rtl='yes' or id(line[1]/wrd[1]/@lang)/@rtl='yes'">
-                    <tex:cmd name="endR" gr="0"/>
-                </xsl:if>
-                <tex:cmd name="par" nl2="1"/>
-            </xsl:otherwise>
-        </xsl:choose>-->
-<!--        <xsl:if test="not(ancestor::listInterlinear and preceding-sibling::*[1][name()='lineGroup'] and following-sibling::*[1][name()='free' or name()='literal'])">
-            <!-\- Not sure why, but when have the above scenario, get the free translation on top of the last line of the lineGroup -\->
-            <xsl:choose>
-                <xsl:when test="$sLineSpacing and $sLineSpacing!='single' and $lineSpacing/@singlespaceexamples!='yes' and not(parent::td)">
-                    <!-\- do nothing -\->
-                </xsl:when>
-                <xsl:when test="following-sibling::*[1][name()='lineGroup'] and $mode='NoTextRef'">
-                    <!-\- do nothing; we want the normal spacing -\->
-                </xsl:when>
-                <xsl:when
-                    test="ancestor::interlinear and preceding-sibling::*[1][name()='lineGroup'] and not($mode) and not($originalContext) and following-sibling::*[1][name()='free'] and $bHasExampleHeading!='Y'">
-                    <!-\- do nothing -\->
-                </xsl:when>
-                <xsl:otherwise>
-                    <tex:cmd name="vspace*">
-                        <tex:parm>
-                            <xsl:text>-</xsl:text>
-                            <!-\-                            <xsl:call-template name="GetCurrentPointSize"/>-\->
-                            <xsl:call-template name="GetSpaceBetweenGroups"/>
-                        </tex:parm>
-                    </tex:cmd>
-                </xsl:otherwise>
-            </xsl:choose>
-        </xsl:if>-->
-        <!-- not sure why following is needed, but Lachixo example xPronombres.12a needs it -->
-<!--        <xsl:if
-            test="ancestor::listInterlinear and count(../following-sibling::*)=0 and count(../preceding-sibling::interlinear) &gt; 0 and following-sibling::*[1][name()='free' or name()='literal']">
-            <tex:cmd name="vspace*">
-                <tex:parm>
-                    <xsl:text>-</xsl:text>
-                    <tex:cmd name="baselineskip"/>
-                </tex:parm>
-            </tex:cmd>
-        </xsl:if>-->
     </xsl:template>
     <!--  
         DoNestedTypes
@@ -5151,7 +4924,6 @@
                 </a>
             </li>
         </xsl:for-each>
-        
     </xsl:template>
     <!--
         OutputContentsFrontMatter
@@ -5846,26 +5618,51 @@
         <xsl:param name="sRef"/>
         <xsl:param name="sSource"/>
         <xsl:if test="string-length(normalize-space($sRef)) &gt; 0 or $sSource">
-            <td>
-                <xsl:text disable-output-escaping="yes">&#xa0;&#xa0;</xsl:text>
-                <!--            <xsl:text disable-output-escaping="no">&#xa0;&#xa0;</xsl:text>-->
-            </td>
-            <td>
-                <xsl:text>[</xsl:text>
-                <xsl:choose>
-                    <xsl:when test="$sSource">
-                        <!--                  <xsl:value-of select="$sSource"/>-->
-                        <xsl:apply-templates select="$sSource" mode="contents"/>
-                    </xsl:when>
-                    <xsl:when test="string-length(normalize-space($sRef)) &gt; 0">
-                        <xsl:call-template name="DoInterlinearRefCitation">
+            <xsl:choose>
+                <xsl:when test="$bAutomaticallyWrapInterlinears='yes'">
+                    <div class="itxitem">
+                        <span>
+                            <xsl:call-template name="OutputInterlinearTextReferenceContent">
+                                <xsl:with-param name="sSource" select="$sSource"/>
+                                <xsl:with-param name="sRef" select="$sRef"/>
+                            </xsl:call-template>
+                        </span>
+                    </div>
+                </xsl:when>
+                <xsl:otherwise>
+                    <td>
+                        <xsl:text disable-output-escaping="yes">&#xa0;&#xa0;</xsl:text>
+                        <!--            <xsl:text disable-output-escaping="no">&#xa0;&#xa0;</xsl:text>-->
+                    </td>
+                    <td>
+                        <xsl:call-template name="OutputInterlinearTextReferenceContent">
+                            <xsl:with-param name="sSource" select="$sSource"/>
                             <xsl:with-param name="sRef" select="$sRef"/>
                         </xsl:call-template>
-                    </xsl:when>
-                </xsl:choose>
-                <xsl:text>]</xsl:text>
-            </td>
+                    </td>
+                </xsl:otherwise>
+            </xsl:choose>
         </xsl:if>
+    </xsl:template>
+    <!--  
+        OutputInterlinearTextReferenceContent
+    -->
+    <xsl:template name="OutputInterlinearTextReferenceContent">
+        <xsl:param name="sSource"/>
+        <xsl:param name="sRef"/>
+        <xsl:text>[</xsl:text>
+        <xsl:choose>
+            <xsl:when test="$sSource">
+                <!--                  <xsl:value-of select="$sSource"/>-->
+                <xsl:apply-templates select="$sSource" mode="contents"/>
+            </xsl:when>
+            <xsl:when test="string-length(normalize-space($sRef)) &gt; 0">
+                <xsl:call-template name="DoInterlinearRefCitation">
+                    <xsl:with-param name="sRef" select="$sRef"/>
+                </xsl:call-template>
+            </xsl:when>
+        </xsl:choose>
+        <xsl:text>]</xsl:text>
     </xsl:template>
     <!--
         OutputISO639-3CodeInCommaSeparatedList

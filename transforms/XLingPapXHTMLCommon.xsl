@@ -661,7 +661,6 @@
                     <xsl:choose>
                         <xsl:when test="$bEBook='Y'">
                             <xsl:call-template name="DoTablePaddingSpacingEBookAttributes"/>
-                            <tbody>
                                 <xsl:call-template name="DoListInterlinearAsRow">
                                     <xsl:with-param name="bListsShareSameCode" select="$bListsShareSameCode"/>
                                 </xsl:call-template>
@@ -707,10 +706,8 @@
         <xsl:param name="originalContext"/>
         <xsl:choose>
             <xsl:when test="$bAutomaticallyWrapInterlinears='yes'">
-                <xsl:call-template name="DoWrapableInterlinearLineGroup">
-                    <!--                    <xsl:with-param name="bHasExampleHeading" select="$bHasExampleHeading"/>-->
-                    <!--                    <xsl:with-param name="bListsShareSameCode" select="$bListsShareSameCode"/>-->
-                    <!--                    <xsl:with-param name="originalContext" select="$originalContext"/>-->
+                <xsl:call-template name="DoWrappableInterlinearLineGroup">
+                    <xsl:with-param name="originalContext" select="$originalContext"/>
                 </xsl:call-template>
             </xsl:when>
             <xsl:otherwise>
@@ -723,10 +720,8 @@
     <xsl:template match="lineGroup" mode="NoTextRef">
         <xsl:choose>
             <xsl:when test="$bAutomaticallyWrapInterlinears='yes'">
-                <xsl:call-template name="DoWrapableInterlinearLineGroup">
-<!--                    <xsl:with-param name="bHasExampleHeading" select="$bHasExampleHeading"/>-->
-<!--                    <xsl:with-param name="bListsShareSameCode" select="$bListsShareSameCode"/>-->
-<!--                    <xsl:with-param name="originalContext" select="$originalContext"/>-->
+                <xsl:call-template name="DoWrappableInterlinearLineGroup">
+                    <xsl:with-param name="originalContext" select="$originalContext"/>
                 </xsl:call-template>
             </xsl:when>
             <xsl:otherwise>
@@ -1638,6 +1633,89 @@
         </xsl:if>
     </xsl:template>
     <!--  
+        DoWrappableInterlinearLineGroup
+    -->
+    <xsl:template name="DoWrappableInterlinearLineGroup">
+        <xsl:param name="mode"/>
+        <xsl:param name="bHasExampleHeading"/>
+        <xsl:param name="bListsShareSameCode"/>
+        <xsl:param name="originalContext"/>
+        <xsl:if test="(count(ancestor::interlinear) + count(ancestor::listInterlinear)) &gt; 1">
+            <xsl:if test="$mode='NoTextRef' or  ../preceding-sibling::*[1][name()!='free' and name()!='literal']">
+                <p/>
+            </xsl:if>
+        </xsl:if>
+        <xsl:variable name="sLeftIndent">
+            <xsl:choose>
+                <xsl:when test="../preceding-sibling::*[1][name()='free' or name()='literal'] or count(ancestor::interlinear) &gt; 1">
+                    <xsl:text>0.8</xsl:text>
+                </xsl:when>
+                <xsl:when test="preceding-sibling::*[1][name()='lineGroup']">
+                    <xsl:text>1</xsl:text>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:text>0.25</xsl:text>
+                </xsl:otherwise>
+            </xsl:choose>
+            <xsl:text>em</xsl:text>
+        </xsl:variable>
+        <xsl:variable name="iColCount">
+            <xsl:call-template name="GetMaxColumnCountForLineGroup">
+                <xsl:with-param name="bListsShareSameCode" select="'Y'"/>
+            </xsl:call-template>
+        </xsl:variable>
+        <div class="itxwrap" style="padding-left:{$sLeftIndent};">
+            <xsl:choose>
+                <xsl:when test="line/wrd">
+                    <xsl:variable name="bRtl">
+                        <xsl:choose>
+                            <xsl:when test="id(line[1]/wrd/langData[1]/@lang)/@rtl='yes'">Y</xsl:when>
+                            <xsl:otherwise>N</xsl:otherwise>
+                        </xsl:choose>
+                    </xsl:variable>
+                    <xsl:if test="$bRtl='Y'">
+                        <xsl:attribute name="class">itxwrap rtl</xsl:attribute>
+                    </xsl:if>
+                    <xsl:for-each select="line[count(wrd)=$iColCount][1]/wrd">
+                        <xsl:call-template name="BoxUpWrdsInAllLinesInLineGroup">
+                            <xsl:with-param name="originalContext" select="$originalContext"/>
+                        </xsl:call-template>
+                    </xsl:for-each>
+                </xsl:when>
+                <xsl:otherwise>
+                    <!-- uses langData or gloss with #PCDATA -->
+                    <xsl:variable name="bFlip">
+                        <xsl:choose>
+                            <xsl:when test="id(line[1]/langData[1]/@lang)/@rtl='yes'">Y</xsl:when>
+                            <xsl:otherwise>N</xsl:otherwise>
+                        </xsl:choose>
+                    </xsl:variable>
+                    <xsl:if test="$bFlip='Y'">
+                        <xsl:attribute name="class">itxwrap rtl</xsl:attribute>
+                    </xsl:if>
+                    <xsl:for-each select="line[1]">
+                        <xsl:variable name="lang">
+                            <xsl:call-template name="GetLangInNonWrdLine"/>
+                        </xsl:variable>
+                        <xsl:call-template name="DoNonWrdInterlinearLineAsWrappable">
+                            <xsl:with-param name="sList" select="."/>
+                            <xsl:with-param name="lang" select="$lang"/>
+                            <xsl:with-param name="bFlip" select="'N'"/>
+                            <xsl:with-param name="iPosition" select="1"/>
+                            <xsl:with-param name="iMaxColumns" select="$iColCount"/>
+                        </xsl:call-template>
+                    </xsl:for-each>
+                </xsl:otherwise>
+            </xsl:choose>
+            <xsl:if test="$sInterlinearSourceStyle='AfterFirstLine'">
+                <xsl:call-template name="OutputInterlinearTextReference">
+                    <xsl:with-param name="sRef" select="../@textref"/>
+                    <xsl:with-param name="sSource" select="../interlinearSource"/>
+                </xsl:call-template>
+            </xsl:if>
+        </div>
+    </xsl:template>
+    <!--  
         DoExampleTopRow
     -->
     <xsl:template name="DoExampleTopRow">
@@ -1832,7 +1910,7 @@
     <!--  
         DoWrapableInterlinearLineGroup
     -->
-    <xsl:template name="DoWrapableInterlinearLineGroup">
+    <xsl:template name="DoWrappableInterlinearLineGroup">
         <xsl:param name="mode"/>
         <xsl:param name="bHasExampleHeading"/>
         <xsl:param name="bListsShareSameCode"/>

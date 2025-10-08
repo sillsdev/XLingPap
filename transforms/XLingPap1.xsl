@@ -1355,7 +1355,7 @@
         <xsl:param name="originalContext"/>
         <xsl:choose>
             <xsl:when test="$bAutomaticallyWrapInterlinears='yes'">
-                <xsl:call-template name="DoWrapableInterlinearLineGroup">
+                <xsl:call-template name="DoWrappableInterlinearLineGroup">
                     <xsl:with-param name="originalContext" select="$originalContext"/>
                 </xsl:call-template>
             </xsl:when>
@@ -1369,7 +1369,7 @@
     <xsl:template match="lineGroup" mode="NoTextRef">
         <xsl:choose>
             <xsl:when test="$bAutomaticallyWrapInterlinears='yes'">
-                <xsl:call-template name="DoWrapableInterlinearLineGroup">
+                <xsl:call-template name="DoWrappableInterlinearLineGroup">
                     <xsl:with-param name="mode" select="'NoTextRef'"/>
                 </xsl:call-template>
             </xsl:when>
@@ -4312,9 +4312,9 @@
         </a>
     </xsl:template>
     <!--  
-        DoWrapableInterlinearLineGroup
+        DoWrappableInterlinearLineGroup
     -->
-    <xsl:template name="DoWrapableInterlinearLineGroup">
+    <xsl:template name="DoWrappableInterlinearLineGroup">
         <xsl:param name="mode"/>
         <xsl:param name="bHasExampleHeading"/>
         <xsl:param name="bListsShareSameCode"/>

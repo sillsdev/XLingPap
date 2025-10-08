@@ -6441,4 +6441,5 @@
     <!--    <xsl:include href="XLingPapPublisherStylesheetXHTMLBookmarks.xsl"/>-->
     <xsl:include href="XLingPapPublisherStylesheetXHTMLContents.xsl"/>
     <xsl:include href="XLingPapPublisherStylesheetXHTMLReferences.xsl"/>
+    <xsl:include href="XLingPapWebCommon.xsl"/>
 </xsl:stylesheet>

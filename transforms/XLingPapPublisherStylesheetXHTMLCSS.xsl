@@ -39,6 +39,16 @@
             </xsl:otherwise>
         </xsl:choose>
     </xsl:variable>
+    <xsl:variable name="hasInterlinears">
+        <xsl:choose>
+            <xsl:when test="//interlinear">
+                <xsl:text>Y</xsl:text>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:text>N</xsl:text>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:variable>
     <xsl:variable name="sDefaultFontFamily" select="string($pageLayoutInfo/defaultFontFamily)"/>
     <xsl:variable name="sBasicPointSize" select="string($pageLayoutInfo/basicPointSize * $iMagnificationFactor)"/>
     <xsl:variable name="sFootnotePointSize" select="string($pageLayoutInfo/footnotePointSize * $iMagnificationFactor)"/>
@@ -224,7 +234,9 @@ text-indent:</xsl:text>
 .dt {
         font-weight:bold;
 }
-.itxwrap {
+</xsl:text>
+        <xsl:if test="$hasInterlinears='Y' and $lingPaper/@automaticallywrapinterlinears='yes'">
+            <xsl:text>.itxwrap {
     display: flex;
     flex-wrap: wrap;
     gap: 0.25em;
@@ -237,7 +249,9 @@ text-indent:</xsl:text>
 .itxitem div {
     padding: 0 0.5em;
 }*/
-li.disc {
+</xsl:text>
+        </xsl:if>
+        <xsl:text>li.disc {
     list-style-type:disc;
 }
 li.decimal {
@@ -2556,5 +2570,5 @@ align--center {
         TRANSFORMS TO INCLUDE
         =========================================================== -->
     <xsl:include href="XLingPapPublisherStylesheetXHTMLCSSContents.xsl"/>
-        <xsl:include href="XLingPapPublisherStylesheetXHTMLCommon.xsl"/>
+    <xsl:include href="XLingPapPublisherStylesheetXHTMLCommon.xsl"/>
 </xsl:stylesheet>

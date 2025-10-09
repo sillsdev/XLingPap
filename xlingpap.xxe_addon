@@ -40,6 +40,12 @@ xmlns="http://www.w3.org/1999/xhtml"
 ><ul
 xmlns="http://www.w3.org/1999/xhtml"
 ><li
+>3.17.1 9 October 2025<ul
+><li
+>Add ability for web page (and therefore EPUB) output to automatically wrap interlinears.</li
+></ul
+></li
+><li
 >3.17.0 13 May 2025<ul
 ><li
 >Rework EPUB production to not need Calibre; the new output should also pass EPUBCheck.</li

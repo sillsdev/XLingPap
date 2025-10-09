@@ -235,7 +235,7 @@ text-indent:</xsl:text>
         font-weight:bold;
 }
 </xsl:text>
-        <xsl:if test="$hasInterlinears='Y' and $lingPaper/@automaticallywrapinterlinears='yes'">
+        <xsl:if test="$hasInterlinears='Y' and $lingPaper/@automaticallywrapinterlinears='yes' and /xlingpaper/styledPaper/publisherStyleSheet/pageLayout/@ignorePageWidthForWebPageOutput='yes'">
             <xsl:text>.itxwrap {
     display: flex;
     flex-wrap: wrap;
@@ -249,6 +249,13 @@ text-indent:</xsl:text>
 .itxitem div {
     padding: 0 0.5em;
 }*/
+.ltr {
+text-align:left;
+}
+.rtl {
+direction:rtl;;
+unicode-bidi: bidi-override;
+}
 </xsl:text>
         </xsl:if>
         <xsl:text>li.disc {
@@ -262,13 +269,6 @@ li.lower-alpha {
 }
 li.lower-roman {
     list-style-type:lower-roman;
-}
-.ltr {
-    text-align:left;
-}
-.rtl {
-    direction:rtl;;
-    unicode-bidi: bidi-override;
 }
 .figureAlignLeft {
         text-align:left;

@@ -1569,9 +1569,16 @@
     <xsl:template match="interlinearRefCitation">
         <xsl:variable name="interlinearSourceStyleLayout" select="$contentLayoutInfo/interlinearSourceStyle"/>
         <span>
-            <xsl:call-template name="OutputFontAttributes">
-                <xsl:with-param name="language" select="$interlinearSourceStyleLayout"/>
-            </xsl:call-template>
+            <xsl:variable name="sFontInfo">
+                <xsl:call-template name="OutputFontAttributes">
+                    <xsl:with-param name="language" select="$interlinearSourceStyleLayout"/>
+                </xsl:call-template>
+            </xsl:variable>
+            <xsl:if test="string-length($sFontInfo) &gt; 0">
+                <xsl:attribute name="style">
+                    <xsl:value-of select="$sFontInfo"/>
+                </xsl:attribute>
+            </xsl:if>
             <xsl:if test="not(@bracket) or @bracket='both' or @bracket='initial'">
                 <xsl:call-template name="DoFormatLayoutInfoTextBefore">
                     <xsl:with-param name="layoutInfo" select="$interlinearSourceStyleLayout"/>
@@ -1618,7 +1625,8 @@
     <xsl:template match="interlinearSource" mode="show">
         <xsl:variable name="interlinearSourceStyleLayout" select="$contentLayoutInfo/interlinearSourceStyle"/>
         <xsl:choose>
-            <xsl:when test="$interlinearSourceStyleLayout/@interlinearsourcestyle='AfterFirstLine' or $interlinearSourceStyleLayout/@interlinearsourcestyle='AfterFree'">
+            <xsl:when test="$bAutomaticallyWrapInterlinears='yes'">
+                <!--<xsl:when test="$interlinearSourceStyleLayout/@interlinearsourcestyle='AfterFirstLine' or $interlinearSourceStyleLayout/@interlinearsourcestyle='AfterFree'">-->
                 <span>
                     <xsl:call-template name="DoInterlinearSource">
                         <xsl:with-param name="interlinearSourceStyleLayout" select="$interlinearSourceStyleLayout"/>
@@ -4759,17 +4767,15 @@
                         </xsl:otherwise>
                     </xsl:choose>
                 </div>
-                <xsl:if test="$sInterlinearSourceStyle='AfterFree' and not(following-sibling::free or following-sibling::literal) and $mode!='NoTextRef'">
-                    <xsl:if test="name(../..)='example'  or name(../..)='listInterlinear' or ancestor::interlinear[@textref]">
-                        <div>
-                            <xsl:call-template name="OutputInterlinearTextReference">
-                                <xsl:with-param name="sRef" select="../@textref"/>
-                                <xsl:with-param name="sSource" select="../interlinearSource"/>
-                            </xsl:call-template>
-                        </div>
-                    </xsl:if>
-                </xsl:if>
             </div>
+            <xsl:if test="$sInterlinearSourceStyle='AfterFree' and not(following-sibling::free or following-sibling::literal) and $mode!='NoTextRef'">
+                <xsl:if test="name(../..)='example'  or name(../..)='listInterlinear' or ancestor::interlinear[@textref]">
+                    <xsl:call-template name="OutputInterlinearTextReference">
+                        <xsl:with-param name="sRef" select="../@textref"/>
+                        <xsl:with-param name="sSource" select="../interlinearSource"/>
+                    </xsl:call-template>
+                </xsl:if>
+            </xsl:if>
         </div>
         <xsl:if test="$sInterlinearSourceStyle='UnderFree' and not(following-sibling::free or following-sibling::literal) and $mode!='NoTextRef'">
             <xsl:if test="name(../..)='example' or name(../..)='listInterlinear' or ancestor::interlinear[@textref]">
@@ -5744,11 +5750,25 @@
                     </xsl:call-template>
                 </xsl:when>
                 <xsl:otherwise>
-                    <xsl:text disable-output-escaping="yes">&#xa0;&#xa0;</xsl:text>
-                    <xsl:call-template name="OutputInterlinearTextReferenceContent">
-                        <xsl:with-param name="sSource" select="$sSource"/>
-                        <xsl:with-param name="sRef" select="$sRef"/>
-                    </xsl:call-template>
+                    <xsl:choose>
+                        <xsl:when test="$bAutomaticallyWrapInterlinears='yes'">
+                            <div class="itxitem">
+                                <span>
+                                    <xsl:call-template name="OutputInterlinearTextReferenceContent">
+                                        <xsl:with-param name="sSource" select="$sSource"/>
+                                        <xsl:with-param name="sRef" select="$sRef"/>
+                                    </xsl:call-template>
+                                </span>
+                            </div>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:text disable-output-escaping="yes">&#xa0;&#xa0;</xsl:text>
+                            <xsl:call-template name="OutputInterlinearTextReferenceContent">
+                                <xsl:with-param name="sSource" select="$sSource"/>
+                                <xsl:with-param name="sRef" select="$sRef"/>
+                            </xsl:call-template>
+                        </xsl:otherwise>
+                    </xsl:choose>
                 </xsl:otherwise>
             </xsl:choose>
         </xsl:if>
@@ -6441,5 +6461,4 @@
     <!--    <xsl:include href="XLingPapPublisherStylesheetXHTMLBookmarks.xsl"/>-->
     <xsl:include href="XLingPapPublisherStylesheetXHTMLContents.xsl"/>
     <xsl:include href="XLingPapPublisherStylesheetXHTMLReferences.xsl"/>
-    <xsl:include href="XLingPapWebCommon.xsl"/>
 </xsl:stylesheet>

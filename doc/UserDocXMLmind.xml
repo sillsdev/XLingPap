@@ -34,13 +34,13 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >xlingpaper_support@sil.org</emailAddress
 ><date
->13 May 2025</date
+>9 October 2025</date
 ><version
 contentType="ctVersion5.3"
->2.17.0</version
+>2.18.0</version
 ><version
 contentType="ctVersion7Plus"
->3.17.0</version
+>3.18.0</version
 ><contents
 showLevel="4"
 ></contents
@@ -10985,7 +10985,19 @@ type="tAttribute"
 > attribute to <object
 type="tAttrValue"
 >yes</object
-> via the Attributes Tool.</p
+> via the Attributes Tool.  Beginning with version 3.18 of <object
+type="tXLingPap"
+></object
+>, this setting  will also enable web page output to automatically wrap; note, however, that if you are using a style sheet with your document, the web output will only wrap if you also have the <object
+type="tAttrValue"
+>ignorePageWidthForWebPageOutput</object
+> attribute of the <object
+type="tElement"
+>pageLayout</object
+> element set to <object
+type="tAttrValue"
+>yes</object
+>.</p
 ><section3
 id="sExInterlinearSingle"
 ><secTitle
@@ -11088,7 +11100,7 @@ term="iAutoWrapInterlinear"
 >It will only automatically wrap long lines for the <object
 type="tXeTeX"
 ></object
-> way of producing PDF;<endnote
+> way of producing PDF<endnote
 id="nXeLaTeXAutoWrap"
 ><p
 >To make this automatic wrapping happen, you click on <object
@@ -11107,6 +11119,20 @@ type="tAttrValue"
 note="nAttributesToolReminder"
 ></endnoteRef
 ></p
+></endnote
+> and web page (and EPUB) outputs;<endnote
+id="nWebAutoWrap"
+><p
+>Note that if you are using a style sheet with your document, the web output will only wrap if you also have the <object
+type="tAttrValue"
+>ignorePageWidthForWebPageOutput</object
+> attribute of the <object
+type="tElement"
+>pageLayout</object
+> element set to <object
+type="tAttrValue"
+>yes</object
+>.</p
 ></endnote
 > for the other kinds of output, you will need to break long lines manually; see <sectionRef
 sec="secExInterlinearContinuation"
@@ -11573,8 +11599,11 @@ term="iAutoWrapInterlinear"
 >It will only automatically wrap long lines for the <object
 type="tXeTeX"
 ></object
-> way of producing PDF;<endnoteRef
+> way of producing PDF<endnoteRef
 note="nXeLaTeXAutoWrap"
+></endnoteRef
+> and web page (and EPUB) outputs;<endnoteRef
+note="nWebAutoWrap"
 ></endnoteRef
 > for the other kinds of output, you will need to break long lines manually; see <sectionRef
 sec="secExInterlinearContinuation"
@@ -12402,6 +12431,11 @@ type="tXeTeX"
 ></object
 > way of producing PDF when the option for automatically wrapping long interlinears is set.<endnoteRef
 note="nXeLaTeXAutoWrap"
+></endnoteRef
+></li
+><li
+>For web page (and EPUB) outputs when the option for automatically wrapping long interlinears is set.<endnoteRef
+note="nWebAutoWrap"
 ></endnoteRef
 ></li
 ><li
@@ -19983,8 +20017,11 @@ term="iAutoWrapInterlinear"
 >Long interlinears will not automatically wrap except for the <object
 type="tXeTeX"
 ></object
-> way of producing PDF.<endnoteRef
+> way of producing PDF<endnoteRef
 note="nXeLaTeXAutoWrap"
+></endnoteRef
+> and web page output.<endnoteRef
+note="nWebAutoWrap"
 ></endnoteRef
 ></p
 ><p

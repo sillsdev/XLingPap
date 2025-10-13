@@ -49,10 +49,14 @@
     <xsl:variable name="sFootnotePointSize" select="string($pageLayoutInfo/footnotePointSize)"/>
     <!--    <xsl:variable name="frontMatterLayoutInfo" select="$publisherStyleSheet/frontMatterLayout"/>-->
     <!--    <xsl:variable name="bodyLayoutInfo" select="$publisherStyleSheet/bodyLayout"/>-->
+    <xsl:variable name="chapterTitleNoChapterNumber" select="$bodyLayoutInfo/headerFooterPageStyles/descendant::*[contains(name(),'HeaderFooterItem')][descendant::*[name()='chapterTitle'] and not(descendant::*[name()='chapterNumber'])]"/>
+    <xsl:variable name="chapterNumberNoChapterTitle" select="$bodyLayoutInfo/headerFooterPageStyles/descendant::*[contains(name(),'HeaderFooterItem')][descendant::*[name()='chapterNumber'] and not(descendant::*[name()='chapterTitle'])]"/>
     <xsl:variable name="chapterTitleOnEvenPage" select="$bodyLayoutInfo/headerFooterPageStyles/descendant::*[name()='chapterTitle' or name()='chapterNumber'][ancestor::headerFooterEvenPage]"/>
     <xsl:variable name="chapterTitleOnOddPage" select="$bodyLayoutInfo/headerFooterPageStyles/descendant::*[name()='chapterTitle' or name()='chapterNumber'][ancestor::headerFooterOddPage]"/>
     <xsl:variable name="sectionTitleOnEvenPage" select="$bodyLayoutInfo/headerFooterPageStyles/descendant::*[name()='sectionTitle' or name()='sectionNumber'][ancestor::headerFooterEvenPage]"/>
     <xsl:variable name="sectionTitleOnOddPage" select="$bodyLayoutInfo/headerFooterPageStyles/descendant::*[name()='sectionTitle' or name()='sectionNumber'][ancestor::headerFooterOddPage]"/>
+    <xsl:variable name="sectionTitleNoSectionNumber" select="$pageLayoutInfo/headerFooterPageStyles/descendant::*[contains(name(),'HeaderFooterItem')][descendant::*[name()='sectionTitle'] and not(descendant::*[name()='sectionNumber'])]"/>
+    <xsl:variable name="sectionNumberNoSectionTitle" select="$pageLayoutInfo/headerFooterPageStyles/descendant::*[contains(name(),'HeaderFooterItem')][descendant::*[name()='sectionNumber'] and not(descendant::*[name()='sectionTitle'])]"/>
     <xsl:variable name="iAffiliationLayouts" select="count($frontMatterLayoutInfo/affiliationLayout)"/>
     <xsl:variable name="iAuthorLayouts" select="count($frontMatterLayoutInfo/authorLayout)"/>
     <xsl:variable name="iEmailAddressLayouts" select="count($frontMatterLayoutInfo/emailAddressLayout)"/>
@@ -1405,7 +1409,8 @@
     -->
     <xsl:template match="chapterNumber[not(following-sibling::chapterTitle) and not(preceding-sibling::chapterTitle)]" mode="header-footer">
         <xsl:call-template name="DoHeaderFooterItemFontInfo"/>
-        <xsl:call-template name="SetMarkPerOddEvenPage"/>
+        <!-- always use \rightmark for number in this case -->
+        <tex:cmd name="rightmark" gr="0"/>
         <xsl:call-template name="DoHeaderFooterItemFontInfoEnd"/>
     </xsl:template>
     <xsl:template match="chapterNumber" mode="header-footer">
@@ -1607,9 +1612,8 @@
     -->
     <xsl:template match="sectionNumber[not(following-sibling::sectionTitle) and not(preceding-sibling::sectionTitle)]" mode="header-footer">
         <xsl:call-template name="DoHeaderFooterItemFontInfo"/>
-        <xsl:call-template name="SetMarkPerOddEvenPage">
-            <xsl:with-param name="bIsChapter" select="'N'"/>
-        </xsl:call-template>
+        <!-- always use \rightmark for number in this case -->
+        <tex:cmd name="rightmark" gr="0"/>
         <xsl:call-template name="DoHeaderFooterItemFontInfoEnd"/>
     </xsl:template>
     <xsl:template match="sectionNumber" mode="header-footer">
@@ -6503,20 +6507,42 @@
             </xsl:when>
             <xsl:otherwise>
                 <tex:cmd name="markboth">
-                    <tex:parm>
-                        <xsl:call-template name="DoSecTitleRunningHeader">
-                            <xsl:with-param name="number" select="$sectionNumberInHeaderLayout"/>
-                            <xsl:with-param name="bNumberIsBeforeTitle" select="$bSectionNumberIsBeforeTitle"/>
-                            <xsl:with-param name="sContentsPeriod" select="$sContentsPeriod"/>
-                        </xsl:call-template>
-                    </tex:parm>
-                    <tex:parm>
-                        <xsl:call-template name="DoSecTitleRunningHeader">
-                            <xsl:with-param name="number" select="$sectionNumberInHeaderLayout"/>
-                            <xsl:with-param name="bNumberIsBeforeTitle" select="$bSectionNumberIsBeforeTitle"/>
-                            <xsl:with-param name="sContentsPeriod" select="$sContentsPeriod"/>
-                        </xsl:call-template>
-                    </tex:parm>
+                    <xsl:choose>
+                        <xsl:when test="$sectionNumberNoSectionTitle and $sectionTitleNoSectionNumber">
+                            <xsl:variable name="shortTitle" select="shortTitle"/>
+                            <tex:parm>
+                                <xsl:choose>
+                                    <xsl:when test="string-length($shortTitle) &gt; 0">
+                                        <xsl:apply-templates select="$shortTitle" mode="InMarker"/>
+                                    </xsl:when>
+                                    <xsl:otherwise>
+                                        <xsl:apply-templates select="secTitle" mode="InMarker"/>
+                                    </xsl:otherwise>
+                                </xsl:choose>
+                            </tex:parm>
+                            <tex:parm>
+                                <xsl:call-template name="DoSecNumberRunningHeader">
+                                    <xsl:with-param name="number" select="$sectionNumberNoSectionTitle"/>
+                                </xsl:call-template>
+                            </tex:parm>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <tex:parm>
+                                <xsl:call-template name="DoSecTitleRunningHeader">
+                                    <xsl:with-param name="number" select="$sectionNumberInHeaderLayout"/>
+                                    <xsl:with-param name="bNumberIsBeforeTitle" select="$bSectionNumberIsBeforeTitle"/>
+                                    <xsl:with-param name="sContentsPeriod" select="$sContentsPeriod"/>
+                                </xsl:call-template>
+                            </tex:parm>
+                            <tex:parm>
+                                <xsl:call-template name="DoSecTitleRunningHeader">
+                                    <xsl:with-param name="number" select="$sectionNumberInHeaderLayout"/>
+                                    <xsl:with-param name="bNumberIsBeforeTitle" select="$bSectionNumberIsBeforeTitle"/>
+                                    <xsl:with-param name="sContentsPeriod" select="$sContentsPeriod"/>
+                                </xsl:call-template>
+                            </tex:parm>
+                            </xsl:otherwise>
+                    </xsl:choose>
                 </tex:cmd>
             </xsl:otherwise>
         </xsl:choose>
@@ -6591,19 +6617,44 @@
     <xsl:template name="DoRunningHeaderChapterAncestorName">
         <xsl:param name="sHeader"/>
         <tex:cmd name="markboth" nl2="1">
-            <xsl:if test="$chapterTitleOnOddPage">
-                <tex:parm>
-                    <xsl:call-template name="DoChapterOrAppendixRunningHeader"/>
-                </tex:parm>
-            </xsl:if>
-            <tex:parm>
-                <xsl:copy-of select="$sHeader"/>
-            </tex:parm>
-            <xsl:if test="not($chapterTitleOnOddPage)">
-                <tex:parm>
-                    <xsl:call-template name="DoChapterOrAppendixRunningHeader"/>
-                </tex:parm>
-            </xsl:if>
+            <xsl:choose>
+                <xsl:when test="$chapterTitleNoChapterNumber and $chapterNumberNoChapterTitle">
+                    <tex:parm>
+                        <xsl:variable name="shortTitle" select="frontMatter/shortTitle"/>
+                        <xsl:choose>
+                            <xsl:when test="string-length($shortTitle) &gt; 0">
+                                <xsl:apply-templates select="$shortTitle" mode="InMarker"/>
+                            </xsl:when>
+                            <xsl:when test="string-length(frontMatter/title) &gt; 0">
+                                <xsl:apply-templates select="frontMatter/title" mode="InMarker"/>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:apply-templates select="secTitle" mode="InMarker"/>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                    </tex:parm>
+                    <tex:parm>
+                        <xsl:call-template name="DoSecNumberRunningHeader">
+                            <xsl:with-param name="number" select="$chapterNumberNoChapterTitle"/>
+                        </xsl:call-template>
+                    </tex:parm>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:if test="$chapterTitleOnOddPage">
+                        <tex:parm>
+                            <xsl:call-template name="DoChapterOrAppendixRunningHeader"/>
+                        </tex:parm>
+                    </xsl:if>
+                    <tex:parm>
+                        <xsl:copy-of select="$sHeader"/>
+                    </tex:parm>
+                    <xsl:if test="not($chapterTitleOnOddPage)">
+                        <tex:parm>
+                            <xsl:call-template name="DoChapterOrAppendixRunningHeader"/>
+                        </tex:parm>
+                    </xsl:if>
+                </xsl:otherwise>
+            </xsl:choose>
         </tex:cmd>
     </xsl:template>
     <!--
@@ -6625,6 +6676,11 @@
                 <xsl:when test="name($number)='sectionNumber'">
                     <xsl:call-template name="OutputSectionNumber">
                         <xsl:with-param name="layoutInfo" select="$number"/>
+                    </xsl:call-template>
+                </xsl:when>
+                <xsl:when test="$number/sectionNumber">
+                    <xsl:call-template name="OutputSectionNumber">
+                        <xsl:with-param name="layoutInfo" select="$number/sectionNumber"/>
                     </xsl:call-template>
                 </xsl:when>
                 <xsl:otherwise>

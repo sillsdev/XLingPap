@@ -7662,6 +7662,29 @@
         </xsl:choose>
     </xsl:template>
     <!--  
+        GetXeLaTeXSpecialFromAbbrInLang
+    -->
+    <xsl:template name="GetXeLaTeXSpecialFromAbbrInLang">
+        <xsl:choose>
+            <xsl:when test="string-length($abbrLang) &gt; 0">
+                <xsl:choose>
+                    <xsl:when test="string-length(abbrInLang[@lang=$abbrLang]/abbrTerm) &gt; 0">
+                        <xsl:value-of select="abbrInLang[@lang=$abbrLang]/@XeLaTeXSpecial"/>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <!-- a language is specified, but this abbreviation does not have anything; try using the default;
+                            this assumes that something is better than nothing -->
+                        <xsl:value-of select="abbrInLang[1]/@XeLaTeXSpecial"/>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </xsl:when>
+            <xsl:otherwise>
+                <!--  no language specified; just use the first one -->
+                <xsl:value-of select="abbrInLang[1]/@XeLaTeXSpecial"/>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
+    <!--  
         HandleEndnotesInCaptionOfFigure
     -->
     <xsl:template name="HandleEndnotesInCaptionOfFigure">
@@ -8672,6 +8695,17 @@
     <xsl:template name="OutputAbbreviationInTable">
         <xsl:param name="abbrsShownHere"/>
         <xsl:param name="abbrInSecondColumn"/>
+        <xsl:variable name="abbrInLangXeLaTeXSpecial">
+            <xsl:call-template name="GetXeLaTeXSpecialFromAbbrInLang"/>
+            <xsl:if test="$contentLayoutInfo/abbreviationsInTableLayout/@useDoubleColumns='yes'">
+                <xsl:for-each select="$abbrInSecondColumn">
+                    <xsl:call-template name="GetXeLaTeXSpecialFromAbbrInLang"/>
+                </xsl:for-each>
+            </xsl:if>
+        </xsl:variable>
+        <xsl:if test="contains($abbrInLangXeLaTeXSpecial,'pagebreak')">
+            <tex:cmd name="pagebreak" nl2="0"/>
+        </xsl:if>
         <!--  we do not use abbrsShownHere in this instance of OutputAbbreviationInTable  -->
         <xsl:call-template name="OutputAbbreviationItemInTable"/>
         <xsl:if test="$contentLayoutInfo/abbreviationsInTableLayout/@useDoubleColumns='yes'">

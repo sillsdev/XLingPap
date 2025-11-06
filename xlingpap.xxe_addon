@@ -17,7 +17,7 @@ xmlns="http://www.w3.org/1999/xhtml"
 >Andy Black</a
 ></a:author
 ><a:date
->2025-10-13</a:date
+>2025-11-06</a:date
 ><a:abstract
 >A way to author and archive linguistic documents using XML.</a:abstract
 ><a:documentation
@@ -40,11 +40,13 @@ xmlns="http://www.w3.org/1999/xhtml"
 ><ul
 xmlns="http://www.w3.org/1999/xhtml"
 ><li
->3.17.2 13 October 2025<ul
+>3.17.2 6 November 2025<ul
 ><li
 >For the default way of producing PDF (via XeLaTeX):<ul
 ><li
 >Fix bug: running headers where chapter/section number and title were on different pages, always showed the title with number together.</li
+><li
+>Add ability to force page break in a table of abbreviations.</li
 ></ul
 ></li
 ></ul

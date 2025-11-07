@@ -3614,6 +3614,11 @@
                         </xsl:with-param>
                     </xsl:apply-templates>
                 </xsl:when>
+                <xsl:when test="name(.)='keywordsLayout' and preceding-sibling::*[1][name()='abstractLayout']">
+                    <xsl:apply-templates select="$frontMatter/keywordsShownHere">
+                        <xsl:with-param name="frontMatterLayout" select="$frontMatterLayout"/>
+                    </xsl:apply-templates>
+                </xsl:when>
             </xsl:choose>
         </xsl:for-each>
     </xsl:template>

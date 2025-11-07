@@ -4630,11 +4630,6 @@
                         <xsl:with-param name="frontMatterLayout" select="$frontMatterLayout"/>
                     </xsl:apply-templates>
                 </xsl:when>
-                <xsl:when test="name(.)='keywordsLayout'">
-                    <xsl:apply-templates select="$frontMatter/keywordsShownHere">
-                        <xsl:with-param name="frontMatterLayout" select="$frontMatterLayout"/>
-                    </xsl:apply-templates>
-                </xsl:when>
                 <xsl:when test="name(.)='publishingBlurbLayout'">
                     <xsl:apply-templates select="$lingPaper/publishingInfo/publishingBlurb"/>
                 </xsl:when>
@@ -4665,6 +4660,11 @@
                 </xsl:when>
                 <xsl:when test="name(.)='keywordsLayout' and not($bIsBook)">
                     <xsl:apply-templates select="$frontMatter/keywordsShownHere" mode="paper">
+                        <xsl:with-param name="frontMatterLayout" select="$frontMatterLayout"/>
+                    </xsl:apply-templates>
+                </xsl:when>
+                <xsl:when test="name(.)='keywordsLayout' and preceding-sibling::*[1][name()!='abstractLayout']">
+                    <xsl:apply-templates select="$frontMatter/keywordsShownHere">
                         <xsl:with-param name="frontMatterLayout" select="$frontMatterLayout"/>
                     </xsl:apply-templates>
                 </xsl:when>

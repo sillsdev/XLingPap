@@ -40,7 +40,10 @@ References Layouts
    spaceBetweenEntriesAuthorOverDateStyle CDATA #IMPLIED
    spaceafter CDATA #IMPLIED
    spacebefore CDATA #IMPLIED
+   ignoreDateAccessed (no | yes) "no"
+   ignoreDoi (no | yes) "no"
    ignoreLocations (no | yes) "no"
+   ignoreUrl (no | yes) "no"
    >
 
 <!-- Name and version of this references stylesheet -->

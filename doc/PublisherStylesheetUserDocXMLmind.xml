@@ -18,13 +18,13 @@ type="tXLingPap"
 ><emailAddress
 >xlingpaper_support@sil.org</emailAddress
 ><date
->13 May 2025</date
+>7 November 2025</date
 ><version
 contentType="ctVersion5.3"
->2.47.0</version
+>2.47.2</version
 ><version
 contentType="ctVersion7Plus"
->3.17.0</version
+>3.17.2</version
 ><contents
 showLevel="6"
 ></contents
@@ -10293,6 +10293,100 @@ type="tAttrValue"
 ><tr
 ><td
 ><indexedItem
+term="iRefIgnoreDateAccessed"
+></indexedItem
+><object
+type="tAttribute"
+>ignoreDateAccessed</object
+></td
+><td
+><object
+type="tAttrValue"
+>yes</object
+> or <object
+type="tAttrValue"
+>no</object
+>.</td
+><td
+>If this is set to <object
+type="tAttrValue"
+>yes</object
+> , then every <object
+type="tElement"
+>dateAccessed</object
+> element will be ignored in the output. The default value is <object
+type="tAttrValue"
+>no</object
+>.</td
+><td
+><table
+><tr
+><td
+><object
+type="tAttrValue"
+>yes</object
+></td
+></tr
+><tr
+><td
+><object
+type="tAttrValue"
+>no</object
+></td
+></tr
+></table
+></td
+></tr
+><tr
+><td
+><indexedItem
+term="iRefIgnoreDoi"
+></indexedItem
+><object
+type="tAttribute"
+>ignoreDoi</object
+></td
+><td
+><object
+type="tAttrValue"
+>yes</object
+> or <object
+type="tAttrValue"
+>no</object
+>.</td
+><td
+>If this is set to <object
+type="tAttrValue"
+>yes</object
+> , then every <object
+type="tElement"
+>doi</object
+> element will be ignored in the output. The default value is <object
+type="tAttrValue"
+>no</object
+>.</td
+><td
+><table
+><tr
+><td
+><object
+type="tAttrValue"
+>yes</object
+></td
+></tr
+><tr
+><td
+><object
+type="tAttrValue"
+>no</object
+></td
+></tr
+></table
+></td
+></tr
+><tr
+><td
+><indexedItem
 term="iRefIgnoreLocations"
 ></indexedItem
 ><object
@@ -10314,6 +10408,53 @@ type="tAttrValue"
 > , then every <object
 type="tElement"
 >location</object
+> element will be ignored in the output. The default value is <object
+type="tAttrValue"
+>no</object
+>.</td
+><td
+><table
+><tr
+><td
+><object
+type="tAttrValue"
+>yes</object
+></td
+></tr
+><tr
+><td
+><object
+type="tAttrValue"
+>no</object
+></td
+></tr
+></table
+></td
+></tr
+><tr
+><td
+><indexedItem
+term="iRefIgnoreUrl"
+></indexedItem
+><object
+type="tAttribute"
+>ignoreUrl</object
+></td
+><td
+><object
+type="tAttrValue"
+>yes</object
+> or <object
+type="tAttrValue"
+>no</object
+>.</td
+><td
+>If this is set to <object
+type="tAttrValue"
+>yes</object
+> , then every <object
+type="tElement"
+>url</object
 > element will be ignored in the output. The default value is <object
 type="tAttrValue"
 >no</object
@@ -23638,9 +23779,24 @@ see="iSeriesEd"
 >Editor of a series (part of a referenced work)</term
 ></indexTerm
 ><indexTerm
+id="iRefIgnoreDateAccessed"
+><term
+>Ignore date accessed</term
+></indexTerm
+><indexTerm
+id="iRefIgnoreDoi"
+><term
+>Ignore DOI</term
+></indexTerm
+><indexTerm
 id="iRefIgnoreLocations"
 ><term
 >Ignore locations</term
+></indexTerm
+><indexTerm
+id="iRefIgnoreUrl"
+><term
+>Ignore URL</term
 ></indexTerm
 ><indexTerm
 id="iRefInstitution"

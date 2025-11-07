@@ -2182,6 +2182,10 @@ align--center {
     <xsl:template match="@hyphenationExceptionsFile"/>
     <xsl:template match="@id"/>
     <xsl:template match="@ignore"/>
+    <xsl:template match="@ignoreDateAccessed"/>
+    <xsl:template match="@ignoreDoi"/>
+    <xsl:template match="@ignoreLocations"/>
+    <xsl:template match="@ignoreUrl"/>
     <xsl:template match="@indentchapterline"/>
     <xsl:template match="@interlinearsourcestyle"/>
     <xsl:template match="@ISO639-3Code"/>

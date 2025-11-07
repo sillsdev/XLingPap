@@ -8,8 +8,11 @@
 
    <xsl:variable name="chosenContentControl" select="//contentControlChoices/contentControlChoice[@active='yes']"/>
    <xsl:variable name="chosenContentTypes" select="id($chosenContentControl/@exclude)"/>
+   <xsl:variable name="ignoreDateAccessed" select="//referencesLayout//@ignoreDateAccessed"/>
+   <xsl:variable name="ignoreDoi" select="//referencesLayout//@ignoreDoi"/>
    <xsl:variable name="ignoreLocations" select="//referencesLayout/@ignoreLocations"/>
-
+   <xsl:variable name="ignoreUrl" select="//referencesLayout//@ignoreUrl"/>
+   
    <!-- 
       Main copy template
    -->
@@ -70,11 +73,37 @@
    <xsl:template match="date">
       <xsl:call-template name="IgnoreOrCopyElement"/>
    </xsl:template>
+   <xsl:template match="dateAccessed[ancestor::refWork]">
+      <xsl:choose>
+         <xsl:when test="$ignoreDateAccessed and $ignoreDateAccessed='yes'">
+            <!-- ignore this one -->
+         </xsl:when>
+         <xsl:otherwise>
+            <xsl:copy>
+               <xsl:apply-templates select="@*"/>
+               <xsl:apply-templates/>
+            </xsl:copy>
+         </xsl:otherwise>
+      </xsl:choose>
+   </xsl:template>
    <xsl:template match="dd">
       <xsl:call-template name="IgnoreOrCopyElement"/>
    </xsl:template>
    <xsl:template match="dl">
       <xsl:call-template name="IgnoreOrCopyElement"/>
+   </xsl:template>
+   <xsl:template match="doi[ancestor::refWork]">
+      <xsl:choose>
+         <xsl:when test="$ignoreDoi and $ignoreDoi='yes'">
+            <!-- ignore this one -->
+         </xsl:when>
+         <xsl:otherwise>
+            <xsl:copy>
+               <xsl:apply-templates select="@*"/>
+               <xsl:apply-templates/>
+            </xsl:copy>
+         </xsl:otherwise>
+      </xsl:choose>
    </xsl:template>
    <xsl:template match="dt">
       <xsl:call-template name="IgnoreOrCopyElement"/>
@@ -216,6 +245,19 @@
    </xsl:template>
    <xsl:template match="ul">
       <xsl:call-template name="IgnoreOrCopyElement"/>
+   </xsl:template>
+   <xsl:template match="url[ancestor::refWork]">
+      <xsl:choose>
+         <xsl:when test="$ignoreUrl and $ignoreUrl='yes'">
+            <!-- ignore this one -->
+         </xsl:when>
+         <xsl:otherwise>
+            <xsl:copy>
+               <xsl:apply-templates select="@*"/>
+               <xsl:apply-templates/>
+            </xsl:copy>
+         </xsl:otherwise>
+      </xsl:choose>
    </xsl:template>
    <xsl:template match="version">
       <xsl:call-template name="IgnoreOrCopyElement"/>

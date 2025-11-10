@@ -34,13 +34,13 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >xlingpaper_support@sil.org</emailAddress
 ><date
->9 October 2025</date
+>10 November 2025</date
 ><version
 contentType="ctVersion5.3"
->2.18.0</version
+>2.48.0</version
 ><version
 contentType="ctVersion7Plus"
->3.17.1</version
+>3.18.0</version
 ><contents
 showLevel="4"
 ></contents
@@ -10985,10 +10985,10 @@ type="tAttribute"
 > attribute to <object
 type="tAttrValue"
 >yes</object
-> via the Attributes Tool.  Beginning with version 3.18 of <object
+> via the Attributes Tool. Beginning with version 3.18 of <object
 type="tXLingPap"
 ></object
->, this setting  will also enable web page output to automatically wrap; note, however, that if you are using a style sheet with your document, the web output will only wrap if you also have the <object
+>, this setting will also enable web page output to automatically wrap; note, however, that if you are using a style sheet with your document, the web output will only wrap if you also have the <object
 type="tAttrValue"
 >ignorePageWidthForWebPageOutput</object
 > attribute of the <object

@@ -2,7 +2,7 @@
    xmlns:xs="http://www.w3.org/2001/XMLSchema"
    xmlns:cfg="http://www.xmlmind.com/xmleditor/schema/configuration">
    <!-- Following is to add to the right click menu -->
-   <cfg:command name="contextualMenu">
+   <cfg:command name="contextualMenuXLP">
       <cfg:macro>
          <cfg:choice>
             <cfg:sequence>
@@ -14,21 +14,21 @@
                   pattern="appendixRef | citation | endnoteRef | exampleRef | gloss | langData | object | sectionRef"/>
                <cfg:command name="contextualMenu2"/>
             </cfg:sequence>
-            <cfg:command name="editMenu"/>
+            <cfg:command name="contextualMenu"/>
          </cfg:choice>
       </cfg:macro>
    </cfg:command>
-   <cfg:command name="contextualMenu1">
+   <cfg:command name="XLingPapXXEcontextualMenu1">
       <cfg:menu>
-         <cfg:editMenu/>
+<!--         <cfg:editMenu/>-->
          <cfg:item command="convertCase" label="To Upper Case" parameter="upper"/>
          <cfg:item command="convertCase" label="To Lower Case" parameter="lower"/>
          <cfg:item command="convertCase" label="Capitalize Words" parameter="capital"/>
       </cfg:menu>
    </cfg:command>
-   <cfg:command name="contextualMenu2">
+   <cfg:command name="XLingPapXXEcontextualMenu2">
       <cfg:menu>
-         <cfg:editMenu/>
+<!--         <cfg:editMenu/>-->
          <cfg:item command="setReference" label="Set Reference"> </cfg:item>
       </cfg:menu>
    </cfg:command>
@@ -189,9 +189,12 @@
       <cfg:item command="ConvertSelectedToEndnote" label="Convert selected item(s) to endnote">
          <cfg:accelerator code="F11" modifiers="ctrl alt"/>
       </cfg:item>
+      <cfg:item command="InsertBracketedConstituent" label="Convert selected text to bracketed constituent">
+         <cfg:accelerator code="F12" modifiers="shift"/>
+      </cfg:item>
       <cfg:item command="ConvertSVGFileToPDF" label="Convert .svg file to .pdf">
 <!--  rarely used, so no need for keyboard shortcut          <cfg:accelerator code="F10" modifiers="shift ctrl"/>-->
-       </cfg:item>
+      </cfg:item>
        <cfg:separator/>
 <!-- 
       <cfg:item command="produceHandout" label="Make a Handout  for This Paper ">

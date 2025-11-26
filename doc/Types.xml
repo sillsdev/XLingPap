@@ -14,6 +14,10 @@ font-style="italic"
 id="tAttrValue"
 ></type
 ><type
+after="Attributes tool"
+id="tAttributesEditor"
+></type
+><type
 font-weight="bold"
 id="tBold"
 ></type
@@ -91,6 +95,10 @@ font-size="95%"
 id="tLocationPublisherLayoutsRef"
 ></type
 ><type
+before="MathML"
+id="tMathML"
+></type
+><type
 after="Open Office Writer"
 id="tOpenOfficeWriter"
 types="tTool"
@@ -118,6 +126,11 @@ xsl-foSpecial="baseline-shift='sub'"
 ><type
 cssSpecial="margin-left:.5in;"
 id="tTableCSS"
+></type
+><type
+after="TeX Live 2020 version of XeLaTeX"
+id="tTeXLive2020XeLaTeX"
+types="tTool"
 ></type
 ><type
 color="navy"

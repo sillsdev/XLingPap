@@ -11,7 +11,6 @@ import com.xmlmind.guiutil.Alert;
 import com.xmlmind.guiutil.FontChooserDialog;
 import com.xmlmind.xmledit.view.DocumentView;
 import com.xmlmind.xmledit.cmd.RecordableCommand;
-import com.xmlmind.xmledit.edit.ClipboardHelper;
 import com.xmlmind.xmledit.edit.ElementEditor;
 import com.xmlmind.xmledit.edit.MarkManager;
 import com.xmlmind.xml.doc.Element;

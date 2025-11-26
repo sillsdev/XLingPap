@@ -6,8 +6,9 @@
       Parameterized Variables
       =========================================================== -->
     <xsl:param name="sFOProcessor">XEP</xsl:param>
-    <xsl:variable name="pageLayoutInfo" select="//publisherStyleSheet/pageLayout"/>
-<!--    <xsl:variable name="contentLayoutInfo" select="//publisherStyleSheet/contentLayout"/>-->
+    <xsl:param name="bEBook" select="'N'"/>
+    <xsl:variable name="pageLayoutInfo" select="//publisherStyleSheet[1]/pageLayout"/>
+    <!--    <xsl:variable name="contentLayoutInfo" select="//publisherStyleSheet[1]/contentLayout"/>-->
     <xsl:variable name="iMagnificationFactor">
         <xsl:variable name="sAdjustedFactor" select="normalize-space($contentLayoutInfo/magnificationFactor)"/>
         <xsl:choose>
@@ -27,13 +28,35 @@
     <xsl:variable name="sFooterMargin" select="string($pageLayoutInfo/footerMargin)"/>
     <xsl:variable name="sParagraphIndent" select="string($pageLayoutInfo/paragraphIndent)"/>
     <xsl:variable name="sBlockQuoteIndent" select="string($pageLayoutInfo/blockQuoteIndent)"/>
+    <xsl:variable name="sBlockQuoteRightIndent">
+        <xsl:variable name="sRightIndent" select="normalize-space($pageLayoutInfo/blockQuoteIndent/@rightIndent)"/>
+        <xsl:choose>
+            <xsl:when test="string-length($sRightIndent) &gt; 0">
+                <xsl:value-of select="$sRightIndent"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:value-of select="$pageLayoutInfo/blockQuoteIndent"/>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:variable>
+    <xsl:variable name="hasInterlinears">
+        <xsl:choose>
+            <xsl:when test="//interlinear">
+                <xsl:text>Y</xsl:text>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:text>N</xsl:text>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:variable>
     <xsl:variable name="sDefaultFontFamily" select="string($pageLayoutInfo/defaultFontFamily)"/>
     <xsl:variable name="sBasicPointSize" select="string($pageLayoutInfo/basicPointSize * $iMagnificationFactor)"/>
     <xsl:variable name="sFootnotePointSize" select="string($pageLayoutInfo/footnotePointSize * $iMagnificationFactor)"/>
-    <xsl:variable name="frontMatterLayoutInfo" select="//publisherStyleSheet/frontMatterLayout"/>
-    <xsl:variable name="bodyLayoutInfo" select="//publisherStyleSheet/bodyLayout"/>
-    <xsl:variable name="backMatterLayoutInfo" select="//publisherStyleSheet/backMatterLayout"/>
-    <xsl:variable name="documentLayoutInfo" select="//publisherStyleSheet/contentLayout"/>
+    <xsl:variable name="sContentBetweenMultipleFootnoteNumbersInText" select="$pageLayoutInfo/@contentBetweenMultipleFootnoteNumbersInText"/>
+    <xsl:variable name="frontMatterLayoutInfo" select="//publisherStyleSheet[1]/frontMatterLayout"/>
+    <xsl:variable name="bodyLayoutInfo" select="//publisherStyleSheet[1]/bodyLayout"/>
+    <!--    <xsl:variable name="backMatterLayoutInfo" select="//publisherStyleSheet[1]/backMatterLayout"/>-->
+    <xsl:variable name="documentLayoutInfo" select="//publisherStyleSheet[1]/contentLayout"/>
     <xsl:variable name="iAffiliationLayouts" select="count($frontMatterLayoutInfo/affiliationLayout)"/>
     <xsl:variable name="iEmailAddressLayouts" select="count($frontMatterLayoutInfo/emailAddressLayout)"/>
     <xsl:variable name="iAuthorLayouts" select="count($frontMatterLayoutInfo/authorLayout)"/>
@@ -75,10 +98,10 @@
     <xsl:variable name="styleSheetTableNumberedNumberLayout" select="$contentLayoutInfo/tablenumberedLayout/tablenumberedNumberLayout"/>
     <xsl:variable name="styleSheetTableNumberedCaptionLayout" select="$contentLayoutInfo/tablenumberedLayout/tablenumberedCaptionLayout"/>
     <xsl:variable name="sSpaceBetweenTableAndCaption" select="normalize-space($contentLayoutInfo/tablenumberedLayout/@spaceBetweenTableAndCaption)"/>
+    <xsl:variable name="volumeLayout" select="$frontMatterLayoutInfo/volumeLayout"/>
     <!-- ===========================================================
       Variables
       =========================================================== -->
-    <xsl:variable name="contents" select="//contents"/>
     <xsl:variable name="references" select="//references"/>
     <xsl:variable name="sLdquo">&#8220;</xsl:variable>
     <xsl:variable name="sRdquo">&#8221;</xsl:variable>
@@ -108,6 +131,54 @@
     </xsl:variable>
     <xsl:variable name="iAbbreviationCount" select="count(//abbrRef)"/>
     <xsl:variable name="bEndnoteRefIsDirectLinkToEndnote" select="'Y'"/>
+    <xsl:variable name="tocHangingIndent">
+        <xsl:variable name="value" select="normalize-space($frontMatterLayoutInfo/contentsLayout/@hangingindent)"/>
+           <xsl:if test="string-length($value) &gt; 0">
+                <xsl:value-of select="$value"/>
+            </xsl:if>
+    </xsl:variable>
+    <xsl:variable name="tocChapterHangingIndent">
+        <xsl:variable name="value" select="normalize-space($frontMatterLayoutInfo/contentsLayout/@chapterhangingindent)"/>
+        <xsl:call-template name="SetTocHangingIndent">
+            <xsl:with-param name="value" select="$value"/>
+        </xsl:call-template>
+    </xsl:variable>
+    <xsl:variable name="tocSection1HangingIndent">
+        <xsl:variable name="value" select="normalize-space($frontMatterLayoutInfo/contentsLayout/@section1hangingindent)"/>
+        <xsl:call-template name="SetTocHangingIndent">
+            <xsl:with-param name="value" select="$value"/>
+        </xsl:call-template>
+    </xsl:variable>
+    <xsl:variable name="tocSection2HangingIndent">
+        <xsl:variable name="value" select="normalize-space($frontMatterLayoutInfo/contentsLayout/@section2hangingindent)"/>
+        <xsl:call-template name="SetTocHangingIndent">
+            <xsl:with-param name="value" select="$value"/>
+        </xsl:call-template>
+    </xsl:variable>
+    <xsl:variable name="tocSection3HangingIndent">
+        <xsl:variable name="value" select="normalize-space($frontMatterLayoutInfo/contentsLayout/@section3hangingindent)"/>
+        <xsl:call-template name="SetTocHangingIndent">
+            <xsl:with-param name="value" select="$value"/>
+        </xsl:call-template>
+    </xsl:variable>
+    <xsl:variable name="tocSection4HangingIndent">
+        <xsl:variable name="value" select="normalize-space($frontMatterLayoutInfo/contentsLayout/@section4hangingindent)"/>
+        <xsl:call-template name="SetTocHangingIndent">
+            <xsl:with-param name="value" select="$value"/>
+        </xsl:call-template>
+    </xsl:variable>
+    <xsl:variable name="tocSection5HangingIndent">
+        <xsl:variable name="value" select="normalize-space($frontMatterLayoutInfo/contentsLayout/@section5hangingindent)"/>
+        <xsl:call-template name="SetTocHangingIndent">
+            <xsl:with-param name="value" select="$value"/>
+        </xsl:call-template>
+    </xsl:variable>
+    <xsl:variable name="tocSection6HangingIndent">
+        <xsl:variable name="value" select="normalize-space($frontMatterLayoutInfo/contentsLayout/@section6hangingindent)"/>
+        <xsl:call-template name="SetTocHangingIndent">
+            <xsl:with-param name="value" select="$value"/>
+        </xsl:call-template>
+    </xsl:variable>
     <!-- ===========================================================
       MAIN BODY
       =========================================================== -->
@@ -163,7 +234,31 @@ text-indent:</xsl:text>
 .dt {
         font-weight:bold;
 }
-li.disc {
+</xsl:text>
+        <xsl:if test="$hasInterlinears='Y' and $lingPaper/@automaticallywrapinterlinears='yes' and /xlingpaper/styledPaper/publisherStyleSheet/pageLayout/@ignorePageWidthForWebPageOutput='yes'">
+            <xsl:text>.itxwrap {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.25em;
+}
+.itxitem {
+    display: grid;
+    grid-template-rows: auto auto auto;
+}
+/* Thinking about just using the gap value
+.itxitem div {
+    padding: 0 0.5em;
+}*/
+.ltr {
+text-align:left;
+}
+.rtl {
+direction:rtl;;
+unicode-bidi: bidi-override;
+}
+</xsl:text>
+        </xsl:if>
+        <xsl:text>li.disc {
     list-style-type:disc;
 }
 li.decimal {
@@ -213,9 +308,58 @@ li.lower-roman {
         font-size:larger;
         font-weight:bold;
 }
+align--center {
+        text-align:center;
+}
+.align--justify {
+        text-align:justify;
+}
+.align--left {
+        text-align:left;
+}
+.align--right {
+        text-align:right;
+}
+.valign--baseline {
+        vertical-align:baseline;
+}
+.valign--bottom {
+        vertical-align:bottom;
+}
+.valign--middle {
+        vertical-align:middle;
+}
+.valign--top {
+        vertical-align:top;
+}
 
 </xsl:text>
-        <xsl:apply-templates select="styledPaper"/>
+        <xsl:if test="$bEBook='Y'">
+            <xsl:text>
+.cell-padding--zero {
+        padding:0%;
+}
+.cell-spacing--zero {
+        border-spacing:0pt;
+}
+.pagebreak {
+        clear:both;
+        page-break-after: always;
+}
+</xsl:text>
+        </xsl:if>
+        <xsl:if test="//img[@borderaround='yes']">
+            <xsl:text>.borderaround {
+        border:</xsl:text>
+        <xsl:call-template name="GetBorderAroundImageWidth"/>
+        <xsl:text> solid;
+        padding:</xsl:text>
+        <xsl:call-template name="GetBorderAroundImageSeparation"/>
+        <xsl:text>;
+}
+</xsl:text>
+        </xsl:if>
+        <xsl:apply-templates select="styledPaper/lingPaper | styledPaper/publisherStyleSheet[1]"/>
         <!--  We are not using CSS classes for the contents information because there are any number of
          section1, etc. items which can be embeded under appendix/nothing, etc. and it gets complicated quickly.
     <xsl:apply-templates select="styledPaper/lingPaper" mode="contents"/>
@@ -262,10 +406,20 @@ li.lower-roman {
         abstractLayout
     -->
     <xsl:template match="abstractLayout">
+        <xsl:variable name="sPos">
+            <xsl:choose>
+                <xsl:when test="preceding-sibling::abstractLayout or following-sibling::abstractLayout">
+                    <xsl:value-of select="count(preceding-sibling::abstractLayout)+1"/>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:text/>
+                </xsl:otherwise>
+            </xsl:choose>
+        </xsl:variable>
         <xsl:call-template name="OutputTitleFormatInfo">
             <xsl:with-param name="name">
                 <xsl:call-template name="GetLayoutClassNameToUse">
-                    <xsl:with-param name="sType" select="$sAbstract"/>
+                    <xsl:with-param name="sType" select="concat($sAbstract,$sPos)"/>
                 </xsl:call-template>
             </xsl:with-param>
         </xsl:call-template>
@@ -274,10 +428,20 @@ li.lower-roman {
         abstractTextFontLayout
     -->
     <xsl:template match="abstractTextFontInfo">
+        <xsl:variable name="sPos">
+            <xsl:choose>
+                <xsl:when test="preceding-sibling::abstractTextFontInfo or following-sibling::abstractTextFontInfo">
+                    <xsl:value-of select="count(preceding-sibling::abstractTextFontInfo)+1"/>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:text/>
+                </xsl:otherwise>
+            </xsl:choose>
+        </xsl:variable>
         <xsl:call-template name="OutputTitleFormatInfo">
             <xsl:with-param name="name">
                 <xsl:call-template name="GetLayoutClassNameToUse">
-                    <xsl:with-param name="sType" select="$sAbstractText"/>
+                    <xsl:with-param name="sType" select="concat($sAbstractText,$sPos)"/>
                 </xsl:call-template>
             </xsl:with-param>
         </xsl:call-template>
@@ -310,6 +474,14 @@ li.lower-roman {
                     <xsl:with-param name="sType" select="$sAffiliation"/>
                 </xsl:call-template>
             </xsl:with-param>
+        </xsl:call-template>
+    </xsl:template>
+    <!-- 
+        annotationLayout
+    -->
+    <xsl:template match="annotationLayout">
+        <xsl:call-template name="OutputTitleFormatInfo">
+            <xsl:with-param name="name" select="'annotation'"/>
         </xsl:call-template>
     </xsl:template>
     <!--
@@ -351,9 +523,25 @@ li.lower-roman {
         <xsl:variable name="sClassName">
             <xsl:call-template name="GetAuthorLayoutClassNameToUse"/>
         </xsl:variable>
-        <xsl:call-template name="OutputTitleFormatInfo">
-            <xsl:with-param name="name" select="$sClassName"/>
-        </xsl:call-template>
+        <xsl:choose>
+            <xsl:when test="$sClassName=$sAuthorInContents">
+                <xsl:text>.</xsl:text>
+                <xsl:value-of select="$sAuthorInContents"/>
+                <xsl:text> {
+</xsl:text>
+                <xsl:apply-templates select="@*[name()!='textbefore' and name()!='textafter']"/>
+                <xsl:text>
+        text-indent:-2em;
+        padding-left:3em;
+}
+</xsl:text>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:call-template name="OutputTitleFormatInfo">
+                    <xsl:with-param name="name" select="$sClassName"/>
+                </xsl:call-template>
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
     <!-- 
         backMatterLayout
@@ -398,8 +586,212 @@ li.lower-roman {
                 <xsl:call-template name="GetLayoutClassNameToUse">
                     <xsl:with-param name="sType" select="$sContents"/>
                 </xsl:call-template>
+                <xsl:if test="ancestor-or-self::backMatterLayout">
+                    <xsl:value-of select="$sBackMatterContentsIdAddOn"/>
+                </xsl:if>
             </xsl:with-param>
         </xsl:call-template>
+        <xsl:if test="$volumes">
+            <xsl:apply-templates select="$volumes[1]" mode="contents"/>
+        </xsl:if>
+        <xsl:if test="$parts">
+        <xsl:text>.partContents</xsl:text>
+        <xsl:if test="ancestor-or-self::backMatterLayout">
+            <xsl:value-of select="$sBackMatterContentsIdAddOn"/>
+        </xsl:if>
+        <xsl:text> {
+        margin-top:</xsl:text>
+        <xsl:choose>
+            <xsl:when test="@partSpaceBefore">
+                <xsl:value-of select="@partSpaceBefore"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:value-of select="$sBasicPointSize"/>
+            </xsl:otherwise>
+        </xsl:choose>
+        <xsl:text>pt;
+        </xsl:text>
+        <xsl:text>margin-bottom:</xsl:text>
+        <xsl:choose>
+            <xsl:when test="@partSpaceAfter">
+                <xsl:value-of select="@partSpaceAfter"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:value-of select="$sBasicPointSize"/>
+            </xsl:otherwise>
+        </xsl:choose>
+        <xsl:text>pt;
+        text-align:</xsl:text>
+        <xsl:choose>
+            <xsl:when test="@partCentered!='no'">
+                <xsl:text>center;</xsl:text>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:text>left;</xsl:text>
+            </xsl:otherwise>
+        </xsl:choose>
+            <xsl:text>
+                }
+            </xsl:text>
+        </xsl:if>
+        <xsl:if test="string-length($tocHangingIndent) &gt; 0">
+            <xsl:call-template name="SetTocHangingIndentClass">
+                <xsl:with-param name="sClassName" select="'tocHangingIndent'"/>
+                <xsl:with-param name="value" select="$tocHangingIndent"/>
+            </xsl:call-template>
+        </xsl:if>
+        <xsl:if test="string-length($tocChapterHangingIndent) &gt; 0">
+            <xsl:call-template name="SetTocHangingIndentClass">
+                <xsl:with-param name="sClassName" select="'tocChapterHangingIndent'"/>
+                <xsl:with-param name="value" select="$tocChapterHangingIndent"/>
+            </xsl:call-template>
+        </xsl:if>
+        <xsl:if test="string-length($tocSection1HangingIndent) &gt; 0">
+            <xsl:call-template name="SetTocHangingIndentClass">
+                <xsl:with-param name="sClassName" select="'tocSection1HangingIndent'"/>
+                <xsl:with-param name="value" select="$tocSection1HangingIndent"/>
+                <xsl:with-param name="sIndent">
+                    <xsl:call-template name="GetIndentLevel">
+                        <xsl:with-param name="sLevel" select="'0'"/>
+                    </xsl:call-template>
+                </xsl:with-param>
+            </xsl:call-template>
+        </xsl:if>
+        <xsl:if test="string-length($tocSection2HangingIndent) &gt; 0">
+            <xsl:call-template name="SetTocHangingIndentClass">
+                <xsl:with-param name="sClassName" select="'tocSection2HangingIndent'"/>
+                <xsl:with-param name="value" select="$tocSection2HangingIndent"/>
+                <xsl:with-param name="sIndent">
+                    <xsl:call-template name="GetIndentLevel">
+                        <xsl:with-param name="sLevel" select="'1'"/>
+                    </xsl:call-template>
+                </xsl:with-param>
+            </xsl:call-template>
+        </xsl:if>
+        <xsl:if test="string-length($tocSection3HangingIndent) &gt; 0">
+            <xsl:call-template name="SetTocHangingIndentClass">
+                <xsl:with-param name="sClassName" select="'tocSection3HangingIndent'"/>
+                <xsl:with-param name="value" select="$tocSection3HangingIndent"/>
+                <xsl:with-param name="sIndent">
+                    <xsl:call-template name="GetIndentLevel">
+                        <xsl:with-param name="sLevel" select="'2'"/>
+                    </xsl:call-template>
+                </xsl:with-param>
+            </xsl:call-template>
+        </xsl:if>
+        <xsl:if test="string-length($tocSection4HangingIndent) &gt; 0">
+            <xsl:call-template name="SetTocHangingIndentClass">
+                <xsl:with-param name="sClassName" select="'tocSection4HangingIndent'"/>
+                <xsl:with-param name="value" select="$tocSection4HangingIndent"/>
+                <xsl:with-param name="sIndent">
+                    <xsl:call-template name="GetIndentLevel">
+                        <xsl:with-param name="sLevel" select="'3'"/>
+                    </xsl:call-template>
+                </xsl:with-param>
+            </xsl:call-template>
+        </xsl:if>
+        <xsl:if test="string-length($tocSection5HangingIndent) &gt; 0">
+            <xsl:call-template name="SetTocHangingIndentClass">
+                <xsl:with-param name="sClassName" select="'tocSection5HangingIndent'"/>
+                <xsl:with-param name="value" select="$tocSection5HangingIndent"/>
+                <xsl:with-param name="sIndent">
+                    <xsl:call-template name="GetIndentLevel">
+                        <xsl:with-param name="sLevel" select="'4'"/>
+                    </xsl:call-template>
+                </xsl:with-param>
+            </xsl:call-template>
+        </xsl:if>
+        <xsl:if test="string-length($tocSection6HangingIndent) &gt; 0">
+            <xsl:call-template name="SetTocHangingIndentClass">
+                <xsl:with-param name="sClassName" select="'tocSection6HangingIndent'"/>
+                <xsl:with-param name="value" select="$tocSection6HangingIndent"/>
+                <xsl:with-param name="sIndent">
+                    <xsl:call-template name="GetIndentLevel">
+                        <xsl:with-param name="sLevel" select="'5'"/>
+                    </xsl:call-template>
+                </xsl:with-param>
+            </xsl:call-template>
+            <xsl:call-template name="SetTocHangingIndentClass">
+                <xsl:with-param name="sClassName" select="'tocSection7HangingIndent'"/>
+                <xsl:with-param name="value" select="$tocSection6HangingIndent"/>
+                <xsl:with-param name="sIndent">
+                    <xsl:call-template name="GetIndentLevel">
+                        <xsl:with-param name="sLevel" select="'6'"/>
+                    </xsl:call-template>
+                </xsl:with-param>
+            </xsl:call-template>
+        </xsl:if>
+    </xsl:template>
+    <!--
+        SetTocHangingIndentClass
+    -->
+    <xsl:template name="SetTocHangingIndentClass">
+        <xsl:param name="sClassName"/>
+        <xsl:param name="value"/>
+        <xsl:param name="sIndent" select="'0'"/>
+        <xsl:if test="$value!='0pt'">
+            <xsl:text>.</xsl:text>
+            <xsl:value-of select="$sClassName"/>
+            <xsl:text> {
+</xsl:text>
+            <xsl:choose>
+                <xsl:when test="$sIndent!='0' and $sIndent!='0pt'">
+                    <xsl:variable name="sSpaceBefore" select="$frontMatterLayoutInfo/contentsLayout/spacebefore"/>
+                    <xsl:if test="$sSpaceBefore!='0'">
+                        <xsl:text>margin-top:</xsl:text>
+                        <xsl:value-of select="$sSpaceBefore"/>
+                        <xsl:text>;
+</xsl:text>
+                    </xsl:if>
+                    <xsl:variable name="indentValue" select="substring($sIndent,1,string-length($sIndent)-2)"/>
+                    <xsl:choose>
+                        <xsl:when test="$indentValue='' and string(number($sIndent))!='NaN'">
+                            <xsl:text>        text-indent:-</xsl:text>
+                            <xsl:value-of select="$sIndent div 2 + 1.5"/>
+                            <xsl:text>em;
+        padding-left:</xsl:text>
+                            <xsl:value-of select="1.5 * $sIndent + 1.5"/>
+                            <xsl:text>em;
+</xsl:text>
+                        </xsl:when>
+                        <xsl:when test="string(number($indentValue))!='NaN' and substring($sIndent,string-length($sIndent)-1)='em'">
+                            <xsl:text>        text-indent:-</xsl:text>
+                            <xsl:value-of select="$indentValue div 2 + 1.5"/>
+                            <xsl:text>em;
+        padding-left:</xsl:text>
+                            <xsl:value-of select="1.5 * $indentValue + 1.5"/>
+                            <xsl:text>em;
+</xsl:text>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:text>        text-indent:-1em;
+        padding-left:</xsl:text>
+                            <xsl:value-of select="$sIndent"/>
+                            <xsl:text>;
+</xsl:text>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                    <xsl:if test="$frontMatterLayoutInfo/contentsLayout/@singlespaceeachcontentline='yes'">
+                        <xsl:text>line-height:</xsl:text>
+                        <xsl:value-of select="$sSinglespacingLineHeight"/>
+                        <xsl:text>;
+</xsl:text>
+                    </xsl:if>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:text>        text-indent:-</xsl:text>
+                    <xsl:value-of select="$value"/>
+                    <xsl:text>;
+</xsl:text>
+                    <xsl:text>        padding-left:</xsl:text>
+                    <xsl:value-of select="$value"/>
+                    <xsl:text>;
+</xsl:text>
+                </xsl:otherwise>
+            </xsl:choose>
+            <xsl:text>}
+</xsl:text>
+        </xsl:if>
     </xsl:template>
     <!--
         contentsLinkLayout
@@ -419,6 +811,14 @@ li.lower-roman {
                     <xsl:with-param name="sType" select="$sDate"/>
                 </xsl:call-template>
             </xsl:with-param>
+        </xsl:call-template>
+    </xsl:template>
+    <!--
+        doiLinkLayout
+    -->
+    <xsl:template match="doiLinkLayout">
+        <xsl:call-template name="OutputLinkAttributes">
+            <xsl:with-param name="override" select="."/>
         </xsl:call-template>
     </xsl:template>
     <!-- 
@@ -489,6 +889,27 @@ li.lower-roman {
         </xsl:call-template>
     </xsl:template>
     <!-- 
+        listOfFiguresHangingIndent
+    -->
+    <xsl:template match="figureLayout">
+        <xsl:variable name="hangingIndentSize" select="normalize-space(@listOfFiguresHangingIndent)"/>
+            <xsl:text>.listOfFigures {
+</xsl:text>
+        <xsl:if test="string-length($hangingIndentSize) &gt; 0">
+            <xsl:text>        text-indent:-</xsl:text>
+            <xsl:value-of select="$hangingIndentSize"/>
+            <xsl:text>;
+</xsl:text>
+            <xsl:text>        padding-left:</xsl:text>
+            <xsl:value-of select="$hangingIndentSize"/>
+            <xsl:text>;
+            </xsl:text>
+        </xsl:if>
+        <xsl:text>}
+</xsl:text>
+        <xsl:apply-templates select="*"/>
+    </xsl:template>
+    <!-- 
         figureNumberLayout
     -->
     <xsl:template match="figureNumberLayout">
@@ -533,6 +954,9 @@ li.lower-roman {
         <xsl:text>{
         </xsl:text>
         <xsl:variable name="framedtype" select="."/>
+        <xsl:call-template name="DoSingleSpacing">
+            <xsl:with-param name="useSingleSpacing" select="$lineSpacing/@singlespaceframedunits"/>
+        </xsl:call-template>
         <xsl:text>background-color:</xsl:text>
         <xsl:call-template name="SetFramedTypeItem">
             <xsl:with-param name="sAttributeValue" select="normalize-space($framedtype/@backgroundcolor)"/>
@@ -646,6 +1070,36 @@ li.lower-roman {
     </xsl:template>
 
     <!--
+        glossaryTermDefinitionInDefinitionListLayout
+    -->
+    <xsl:template match="glossaryTermDefinitionInDefinitionListLayout">
+        <xsl:variable name="sName" select="'glossaryTermDefinitionInDefinitionList'"/>
+        <xsl:call-template name="DoTextBefore">
+            <xsl:with-param name="name" select="$sName"/>
+        </xsl:call-template>
+        <xsl:call-template name="OutputTitleFormatInfo">
+            <xsl:with-param name="name" select="$sName"/>
+        </xsl:call-template>
+        <xsl:call-template name="DoTextAfter">
+            <xsl:with-param name="name" select="$sName"/>
+        </xsl:call-template>
+    </xsl:template>
+    <!--
+        glossaryTermTermInDefinitionListLayout
+    -->
+    <xsl:template match="glossaryTermTermInDefinitionListLayout">
+        <xsl:variable name="sName" select="'glossaryTermInDefinitionList'"/>
+        <xsl:call-template name="DoTextBefore">
+            <xsl:with-param name="name" select="$sName"/>
+        </xsl:call-template>
+        <xsl:call-template name="OutputTitleFormatInfo">
+            <xsl:with-param name="name" select="$sName"/>
+        </xsl:call-template>
+        <xsl:call-template name="DoTextAfter">
+            <xsl:with-param name="name" select="$sName"/>
+        </xsl:call-template>
+    </xsl:template>
+    <!--
         glossaryTermRefLinkLayout
     -->
     <xsl:template match="glossaryTermRefLinkLayout">
@@ -657,6 +1111,11 @@ li.lower-roman {
         glossaryTerms
     -->
     <xsl:template match="glossaryTerms">
+        <xsl:text>.glossaryTermInTable {
+</xsl:text>
+        <xsl:apply-templates select="$glossaryTerms/@*"/>
+        <xsl:text>}
+</xsl:text>
         <xsl:text>.glossaryTerms {
 </xsl:text>
         <xsl:apply-templates select="@*"/>
@@ -669,6 +1128,58 @@ li.lower-roman {
 </xsl:text>
     </xsl:template>
     
+    <!--
+        glossaryTermsInDefinitionListLayout
+    -->
+    <xsl:template match="glossaryTermsInDefinitionListLayout">
+        <xsl:variable name="sThisHangingIndent" select="@hangingIndentNormalIndent"/>
+        <xsl:variable name="sThisInitialIndent" select="@hangingIndentInitialIndent"/>
+        <xsl:text>.glossaryTermsInDefinitionListLayout {
+</xsl:text>
+            <xsl:text>padding-left:</xsl:text>
+            <xsl:choose>
+                <xsl:when test="string-length($sThisHangingIndent) &gt; 0">
+                    <xsl:value-of select="$sThisHangingIndent"/>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:text>1em</xsl:text>
+                </xsl:otherwise>
+            </xsl:choose>
+            <xsl:text>;
+                text-indent:-</xsl:text>
+        <xsl:choose>
+            <xsl:when test="string-length($sThisInitialIndent) &gt; 0">
+                <xsl:variable name="iValue" select="substring($sThisInitialIndent,1, string-length($sThisInitialIndent)-2)"/>
+                <xsl:choose>
+                    <xsl:when test="$iValue=0">
+                        <xsl:value-of select="$sThisHangingIndent"/>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:value-of select="$sThisInitialIndent"/>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:choose>
+                    <xsl:when test="string-length($sThisHangingIndent) &gt; 0">
+                        <xsl:value-of select="$sThisHangingIndent"/>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:text>1em</xsl:text>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </xsl:otherwise>
+        </xsl:choose>
+        <xsl:text>;
+</xsl:text>
+        <xsl:if test="@useSingleSpacing='yes'">
+                <xsl:text>line-height:100%;
+</xsl:text>
+        </xsl:if>
+        <xsl:text>}
+</xsl:text>
+        <xsl:apply-templates/>
+</xsl:template>
     
     <!-- 
         glossInExampleLayout
@@ -772,24 +1283,33 @@ li.lower-roman {
         langDataInExampleLayout
     -->
     <xsl:template match="langDataInExampleLayout">
+        <xsl:variable name="sLanguageSpecific">
+            <xsl:call-template name="GetLangDataLayoutLanguage"/>
+        </xsl:variable>
         <xsl:call-template name="OutputTitleFormatInfo">
-            <xsl:with-param name="name" select="'langDataInExampleLayout'"/>
+            <xsl:with-param name="name" select="concat('langDataInExampleLayout',$sLanguageSpecific)"/>
         </xsl:call-template>
     </xsl:template>
     <!-- 
         langDataInProseLayout
     -->
     <xsl:template match="langDataInProseLayout">
+        <xsl:variable name="sLanguageSpecific">
+            <xsl:call-template name="GetLangDataLayoutLanguage"/>
+        </xsl:variable>
         <xsl:call-template name="OutputTitleFormatInfo">
-            <xsl:with-param name="name" select="'langDataInProseLayout'"/>
+            <xsl:with-param name="name" select="concat('langDataInProseLayout',$sLanguageSpecific)"/>
         </xsl:call-template>
     </xsl:template>
     <!-- 
         langDataInTableLayout
     -->
     <xsl:template match="langDataInTableLayout">
+        <xsl:variable name="sLanguageSpecific">
+            <xsl:call-template name="GetLangDataLayoutLanguage"/>
+        </xsl:variable>
         <xsl:call-template name="OutputTitleFormatInfo">
-            <xsl:with-param name="name" select="'langDataInTableLayout'"/>
+            <xsl:with-param name="name" select="concat('langDataInTableLayout',$sLanguageSpecific)"/>
         </xsl:call-template>
     </xsl:template>
     <!-- 
@@ -966,10 +1486,10 @@ li.lower-roman {
 }
 .blockquote {
         margin-left:</xsl:text>
-        <xsl:value-of select="blockQuoteIndent"/>
+        <xsl:value-of select="$sBlockQuoteIndent"/>
         <xsl:text>;
         margin-right:</xsl:text>
-        <xsl:value-of select="blockQuoteIndent"/>
+        <xsl:value-of select="$sBlockQuoteRightIndent"/>
         <xsl:text>;
 </xsl:text>
         <xsl:call-template name="DoSingleSpacing">
@@ -977,7 +1497,7 @@ li.lower-roman {
         </xsl:call-template>
         <xsl:variable name="sSpaceBefore" select="normalize-space($documentLayoutInfo/blockQuoteLayout/@spacebefore)"/>
         <xsl:if test="string-length($sSpaceBefore)&gt;0">
-            <xsl:text>;
+            <xsl:text>
                 padding-top:</xsl:text>                
             <xsl:value-of select="$sSpaceBefore"/>
         </xsl:if>
@@ -998,17 +1518,6 @@ li.lower-roman {
         <xsl:call-template name="OutputTitleFormatInfo">
             <xsl:with-param name="name" select="'partTitle'"/>
         </xsl:call-template>
-        <xsl:text>.partContents {
-        margin-top:</xsl:text>
-        <xsl:value-of select="$sBasicPointSize"/>
-        <xsl:text>pt;
-</xsl:text>
-        <xsl:text>        margin-bottom:</xsl:text>
-        <xsl:value-of select="$sBasicPointSize"/>
-        <xsl:text>pt;
-        text-align:center;
-}
-</xsl:text>
     </xsl:template>
     <!-- 
         prefaceLayout
@@ -1164,6 +1673,14 @@ li.lower-roman {
         </xsl:call-template>
     </xsl:template>
     <!-- 
+        shortSectionTitleLayout
+    -->
+    <xsl:template match="shortSectionTitleLayout">
+        <xsl:call-template name="OutputTitleFormatInfo">
+            <xsl:with-param name="name" select="'sectionTitlesubsection'"/>
+        </xsl:call-template>
+    </xsl:template>
+    <!-- 
         subtitleLayout
     -->
     <xsl:template match="subtitleLayout">
@@ -1172,6 +1689,14 @@ li.lower-roman {
         </xsl:variable>
         <xsl:call-template name="OutputTitleFormatInfo">
             <xsl:with-param name="name" select="$subtitleName"/>
+        </xsl:call-template>
+    </xsl:template>
+    <!--
+        tableCaptionLayout
+    -->
+    <xsl:template match="tableCaptionLayout">
+        <xsl:call-template name="OutputTitleFormatInfo">
+            <xsl:with-param name="name" select="'tableCaptionLayout'"/>
         </xsl:call-template>
     </xsl:template>
     <!-- 
@@ -1189,6 +1714,27 @@ li.lower-roman {
         <xsl:call-template name="OutputTitleFormatInfo">
             <xsl:with-param name="name" select="'tablenumberedLabelLayout'"/>
         </xsl:call-template>
+    </xsl:template>
+    <!-- 
+        listOfTablesHangingIndent
+    -->
+    <xsl:template match="tablenumberedLayout">
+        <xsl:variable name="hangingIndentSize" select="normalize-space(@listOfTablesHangingIndent)"/>
+            <xsl:text>.listOfTables {
+</xsl:text>
+        <xsl:if test="string-length($hangingIndentSize) &gt; 0">
+            <xsl:text>        text-indent:-</xsl:text>
+            <xsl:value-of select="$hangingIndentSize"/>
+            <xsl:text>;
+</xsl:text>
+            <xsl:text>        padding-left:</xsl:text>
+            <xsl:value-of select="$hangingIndentSize"/>
+            <xsl:text>;
+</xsl:text>
+        </xsl:if>
+        <xsl:text>}
+</xsl:text>
+        <xsl:apply-templates select="*"/>
     </xsl:template>
     <!-- 
         tablenumberedNumberLayout
@@ -1463,10 +2009,27 @@ li.lower-roman {
         </xsl:if>
     </xsl:template>
     <!-- 
+        @linebefore
+    -->
+    <xsl:template match="@linebefore">
+        <xsl:if test=".='yes'">
+            <xsl:choose>
+                <xsl:when test="string-length(../@linebefore-weight) &gt; 0">
+                    <xsl:text>        border-top:</xsl:text><xsl:value-of select="normalize-space(../@linebefore-weight)"/><xsl:text> solid black;
+</xsl:text>
+                </xsl:when>
+                <xsl:otherwise>
+                        <xsl:text>        border-top:1.5pt solid gray;
+</xsl:text>
+                </xsl:otherwise>
+            </xsl:choose>
+        </xsl:if>
+    </xsl:template>
+    <!-- 
         @pagebreakbefore
     -->
     <xsl:template match="@pagebreakbefore | @startonoddpage">
-        <xsl:if test=".='yes'">
+        <xsl:if test="$bEBook='N' and .='yes'">
             <xsl:text>        border-top:1.5pt solid gray;
 </xsl:text>
         </xsl:if>
@@ -1486,6 +2049,15 @@ li.lower-roman {
 </xsl:text>
         </xsl:if>
     -->
+    </xsl:template>
+    <!-- 
+        @rtl
+    -->
+    <xsl:template match="@rtl">
+        <xsl:if test="$bEBook!='Y' and .='yes'">
+            <xsl:text>        direction:rtl;
+</xsl:text>
+        </xsl:if>
     </xsl:template>
     <!-- 
         @spaceafter
@@ -1578,13 +2150,26 @@ li.lower-roman {
         =========================================================== -->
     <xsl:template match="@AddPeriodAfterFinalDigit"/>
     <xsl:template match="@after"/>
+    <xsl:template match="@align"/>
+    <xsl:template match="@alignoverride"/>
     <xsl:template match="@authorform"/>
+    <xsl:template match="@backmatterlabel"/>
+    <xsl:template match="@backmattershowLevel"/>
     <xsl:template match="@before"/>
     <xsl:template match="@beginsparagraph"/>
     <xsl:template match="@betweentitleandnumber"/>
     <xsl:template match="@captionLocation"/>
     <xsl:template match="@chapterlabel"/>
     <xsl:template match="@chapterlineindent"/>
+    <xsl:template match="@hangingindent"/>
+    <xsl:template match="@chapterhangingindent"/>
+    <xsl:template match="@section1hangingindent"/>
+    <xsl:template match="@section2hangingindent"/>
+    <xsl:template match="@section3hangingindent"/>
+    <xsl:template match="@section4hangingindent"/>
+    <xsl:template match="@section5hangingindent"/>
+    <xsl:template match="@section6hangingindent"/>
+    <xsl:template match="@contentBetweenLabelAndNumber"/>
     <xsl:template match="@dateIndentAuthorOverDateStyle"/>
     <xsl:template match="@dateToEntrySpaceAuthorOverDateStyle"/>
     <xsl:template match="@doubleColumnSeparation"/>
@@ -1597,6 +2182,10 @@ li.lower-roman {
     <xsl:template match="@hyphenationExceptionsFile"/>
     <xsl:template match="@id"/>
     <xsl:template match="@ignore"/>
+    <xsl:template match="@ignoreDateAccessed"/>
+    <xsl:template match="@ignoreDoi"/>
+    <xsl:template match="@ignoreLocations"/>
+    <xsl:template match="@ignoreUrl"/>
     <xsl:template match="@indentchapterline"/>
     <xsl:template match="@interlinearsourcestyle"/>
     <xsl:template match="@ISO639-3Code"/>
@@ -1605,15 +2194,26 @@ li.lower-roman {
     <xsl:template match="@leaderlength"/>
     <xsl:template match="@leaderpattern"/>
     <xsl:template match="@leaderwidth"/>
+    <xsl:template match="@linebefore-weight"/>
     <xsl:template match="@linkpagenumber"/>
     <xsl:template match="@linktitle"/>
     <xsl:template match="@listItemsHaveParenInsteadOfPeriod"/>
+    <xsl:template match="@listOfFiguresUsesFigureHeader"/>
+    <xsl:template match="@listOfTablesUsesTableHeader"/>
     <xsl:template match="@name"/>
     <xsl:template match="@numberProperAddPeriodAfterFinalDigit"/>
     <xsl:template match="@numberProperUseParens"/>
+    <xsl:template match="@numeralFormat"/>
+    <xsl:template match="@openInNewTab"/>
     <xsl:template match="@ORCID"/>
+    <xsl:template match="@partCentered"/>
+    <xsl:template match="@partContentBetweenLabelAndNumber"/>
+    <xsl:template match="@partContentBetweenNumberAndTitle"/>
+    <xsl:template match="@partShowPageNumber"/>
+    <xsl:template match="@partSpaceAfter"/>
+    <xsl:template match="@partSpaceBefore"/>
     <xsl:template match="@removecommonhundredsdigitsinpages"/>
-    <xsl:template match="@rtl"/>
+    <xsl:template match="@rightIndent"/>
     <xsl:template match="@ruleabovelength"/>
     <xsl:template match="@ruleabovepattern"/>
     <xsl:template match="@ruleabovewidth"/>
@@ -1625,6 +2225,8 @@ li.lower-roman {
     <xsl:template match="@showbookmarks"/>
     <xsl:template match="@showchapternumber"/>
     <xsl:template match="@showChapterNumberBeforeExampleNumber"/>
+    <xsl:template match="@showcontents"/>
+    <xsl:template match="@showExampleIdOnHoverInWebpage"/>
     <xsl:template match="@showInHeader"/>
     <xsl:template match="@showletter"/>
     <xsl:template match="@showmarking"/>
@@ -1635,15 +2237,19 @@ li.lower-roman {
     <xsl:template match="@spacebeforemainsection"/>
     <xsl:template match="@spaceBetweenEntriesAuthorOverDateStyle"/>
     <xsl:template match="@spaceBetweenEntryAndAuthorInAuthorOverDateStyle"/>
+    <xsl:template match="@spaceBetweenTableAndCaption[parent::tableCaptionLayout]"/>
+    <xsl:template match="@spacebetweentextandline"/>
     <xsl:template match="@spaceBetweenUnits"/>
     <xsl:template match="@startNumberingOverAtEachChapter"/>
     <xsl:template match="@startSection1NumberingAtZero"/>
     <xsl:template match="@textafterletter"/>
     <xsl:template match="@textafternumber"/>
+    <xsl:template match="@textafterterm"/>
     <xsl:template match="@textbeforeafterusesfontinfo"/>
     <xsl:template match="@textBeforeCapitalizedPluralOverride"/>
     <xsl:template match="@textBeforeCapitalizedSingularOverride"/>
     <xsl:template match="@textBeforePluralOverride"/>
+    <xsl:template match="@textBeforeSeeAlso"/>
     <xsl:template match="@textBeforeSingularOverride"/>
     <xsl:template match="@textbetweenchapterandnumber"/>
     <xsl:template match="@textBetweenChapterNumberAndExampleNumber"/>
@@ -1654,15 +2260,21 @@ li.lower-roman {
     <xsl:template match="@useblankextrapage"/>
     <xsl:template match="@usechapterlabelbeforechapters"/>
     <xsl:template match="@usecitationformatwhennumberofsharedpaperis"/>
+    <xsl:template match="@useDigitsForEndnoteNumbering"/>
     <xsl:template match="@useDoubleColumns"/>
     <xsl:template match="@useemptyheaderfooter"/>
     <xsl:template match="@useEqualSignsColumn"/>
+    <xsl:template match="@useFootnoteSymbols"/>
+    <xsl:template match="@useImageWidthSetToWidthOfExampleFigureOrChart"/>
     <xsl:template match="@useLabel"/>
+    <xsl:template match="@usePageHeader"/>
+    <xsl:template match="@usePageHeaderLabel"/>
     <xsl:template match="@uselineforrepeatedauthor"/>
     <xsl:template match="@useperiodafterappendixletter"/>
     <xsl:template match="@useperiodafterchapternumber"/>
     <xsl:template match="@useperiodafternumber"/>
     <xsl:template match="@useperiodaftersectionnumber"/>
+    <xsl:template match="@usetext-transformofitem"/>
     <xsl:template match="@usetitleinheader"/>
     <xsl:template match="@version"/>
     <xsl:template match="@verticalfillafter"/>
@@ -1673,6 +2285,7 @@ li.lower-roman {
     <xsl:template match="hangingIndentNormalIndent"/>
     <xsl:template match="langName"/>
     <xsl:template match="literalLabelLayout"/>
+    <xsl:template match="tablenCaptionLayout"/>
     <!--
         AddAnyLinkAttributes
     -->
@@ -1763,6 +2376,13 @@ li.lower-roman {
     -->
     <xsl:template name="OutputAbbreviationsInTable"/>    
     <!--
+        OutputAbbreviationsInTable (not needed here, but called from common)
+    -->
+    <xsl:template name="OutputCitationContents">
+        <xsl:param name="refer"/>
+        <xsl:param name="refWorks" select="$refWorks"/>
+    </xsl:template>
+    <!--
         OutputInterlinearTextReference (not needed here, but called from common)
     -->
     <xsl:template name="OutputInterlinearTextReference"/>
@@ -1849,6 +2469,58 @@ li.lower-roman {
 </xsl:text>
         </xsl:if>
     </xsl:template>
+    <!--
+        GetIndentLevel
+    -->
+    <xsl:template name="GetIndentLevel">
+        <xsl:param name="sLevel"/>
+        <xsl:variable name="sChapterLineIndent" select="normalize-space($contentLayoutInfo/@chapterlineindent)"/>
+        <xsl:variable name="sUnits" select="substring($sChapterLineIndent,string-length($sChapterLineIndent)-1)"/>
+        <xsl:choose>
+            <xsl:when test="string-length($sChapterLineIndent)&gt;0 and $sChapterLineIndent!='0pt'">
+                <xsl:choose>
+                    <xsl:when test="$sUnits='pt' or $sUnits='in' or $sUnits='mm' or $sUnits='cm'">
+                        <xsl:variable name="sAmount" select="substring($sChapterLineIndent,1,string-length($sChapterLineIndent)-2)"/>
+                        <xsl:value-of select="$sAmount * ($sLevel + 1)"/>
+                        <xsl:value-of select="$sUnits"/>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:value-of select="$sLevel + 1"/>
+                        <xsl:value-of select="$sUnits"/>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:value-of select="$sLevel"/>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
+    <!--
+        GetLangDataLayoutLanguage
+    -->
+    <xsl:template name="GetLangDataLayoutLanguage">
+        <xsl:variable name="sLanguage" select="normalize-space(../@language)"/>
+        <xsl:if test="string-length($sLanguage) &gt; 0">
+            <xsl:value-of select="$sLanguage"/>
+        </xsl:if>
+    </xsl:template>
+    <!--
+        SetTocHangingIndent
+    -->
+    <xsl:template name="SetTocHangingIndent">
+        <xsl:param name="value"/>
+        <xsl:choose>
+            <xsl:when test="string-length($value) &gt; 0">
+                <xsl:value-of select="$value"/>
+            </xsl:when>
+            <xsl:when test="string-length($tocHangingIndent) &gt; 0">
+                <xsl:value-of select="$tocHangingIndent"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:text>0pt</xsl:text>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
     <!-- ===========================================================
       ELEMENTS TO IGNORE
       =========================================================== -->
@@ -1863,8 +2535,11 @@ li.lower-roman {
     <xsl:template match="dd"/>
     <xsl:template match="fixedText"/>
     <xsl:template match="magnificationFactor"/>
+    <xsl:template match="publisherStyleSheetDate"/>
+    <xsl:template match="publisherStyleSheetDateAccessed"/>
     <xsl:template match="publisherStyleSheetName"/>
     <xsl:template match="publisherStyleSheetPublisher"/>
+    <xsl:template match="publisherStyleSheetUrl"/>
     <xsl:template match="publisherStyleSheetVersion"/>
     <xsl:template match="section1/shortTitle"/>
     <xsl:template match="section2/shortTitle"/>
@@ -1882,22 +2557,22 @@ li.lower-roman {
     <!-- ===========================================================
         TEMPLATE DUMMIES
         =========================================================== -->
+    <xsl:template name="DoAnnotation"/>
+    <xsl:template name="DoRefWorkPrep"/>
+    <xsl:template name="DoRefWork"/>
     <xsl:template name="DoRefWorks"/>
     <xsl:template name="HandleLiteralLabelLayoutInfo"/>
     <xsl:template name="LinkAttributesBegin"/>
     <xsl:template name="LinkAttributesEnd"/>
     <xsl:template name="OutputAbbreviationInCommaSeparatedList"/>
     <xsl:template name="OutputAbbreviationInTable"/>
+    <xsl:template name="OutputGlossaryTermInDefinitionList"/>
     <xsl:template name="OutputGlossaryTermInTable"/>
+    <xsl:template name="OutputGlossaryTermsAsDefinitionList"/>
     <xsl:template name="OutputGlossaryTermsInTable"/>
     <!-- ===========================================================
         TRANSFORMS TO INCLUDE
         =========================================================== -->
     <xsl:include href="XLingPapPublisherStylesheetXHTMLCSSContents.xsl"/>
-    <!--    <xsl:include href="XLingPapPublisherStylesheetCommon.xsl"/>
-    <xsl:include href="XLingPapPublisherStylesheetFOBookmarks.xsl"/>
-    <xsl:include href="XLingPapPublisherStylesheetFOContents.xsl"/>
-    <xsl:include href="XLingPapPublisherStylesheetFOReferences.xsl"/>
--->
     <xsl:include href="XLingPapPublisherStylesheetXHTMLCommon.xsl"/>
 </xsl:stylesheet>

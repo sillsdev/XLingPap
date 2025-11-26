@@ -5,20 +5,24 @@
        The version attribute can be used to keep track of which XLingPap version a master references file is (or was when it was created).
        This is a subcomponent of XLingPap
 -->
-<!ELEMENT references (refAuthor*, annotatedBibliographyTypes?)>
+<!ELEMENT references (labelContentChoices?, shortTitle?, refAuthor*, annotatedBibliographyTypes?)>
 <!ATTLIST references
     XeLaTeXSpecial CDATA #IMPLIED
     label CDATA #IMPLIED
     labelDissertation CDATA #IMPLIED
+    labelPaper CDATA #IMPLIED
     labelThesis CDATA #IMPLIED
     version CDATA #IMPLIED
-    authorformtoshowineditor (full | initials | both) "full"
+    authorformtoshowineditor (full | initials | surnamegivenname | both | fullsurnamegivenname | all) "full"
     titleformtoshowineditor (uppercase | lowercase | both) "uppercase"
+    showrefWorkIconsInEditor (yes | no) "no"
+    showrefTitleInBoldInEditor (yes | no) "no"
     showinlandscapemode (yes | no) "no"
     authorNamesWordForAnd CDATA #IMPLIED
+    pageRangeSeparator CDATA #IMPLIED
 >
 <!-- the citename is the string to use in a citation within the text body -->
-<!ELEMENT refAuthor (refAuthorInitials?, refAuthorName?, refWork+)>
+<!ELEMENT refAuthor (refAuthorInitials?, refAuthorSurnameGivenName?, refAuthorName?, citeName?, refWork+)>
 <!ATTLIST refAuthor
     name CDATA #REQUIRED
     citename CDATA #REQUIRED
@@ -30,13 +34,16 @@
 <!-- Every work has a date and a title.
      There are a number of kinds of references, each of which has different
      content. -->
-<!ELEMENT  refAuthorInitials (#PCDATA) >     
+<!ELEMENT  refAuthorInitials (#PCDATA | %embedded;)* >
+<!ELEMENT  refAuthorSurnameGivenName (#PCDATA | %embedded;)* >
 <!ELEMENT  refAuthorName (#PCDATA | refAuthorLastName)* >
 <!ELEMENT  refAuthorLastName (#PCDATA) >     
+<!ELEMENT  citeName (#PCDATA | %embedded;)* >
 <!ELEMENT refWork (authorRole?, refDate, refTitle, refTitleLowerCase?, (article | book | collection | dissertation | fieldNotes | ms | paper | proceedings | thesis | webPage), url?, dateAccessed?, iso639-3code*, comment?, annotations?, keywords?)>
 <!ATTLIST refWork
     id ID #REQUIRED
     %special;
+    showiso639-3codes (yes | no) "no"
 >
 <!-- An author's role in the work.  For example, editor, illustrator, author and illustrator, etc. -->
 <!ELEMENT authorRole (#PCDATA)>
@@ -45,6 +52,7 @@
 >
 <!ELEMENT refDate (#PCDATA)>
 <!ATTLIST refDate
+    citedate CDATA #IMPLIED
     xml:lang CDATA #IMPLIED
 >
 <!-- There are two versions of a title: one with capitals and one the is lower case (except for the first word and any proper nouns -->
@@ -56,9 +64,13 @@
 <!ATTLIST refTitleLowerCase
     xml:lang CDATA #IMPLIED
 >
+<!ELEMENT reprintInfo (#PCDATA | %embedded;)*>
+<!ATTLIST reprintInfo
+    xml:lang CDATA #IMPLIED
+>
 <!-- journal article -->
-<!ELEMENT article (jTitle, jVol, jIssueNumber?, (jPages | jArticleNumber)?, location?, publisher?, url?, dateAccessed?, iso639-3code*, comment?, annotations?, keywords?)>
-<!ELEMENT jTitle (#PCDATA)>
+<!ELEMENT article (jTitle, jVol, jIssueNumber?, (jPages | jArticleNumber)?, location?, publisher?, reprintInfo?, url?, dateAccessed?, doi?, iso639-3code*, comment?, annotations?, keywords?)>
+<!ELEMENT jTitle (#PCDATA | %embedded;)*>
 <!ATTLIST jTitle
     xml:lang CDATA #IMPLIED
 >
@@ -82,39 +94,51 @@
     xml:lang CDATA #IMPLIED
 >
 <!-- book -->
-<!ELEMENT book (translatedBy?, edition?, (seriesEd?, seriesEdInitials?, series)?, bVol?, multivolumeWork?, location?, publisher?, bookTotalPages?, url?, dateAccessed?, iso639-3code*, comment?, annotations?, keywords?)>
-<!ELEMENT translatedBy (#PCDATA)>
+<!ELEMENT book (translatedBy?, (editor, editorInitials?, editorSurnameGivenName?)?, bookversion?, edition?, (seriesEd?, seriesEdInitials?, seriesEdSurnameGivenName?, series)?, bVol?, multivolumeWork?, location?, publisher?, reprintInfo?, bookTotalPages?, url?, dateAccessed?, doi?, iso639-3code*, comment?, annotations?, keywords?)>
+<!ELEMENT translatedBy (#PCDATA | %embedded;)*>
 <!ATTLIST translatedBy
     xml:lang CDATA #IMPLIED
 >
-<!ELEMENT edition (#PCDATA)>
+<!ELEMENT editor (#PCDATA | %embedded;)*>
+<!ATTLIST editor
+    xml:lang CDATA #IMPLIED
+>
+<!ELEMENT editorInitials (#PCDATA | %embedded;)*>
+<!ELEMENT editorSurnameGivenName (#PCDATA | %embedded;)*>
+
+<!ELEMENT bookversion (#PCDATA | %embedded;)*>
+<!ATTLIST bookversion
+    xml:lang CDATA #IMPLIED
+>
+<!ELEMENT edition (#PCDATA | %embedded;)*>
 <!ATTLIST edition
     xml:lang CDATA #IMPLIED
 >
-<!ELEMENT series (#PCDATA)>
+<!ELEMENT series (#PCDATA | %embedded;)*>
 <!ATTLIST series
     xml:lang CDATA #IMPLIED
 >
-<!ELEMENT seriesEd (#PCDATA)>
+<!ELEMENT seriesEd (#PCDATA | %embedded;)*>
 <!ATTLIST seriesEd
     plural (no | yes) "yes"
     xml:lang CDATA #IMPLIED
 >
-<!ELEMENT seriesEdInitials (#PCDATA)>
+<!ELEMENT seriesEdInitials (#PCDATA | %embedded;)*>
+<!ELEMENT seriesEdSurnameGivenName (#PCDATA | %embedded;)*>
 
 <!ELEMENT bVol (#PCDATA)>
 <!ATTLIST bVol
     xml:lang CDATA #IMPLIED
 >
-<!ELEMENT multivolumeWork (#PCDATA)>
+<!ELEMENT multivolumeWork (#PCDATA | %embedded;)*>
 <!ATTLIST multivolumeWork
     xml:lang CDATA #IMPLIED
 >
-<!ELEMENT publisher (#PCDATA)>
+<!ELEMENT publisher (#PCDATA | %embedded;)*>
 <!ATTLIST publisher
     xml:lang CDATA #IMPLIED
 >
-<!ELEMENT location (#PCDATA)>
+<!ELEMENT location (#PCDATA | %embedded;)*>
 <!ATTLIST location
     xml:lang CDATA #IMPLIED
 >
@@ -127,20 +151,21 @@
        a one-off method that includes all the information about the collection volume itself
        a reference to a book element (for the collection volume) and a possible set of pages for this paper
 -->
-<!ELEMENT collection ((((collEd, collEdInitials?)?, collTitle, collTitleLowerCase?, edition?, collVol?, collPages?, (seriesEd?, seriesEdInitials?, series)?, bVol?, multivolumeWork?, location?, publisher?) | collCitation),
-                         url?, dateAccessed?, iso639-3code*, comment?, annotations?, keywords?)>
+<!ELEMENT collection ((((collEd, collEdInitials?, collEdSurnameGivenName?)?, collTitle, collTitleLowerCase?, bookversion?, edition?, collVol?, collPages?, (seriesEd?, seriesEdInitials?, seriesEdSurnameGivenName?, series)?, bVol?, multivolumeWork?, location?, publisher?) | collCitation),
+                         reprintInfo?, url?, dateAccessed?, doi?, iso639-3code*, comment?, annotations?, keywords?)>
 
-<!ELEMENT collEd (#PCDATA)>
+<!ELEMENT collEd (#PCDATA | %embedded;)*>
 <!ATTLIST collEd
     plural (no | yes) "yes"
     xml:lang CDATA #IMPLIED
 >
-<!ELEMENT collEdInitials (#PCDATA)>
-<!ELEMENT collTitle (#PCDATA)>
+<!ELEMENT collEdInitials (#PCDATA | %embedded;)*>
+<!ELEMENT collEdSurnameGivenName (#PCDATA | %embedded;)*>
+<!ELEMENT collTitle (#PCDATA | %embedded;)*>
 <!ATTLIST collTitle
     xml:lang CDATA #IMPLIED
 >
-<!ELEMENT collTitleLowerCase (#PCDATA)>
+<!ELEMENT collTitleLowerCase (#PCDATA | %embedded;)*>
 <!ELEMENT collVol (#PCDATA)>
 <!ATTLIST collVol
     xml:lang CDATA #IMPLIED
@@ -157,11 +182,11 @@
 >
 
 <!-- PhD dissertation -->
-<!ELEMENT dissertation (location?, institution, published?, url?, dateAccessed?, iso639-3code*, comment?, annotations?, keywords?)>
+<!ELEMENT dissertation (location?, institution, published?, reprintInfo?, url?, dateAccessed?, doi?, iso639-3code*, comment?, annotations?, keywords?)>
 <!ATTLIST dissertation
     labelDissertation CDATA #IMPLIED
 >
-<!ELEMENT institution (#PCDATA)>
+<!ELEMENT institution (#PCDATA | %embedded;)*>
 <!ATTLIST institution
     xml:lang CDATA #IMPLIED
 >
@@ -171,12 +196,16 @@
     xml:lang CDATA #IMPLIED
 >
 <!-- field notes -->
-<!ELEMENT fieldNotes (location?, institution, url?, dateAccessed?, iso639-3code*, comment?, annotations?, keywords?)>
+<!ELEMENT fieldNotes (location?, institution, url?, dateAccessed?, doi?, iso639-3code*, comment?, annotations?, keywords?)>
 <!-- ms (manuscript) -->
-<!ELEMENT ms (((location?, institution) | empty), url?, dateAccessed?, iso639-3code*, comment?, annotations?, keywords?)>
+<!ELEMENT ms (((location?, institution, msVersion?) | msVersion | empty), url?, dateAccessed?, doi?, iso639-3code*, comment?, annotations?, keywords?)>
+<!ELEMENT msVersion (#PCDATA | %embedded;)*>
 <!ELEMENT empty EMPTY>
 <!-- paper presented at a conference -->
-<!ELEMENT paper (conference, location?, url?, dateAccessed?, iso639-3code*, comment?, annotations?, keywords?)>
+<!ELEMENT paper (conference, location?, url?, dateAccessed?, doi?, iso639-3code*, comment?, annotations?, keywords?)>
+<!ATTLIST paper
+    labelPaper CDATA #IMPLIED
+>
 <!ELEMENT conference (#PCDATA)>
 <!ATTLIST conference
     xml:lang CDATA #IMPLIED
@@ -186,18 +215,20 @@
        a one-off method that includes all the information about the proceedings volume itself
        a reference to a book element (for the proceedings volume) and a possible set of pages for this paper
 -->
-<!ELEMENT proceedings ((((procEd, procEdInitials?)?, procTitle, procTitleLowerCase?, procVol?, procPages?, location?, publisher?) | procCitation), url?, dateAccessed?, iso639-3code*, comment?, annotations?, keywords?)>
-<!ELEMENT procEd (#PCDATA)>
+<!ELEMENT proceedings ((((procEd, procEdInitials?, procEdSurnameGivenName?)?, procTitle, procTitleLowerCase?, procVol?, procPages?,(seriesEd?, seriesEdInitials?, seriesEdSurnameGivenName?, series)?, bVol?, multivolumeWork?, location?, publisher?) | procCitation),
+                        reprintInfo?, url?, dateAccessed?, doi?, iso639-3code*, comment?, annotations?, keywords?)>
+<!ELEMENT procEd (#PCDATA | %embedded;)*>
 <!ATTLIST procEd
     plural (no | yes) "yes"
     xml:lang CDATA #IMPLIED
 >
-<!ELEMENT procEdInitials (#PCDATA)>
-<!ELEMENT procTitle (#PCDATA)>
+<!ELEMENT procEdInitials (#PCDATA | %embedded;)*>
+<!ELEMENT procEdSurnameGivenName (#PCDATA | %embedded;)*>
+<!ELEMENT procTitle (#PCDATA | %embedded;)*>
 <!ATTLIST procTitle
     xml:lang CDATA #IMPLIED
 >
-<!ELEMENT procTitleLowerCase (#PCDATA)>
+<!ELEMENT procTitleLowerCase (#PCDATA | %embedded;)*>
 <!ELEMENT procVol (#PCDATA)>
 <!ATTLIST procVol
     xml:lang CDATA #IMPLIED
@@ -213,12 +244,12 @@
     page CDATA #IMPLIED
 >
 <!-- MA thesis -->
-<!ELEMENT thesis (location?, institution, published?, url?, dateAccessed?, iso639-3code*, comment?, annotations?, keywords?)>
+<!ELEMENT thesis (location?, institution, published?, reprintInfo?, url?, dateAccessed?, doi?, iso639-3code*, comment?, annotations?, keywords?)>
 <!ATTLIST thesis
     labelThesis CDATA #IMPLIED
 >
 <!-- web page -->
-<!ELEMENT webPage (edition?, location?, (institution | publisher)?, url, dateAccessed?, iso639-3code*, comment?, annotations?, keywords?)>
+<!ELEMENT webPage (edition?, location?, (institution | publisher)?, url, dateAccessed?, doi?, iso639-3code*, comment?, annotations?, keywords?)>
 <!ELEMENT url (#PCDATA)>
 <!ATTLIST url
     xml:lang CDATA #IMPLIED
@@ -231,6 +262,9 @@
      in the work.
 -->
 <!ELEMENT iso639-3code (#PCDATA)>
+<!-- One may optionally add a DOI (digital object identifier) for a work.
+-->
+<!ELEMENT doi (#PCDATA)>
 <!-- One may optionally add any number of keywords associated with the work; XLingPaper does not use this.
 -->
 <!ELEMENT keywords (keyword+) >
@@ -246,7 +280,9 @@
 <!ATTLIST citation
     ref IDREF #REQUIRED
     page CDATA #IMPLIED
+    timestamp CDATA #IMPLIED
     author (yes | no) "yes"
+    date (yes | no) "yes"
     paren (both | none | initial | final | citationBoth | citationInitial) #IMPLIED
 >
 <!ENTITY % XLingPapCharacterEntities SYSTEM  "XLingPapCharacterEntities.dtd">
@@ -272,7 +308,8 @@
 >-->
 <!ELEMENT annotationRef EMPTY >
 <!ATTLIST annotationRef
-    annotation IDREF #REQUIRED
+    annotation IDREFS #IMPLIED
     citation IDREF #REQUIRED
+    contentType IDREF #IMPLIED
     %special;
 >

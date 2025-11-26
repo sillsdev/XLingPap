@@ -5,7 +5,7 @@
        This is a subcomponent of XLingPap
        The usesmallcaps attribute is deprecated; use font-variant='small-caps' or, better, use a real small caps font-family
        -->
-<!ELEMENT glossaryTerms (comment?, glossaryTerm*, comment?)>
+<!ELEMENT glossaryTerms (labelContentChoices?, comment?, glossaryTerm*, comment?)>
 <!ATTLIST glossaryTerms
     label CDATA #IMPLIED
     version CDATA #IMPLIED
@@ -46,3 +46,4 @@ It only shows if there is an instance of a referring glossaryTermRef element in 
    equalsWidth CDATA #IMPLIED
    definitionWidth CDATA #IMPLIED
 >
+<!ELEMENT glossaryTermsShownHereAsDefinitionList EMPTY >

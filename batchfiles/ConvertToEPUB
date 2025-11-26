@@ -1,4 +1,5 @@
 #!/bin/sh
+PATH=$PATH:/Applications/calibre.app/Contents/MacOS/
 
 if [ "$6" = "paper" ]; then
 	levelone="//h:div[contains(@class,'Titlesection1') and not(preceding-sibling::h:div[@class='appendixTitle']) or contains(@class,'Title') and not(contains(@class, 'section')) or @class='abstract']"

@@ -8,7 +8,7 @@ removecommonhundredsdigitsinpages="yes"
 ><publisherStyleSheetReferencesName
 >SIL-UND Thesis References Stylesheet</publisherStyleSheetReferencesName
 ><publisherStyleSheetReferencesVersion
->1.1.0</publisherStyleSheetReferencesVersion
+>1.2.0</publisherStyleSheetReferencesVersion
 ><refAuthorLayouts
 ><comment
 >Author Layouts</comment
@@ -244,8 +244,28 @@ font-style="italic"
 textafter=".  "
 ></refTitleItem
 ><seriesEdItem
-textafter=". "
+appendEdAbbreviation="yes"
+edTextPlural="eds."
+edTextSingular="ed."
+edTextbefore=", "
 ></seriesEdItem
+><seriesItem
+textafter=".) "
+textbefore="("
+></seriesItem
+><locationPublisherLayoutsRef
+></locationPublisherLayoutsRef
+><urlDateAccessedLayoutsRef
+></urlDateAccessedLayoutsRef
+></bookLayout
+><bookLayout
+><refTitleItem
+font-style="italic"
+textafter=".  "
+></refTitleItem
+><editorItem
+textafter=", ed. "
+></editorItem
 ><seriesItem
 textafter=".) "
 textbefore="("
@@ -707,6 +727,34 @@ textafter=", "
 ><collVolItem
 textafter=", "
 ></collVolItem
+><collPagesItem
+textafter=".  "
+></collPagesItem
+><locationPublisherLayoutsRef
+></locationPublisherLayoutsRef
+><urlDateAccessedLayoutsRef
+></urlDateAccessedLayoutsRef
+></collectionLayout
+><collectionLayout
+><refTitleItem
+textafter=".  "
+></refTitleItem
+><collEdItem
+appendEdAbbreviation="no"
+textafter=", "
+textbefore="In "
+></collEdItem
+><collTitleItem
+font-style="italic"
+textafter=" "
+></collTitleItem
+><seriesItem
+textafter="), "
+textbefore="("
+></seriesItem
+><bVolItem
+textafter=", "
+></bVolItem
 ><collPagesItem
 textafter=".  "
 ></collPagesItem
@@ -1825,19 +1873,45 @@ textafter="."
 >Url and/or DateAccessed Layouts</comment
 ><urlDateAccessedLayout
 ><urlItem
-textafter="."
 textbefore="  "
 ></urlItem
 ><dateAccessedItem
-textafter=".)"
+textafter=")"
+textbefore="  ("
+></dateAccessedItem
+><doiItem
+textafter="."
+textbefore="  doi:"
+></doiItem
+></urlDateAccessedLayout
+><urlDateAccessedLayout
+><urlItem
+textbefore="  "
+></urlItem
+><dateAccessedItem
+textafter=")"
 textbefore="  ("
 ></dateAccessedItem
 ></urlDateAccessedLayout
 ><urlDateAccessedLayout
 ><urlItem
-textafter="."
 textbefore="  "
 ></urlItem
+><doiItem
+textafter="."
+textbefore="  doi:"
+></doiItem
+></urlDateAccessedLayout
+><urlDateAccessedLayout
+><urlItem
+textbefore="  "
+></urlItem
+></urlDateAccessedLayout
+><urlDateAccessedLayout
+><doiItem
+textafter="."
+textbefore="  doi:"
+></doiItem
 ></urlDateAccessedLayout
 ><urlDateAccessedLayout
 ><missingItem

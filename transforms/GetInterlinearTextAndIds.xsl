@@ -51,15 +51,15 @@
                   </xsl:otherwise>
               </xsl:choose>
               </xsl:variable>
-         <xsl:variable name="sNum">
-<!--            <xsl:number format="001.001" value="$sTextID"/>-->
+<!--         <xsl:variable name="sNum">
+<!-\-            <xsl:number format="001.001" value="$sTextID"/>-\->
              <xsl:value-of select="format-number($sTextID, '000.###')"/>
-         </xsl:variable>
-         <xsl:value-of select="$sNum"/>
+         </xsl:variable>-->
+         <xsl:value-of select="$sTextID"/>
          <xsl:text> </xsl:text>
          <xsl:for-each select="lineGroup/line[1]">
          <xsl:for-each select="descendant-or-self::langData">
-            <xsl:value-of select="."/>
+            <xsl:apply-templates select="node()[name() != 'endnote']"/>
             <xsl:text> </xsl:text>
          </xsl:for-each>   
          </xsl:for-each>

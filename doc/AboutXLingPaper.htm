@@ -20,20 +20,948 @@
    <body>
       <h1 align="center"><img src="resources/XLingPaper.ico" alt="icon">&nbsp;&nbsp;XLingPaper&nbsp;&nbsp;<img src="resources/XLingPaper.ico" alt="icon"></h1>
       <h3 align="center">for use with the XMLmind XML Editor</h3>
-      <p align="center">Version: <span style="font-size:larger; font-weight:bold">2.29.7</span></p>
-      <p align="center">Date: 2016-12-14</p>
+      <p align="center">Version: <span style="font-size:larger; font-weight:bold">3.18.1</span></p>
+      <p align="center">Date: 2025-11-26</p>
       <p align="center">A configuration for creating XLingPaper documents.</p>
-      <p align="center" style="font-style:italic;">A way to author and archive linguistic papers or books using XML.</p>
+      <p align="center" style="font-style:italic;">A way to author and archive linguistic documents using XML.</p>
       <hr>
       <p style="margin-left:.5in"><input type="button" value="Show Details" name="BDetails" id="ShowDetailsButton" onclick="ButtonShowDetails()" style="width: 88px; height: 24px"></p>
       <div id="RevisionHistory" style="display:none">
-         <a:documentation xmlns="http://www.w3.org/1999/xhtml" xmlns:html="http://www.w3.org/1999/xhtml">
-            <p>This configuration makes it much easy to create and edit XLingPaper documents. It has been tested mainly on Windows. It has
-               been tested some on Unix (Ubuntu 8.0.4, 9.0.4, and 9.10) and Mac OS X 10.5 (Leopard) and 10.6 (Snow Leopard).
+         <a:documentation>
+            <p xmlns="http://www.w3.org/1999/xhtml">This configuration makes it much easier to create and edit XLingPaper documents. It runs on Linux, Mac OS X, and Windows.
+               See <a href="http://software.sil.org/xlingpaper/">http://software.sil.org/xlingpaper/</a>. In order to produce PDF via the default XeLaTeX method, you must also get and install the XeLaTeX upgrade package at <a href="http://software.sil.org/xlingpaper/resources/xelatex-upgrade/">http://software.sil.org/xlingpaper/resources/xelatex-upgrade/</a>.
             </p>
-            <hr></hr>
-            <p><b>Revision History</b></p>
-            <ul>
+            <hr xmlns="http://www.w3.org/1999/xhtml"></hr>
+            <p xmlns="http://www.w3.org/1999/xhtml"><b>Revision History</b></p>
+            <ul xmlns="http://www.w3.org/1999/xhtml">
+               <li>3.18.1 26 November 2025
+                  <ul>
+                     <li>For the default way of producing PDF (via XeLaTeX):
+                        <ul>
+                           <li>Fix bug: line numbering was incorrect for contents and listInterlinears.</li>
+                        </ul>
+                     </li>
+                  </ul>
+               </li>
+               <li>3.18.0 10 November 2025
+                  <ul>
+                     <li>Add ability for web page (and therefore EPUB) output to automatically wrap interlinears.</li>
+                     <li>Add ability to ignore dateAccessed, doi, and/or url elements when producing outputs. See section 5.3.17 on the publisher style
+                        sheet documentation.
+                     </li>
+                     <li>Fix bug: putting keyword layout info after the abstract layout still puts the keyword info after the author.</li>
+                     <li>For the default way of producing PDF (via XeLaTeX):
+                        <ul>
+                           <li>Fix bug: running headers where chapter/section number and title were on different pages, always showed the title with number
+                              together.
+                           </li>
+                           <li>Add ability to force page break in a table of abbreviations.</li>
+                        </ul>
+                     </li>
+                  </ul>
+               </li>
+               <li>3.17.0 13 May 2025
+                  <ul>
+                     <li>Rework EPUB production to not need Calibre; the new output should also pass EPUBCheck.</li>
+                     <li>Removed alt attribute to img elements for web page output (we use the description attribute instead).</li>
+                     <li>Add Schematron check for empty citations.</li>
+                     <li>Fix info on mediaOject appendix entry in documentation.</li>
+                     <li>Add ability to control hanging indent in contents items via the hangingindent attribute of the contentsLayout element.</li>
+                     <li>Add ability to control hanging indent in chapter and section1 through 6 contents items via new attributes of the contentsLayout
+                        element.
+                     </li>
+                     <li>Add ability to control hanging indent in the list of figures and in the list of tables. For figures, added a listOfFiguresHangingIndent
+                        attribute to the figureLayout element. For tables, added a listOfTablesHangingIndent attribute to the tablenumberedLayout
+                        element.
+                     </li>
+                     <li>For the web page output using a publisher style sheet
+                        <ul>
+                           <li>Fix bug: endnotes could get the wrong chapter number</li>
+                        </ul>
+                     </li>
+                  </ul>
+               </li>
+               <li>3.16.0 27 November 2024
+                  <ul>
+                     <li>Add ability to control which footnote symbols are used for authors using the new symbolOverride attribute on endnote elements.</li>
+                     <li>Add index entry for "lines to include of an interlinear text" to the user documentation.</li>
+                     <li>Improve explanation of the url attribute of a referencedInterlinearText element in the user documentation.</li>
+                     <li>Fix bug: When including referenced texts where one had an endnote with a citation to a refWork by the same author as a cited
+                        work in the main document, that refWork would incorrectly appear in the output even if it was never cited elsewhere.
+                     </li>
+                     <li>For the default way of producing PDF (via XeLaTeX):
+                        <ul>
+                           <li>Fix bug: when an endnote was in a framedUnit and @linkNumberToText was set to 'yes,' the text used an Arabic numeral while
+                              the footnote proper used a lowercase letter.
+                           </li>
+                           <li>Fix bug: when a caption in a tablenumbered using an img element has a footnote, the footnote text did not show.</li>
+                           <li>Fix bug: when showing the Page label in contents, the label could overwrite the page number of the first line of the contents.</li>
+                           <li>Fix bug: when using linkNumberToText for footnotes, PDF would fail to be produced if there were two p elements in the footnote
+                              body.
+                           </li>
+                        </ul>
+                     </li>
+                  </ul>
+               </li>
+               <li>3.15.0 10 May 2024
+                  <ul>
+                     <li>Add the SortReferences command to sort a references master list file.</li>
+                     <li>Add the FindAnyDuplicateAuthors command to find any duplicate refAuthor elements.</li>
+                     <li>Enable links in web page output to open in a new tab.</li>
+                     <li>Add bookversion to book and collection reference elements.</li>
+                     <li>Allow framedUnit in a figure element.</li>
+                     <li>Add numeralFormat attribute to partLayout in publisher style sheet to control numeral formatting of parts.</li>
+                     <li>Enable showing abbreviations as a table in a section1 element and in a chapter element.</li>
+                     <li>Add useDigitsForEndnoteNumbering attribute to authorLayout element so one can have footnotes on authors be numbered like other
+                        footnotes.
+                     </li>
+                     <li>Fix bug: in a chapters in collection document, the preface style sheet information of the main front matter was always used.</li>
+                     <li>Fix bug: promoting a section1 element to a chapter would cause a validity error about two attributes being invalid.</li>
+                     <li>Fix typo in section 5.3.15 of the publisher style sheet documentation.</li>
+                     <li>For the default way of producing PDF (via XeLaTeX):
+                        <ul>
+                           <li>Add ability to control the number of PDF bookmark levels to show by adding the bookmarksShowLevel attribute to the contents
+                              element.
+                           </li>
+                           <li>Fix bug: for the non-style sheet output, paragraphs after a numbered table would not be indented properly.</li>
+                           <li>Fix bug: index output could have unneeded blank space at the end of a column or page when an index item had embedded items.</li>
+                        </ul>
+                     </li>
+                  </ul>
+               </li>
+               <li>3.14.0 13 November 2023
+                  <ul>
+                     <li>Add ability to have an additional author field under references for using a "surname, given name" format of authors. The element
+                        is refAuthorSurnameGivenName.
+                     </li>
+                     <li>Add an ability to set the horizontal alignment of figures and numbered tables via a publisher style sheet. See the align attribute
+                        in sections 6.12.1 "Figures" and 6.13.1 "Numbered Tables" in the publisher style sheet documentation and the alignoverride
+                        attribute in sections 6.4.1 "Figures" and 6.4.3 "Numbered Tables" in the user documentation.
+                     </li>
+                     <li>Add a borderaround attribute to img elements and add an imageBorderLayout element to publisher style sheets to control the
+                        width of the border and the space between the border and the image.
+                     </li>
+                     <li>Fix bug: glossary terms would come out in the wrong order if some terms only occurred in definitions of cited terms.</li>
+                     <li>Fix bug: non-publisher style sheet transforms did not insert a space between textBefore and a reference when using the default
+                        textBefore values.
+                     </li>
+                     <li>Fix bug: any headerFooterPageStyles in a back matter layout portion of a publisher style sheet that contained a chapterNumber
+                        element would fail to show the contents of that element in the header/footer in the output.
+                     </li>
+                     <li>Fix bug: using an example within a dd element did not format correctly.</li>
+                     <li>Fix bug: when the defaultparenvalue attribute in a citationLayout was set to citationBoth, a citation element with an overt
+                        paren attribute value would be ignored.
+                     </li>
+                     <li>For the default way of producing PDF (via XeLaTeX):
+                        <ul>
+                           <li>Add a way to get ragged right (left justified) output: Added the paragraphAlignment (before the lineSpacing element) in a
+                              publisher style sheet. It has one attribute, textalign, which defaults to 'justify' but can be set to 'left'.
+                           </li>
+                           <li>Fix bug: using a tree with image could cause the left margin position to change.</li>
+                           <li>Fix bug: when a percent sign was in a secTitle, PDF would fail to be produced.</li>
+                        </ul>
+                     </li>
+                     <li>For the RenderX way of producing PDF:
+                        <ul>
+                           <li>Fix bug: Having a publishing blurb could cause the PDF to fail to be produced.</li>
+                           <li>Fix bug: Including an authorContactInfoLayout element in a publisher style sheet could cause the PDF to fail to be produced.</li>
+                        </ul>
+                     </li>
+                  </ul>
+               </li>
+               <li>3.13.0 18 May 2023
+                  <ul>
+                     <li>Allow formatting of short subsection level elements on a case-by-case basis.</li>
+                     <li>Improve publisher style sheet documentation on literal override.</li>
+                     <li>Add check for a glossaryTermRef referring to the glossaryTerm it is in.</li>
+                     <li>Fix bug: when an example contained a copied interlinear from an interlinear-text, the short name of the text did not show
+                        in its link.
+                     </li>
+                     <li>Fix bug: an interlinearRefCitation element could fail to show the short title.</li>
+                     <li>Fix bug in web page output: listDefintion elements were not shown in example elements if there was an exampleHeading.</li>
+                     <li>Fix bug: a glossaryTermRef referring to the glossaryTerm it is in could cause any output to fail.</li>
+                     <li>For the default way of producing PDF (via XeLaTeX):
+                        <ul>
+                           <li>Fix bug: when a chart contained just text and was followed by a section level element, more vertical space was needed after
+                              the chart.
+                           </li>
+                           <li>Fix bug: when an interlinear in a table had two free lines and the interlinear source was set to after the first line, the
+                              PDF would not be produced.
+                           </li>
+                           <li>Fix bug: when an example had listDefinition elements and those had a list embedded in them, the alignment of the beginning
+                              of the list over-wrote the definition it was in.
+                           </li>
+                           <li>Fix bug: when a style sheet had a section layout with a space before, that space could be doubled in certain situations.</li>
+                        </ul>
+                     </li>
+                  </ul>
+               </li>
+               <li>3.12.0 3 November 2022
+                  <ul>
+                     <li>Fix bug in glossary terms output: it included any glossary term that was referenced in a term definition even if that term
+                        was never cited in the main document. We now also include all terms referred to in definitions that were cited.
+                     </li>
+                     <li>Improve section 11.27 of the user documentation to refer to section 1.3 which talks about setting up language data.</li>
+                     <li>When using content control, an excluded table could be displayed incorrectly in XXE.</li>
+                     <li>Enable control of the right indent of a block quote via a publisher style sheet.</li>
+                     <li>Enable control of adding a page column header for the table of contents via a publisher style sheet.</li>
+                     <li>Enable control of using a table column header for the list of tables via a publisher style sheet.</li>
+                     <li>Enable control of using a figure column header for the list of figures via a publisher style sheet.</li>
+                     <li>Enable default opening parenthesis location for citation elements (before the name or before the date) via a publisher style
+                        sheet.
+                     </li>
+                     <li>Enable ignoring all location elements in references via a publisher style sheet.</li>
+                     <li>Add date, url, and date accessed items for publisher style sheets and references style sheets.</li>
+                     <li>Improve use of some abbreviations in user documentation.</li>
+                     <li>Add reference publisher style sheets for:
+                        <ul>
+                           <li>APA</li>
+                           <li>Chicago Manual of Style</li>
+                           <li>Haspelmath</li>
+                           <li>LSA</li>
+                        </ul>
+                     </li>
+                     <li>Improve SIL-UND references publisher style sheet.</li>
+                     <li>Make Sample Paper and Sample Book publisher style sheets use the LSA references publisher style sheet.</li>
+                     <li>Enable a td element to contain an interlinearRef element.</li>
+                     <li>Improve sample book and paper style sheets.</li>
+                     <li>In the documentation, clarify the usage of a bVol element when there is a series for a paper in a collection and for a proceedings
+                        volume.
+                     </li>
+                     <li>Add volume element for books. It can be used to indicate where a volume begins in the table of contents.</li>
+                     <li>Improve interlinear line spacing in sample book and paper publisher style sheets.</li>
+                     <li>Fix bug: when using referenced interlinear texts, some citations from endnotes in an interlinear in a referenced text that
+                        was never referenced in the main body could be included in the references even though it was not cited elsewhere. Also improved
+                        the speed of processing a document containing referenced interlinear texts.
+                     </li>
+                     <li>Fix bug: the references title was shown even when there were no references cited in XSL-FO-based output and for non-style
+                        sheet web page output.
+                     </li>
+                     <li>Fix bug: if a refTitle contained a citation but the document did not have any other citation elements, then an empty References
+                        section was output. References were also shown in the table of contents.
+                     </li>
+                     <li>Fix bug: for the non-style sheet outputs, the content of any publishingBlurb was output at the end of the document as well
+                        as at the beginning. For web page output, it was only output at the end.
+                     </li>
+                     <li>For the default way of producing PDF (via XeLaTeX):
+                        <ul>
+                           <li>Fix bug: for the non-style sheet output, if a publishingBlurb began with a br element, the PDF would fail to be produced.</li>
+                           <li>Fix bug: vertically centering a publisher style sheet part, chapter, or appendix failed to work.</li>
+                        </ul>
+                     </li>
+                     <li>For web page output:
+                        <ul>
+                           <li>Fix bug: when a style sheet had the initial indent of a hanging indent set to 0, the hanging indent paragraph did not have
+                              an indent.
+                           </li>
+                           <li>Fix bug: when using a style sheet, if a front matter text item contained just a comment, all the following material could
+                              end up be centered.
+                           </li>
+                        </ul>
+                     </li>
+                  </ul>
+               </li>
+               <li>3.11.0 1 June 2022
+                  <ul>
+                     <li>Allow formatting in citation names.</li>
+                     <li>Improve the size of the choose font dialog.</li>
+                     <li>Add section 12.12 to user documentation on how to work faster when editing a text or complicated table within a long document.</li>
+                     <li>Improve publisher style sheet documentation on the useblankextrapage attribute for title formats.</li>
+                     <li>Improve information on footnote indents in publisher style sheet documentation.</li>
+                     <li>Allow citations to not have a date (per historical linguistics convention).</li>
+                     <li>Clarify how to effectively use the useblankextrapage attribute on frontmatter, chapter, and backmatter items in the publisher
+                        style sheet documentation.
+                     </li>
+                     <li>Fix bug: refAuthorInitials did not always format correctly for web page and FO style sheet outputs.</li>
+                     <li>Fix bug in Windows installer: resetvars.bat referred to wrong directory.</li>
+                     <li>Fix bugs in CreateZip command: a hyphenation exceptions file could be missed or located in the wrong place.</li>
+                     <li>For the default way of producing PDF (via XeLaTeX):
+                        <ul>
+                           <li>Add new XeLaTeXSpecial attribute value for table cells when the table has row spans and the output puts a cell in the wrong
+                              column. Use "extra-columns-before='2'"or however many columns are needed to put the cell in the correct column.
+                           </li>
+                           <li>Try to make documentation on setting a table column width value clearer.</li>
+                           <li>Fix bug: setting a width for a table column could cause the PDF to fail to be produced.</li>
+                           <li>Fix bug: a blockquote with two or more q elements did not format correctly.</li>
+                           <li>Fix bug: In rare cases, automatically calculating table column widths could cause the PDF to not be produced.</li>
+                           <li>Fix bug: using a literal would output two copies of "Lit." when there is no style sheet.</li>
+                           <li>Fix bug: when a p element followed a framedUnit, the p would not be indented.</li>
+                        </ul>
+                     </li>
+                  </ul>
+               </li>
+               <li>3.10.0 13 December 2021
+                  <ul>
+                     <li>In section 11.44 of the user documentation,add PDFtk as another tool to use.</li>
+                     <li>Add ability to use LibreOffice to produce MathML files in user documentation. Also add note that some have used this for phrase
+                        structure rules.
+                     </li>
+                     <li>Add endnotes label information to user documentation.</li>
+                     <li>Fix bug: iso69-3codes formated via a publisher style sheet failed to use the textafter value.</li>
+                     <li>Fix bug: when using a chapter number for figure numbers and numbered tables, the textafternumber attribute of the chapterTitleLayout
+                        element would also show when it should not.
+                     </li>
+                     <li>Fix bug: when using glossary terms, if a term definition contained a citation, that cited reference appeared in the references
+                        even when that glossary term was never used in the document and that citation was also never used in the document.
+                     </li>
+                     <li>Fix bug: when using XXE's revision mechanism on a collection volume, author names in the contents could include strange letters
+                        (from the revision mechanism).
+                     </li>
+                     <li>For the default way of producing PDF (via XeLaTeX):
+                        <ul>
+                           <li>Fix bug: using the showAsFootnoteAtEndOfAbstract attribute of an acknowledgementsLayout element could cause the PDF to fail
+                              to be produced.
+                           </li>
+                           <li>Fix bug: when not using a style sheet and centering or forcing a table to the right, any caption with it was still to the
+                              left.
+                           </li>
+                           <li>Fix bug: a free element whose lang attribute refers to a language element with rtl set to 'yes', had the wrong word order
+                              when using a publisher style sheet.
+                           </li>
+                           <li>Fix bug: a table using percentages for column widths when shown in landscape mode, used a width that was for portrait mode.</li>
+                           <li>Fix bug: a table using percentages for column widths when in an example, used a width that was too wide.</li>
+                           <li>Fix bug: when using a style sheet in a book and not using a numberLayout element, if one used a text transform and left justified
+                              the title, the chapter title would still be indented and would have extra space after it.
+                           </li>
+                        </ul>
+                     </li>
+                     <li>For the web page output:
+                        <ul>
+                           <li>Fix bug: when using a style sheet where an appendix has no numberLayout and there is textbefore, the textbefore value occurred
+                              after the appendix letter instead of before it.
+                           </li>
+                        </ul>
+                     </li>
+                  </ul>
+               </li>
+               <li>3.9.0 3 May 2021
+                  <ul>
+                     <li>Add msVersion element to ms element (some manuscripts need version information).</li>
+                     <li>Add ability to control the label for a paper (given at a conference) reference.</li>
+                     <li>When dynamically sorting references by author, also sort the works by date and, if more than one work has the same date, by
+                        title.
+                     </li>
+                     <li>Deprecate use of a language element's ethnCode attribute. Use ISO639-3Code instead.</li>
+                     <li>Make reference titles appear in bold within XXE via a showrefTitleInBoldInEditor attribute on the references element.</li>
+                     <li>Show an icon within XXE to indicate what kind of reference a work is via a showrefWorkIconsInEditor attribute on the references
+                        element.
+                     </li>
+                     <li>Allow annotationRef elements to be in examples.</li>
+                     <li>Add a way to create a hyphenation exceptions file within XXE.</li>
+                     <li>Add "text before" capability for appendixRef like there is for sectionRef, figureRef, and tablenumberedRef.</li>
+                     <li>In a publisher style sheet, add control for single spacing the content of framedUnit elements when the document is space-and-a-half
+                        or double spaced.
+                     </li>
+                     <li>In a publisher style sheet, add ability to create a hyperlink between a footnote number in the text and footnote content at
+                        the bottom of the page. See the publisher style sheet documentation on footnoteLayout.
+                     </li>
+                     <li>In a publisher style sheet, add ability to have chapter numbers be in lower or upper roman numerals. See the publisher style
+                        sheet documentation on chapterLayout.
+                     </li>
+                     <li>In a publisher style sheet, add ability to have the first paragraph of an abstract, acknowledgements, preface, glossary, and/or
+                        index not be indented.
+                     </li>
+                     <li>In a publisher style sheet, add ability to change something like ' &amp; ' to ' and ' in authors' names.</li>
+                     <li>Enable "author over date" reference style for RenderX PDF and web page outputs. (Word and Writer outputs need some hand editing.)</li>
+                     <li>Enable showing rules in headers and footers. See the end of section 2.10 of the publisher style sheet documentation.</li>
+                     <li>Fix three typos in user documentation.</li>
+                     <li>Improve hanging indent portion of the publisher style sheet documentation.</li>
+                     <li>Fix typo in thesis section of user documentation.</li>
+                     <li>Add index items for footnotes in tables to the user documentation.</li>
+                     <li>Add the pageRangeSeparator attribute to the references element so a user can specify what to use between starting and ending
+                        page numbers.
+                     </li>
+                     <li>Add a book-level editor to references and editorItem to references portion of a style sheet.</li>
+                     <li>Allow a proceedings reference element to have series and volume.</li>
+                     <li>For URLs, remove any zero width joiner characters when showing the URL.</li>
+                     <li>Add drop-down arrow processing for annotationRef elements.</li>
+                     <li>Add a missing collection pattern to SIL-UNDThesisReferencesStylesheet.xml.</li>
+                     <li>Fix bug: When an annotationRef element referred to an annotation that contains a citation element, that citation might not
+                        appear in the references.
+                     </li>
+                     <li>Fix bug: an img element in a header or footer item could cause both PDF forms to fail to be produced.</li>
+                     <li>Fix bug: when a publisher style sheet had acknowledgments in both front matter and back matter, the front matter one had the
+                        showAsFootnoteAtEndOfAbstract attribute set to 'yes,' and there was an acknowledgements element in the back matter of the
+                        document, the acknowledgments element in the back matter was not processed.
+                     </li>
+                     <li>Fix bug in display: if using more than one langDataLayout element in a style sheet, then the wrong textbefore or textafter
+                        could show in XXE.
+                     </li>
+                     <li>Fix bug in endnoteRef handling for both PDF output formats: an endnoteRef in an endnote did not pay attention to the showNumberOnly
+                        attribute. Also, this attribute was not mentioned in the user documentation.
+                     </li>
+                     <li>Fix bug: if a langData or gloss is normally italic, appears in a section title, and the section title is italic so one used
+                        an object inside the langData or gloss to make it regular, then when the table of contents includes this section title, the
+                        text is regular and the langData or gloss is also regular when they should be italic.
+                     </li>
+                     <li>Fix bug: comments were being included in meta data for both PDF and web page output.</li>
+                     <li>Fix bug: can get a letter on a citation date when should not in a chapters in collection document.</li>
+                     <li>Fix bug: When an abbreviation element contains an abbrRef within a comment, that abbrRef is always shown in list of used abbreviations.</li>
+                     <li>Fix bug: zip creation could fail when an img element's src attribute began with ".."</li>
+                     <li>Improve user documentation: changing an abbrRef for version 7 versus version 8 of XXE.</li>
+                     <li>For the default way of producing PDF (via XeLaTeX):
+                        <ul>
+                           <li>Add ability to control whether or not footnotes should be forced to appear at the bottom of their page. See the forcefootnotestobottomofpage
+                              attribute of the footnoteLine element of the publisher style sheet.
+                           </li>
+                           <li>Add to publisher style sheet documentation: when using graphite and font-features on the defaultFontFamily element, one must
+                              have the exact same font family and XeLaTeXSpecial values in some language or type element. Otherwise the PDF will fail to
+                              be produced.
+                           </li>
+                           <li>Fix bug: when a book publisher style sheet had both front matter and body use the same page formatting and the body did not
+                              restart page counting, the PDF would fail to be produced.
+                           </li>
+                           <li>Fix bug: default indent for hanging indent should be 1em.</li>
+                           <li>Fix bug: using lower case hex letters could cause a color code to make the PDF fail to be produced.</li>
+                           <li>Fix bug: If a tablenumbered element had its location attribute set and the basic font size in a style sheet is non-standard,
+                              then the content of the table could be rendered in the wrong font size.
+                           </li>
+                           <li>Fix bug: endnote numbers within a framedUnit were not reset at the beginning of each framedUnit; endnote numbers after framedUnits
+                              that had endnotes included the endnotes in framedUnits and should not have.
+                           </li>
+                           <li>Fix bug: If forcing footnotes to the bottom of the page and using single-spacing, any footnote indent value was ignored.</li>
+                           <li>Fix bug: when there are at least two free translations in an interlinear referred to by an interlinearRef element and one
+                              is using the "After first line" interlinear source method, the second interlinear would be indented.
+                           </li>
+                           <li>Fix bug: when there are at least two free translations in an interlinear referred to by an interlinearRef element and one
+                              is using the "Under free translation" interlinear source method, the interlinear source would not appear.
+                           </li>
+                        </ul>
+                     </li>
+                     <li>For the producing web page output via a style sheet:
+                        <ul>
+                           <li>Fix bug: if a chapter or appendix layout in the style sheet did not have a numberLayout, a stray number or letter could appear.</li>
+                        </ul>
+                     </li>
+                     <li>Converting Zotero references file to XLingPaper format:
+                        <ul>
+                           <li>Fix bug: when the MODS input file had an abstract or note, an appropriate annotation was created, but no annotatedBibliographyTypes.</li>
+                           <li>Fix bug: when the MODS input file had a translator or contributor listed before an author, the author name and cite name began
+                              with an "and".
+                           </li>
+                           <li>Set labelThesis attribute of thesis element when available.</li>
+                           <li>Fix bug: when no author but there is an editor, use the editor as the author.</li>
+                           <li>Fix bug: when the pages have a list, the pages came out empty.</li>
+                           <li>Find editor content in a book when there are also authors.</li>
+                           <li>Treat a film as a web page.</li>
+                           <li>Fix bug: remove backslash from IDs.</li>
+                        </ul>
+                     </li>
+                     <li>Converting Endnote references file to XLingPaper format:
+                        <ul>
+                           <li>Enable processing of Artwork, Computer Program, Electronic Book Section, Grant, and Newspaper Article types.</li>
+                           <li>Add tertiary titles to refTitle.</li>
+                           <li>Remove superscript numbers from IDs</li>
+                        </ul>
+                     </li>
+                  </ul>
+               </li>
+               <li>3.8.0 9 November 2020
+                  <ul>
+                     <li>Enable annotationRef elements to be under content control.</li>
+                     <li>Add a way to use content control to have only certain lines in an interlinear-text be output.</li>
+                     <li>Add a way to save a publisher style sheet and all its pieces to a new location. See section 8.14 "Save a publisher style sheet
+                        and all its parts to a new location" in the publisher style sheet documentation.
+                     </li>
+                     <li>Add ability for the annotation attribute of an annotationRef element to refer to more than one annotationType.</li>
+                     <li>Implement the linebefore attribute of a publisher style sheet for front and back matter.</li>
+                     <li>Add the spacebetweentextandline attribute to the footnoteLine element in a publisher style sheet. It specifies the amount
+                        of vertical space between the text and any footnote line.
+                     </li>
+                     <li>Add the italicizeetal attribute to the citationLayout element in a publisher style sheet. It makes any instance of 'et al.'
+                        in a citation name come out in italics.
+                     </li>
+                     <li>Add the textBeforeSeeAlso attribute to the indexLayout element to control what comes between the last page number and any
+                        'see' or 'see also' items.
+                     </li>
+                     <li>Add ability to control what text, if any, comes after an index term in the index output via the (new) textafterterm attribute
+                        of the indexLayout element in a publisher style sheet. Also, fix an inconsistency: the default XeLaTeX PDF used to use a comma
+                        after a term while the other outputs did not. Now all outputs show a space after the term unless this new attribute is set
+                        to something (like a comma). In addition, when outputting a "see" index item, there is now always a comma before the "see".
+                     </li>
+                     <li>Add ability to use XLingPaper-specific TeX Live 2020 files (for Windows and Linux).</li>
+                     <li>Add ability to control what text occurs between consecutive footnote numbers in text via a publisher style sheet (using the
+                        contentBetweenMultipleFootnoteNumbersInText attribute on the pageLayout element).
+                     </li>
+                     <li>Add doi formatting to SIL-UND references style sheets.</li>
+                     <li>In the user documentation, add use of Google Drive as a way to collaboratively comment on a PDF file.</li>
+                     <li>Fix broken link in publisher style sheet documentation, section 7.1.</li>
+                     <li>Update XLingPaper URL in metadata and also version number.</li>
+                     <li>Add sample paper and book publisher style sheets that contain all possibilities as a reference or starting point.</li>
+                     <li>Fix bug: the format and restartCount attributes of the pageNumber element in a publisher style sheet were never implemented.</li>
+                     <li>Fix bug in create zip file command which could cause it to fail.</li>
+                     <li>Fix bug: when using the seeDefinition elements for an index, the content of the elements would appear at the end of the output.</li>
+                     <li>For the default way of producing PDF (via XeLaTeX):
+                        <ul>
+                           <li>Improve documentation on the row-separation XeLaTeXSpecial attribute value.</li>
+                           <li>Add warning to Schematron checks for image files containing two spaces in a row. XeLaTeX cannot process them.</li>
+                           <li>Add ability to make definition list items format as ragged right via a useRaggedRight attribute on a new definitionListLayout
+                              element in a publisher style sheet.
+                           </li>
+                           <li>Add a XeLaTeXSpecial attribute value of 'contentsbreak' to force a page break in the automatically generated table of contents.</li>
+                           <li>Allow use of TeX Live 2020 versions of XeLaTeX and LaTeX macros. This is especially needed for Mac OS X Catalina and higher.</li>
+                           <li>Allow img elements to have a XeLaTeXSpecial value of width='xyz'; the image will be formatted to scale to that width. (TeX
+                              Live 2020 XeLaTeX ignores the scaled option.
+                           </li>
+                           <li>Allow img elements to default to using the width of an example, figure, or chart via the useImageWidthSetToWidthOfExampleFigureOrChart
+                              attribute on the lingPaper element.
+                           </li>
+                           <li>Allow font-related elements to have a XeLaTeXSpecial attribute value of Script='Arabic' as well as script='arab'. (TeX Live
+                              2020 does not recognize script='arab'; actually, it causes the PDF to fail to be produced.)
+                           </li>
+                           <li>Fix bug: when not using single spacing and not using endnotes i.e., using footnotes) and when footnotes are not single spaced,
+                              if one also set the footnoteIndent value, that value was ignored.
+                           </li>
+                           <li>Fix bug: if a p element immediately followed a dl element, the paragraph would not be indented.</li>
+                           <li>Fix bug: if a listWord contained an endnote with a listWord in it, the PDF failed to be produced.</li>
+                           <li>Fix bug: when using an annotationRef in a document without an associated publisher style sheet, the formatting after the annotationRef
+                              would be indented.
+                           </li>
+                           <li>Fix bug: Using text-transform on a section level item could cause it to format incorrectly.</li>
+                           <li>Fix bug: for a document without a style sheet, if an img occurred in a figure, the PDF could fail to be produced.</li>
+                           <li>Fix bug: header/footer content could be wrong when using chapterInCollectionAuthor.</li>
+                           <li>Fix bug: using a word description for font-size (like 'smaller') for a footer/header item could cause the PDF to fail to be
+                              produced.
+                           </li>
+                           <li>Fix bug: when using framed units and double spacing, a table within a framed unit could cause the PDF to not be produced.</li>
+                           <li>Fix bug: using a number in a font feature caused PDF to fail.</li>
+                           <li>Fix bug: a genericRef in a dt element would cause the PDF to fail to be produced.</li>
+                           <li>Add a check for using PDF files which are newer than version 1.5. (XeLaTeX will not process newer PDFs.)</li>
+                        </ul>
+                     </li>
+                     <li>For the web page output using a publisher style sheet:
+                        <ul>
+                           <li>Fix bug: if the date element is formatted as being centered and there is nothing in the date element, then all following materials
+                              were centered.
+                           </li>
+                           <li>Fix bug: when an example has an exampleHeading and listDefinition elements, the listDefinition elements were not output.</li>
+                        </ul>
+                     </li>
+                     <li>Converting Zotero references file to XLingPaper format:
+                        <ul>
+                           <li>Fix bug: jPages could end up being just a dash.</li>
+                           <li>Fix bug: location and publisher can be in another spot for a web page.</li>
+                        </ul>
+                     </li>
+                  </ul>
+               </li>
+               <li>3.7.0 27 May 2020
+                  <ul>
+                     <li>Add ability for citation elements to have a time stamp attribute (for referring to audio/visual media)</li>
+                     <li>Add ability to have an img element's src attribute refer to a MathML file (.mml).</li>
+                     <li>Improve figure/table listing information in the publisher style sheet documentation.</li>
+                     <li>Fix bug: citation element with just a page number did not display correctly in XXE.</li>
+                     <li>Fix bug: when using chapterInCollection elements, it was not possible to override the show level for a table of contents within
+                        a given chapterInCollection.
+                     </li>
+                     <li>For the default way of producing PDF (via XeLaTeX):
+                        <ul>
+                           <li>Improve handling of right-to-left script in interlinear when using wrd elements and autowrap.</li>
+                           <li>Fix bug: missing ) in dates in citations</li>
+                           <li>Fix bug: letter-oriented list elements had wrong indent when there were more than 9 items.</li>
+                           <li>Fix bug: shortTitle elements were not being used for running headers in a chapterInCollection&nbsp;</li>
+                           <li>Fix bug: td elements with align attribute set to justify failed to produce PDF</li>
+                        </ul>
+                     </li>
+                  </ul>
+               </li>
+               <li>3.6.0 5 November 2019
+                  <ul>
+                     <li>Fix some typos in user documentation.</li>
+                     <li>Add more information in the user documentation on converting a table element into a tablenumbered element.</li>
+                     <li>Improve information about using FLEx to interlinearize examples and texts and export them in XLingPaper format.</li>
+                     <li>Improve TeX handling of left square brackets and right square brackets.</li>
+                     <li>Improve efficiency of publisher style sheet processing slightly</li>
+                     <li>Improve textbetweenauthoranddate handling</li>
+                     <li>Add citedate attribute to refDate element</li>
+                     <li>Allow citations to have text material between author and date, controlled by textbetweenauthoranddate attribute on citationLayout
+                        element in a style sheet.
+                     </li>
+                     <li>If an interlinear referred to via an interlinearRef element has an endnote, do not show the endnote.</li>
+                     <li>In section 11.45 of user documentation, change location of Google Drive for uploading zip files.</li>
+                     <li>Converting Zotero references file to XLingPaper format:
+                        <ul>
+                           <li>Fix bug: handle corporate authors.</li>
+                           <li>Fix bug: handle report as a book.</li>
+                           <li>Fix bug: handle document as a book.</li>
+                           <li>Fix bug: disallow a publisher for a conference paper.</li>
+                           <li>Allow web pages for a report magazine article, newspaper article, encyclopedia article, and a presentation.</li>
+                           <li>Allow a publisher for a web page.</li>
+                           <li>Use ' and ' for last author when there are multiple authors.</li>
+                           <li>Fix bug: some date accessed items were being missed.</li>
+                           <li>Fix bug: some authors' names were being missed.</li>
+                           <li>Fix bug: an ID could have a plus sign.</li>
+                        </ul>
+                     </li>
+                     <li>For the default way of producing PDF (via XeLaTeX):
+                        <ul>
+                           <li>Allow pagebreak and clearpage XeLaTeXSpecial attributes on annotationRef elements when using a publisher style sheet.</li>
+                           <li>Fix bug: fix all instances where a font size change could cause following text material to be in the wrong font size.</li>
+                           <li>Fix bug: keywords did not always align correctly.</li>
+                           <li>Fix bug: allow pagebreak/clearpage XeLaTeXSpecial attribute values on listInterlinear elements.</li>
+                           <li>Fix bug: a reference to an interlinear text could cause following text material to be in the wrong font size.</li>
+                           <li>Fix bug: interlinear text could appear in a smaller font than it should.</li>
+                        </ul>
+                     </li>
+                  </ul>
+               </li>
+               <li>3.5.0 14 May 2019
+                  <ul>
+                     <li>Improve loading speed for object elements via CSS.</li>
+                     <li>Change DOI links from http://doai.io to https://doi.org.</li>
+                     <li>Allow a refAuthorInitials element to contain langData, etc., elements.</li>
+                     <li>Add replacecolonwith attribute to citationLayout element to allow something other than a colon between date and page number(s)
+                        in a citation.
+                     </li>
+                     <li>Fix bug: Make the chooser for interlinearRefCitation elements handle the T-ID identifier output the same as the regular outputs
+                        do.
+                     </li>
+                     <li>Fix bug: a blockquote within a bulleted or ordered list did not indent correctly.</li>
+                     <li>Fix bug: when showing comments in the output, any comments in references were not showing.</li>
+                     <li>Fix bug: when using a publisher style sheet which controls formatting of langData elements, any langData element in a refAuthorInitial
+                        or refWork used the prose style instead of no special styling.
+                     </li>
+                     <li>Add a Schematron check for an interlinearSource element within an interlinear inside an interlinear-text. Warn that it is
+                        not needed.
+                     </li>
+                     <li>Allow more reference elements to contain embedded elements: jTtile, translatedBy, edition, series, seriesEd, multivolumeWork,
+                        publisher, location, collEd, institution, procEd.
+                     </li>
+                     <li>Improve documentation:
+                        <ul>
+                           <li>Change the bulleted list to an ordered list in known issues items to make referring to them easier.</li>
+                           <li>Add Able2Extract PDF tool to list of PDF tools for combining PDF files in section 11.44 of user documentation.</li>
+                           <li>Improve documentation on inserting an appendix and a glossary.</li>
+                        </ul>
+                     </li>
+                     <li>For the default way of producing PDF (via XeLaTeX):
+                        <ul>
+                           <li>Allow a chart element to have a XeLaTeXSpecial attribute of either pagebreak or clearpage.</li>
+                           <li>Fix bug: when a p element consisted solely of a comment element and the showcommentinoutput option was set, the comment did
+                              not appear in the output.
+                           </li>
+                           <li>Fix bug: space after a part in contents did not always work.</li>
+                           <li>Fix bug: when calculating table cell width, the default formatting was justify instead of left.</li>
+                           <li>Fix bug: when a graphic could not be found, the PDF might fail to be produced.</li>
+                           <li>Fix bug: an ol (or ul) in a chart in a figure could cause the PDF to fail to be produced.</li>
+                           <li>Change output formatting of comment contents from a box with yellow background (that often went off the page) to [[ in a yellow
+                              box at the beginning and ]] in a yellow box at the end.
+                           </li>
+                           <li>Improve layout of missing reference pattern message so that it all shows in the PDF.</li>
+                           <li>Fix bug: when a figure had a comment after the img element and captions show after the figure, "[0pt] could show in the output.</li>
+                           <li>Fix bug: when an endnote was embedded in a langData (or gloss) element, there could be no space between the footnote number
+                              and any following text.
+                           </li>
+                        </ul>
+                     </li>
+                     <li>Converting Endnote XML references file and Zotero references file to XLingPaper format:
+                        <ul>
+                           <li>Fix bug: handle presentation genre.</li>
+                           <li>Fix bug: handle translators in a book</li>
+                           <li>Fix bug: computerProgram genre produced nothing.</li>
+                           <li>Fix bug: url information was not being processed for collection, paper, and proceedings items.</li>
+                           <li>Fix bug: allow collection/proceedings to have series and bVol. Improve finding of collVol/procVol.</li>
+                           <li>Allow for a audio reference.</li>
+                           <li>Allow for a video reference.</li>
+                           <li>Allow for a blog post reference</li>
+                           <li>Allow for a dictionary reference</li>
+                           <li>Allow for a document reference</li>
+                           <li>Allow for a report reference</li>
+                           <li>Allow for a standards reference</li>
+                           <li>Improve thesis vs. dissertation handling</li>
+                           <li>Improve manuscript handling</li>
+                           <li>Fix bug: if the title contained a /, &lt; or &gt;, it was not removed for the refWork ID.</li>
+                           <li>Fix bug: a doi element could get put in the wrong place, giving a validation error.</li>
+                           <li>Fix bug: books did not handle volume, series, and series volumes correctly.</li>
+                           <li>Fix bug: if an editor's name did not have a type attribute, it was missing.</li>
+                        </ul>
+                     </li>
+                  </ul>
+               </li>
+               <li>3.4.0 15 November 2018
+                  <ul>
+                     <li>Add ability to show glossary terms as a "definition list" (each term and its definition in a hanging indent styled paragraph).</li>
+                     <li>Fix bug: when using the promote or demote section commands while also having set the Store All Revisions option, extraneous
+                        material would appear.
+                     </li>
+                     <li>Add to endnoteRefLayout portion of publisher style sheet documentation that one uses the textbefore attribute to change the
+                        default "See footnote ".
+                     </li>
+                     <li>Add information to user documentation on handling a blockquote element that has embedded elements since the indent may not
+                        work unless the material is embedded within a p or pc element.
+                     </li>
+                     <li>Add semantic validity check for indexedRangeBegin in a secTitle element. It can cause the default PDF to not show a page number
+                        for it in the index output. Also added a note about this in the user documentation.
+                     </li>
+                     <li>Allow referenceLayout element to have spacebefore and spaceafter attributes.</li>
+                     <li>Allow annotationLayout element to have textbefore and textafter attributes.</li>
+                     <li>Allow multiple layout sets for langData items in the publisher style sheet (e.g., for phonetic and phonemic data)</li>
+                     <li>Add layout information for table caption (or endCaption) in publisher style sheet.</li>
+                     <li>Add ability to include DOI information in references.</li>
+                     <li>Allow counter element in th elements. Add ability to show counter as decimal, zero-initial decimal, lower alpha, upper alpha,
+                        lower roman, or upper roman.
+                     </li>
+                     <li>Documentation improvements:
+                        <ul>
+                           <li>Tell how to add a refAuthorInitials element</li>
+                           <li>Table borders discussion: add reference to special attributes for default PDF and add index items.</li>
+                           <li>Change "Copy a table from..." to "Convert a table from..."</li>
+                           <li>Add appendix to Publisher Style Sheet document on the default values for elements in the Content Layout portion.</li>
+                           <li>Clarify the use of using reference author initials.</li>
+                           <li>Add information on how to create an epigraph.</li>
+                           <li>Tell how to control the formatting of glossary terms.</li>
+                           <li>Describe the text interlinear ID used by the export from FLEx process so a user can control the line number used in the output
+                              for an interlinear text.
+                           </li>
+                           <li>Update hanging indent section on how it appears in the XMLmind XML Editor.</li>
+                        </ul>
+                     </li>
+                     <li>Correct email address for "Oh, Dear!" messages.</li>
+                     <li>Produce warning when a chapterInCollection document is associated to a style sheet that does not have layout info for chapter
+                        in collection.
+                     </li>
+                     <li>Fix bug: setting the useSingleSpacingForLongCaptions attribute to 'yes' of either the figureLayout or the tablenumberedLayout
+                        element in a publisher style sheet did nothing.
+                     </li>
+                     <li>Fix bug: when converting Endnote XML references file to XLingPaper format, if the first two or more works were by the same
+                        author, it only output the first work. Also if the title contained an equals sign, it was not removed for the refWork ID.
+                     </li>
+                     <li>Fix bug: Glossary term definitions did not output citation elements, among others.</li>
+                     <li>For the default way of producing PDF (via XeLaTeX):
+                        <ul>
+                           <li>Fix bug: a section level title that was supposed to begin a paragraph was on a line by itself.</li>
+                           <li>Fix bug: when showing abbreviations in a table, if the abbreviations had a non-default font, then the hyperlink from the abbreviation
+                              in the text to the table was off by about a line.
+                           </li>
+                           <li>Fix bug: when a section title had an endnote and the section title was formatted as all uppercase, the endnote content also
+                              came out in all uppercase.
+                           </li>
+                           <li>When a paper had no sections but does have appendices, if the style sheet had those appendices starting on a new page, the
+                              running headers could be incorrect.
+                           </li>
+                           <li>Fix bug: when there were many example(interlinear) items in a row, page breaking could be awful.</li>
+                        </ul>
+                     </li>
+                  </ul>
+               </li>
+               <li>3.3.0 21 May 2018
+                  <ul>
+                     <li>Fix bug: indexedItem elements in a comment were being skipped in the main body but were showing up in the index. They should
+                        always be skipped in both places.
+                     </li>
+                     <li>Fix typo in user documentation.</li>
+                     <li>Include publishing blurb in JIPA Illustration template.</li>
+                     <li>Improve spacing and alignment in contents for chapters and appendices.</li>
+                     <li>Add ability to have two contents, one in the front matter and one in the back matter, with differing labels and levels of
+                        detail. (Only via a publisher style sheet.)
+                     </li>
+                     <li>Add ability to show (or not show) the contents itself in a table of contents. (Only via a publisher style sheet.)</li>
+                     <li>In the user documentation, add an appendix to show the order of elements after the back matter.</li>
+                     <li>Enable showing ISO 639-3 codes in examples be on a per example basis as well as document wide.</li>
+                     <li>When creating a zip file, add a warning message for when an image file has a bad file name and will not be included in the
+                        zip file.
+                     </li>
+                     <li>For the default way of producing PDF (via XeLaTeX):
+                        <ul>
+                           <li>Improve width in contents by considering width of front matter pages as well as body pages.</li>
+                           <li>Fix bug: when a chart has an image with a caption and that caption has one or more endnotes, the endnote text did not show
+                              on the page.
+                           </li>
+                           <li>Fix bug: when a table's header was more than one row long and the first non-header row used a th in the first column, the
+                              header would not show when the table spanned multiple pages.
+                           </li>
+                           <li>Fix bug: when a table cell spanned two or more columns, was centered, and did not have a width specified, the PDF failed to
+                              be produced.
+                           </li>
+                           <li>Fix bug: when a table's headers specified column widths, individual table cells could be rendered justified instead of ragged
+                              right.
+                           </li>
+                           <li>Fix bug: when a document has only appendices and its publisher style sheet has the appendices starting on an odd page, then
+                              the contents would not have the correct page for the appendices.
+                           </li>
+                           <li>Fix bug: a gloss in a caption element would not show in the generated contents if the gloss had an embedded indexedItem element.</li>
+                           <li>Fix bug: Page numbers for generated contents and indexes could be off by one or two pages.</li>
+                           <li>Add a new XeLaTeXSpecial attribute of clearpage. It is like pagebreak, but it will also force any footnotes on the current
+                              page to appear at the bottom of that page.
+                           </li>
+                        </ul>
+                     </li>
+                  </ul>
+               </li>
+               <li>3.2.0 8 November 2017
+                  <ul>
+                     <li>Add a way to insert bracketed constituents to a line in an interlinear. See section 5.3.7 "Inserting bracketed constituents"
+                        in the user documentation.
+                     </li>
+                     <li>Add ability to use asterisk in a footnote on a title; controlled by the publisher style sheet.</li>
+                     <li>Add ability to control how part items are formatted in the contents via a publisher style sheet.</li>
+                     <li>Add ability to have contents in the back matter instead of in the front matter. This is controlled by a publisher style sheet.</li>
+                     <li>Allow the presence of a contentsLayout element in a style sheet to be controlled by content control. This helps to let one
+                        have a single document where the content is in different languages and one can control whether the table of contents appears
+                        in the front matter (e.g., English) or in the back matter (e.g., French) via the content control for that language.
+                     </li>
+                     <li>Allow an annotationRef to not have an annotation.</li>
+                     <li>Allow shortTitle for elements with a label attribute.</li>
+                     <li>Allow multiple abstractLayout elements in publisher style sheet.</li>
+                     <li>In a publisher style sheet, add a way to control the editor abbreviation in collEd, procEd, and seriesEd elements. Control
+                        is over text before and after the abbreviation as well as the content of the abbreviation itself.
+                     </li>
+                     <li>In a publisher style sheet, add a way to apply text-transform to front and back matter item titles in the contents.</li>
+                     <li>Allow publisher style sheet to control formatting of annotated bibliography items.</li>
+                     <li>Allow two or more author names to be re-arranged using ' e ' as well as ' y ' for Spanish. (Spanish uses 'e' before an 'i'.)
+                        We already do this for ' and ' and ' &amp; ' for English and ' et ' for French.
+                     </li>
+                     <li>Improve validity warning about using font-variant small-caps.</li>
+                     <li>Add a reprintInfo element in most reference elements to handle information about reprints.</li>
+                     <li>For abbreviations appearing in a footnote, add a way to control what text appears between the abbreviation and its definition
+                        via a new abbreviationsInFootnoteLayout element in a publisher style sheet. See section 6.19 "Controlling the Display of Abbreviations
+                        in a Footnote" in the publisher style sheet documentation.
+                     </li>
+                     <li>In references, add a way to control how author's surname and given name are handled when a refWork containing a collCitation
+                        or procCitation is filled out. By default, the author's given name appears before the surname. The new attribute useAuthorSurnameCommaGivenNameInCitations
+                        on the referencesLayout in a publisher style sheet controls this.
+                     </li>
+                     <li>Allow more than one publisher style sheet which can be controlled by content control.</li>
+                     <li>Fix broken link in the JIPA Illustration submission template.</li>
+                     <li>Add warning for using an abbrRef inside a langData inside a secTitle: the langData should be a gloss element instead.</li>
+                     <li>Add information in user documentation about possible validity errors when using referencedInterlinearText elements.</li>
+                     <li>Improve user documentation: improve order of items which come after types; add information on handling multi-word items in
+                        interlinear, and how to use the Attributes Tool for langData, gloss, and object elements.
+                     </li>
+                     <li>Attempt to have the automatic spelling checker use the xml:lang attribute of the lingPaper element as a first attempt at determining
+                        what language to use for spelling checking.
+                     </li>
+                     <li>Fix bug: the element template for procCitation used pages instead of page as the attribute.</li>
+                     <li>Fix a typo in the publisher style sheet documentation</li>
+                     <li>Fix bug: with a publisher style sheet, the seriesEdItem was found for a book, but not processed.</li>
+                     <li>Improve user documentation and publisher style sheet documentation.</li>
+                     <li>Fix bug: When a publisher style sheet had "Use Endnotes" but the document had no endnote elements, the Endnotes section still
+                        showed in XeLaTeX and FO outputs.
+                     </li>
+                     <li>Fix bug: Failed to produce EBook with Calibre version 3.</li>
+                     <li>Fix bug: Failed to produce EBook on Linux and Mac when a directory name had spaces in it.</li>
+                     <li>Fix Bug: Too much info showing up for Parts in FO/Word/OpenOffice table of contents.</li>
+                     <li>Re-add Quick Reference Guide PDF that was inadvertently deleted.</li>
+                     <li>Fix XLingPap.dtd location in SILInternationalPaperStylesheet.xml.</li>
+                     <li>Fix bug which kept Calibre from running on Mac OS X; the result was that an EBook could not be produced.</li>
+                     <li>Fix bug in documents with a publisher style sheet: a caption used in a tablenumbered with an image did not show in the list
+                        of tables.
+                     </li>
+                     <li>For the default way of producing PDF (via XeLaTeX):
+                        <ul>
+                           <li>Improve user documentation for table handling.</li>
+                           <li>Add a way to force a page break in an interlinear when using the automatically wrap interlinears option.</li>
+                           <li>Add attribute startingPageNumber to part and chapter elements to control the starting page number of a part or a chapter.</li>
+                           <li>Fix bug: an example would have too much space before it when following a paragraph if a style sheet had set the spaceafter
+                              attribute of the paragraphLayout element for paragraphs.
+                           </li>
+                           <li>Fix bug: Setting needspace in XeLaTeXSpecial attribute of an example element did not always work when the example contained
+                              a table.
+                           </li>
+                           <li>Fix bug: when using a publisher style sheet, sometimes in a header or footer a section title was not shown correctly or the
+                              wrong one was shown. Also in a collection volume, some headers or footers would have the wrong item.
+                           </li>
+                           <li>Fix bug: when using a publisher style sheet, an img element with a XeLaTeXSpecial attribute of vertical-adjustment could cause
+                              the PDF to fail to be produced.
+                           </li>
+                           <li>Fix bug: when a publisher style sheet had a background color set for a title, the PDF could fail to be produced.</li>
+                           <li>Fix bug: when an interlinear text has nothing in the textInfo element except for a shortTitle and the interlinear-text element
+                              has its text ID attribute filled-in, the first interlinear line label was indented when it should not be.
+                           </li>
+                           <li>Fix bug: when a blockquote was immediately followed by an ordered list (ol) or an unordered list (ul), there was too much
+                              blank space between the two.
+                           </li>
+                           <li>Fix bug: in a style sheet, when a section1 element was the only section or chapter element in the document and the useperiodafternumber
+                              attribute of the sectionTitleLayout element was set to 'yes', there would be a period before the section title.
+                           </li>
+                           <li>Fix bug: using text-transform set to 'uppercase' or 'lowercase' was not always applied.</li>
+                           <li>Fix bug: when a blockquote consisted of, say, langData material, it was not indented.</li>
+                           <li>Fix bug: when a url in a reference item or in a link element contained a tilde (~), the URL would appear correctly in the
+                              PDF, but when following the link, the URL would not be found.
+                           </li>
+                           <li>Fix bug: when using an index, sometimes the page numbers would always be '??'.</li>
+                           <li>Fix bug: in a style sheet, when a section layout had useperiodafternumber='yes' and also beginsparagraph='yes', the section
+                              number did not have a final period.
+                           </li>
+                           <li>Fix bug: when a td or th cell had a width attribute set, any align attribute was ignored.</li>
+                           <li>Fix bug: a text-transform of uppercase could make the PDF fail to be produced.</li>
+                           <li>Fix bug: an interlinear text where each interlinear has a lineGroup but no free could run off the page of the PDF when using
+                              the automatically wrap option.
+                           </li>
+                           <li>Fix bug: a tablenumbered and a figure would have too much space before it when following a paragraph if a style sheet had
+                              set the spaceafter attribute of the paragraphLayout element for paragraphs.
+                           </li>
+                        </ul>
+                     </li>
+                     <li>For web page output:
+                        <ul>
+                           <li>Add a way to show an example ID by using a mouse in a web browser.</li>
+                        </ul>
+                     </li>
+                  </ul>
+               </li>
+               <li>3.1.0 10 May 2017
+                  <ul>
+                     <li>Improve loading time significantly.</li>
+                     <li>Add ability to have more than one abstract: sometimes one needs them to be in two or more languages.</li>
+                     <li>Add ability to use content control for titles (title, shortTitle, subTitle, secTitle) and labels (acknowledgements, abstract,
+                        preface, contents, keywordsShownHere, endnotes, appendix, glossary, references, glossaryTerms, abbreviations, appendix, selectedBibliography,
+                        index). This enables one to have a multi-lingual document and be able to choose which language is output via content control.
+                     </li>
+                     <li>Add linebefore and linebefore-width as an option to publisher stylesheets for elements with title elements, such as sections,
+                        parts, chapters, front and back matter.
+                     </li>
+                     <li>For the Word, Open Office Writer, and RenderX PDF outputs: fix bug: when a style sheet has the interlinear source style set
+                        to 'after free' or 'under free' and a interlinear text is part of the output, the text reference was still output after (or
+                        under) the free in the interlinear text portion.
+                     </li>
+                     <li>For mediaObject elements
+                        <ul>
+                           <li>Improve mediaObject icon handling in the UI.</li>
+                           <li>Make web page output treat them as links.</li>
+                           <li>Change the default of the includemediaobjects attribute on the lingPaper element from 'no' to 'yes.</li>
+                           <li>Make the default PDF output pay attention to the includemediaobjects attribute on the lingPaper element.</li>
+                        </ul>
+                     </li>
+                     <li>Improve SILEWPPaperAsBookStylesheet.xml.</li>
+                     <li>Fix bug: when a document using a style sheet had a refWork using either a collCitation or a procCitation element and that
+                        element referred to a refBook whose refTitle had an embedded element (e.g., object, langData, or gloss), the formatting of
+                        the embedded element was ignored.
+                     </li>
+                     <li>Fix bug: sorting ISO 639-3 codes was by language name, not by the code.</li>
+                     <li>Fix bug: when using endnotes, an endnote in a part could be listed with the endnotes in whatever came before the part.</li>
+                     <li>Fix bug: in the FO PDF and in all style sheet outputs: any shortTitle in a part was coming out as content in the part.</li>
+                     <li>Fix bug: page layout sizes in cm units could be off by a factor of 100 (converting to points had the decimal place at the
+                        wrong position).
+                     </li>
+                     <li>Fix bug: an empty ul or ol element could either shift remaining text to the right or insert a blank space.</li>
+                     <li>Fix typo in user documentation: XeLaTeXSpecial values of border-right and border-left need single quotes around the numeric
+                        value.
+                     </li>
+                     <li>For the default way of producing PDF (via XeLaTeX):
+                        <ul>
+                           <li>Fix bug: when the useAuthorOverDateStyle attribute on the referencesLayout element in a style sheet was set to 'yes', if there
+                              was an authorRole and two or more works needed to be output, the author role was output where the date should be.
+                           </li>
+                           <li>Remove extra vertical spacing when an ol or ul element is the first element in a section, chapter, or appendix.</li>
+                           <li>Fix bug: more than two endnotes in a list when formatted on the same page would have too much vertical space between the footnotes.</li>
+                        </ul>
+                     </li>
+                     <li>In the web page output with a style sheet:
+                        <ul>
+                           <li>Fix bug: keywords could show twice.</li>
+                           <li>Fix bug: indexed item in appendix (but not in an embedded section1 or section2) failed to show the Appendix letter in the
+                              index output
+                           </li>
+                        </ul>
+                     </li>
+                  </ul>
+               </li>
+               <li>3.0.0 10 January 2017
+                  <ul>
+                     <li>Make XLingPaper configuration files work with the XMLmind XML Editor version 7.2</li>
+                  </ul>
+               </li>
                <li>2.29.7 14 December 2016
                   <ul>
                      <li>Add a validity check for an endnote within an embedded element (e.g., langData) inside a secTitle element. This could cause
@@ -1553,7 +2481,7 @@
                               sectionRef element and also the related values in the lingPaper element.
                            </li>
                            <li>Remove automatically inserted non-breaking space when a publisher style sheet overrides the text before the sectionRef (e.g.
-                              one does not always want a space when one uses the &sect; symbol).
+                              one does not always want a space when one uses the &Acirc;&sect; symbol).
                            </li>
                            <li>Add textBeforeCapitalizedSingularOverride and textBeforeCapitalizedPluralOverride attributes to the sectionRefLayout element
                               in a publisher style sheet.
@@ -2016,8 +2944,8 @@
                      </li>
                      <li>Added a book volume number element (bVol) for references. See section 4.5.2 in the user documentation.</li>
                      <li>Removed the requirement that a collection have an editor (collEd element). See section 4.5.3 in the user documentation.</li>
-                     <li>Added a way to control the text that occurs before a sectionRef (some publications like to use the &sect; symbol while others do
-                        not). See section 3.3.1 in the user documentation.
+                     <li>Added a way to control the text that occurs before a sectionRef (some publications like to use the &Acirc;&sect; symbol while others
+                        do not). See section 3.3.1 in the user documentation.
                      </li>
                      <li>The interlinear free translation element can now be associated with a language.</li>
                      <li>Added the ability to include ISO 639-3 codes to a refWork element to indicate which languages the work is about. See section
@@ -2198,7 +3126,13 @@
       <hr>
       <div align="center">
          <p>For more information, including contact email address, see:  
-            <a href="http://www.xlingpaper.org">http://www.xlingpaper.org</a></p>
+            <a href="http://software.sil.org/xlingpaper/">http://software.sil.org/xlingpaper/</a></p>
+      </div>
+      <div align="center">
+         <p>The refWork icons are from FamFamSilk and Fugue:<br>
+            FamFamSilk: <a href="http://www.famfamfam.com/lab/icons/silk/previews/index_abc.png">http://www.famfamfam.com/lab/icons/silk/previews/index_abc.png</a> and
+            <a hrfe="http://www.famfamfam.com/lab/icons/silk/">http://www.famfamfam.com/lab/icons/silk/</a><br>
+            Fugue: <a href="https://p.yusukekamiyamane.com/">https://p.yusukekamiyamane.com/</a></p>
       </div>
    </body>
 </html>

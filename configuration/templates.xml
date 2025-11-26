@@ -20,4 +20,5 @@
     <cfg:template location="../templates/XLingPapBookPublisherStylesheetTemplate.xml" name="Publisher stylesheet for Book" category="An XLingPaper File/Publisher Stylesheet" order="3030"/>
     <cfg:template location="../templates/XLingPapBookWithChaptersInCollectionStyleSheet.xml" name="Publisher stylesheet for Book which is a collection of papers" category="An XLingPaper File/Publisher Stylesheet" order="3040"/>
     <cfg:template location="../templates/XLingPapPublisherStylesheetReferencesTemplate.xml" name="Publisher stylesheet, references section only" category="An XLingPaper File/Publisher Stylesheet" order="3050"/>
+    <cfg:template location="../templates/XLingPapHyphenationExceptions.xml" name="Hyphenation exceptions file" category="An XLingPaper File/Subsidiary Files" order="4010"/>
 </cfg:configuration>

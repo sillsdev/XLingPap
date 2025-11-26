@@ -82,7 +82,7 @@ public class ChooseFontCmd extends RecordableCommand {
 	    XLingPaperFontInfo fontInfo) {
 	setNewFontFamily(docView, editedElement, fontInfo);
 	setNewFontSize(docView, editedElement, fontInfo);
-	setNewFontWeigthAndStyle(docView, editedElement, fontInfo);
+	setNewFontWeightAndStyle(docView, editedElement, fontInfo);
     }
 
     private XLingPaperFontInfo prepareChooser(ElementEditor elementEditor) {
@@ -97,7 +97,7 @@ public class ChooseFontCmd extends RecordableCommand {
 	return oldFontInfo;
     }
 
-    private void setNewFontWeigthAndStyle(DocumentView docView, Element editedElement,
+    private void setNewFontWeightAndStyle(DocumentView docView, Element editedElement,
 	    XLingPaperFontInfo fontInfo) {
 	// if it got changed to italic, need to override the default
 	if (fontInfo.getUseStyleDefault() && !fontInfo.getStyleItalic() && !fontInfo.getStylePlain()) {

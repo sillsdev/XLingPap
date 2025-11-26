@@ -1,12 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- transform to remove any needed content  from XLingPaper file
+<!-- transform to remove any needed content from XLingPaper file
 -->
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
    <xsl:output method="xml" version="1.0" encoding="UTF-8" indent="no" doctype-public="-//XMLmind//DTD XLingPap//EN" doctype-system="XLingPap.dtd"/>
 
+   <xsl:key name="InterlinearRef" match="//interlinearRef | //interlinearRefCitation | //interlinear[ancestor::example][string-length(@textref) &gt; 0]" use="@textref"/>
+
    <xsl:variable name="chosenContentControl" select="//contentControlChoices/contentControlChoice[@active='yes']"/>
    <xsl:variable name="chosenContentTypes" select="id($chosenContentControl/@exclude)"/>
-
+   <xsl:variable name="ignoreDateAccessed" select="//referencesLayout//@ignoreDateAccessed"/>
+   <xsl:variable name="ignoreDoi" select="//referencesLayout//@ignoreDoi"/>
+   <xsl:variable name="ignoreLocations" select="//referencesLayout/@ignoreLocations"/>
+   <xsl:variable name="ignoreUrl" select="//referencesLayout//@ignoreUrl"/>
+   
    <!-- 
       Main copy template
    -->
@@ -26,6 +32,9 @@
       <xsl:call-template name="IgnoreOrCopyElement"/>
    </xsl:template>
    <xsl:template match="affiliation">
+      <xsl:call-template name="IgnoreOrCopyElement"/>
+   </xsl:template>
+   <xsl:template match="annotationRef">
       <xsl:call-template name="IgnoreOrCopyElement"/>
    </xsl:template>
    <xsl:template match="appendix">
@@ -58,14 +67,43 @@
    <xsl:template match="contents">
       <xsl:call-template name="IgnoreOrCopyElement"/>
    </xsl:template>
+   <xsl:template match="contentsLayout">
+      <xsl:call-template name="IgnoreOrCopyElement"/>
+   </xsl:template>
    <xsl:template match="date">
       <xsl:call-template name="IgnoreOrCopyElement"/>
+   </xsl:template>
+   <xsl:template match="dateAccessed[ancestor::refWork]">
+      <xsl:choose>
+         <xsl:when test="$ignoreDateAccessed and $ignoreDateAccessed='yes'">
+            <!-- ignore this one -->
+         </xsl:when>
+         <xsl:otherwise>
+            <xsl:copy>
+               <xsl:apply-templates select="@*"/>
+               <xsl:apply-templates/>
+            </xsl:copy>
+         </xsl:otherwise>
+      </xsl:choose>
    </xsl:template>
    <xsl:template match="dd">
       <xsl:call-template name="IgnoreOrCopyElement"/>
    </xsl:template>
    <xsl:template match="dl">
       <xsl:call-template name="IgnoreOrCopyElement"/>
+   </xsl:template>
+   <xsl:template match="doi[ancestor::refWork]">
+      <xsl:choose>
+         <xsl:when test="$ignoreDoi and $ignoreDoi='yes'">
+            <!-- ignore this one -->
+         </xsl:when>
+         <xsl:otherwise>
+            <xsl:copy>
+               <xsl:apply-templates select="@*"/>
+               <xsl:apply-templates/>
+            </xsl:copy>
+         </xsl:otherwise>
+      </xsl:choose>
    </xsl:template>
    <xsl:template match="dt">
       <xsl:call-template name="IgnoreOrCopyElement"/>
@@ -97,11 +135,40 @@
    <xsl:template match="index">
       <xsl:call-template name="IgnoreOrCopyElement"/>
    </xsl:template>
+   <xsl:template match="interlinear[ancestor::referencedInterlinearText][not(key('InterlinearRef',@text))]">
+      <!-- Skip interlinear elements in referenced interlinear texts when there is no reference to them. -->
+   </xsl:template>
    <xsl:template match="interlinear-text">
+      <xsl:call-template name="IgnoreOrCopyElement"/>
+   </xsl:template>
+   <xsl:template match="labelContent">
       <xsl:call-template name="IgnoreOrCopyElement"/>
    </xsl:template>
    <xsl:template match="li">
       <xsl:call-template name="IgnoreOrCopyElement"/>
+   </xsl:template>
+   <xsl:template match="line">
+      <xsl:choose>
+         <xsl:when test="ancestor::interlinear-text">
+            <xsl:call-template name="IgnoreOrCopyLineInInterlinearText"/>
+         </xsl:when>
+         <xsl:otherwise>
+            <xsl:call-template name="IgnoreOrCopyElement"/>
+         </xsl:otherwise>
+      </xsl:choose>
+   </xsl:template>
+   <xsl:template match="location[ancestor::refWork]">
+      <xsl:choose>
+         <xsl:when test="$ignoreLocations and $ignoreLocations='yes'">
+            <!-- ignore this one -->
+         </xsl:when>
+         <xsl:otherwise>
+            <xsl:copy>
+               <xsl:apply-templates select="@*"/>
+               <xsl:apply-templates/>
+            </xsl:copy>
+         </xsl:otherwise>
+      </xsl:choose>
    </xsl:template>
    <xsl:template match="ol">
       <xsl:call-template name="IgnoreOrCopyElement"/>
@@ -123,6 +190,19 @@
    </xsl:template>
    <xsl:template match="prose-text">
       <xsl:call-template name="IgnoreOrCopyElement"/>
+   </xsl:template>
+   <xsl:template match="publisherStyleSheet">
+      <xsl:choose>
+         <xsl:when test="count(/xlingpaper/styledPaper/publisherStyleSheet) &gt; 1">
+            <xsl:call-template name="IgnoreOrCopyElement"/>
+         </xsl:when>
+         <xsl:otherwise>
+            <xsl:copy>
+               <xsl:apply-templates select="@*"/>
+               <xsl:apply-templates/>
+            </xsl:copy>
+         </xsl:otherwise>
+      </xsl:choose>
    </xsl:template>
    <xsl:template match="section1">
       <xsl:call-template name="IgnoreOrCopyElement"/>
@@ -157,11 +237,27 @@
    <xsl:template match="tablenumberedRef">
       <xsl:call-template name="IgnoreOrCopyElement"/>
    </xsl:template>
+   <xsl:template match="titleContent">
+      <xsl:call-template name="IgnoreOrCopyElement"/>
+   </xsl:template>
    <xsl:template match="tree">
       <xsl:call-template name="IgnoreOrCopyElement"/>
    </xsl:template>
    <xsl:template match="ul">
       <xsl:call-template name="IgnoreOrCopyElement"/>
+   </xsl:template>
+   <xsl:template match="url[ancestor::refWork]">
+      <xsl:choose>
+         <xsl:when test="$ignoreUrl and $ignoreUrl='yes'">
+            <!-- ignore this one -->
+         </xsl:when>
+         <xsl:otherwise>
+            <xsl:copy>
+               <xsl:apply-templates select="@*"/>
+               <xsl:apply-templates/>
+            </xsl:copy>
+         </xsl:otherwise>
+      </xsl:choose>
    </xsl:template>
    <xsl:template match="version">
       <xsl:call-template name="IgnoreOrCopyElement"/>
@@ -182,6 +278,39 @@
       <xsl:choose>
          <xsl:when test="string-length($inSet) &gt; 0">
             <!-- ignore this one -->
+         </xsl:when>
+         <xsl:otherwise>
+            <xsl:copy>
+               <xsl:apply-templates select="@*"/>
+               <xsl:apply-templates/>
+            </xsl:copy>
+         </xsl:otherwise>
+      </xsl:choose>
+   </xsl:template>
+   <!-- 
+      Figure out if we need to ignore or copy this line in an interlinear-text
+   -->
+   <xsl:template name="IgnoreOrCopyLineInInterlinearText">
+      <xsl:variable name="text" select="ancestor::interlinear-text"/>
+      <xsl:variable name="contentType" select="id($text/@contentType)/@id"/>
+      <xsl:variable name="inSet">
+         <xsl:if test="$chosenContentTypes">
+            <xsl:for-each select="$chosenContentTypes">
+               <xsl:if test="@id = $contentType">x</xsl:if>
+            </xsl:for-each>
+         </xsl:if>
+      </xsl:variable>
+      <xsl:choose>
+         <xsl:when test="string-length($inSet) &gt; 0">
+            <!-- ignore this one -->
+         </xsl:when>
+         <xsl:when test="string-length($text/@linesToInclude) &gt; 0">
+            <xsl:if test="contains($text/@linesToInclude,concat(',',position(),','))">
+               <xsl:copy>
+                  <xsl:apply-templates select="@*"/>
+                  <xsl:apply-templates/>
+               </xsl:copy>
+            </xsl:if>
          </xsl:when>
          <xsl:otherwise>
             <xsl:copy>

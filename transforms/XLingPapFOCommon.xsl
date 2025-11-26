@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0" xmlns:fo="http://www.w3.org/1999/XSL/Format" xmlns:rx="http://www.renderx.com/XSL/Extensions">
+<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.1" xmlns:fo="http://www.w3.org/1999/XSL/Format" xmlns:rx="http://www.renderx.com/XSL/Extensions">
     <!-- variables -->
     <xsl:variable name="bEndnoteRefIsDirectLinkToEndnote" select="'N'"/>
     <xsl:variable name="iIndent">
@@ -15,6 +15,31 @@
         <xsl:value-of select="$iExampleWidth"/>
         <xsl:text>pt</xsl:text>
     </xsl:variable>
+    <xsl:variable name="imgBorderSeparation">
+        <xsl:call-template name="GetBorderAroundImageSeparation"/>
+    </xsl:variable>
+    <xsl:variable name="imgBorderWidth">
+        <xsl:call-template name="GetBorderAroundImageWidth"/>
+    </xsl:variable>
+    <!-- ===========================================================
+        dd
+        =========================================================== -->
+    <xsl:template match="dd" mode="dt">
+        <fo:list-item-body start-indent="body-start()">
+            <xsl:if test="example">
+                <fo:block>&#xa0;</fo:block>
+            </xsl:if>
+            <fo:block>
+                <xsl:apply-templates/>
+            </fo:block>
+        </fo:list-item-body>
+    </xsl:template>
+    <!-- ===========================================================
+        IMG
+        =========================================================== -->
+    <xsl:template match="img[not(ancestor::headerFooterPageStyles) or parent::fixedText]">
+        <xsl:call-template name="HandleImg"/>
+    </xsl:template>
     <!-- ===========================================================
         INTERLINEAR TEXT
         =========================================================== -->
@@ -107,7 +132,9 @@
         </xsl:call-template>
     </xsl:template>
     <xsl:template match="free" mode="NoTextRef">
-        <xsl:call-template name="DoInterlinearFree"/>
+        <xsl:call-template name="DoInterlinearFree">
+            <xsl:with-param name="mode" select="'NoTextRef'"/>
+        </xsl:call-template>
     </xsl:template>
     <!--
         literal
@@ -219,6 +246,11 @@
             <xsl:attribute name="border-width">.5pt</xsl:attribute>
             <xsl:attribute name="border-style">solid</xsl:attribute>
             <xsl:attribute name="border-color">black</xsl:attribute>
+            <xsl:if test="$sLineSpacing and $sLineSpacing!='single' and $lineSpacing/@singlespaceframedunits='yes'">
+                <xsl:attribute name="line-height">
+                    <xsl:value-of select="$sSinglespacingLineHeight"/>
+                </xsl:attribute>
+            </xsl:if>
             <xsl:apply-templates/>
         </fo:block>
     </xsl:template>
@@ -258,10 +290,64 @@
         DoAuthorFootnoteNumber
     -->
     <xsl:template name="DoAuthorFootnoteNumber">
-        <xsl:variable name="iAuthorPosition" select="count(parent::author/preceding-sibling::author[endnote]) + 1"/>
+        <xsl:variable name="iTitleEndnote">
+            <xsl:call-template name="GetCountOfEndnoteInTitleUsingSymbol"/>
+        </xsl:variable>
+        <xsl:variable name="iAuthorPosition">
+            <xsl:call-template name="GetAuthorFootnoteNumber">
+                <xsl:with-param name="iTitleEndnote" select="$iTitleEndnote"/>
+            </xsl:call-template>
+        </xsl:variable>
         <xsl:call-template name="OutputAuthorFootnoteSymbol">
             <xsl:with-param name="iAuthorPosition" select="$iAuthorPosition"/>
         </xsl:call-template>
+    </xsl:template>
+    <!--
+        DoHorizontalRule
+    -->
+    <xsl:template name="DoHorizontalRule">
+        <xsl:param name="line-weight"/>
+        <xsl:param name="sFOProcessor"/>
+        <xsl:choose>
+            <xsl:when test="$sFOProcessor = 'XEP'">
+                <!-- XEP correctly processes the borderbefore -->
+                <xsl:choose>
+                    <xsl:when test="$line-weight">
+                        <fo:block keep-with-next.within-page="always">
+                            <xsl:attribute name="border-after-width">
+                                <xsl:value-of select="$line-weight"/>
+                            </xsl:attribute>
+                            <xsl:attribute name="border-after-style">
+                                <xsl:text>solid</xsl:text>
+                            </xsl:attribute>
+                        </fo:block>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <fo:block border-after-width="0.4pt" border-after-style="solid"/>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </xsl:when>
+            <xsl:otherwise>
+                <!-- Word 2003/ODT ignores or filters my borderafter (not sure which), using a rule instead -->
+                <fo:block keep-with-next.within-page="always">
+                    <xsl:choose>
+                        <xsl:when test="$line-weight">
+                            <fo:leader leader-pattern="rule" leader-length="100%">
+                                <xsl:attribute name="rule-thickness">
+                                    <xsl:value-of select="$line-weight"/>
+                                </xsl:attribute>
+                                <xsl:attribute name="rule-style">
+                                    <xsl:text>solid</xsl:text>
+                                </xsl:attribute>
+                            </fo:leader>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <fo:leader leader-pattern="rule" leader-length="100%" rule-style="solid" rule-thickness="0.4pt"/>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                </fo:block>
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
     <!--  
         DoInterlinearLineGroup
@@ -377,6 +463,14 @@
             <xsl:apply-templates/>
         </fo:list-block>
     </xsl:template>
+    <!--  
+        ForceItalicsInContentsTitle
+    -->
+    <xsl:template name="ForceItalicsInContentsTitle">
+        <fo:inline font-style="italic">
+            <xsl:value-of select="."/>
+        </fo:inline>
+    </xsl:template>
     <!--
         HandleColumnWidth
     -->
@@ -425,6 +519,33 @@
         </xsl:if>
     </xsl:template>
     <!--  
+        HandleImg
+    -->
+    <xsl:template name="HandleImg">
+        <fo:external-graphic scaling="uniform">
+            <xsl:call-template name="OutputTypeAttributes">
+                <xsl:with-param name="sList" select="@xsl-foSpecial"/>
+            </xsl:call-template>
+            <xsl:attribute name="src">
+                <xsl:text>url(</xsl:text>
+                <xsl:variable name="sSrc" select="normalize-space(@src)"/>
+                <xsl:choose>
+                    <xsl:when test="substring($sSrc,string-length($sSrc)-3) ='.mml'">
+                        <xsl:variable name="sSvg" select="concat(substring($sSrc,0,string-length($sSrc)-3),'.svg')"/>
+                        <xsl:value-of select="concat(substring($sSrc,0,string-length($sSrc)-3),'.svg')"/>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:value-of select="@src"/>
+                    </xsl:otherwise>
+                </xsl:choose>
+                <xsl:text>)</xsl:text>
+            </xsl:attribute>
+            <xsl:if test="@borderaround='yes'">
+                <xsl:call-template name="InsertImageBorderAttributes"/>
+            </xsl:if>
+        </fo:external-graphic>
+    </xsl:template>
+    <!--  
         HandleLangDataGlossInWordOrListWord
     -->
     <xsl:template name="HandleLangDataGlossInWordOrListWord">
@@ -460,6 +581,47 @@
             </xsl:choose>
             <xsl:text> is missing here.  You will need to add it manually.</xsl:text>
         </fo:inline>
+    </xsl:template>
+    <!--  
+        InsertImageBorderAttributes
+    -->
+    <xsl:template name="InsertImageBorderAttributes">
+        <xsl:attribute name="border-left-style">
+            <xsl:text>solid</xsl:text>
+        </xsl:attribute>
+        <xsl:attribute name="border-top-style">
+            <xsl:text>solid</xsl:text>
+        </xsl:attribute>
+        <xsl:attribute name="border-right-style">
+            <xsl:text>solid</xsl:text>
+        </xsl:attribute>
+        <xsl:attribute name="border-bottom-style">
+            <xsl:text>solid</xsl:text>
+        </xsl:attribute>
+        <xsl:attribute name="padding-left">
+            <xsl:value-of select="$imgBorderSeparation"/>
+        </xsl:attribute>
+        <xsl:attribute name="padding-top">
+            <xsl:value-of select="$imgBorderSeparation"/>
+        </xsl:attribute>
+        <xsl:attribute name="padding-right">
+            <xsl:value-of select="$imgBorderSeparation"/>
+        </xsl:attribute>
+        <xsl:attribute name="padding-bottom">
+            <xsl:value-of select="$imgBorderSeparation"/>
+        </xsl:attribute>
+        <xsl:attribute name="border-left-width">
+            <xsl:value-of select="$imgBorderWidth"/>
+        </xsl:attribute>
+        <xsl:attribute name="border-top-width">
+            <xsl:value-of select="$imgBorderWidth"/>
+        </xsl:attribute>
+        <xsl:attribute name="border-right-width">
+            <xsl:value-of select="$imgBorderWidth"/>
+        </xsl:attribute>
+        <xsl:attribute name="border-bottom-width">
+            <xsl:value-of select="$imgBorderWidth"/>
+        </xsl:attribute>
     </xsl:template>
     <!--
         OutputAbbreviationInTable
@@ -536,7 +698,7 @@
     -->
     <xsl:template name="OutputAbbreviationsInTable">
         <xsl:param name="abbrsUsed"
-            select="//abbreviation[not(ancestor::chapterInCollection/backMatter/abbreviations)][//abbrRef[not(ancestor::chapterInCollection/backMatter/abbreviations)]/@abbr=@id]"/>
+            select="//abbreviation[not(ancestor::chapterInCollection/backMatter/abbreviations)][//abbrRef[not(ancestor::chapterInCollection/backMatter/abbreviations) and not(ancestor::comment)]/@abbr=@id]"/>
         <fo:block>
             <xsl:call-template name="OutputFontAttributes">
                 <xsl:with-param name="language" select="$contentLayoutInfo/abbreviationsInTableLayout"/>
@@ -570,6 +732,12 @@
     -->
     <xsl:template name="OutputAllChapterTOC">
         <xsl:param name="nLevel" select="3"/>
+        <xsl:variable name="precedingVolume" select="preceding-sibling::*[1][name()='volume']"/>
+        <xsl:if test="$precedingVolume">
+            <xsl:call-template name="OutputVolumeInContents">
+                <xsl:with-param name="volume" select="$precedingVolume"/>
+            </xsl:call-template>
+        </xsl:if>
         <xsl:call-template name="OutputTOCLine">
             <xsl:with-param name="sLink" select="@id"/>
             <xsl:with-param name="sLabel">
@@ -632,36 +800,46 @@
                 </xsl:call-template>
                 <xsl:if test="section2 and $nLevel>=2">
                     <xsl:for-each select="section2">
-                        <xsl:call-template name="OutputSectionTOC">
-                            <xsl:with-param name="sLevel" select="'2'"/>
-                        </xsl:call-template>
-                        <xsl:if test="section3 and $nLevel>=3">
-                            <xsl:for-each select="section3">
-                                <xsl:call-template name="OutputSectionTOC">
-                                    <xsl:with-param name="sLevel" select="'3'"/>
-                                </xsl:call-template>
-                                <xsl:if test="section4 and $nLevel>=4">
-                                    <xsl:for-each select="section4">
+                        <xsl:if test="parent::*[@subsectionsAreShort!='yes' or @excludeShortSubsectionsFromContents!='yes']">
+                            <xsl:call-template name="OutputSectionTOC">
+                                <xsl:with-param name="sLevel" select="'2'"/>
+                            </xsl:call-template>
+                            <xsl:if test="section3 and $nLevel>=3">
+                                <xsl:for-each select="section3">
+                                    <xsl:if test="parent::*[@subsectionsAreShort!='yes' or @excludeShortSubsectionsFromContents!='yes']">
                                         <xsl:call-template name="OutputSectionTOC">
-                                            <xsl:with-param name="sLevel" select="'4'"/>
+                                            <xsl:with-param name="sLevel" select="'3'"/>
                                         </xsl:call-template>
-                                        <xsl:if test="section5 and $nLevel>=5">
-                                            <xsl:for-each select="section5">
-                                                <xsl:call-template name="OutputSectionTOC">
-                                                    <xsl:with-param name="sLevel" select="'5'"/>
-                                                </xsl:call-template>
-                                                <xsl:if test="section6 and $nLevel>=6">
-                                                    <xsl:for-each select="section6">
-                                                        <xsl:call-template name="OutputSectionTOC">
-                                                            <xsl:with-param name="sLevel" select="'6'"/>
-                                                        </xsl:call-template>
-                                                    </xsl:for-each>
+                                        <xsl:if test="section4 and $nLevel>=4">
+                                            <xsl:for-each select="section4">
+                                                <xsl:if test="parent::*[@subsectionsAreShort!='yes' or @excludeShortSubsectionsFromContents!='yes']">
+                                                    <xsl:call-template name="OutputSectionTOC">
+                                                        <xsl:with-param name="sLevel" select="'4'"/>
+                                                    </xsl:call-template>
+                                                    <xsl:if test="section5 and $nLevel>=5">
+                                                        <xsl:for-each select="section5">
+                                                            <xsl:if test="parent::*[@subsectionsAreShort!='yes' or @excludeShortSubsectionsFromContents!='yes']">
+                                                                <xsl:call-template name="OutputSectionTOC">
+                                                                    <xsl:with-param name="sLevel" select="'5'"/>
+                                                                </xsl:call-template>
+                                                                <xsl:if test="section6 and $nLevel>=6">
+                                                                    <xsl:for-each select="section6">
+                                                                        <xsl:if test="parent::*[@subsectionsAreShort!='yes' or @excludeShortSubsectionsFromContents!='yes']">
+                                                                            <xsl:call-template name="OutputSectionTOC">
+                                                                                <xsl:with-param name="sLevel" select="'6'"/>
+                                                                            </xsl:call-template>
+                                                                        </xsl:if>
+                                                                    </xsl:for-each>
+                                                                </xsl:if>
+                                                            </xsl:if>
+                                                        </xsl:for-each>
+                                                    </xsl:if>
                                                 </xsl:if>
                                             </xsl:for-each>
                                         </xsl:if>
-                                    </xsl:for-each>
-                                </xsl:if>
-                            </xsl:for-each>
+                                    </xsl:if>
+                                </xsl:for-each>
+                            </xsl:if>
                         </xsl:if>
                     </xsl:for-each>
                 </xsl:if>
@@ -763,9 +941,28 @@
         <xsl:param name="glossaryTerm"/>
         <xsl:param name="bIsRef" select="'Y'"/>
         <xsl:param name="glossaryTermRef"/>
+        <xsl:param name="kind" select="'Table'"/>
         <fo:inline>
+            <xsl:variable name="fontInfoToUse">
+                <xsl:choose>
+                    <xsl:when test="$kind='DefinitionList'">
+                        <xsl:variable name="stylesheetInfo" select="$contentLayoutInfo/glossaryTermsInDefinitionListLayout/glossaryTermTermInDefinitionListLayout"/>
+                        <xsl:choose>
+                            <xsl:when test="$stylesheetInfo">
+                                <xsl:copy-of select="$stylesheetInfo"/>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:copy-of select="$glossaryTerms"/>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:copy-of select="$glossaryTerms"/>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </xsl:variable>
             <xsl:call-template name="OutputFontAttributes">
-                <xsl:with-param name="language" select="$glossaryTerms"/>
+                <xsl:with-param name="language" select="$fontInfoToUse/*"/>
                 <xsl:with-param name="ignoreFontFamily">
                     <xsl:choose>
                         <xsl:when test="$glossaryTerm/@ignoreglossarytermsfontfamily='yes'">
@@ -783,6 +980,65 @@
                 <xsl:with-param name="glossaryTermRef" select="$glossaryTermRef"/>
             </xsl:call-template>
         </fo:inline>
+    </xsl:template>
+    <!--
+        OutputGlossaryTermInDefinitionList
+    -->
+    <xsl:template name="OutputGlossaryTermInDefinitionList">
+        <xsl:param name="glossaryTermsShownHere"/>
+        <xsl:variable name="defnListLayout" select="$contentLayoutInfo/glossaryTermsInDefinitionListLayout"/>
+        <xsl:variable name="sThisHangingIndent" select="normalize-space($defnListLayout/@hangingIndentNormalIndent)"/>
+        <xsl:variable name="sThisInitialIndent" select="normalize-space($defnListLayout/@hangingIndentInitialIndent)"/>
+        <fo:block>
+            <xsl:attribute name="start-indent">
+                <xsl:choose>
+                    <xsl:when test="string-length($sThisHangingIndent) &gt; 0">
+                        <xsl:value-of select="$sThisHangingIndent"/>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:text>1em</xsl:text>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </xsl:attribute>
+            <xsl:attribute name="text-indent">
+                <xsl:text>-</xsl:text>
+                <xsl:choose>
+                    <xsl:when test="string-length($sThisInitialIndent) &gt; 0">
+                        <xsl:variable name="iValue" select="substring($sThisInitialIndent,1, string-length($sThisInitialIndent)-2)"/>
+                        <xsl:choose>
+                            <xsl:when test="$iValue=0">
+                                <xsl:value-of select="$sThisHangingIndent"/>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:value-of select="$sThisInitialIndent"/>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:choose>
+                            <xsl:when test="string-length($sThisHangingIndent) &gt; 0">
+                                <xsl:value-of select="$sThisHangingIndent"/>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:text>1em</xsl:text>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </xsl:attribute>
+            <xsl:variable name="sSpaceBetween" select="normalize-space($defnListLayout/@spaceBetweenParagraphs)"/>
+            <xsl:if test="string-length($sSpaceBetween) &gt; 0">
+                <xsl:attribute name="space-after">
+                    <xsl:value-of select="$sSpaceBetween"/>
+                </xsl:attribute>
+            </xsl:if>
+            <xsl:if test="$defnListLayout/@useSingleSpacing='yes'">
+                <xsl:attribute name="line-height">100%</xsl:attribute>
+            </xsl:if>
+            <xsl:call-template name="OutputGlossaryTermItemAsDefinitionList">
+                <xsl:with-param name="glossaryTermsShownHere" select="$glossaryTermsShownHere"/>
+            </xsl:call-template>
+        </fo:block>
     </xsl:template>
     <!--
         OutputGlossaryTermInTable
@@ -813,6 +1069,49 @@
                 </xsl:for-each>
             </xsl:if>
         </fo:table-row>
+    </xsl:template>
+    <!--
+        OutputGlossaryTermItemAsDefinitionList
+    -->
+    <xsl:template name="OutputGlossaryTermItemAsDefinitionList">
+        <xsl:param name="glossaryTermsShownHere"/>
+        <xsl:variable name="defnListLayout" select="$contentLayoutInfo/glossaryTermsInDefinitionListLayout"/>
+        <fo:inline id="{@id}">
+            <xsl:variable name="sBefore" select="$defnListLayout/glossaryTermTermInDefinitionListLayout/@textbefore"/>
+            <xsl:if test="string-length($sBefore) &gt; 0">
+                <xsl:value-of select="$sBefore"/>
+            </xsl:if>
+            <xsl:call-template name="OutputGlossaryTerm">
+                <xsl:with-param name="glossaryTerm" select="."/>
+                <xsl:with-param name="bIsRef" select="'N'"/>
+                <xsl:with-param name="kind" select="'DefinitionList'"/>
+            </xsl:call-template>
+            <xsl:variable name="sAfter" select="$defnListLayout/glossaryTermTermInDefinitionListLayout/@textafter"/>
+            <xsl:choose>
+                <xsl:when test="string-length($sAfter) &gt; 0">
+                    <xsl:value-of select="$sAfter"/>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:text>: </xsl:text>
+                </xsl:otherwise>
+            </xsl:choose>
+        </fo:inline>
+        <fo:inline>
+            <xsl:call-template name="OutputFontAttributes">
+                <xsl:with-param name="language" select="$defnListLayout/glossaryTermDefinitionInDefinitionListLayout"/>
+            </xsl:call-template>
+            <xsl:variable name="sBefore" select="$defnListLayout/glossaryTermDefinitionInDefinitionListLayout/@textbefore"/>
+            <xsl:if test="string-length($sBefore) &gt; 0">
+                <xsl:value-of select="$sBefore"/>
+            </xsl:if>
+            <xsl:call-template name="OutputGlossaryTermDefinition">
+                <xsl:with-param name="glossaryTerm" select="."/>
+            </xsl:call-template>
+            <xsl:variable name="sAfter" select="$defnListLayout/glossaryTermDefinitionInDefinitionListLayout/@textafter"/>
+            <xsl:if test="string-length($sAfter) &gt; 0">
+                <xsl:value-of select="$sAfter"/>
+            </xsl:if>
+        </fo:inline>
     </xsl:template>
     <!--
         OutputGlossaryTermItemInTable
@@ -854,6 +1153,29 @@
                 </xsl:call-template>
             </fo:block>
         </fo:table-cell>
+    </xsl:template>
+    <!--
+        OutputGlossaryTermsAsDefinitionList
+    -->
+    <xsl:template name="OutputGlossaryTermsAsDefinitionList">
+        <xsl:param name="glossaryTermsUsed"
+            select="//glossaryTerm[not(ancestor::chapterInCollection/backMatter/glossaryTerms)][//glossaryTermRef[not(ancestor::chapterInCollection/backMatter/glossaryTerms)]/@glossaryTerm=@id]"/>
+        <fo:block>
+            <xsl:call-template name="OutputFontAttributes">
+                <xsl:with-param name="language" select="$contentLayoutInfo/glossaryTermsAsDefinitionLayout"/>
+            </xsl:call-template>
+            <xsl:variable name="sStartIndent" select="normalize-space($contentLayoutInfo/glossaryTermsAsDefinitionLayout/@start-indent)"/>
+            <xsl:if test="string-length($sStartIndent)&gt;0">
+                <xsl:attribute name="margin-left">
+                    <xsl:value-of select="$sStartIndent"/>
+                </xsl:attribute>
+            </xsl:if>
+            <xsl:if test="count($glossaryTermsUsed) &gt; 0">
+                <xsl:call-template name="SortGlossaryTermsAsDefinitionList">
+                    <xsl:with-param name="glossaryTermsUsed" select="$glossaryTermsUsed"/>
+                </xsl:call-template>
+            </xsl:if>
+        </fo:block>
     </xsl:template>
     <!--
         OutputGlossaryTermsInTable
@@ -1044,11 +1366,10 @@
         OutputISOCodeInExample
     -->
     <xsl:template name="OutputISOCodeInExample">
+        <xsl:param name="sIsoCode"/>
         <xsl:param name="bOutputBreak" select="'Y'"/>
-        <xsl:variable name="firstLangData" select="descendant::langData[1] | key('InterlinearReferenceID',interlinearRef/@textref)[1]/descendant::langData[1]"/>
-        <xsl:if test="$firstLangData">
-            <xsl:variable name="sIsoCode" select="key('LanguageID',$firstLangData/@lang)/@ISO639-3Code"/>
-            <xsl:if test="string-length($sIsoCode) &gt; 0">
+        <xsl:choose>
+            <xsl:when test="string-length($sIsoCode) &gt; 0">
                 <xsl:if test="$bOutputBreak='Y'">
                     <fo:block/>
                 </xsl:if>
@@ -1069,15 +1390,43 @@
                     </xsl:choose>
                     <xsl:text>]</xsl:text>
                 </fo:inline>
-            </xsl:if>
-        </xsl:if>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:variable name="firstLangData" select="descendant::langData[1] | key('InterlinearReferenceID',interlinearRef/@textref)[1]/descendant::langData[1]"/>
+                <xsl:if test="$firstLangData">
+                    <xsl:variable name="sIsoCode2" select="key('LanguageID',$firstLangData/@lang)/@ISO639-3Code"/>
+                    <xsl:if test="string-length($sIsoCode2) &gt; 0">
+                        <xsl:if test="$bOutputBreak='Y'">
+                            <fo:block/>
+                        </xsl:if>
+                        <fo:inline font-size="smaller">
+                            <xsl:text>[</xsl:text>
+                            <xsl:choose>
+                                <xsl:when test="$bShowISO639-3Codes='Y'">
+                                    <fo:basic-link internal-destination="{$languages[@ISO639-3Code=$sIsoCode2]/@id}">
+                                        <xsl:call-template name="AddAnyLinkAttributes">
+                                            <xsl:with-param name="override" select="$pageLayoutInfo/linkLayout/iso639-3CodesLinkLayout"/>
+                                        </xsl:call-template>
+                                        <xsl:value-of select="$sIsoCode2"/>
+                                    </fo:basic-link>
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <xsl:value-of select="$sIsoCode2"/>
+                                </xsl:otherwise>
+                            </xsl:choose>
+                            <xsl:text>]</xsl:text>
+                        </fo:inline>
+                    </xsl:if>
+                </xsl:if>
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
     <!--
         OutputListLevelISOCode
     -->
     <xsl:template name="OutputListLevelISOCode">
         <xsl:param name="bListsShareSameCode"/>
-        <xsl:if test="$lingPaper/@showiso639-3codeininterlinear='yes'">
+        <xsl:if test="$lingPaper/@showiso639-3codeininterlinear='yes' or ancestor-or-self::example/@showiso639-3codes='yes'">
             <xsl:if test="contains($bListsShareSameCode,'N')">
                 <fo:table-cell padding-end=".5em">
                     <fo:block>
@@ -1087,6 +1436,30 @@
                     </fo:block>
                 </fo:table-cell>
             </xsl:if>
+        </xsl:if>
+    </xsl:template>
+    <!--  
+        OutputSpaceAfter
+    -->
+    <xsl:template name="OutputSpaceAfter">
+        <xsl:param name="spacing"/>
+        <xsl:variable name="sSpacing" select="normalize-space($spacing)"/>
+        <xsl:if test="string-length($sSpacing)&gt; 2">
+            <xsl:attribute name="space-after">
+                <xsl:value-of select="$sSpacing"/>
+            </xsl:attribute>
+        </xsl:if>
+    </xsl:template>
+    <!--  
+        OutputSpaceBefore
+    -->
+    <xsl:template name="OutputSpaceBefore">
+        <xsl:param name="spacing"/>
+        <xsl:variable name="sSpacing" select="normalize-space($spacing)"/>
+        <xsl:if test="string-length($sSpacing)&gt; 2">
+            <xsl:attribute name="space-before">
+                <xsl:value-of select="$sSpacing"/>
+            </xsl:attribute>
         </xsl:if>
     </xsl:template>
     <!-- 

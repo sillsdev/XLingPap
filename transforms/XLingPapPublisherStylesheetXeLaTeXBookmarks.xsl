@@ -7,11 +7,13 @@
         <xsl:call-template name="OutputBookmark">
             <xsl:with-param name="sLink">
                 <xsl:call-template name="GetIdToUse">
-                    <xsl:with-param name="sBaseId" select="$sAbstractID"/>
+                    <xsl:with-param name="sBaseId" select="concat($sAbstractID,count(preceding-sibling::abstract))"/>
                 </xsl:call-template>
             </xsl:with-param>
             <xsl:with-param name="sLabel">
-                <xsl:call-template name="OutputAbstractLabel"/>
+                <xsl:call-template name="OutputAbstractLabel">
+                    <xsl:with-param name="fUseShortTitleIfExists" select="'Y'"/>
+                </xsl:call-template>
             </xsl:with-param>
             <xsl:with-param name="sNestingLevel">
                 <xsl:choose>
@@ -102,22 +104,44 @@
       contents (bookmarks)
    -->
     <xsl:template match="contents" mode="bookmarks">
-        <xsl:call-template name="OutputBookmark">
-            <xsl:with-param name="sLink" select="'rXLingPapContents'"/>
-            <xsl:with-param name="sLabel">
-                <xsl:call-template name="OutputContentsLabel"/>
-            </xsl:with-param>
-            <xsl:with-param name="sNestingLevel">
-                <xsl:choose>
-                    <xsl:when test="ancestor::chapterInCollection">
-                        <xsl:text>2</xsl:text>
-                    </xsl:when>
-                    <xsl:otherwise>
-                        <xsl:text>1</xsl:text>
-                    </xsl:otherwise>
-                </xsl:choose>
-            </xsl:with-param>
-        </xsl:call-template>
+        <xsl:param name="id"/>
+        <xsl:param name="sTitle"/>
+        <xsl:choose>
+            <xsl:when test="string-length($id) &gt; 0">
+                <xsl:call-template name="OutputBookmark">
+                    <xsl:with-param name="sLink" select="$id"/>
+                    <xsl:with-param name="sLabel" select="$sTitle"/>
+                    <xsl:with-param name="sNestingLevel">
+                        <xsl:choose>
+                            <xsl:when test="ancestor::chapterInCollection">
+                                <xsl:text>2</xsl:text>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:text>1</xsl:text>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                    </xsl:with-param>
+                </xsl:call-template>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:call-template name="OutputBookmark">
+                    <xsl:with-param name="sLink" select="'rXLingPapContents'"/>
+                    <xsl:with-param name="sLabel">
+                        <xsl:call-template name="OutputContentsLabel"/>
+                    </xsl:with-param>
+                    <xsl:with-param name="sNestingLevel">
+                        <xsl:choose>
+                            <xsl:when test="ancestor::chapterInCollection">
+                                <xsl:text>2</xsl:text>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:text>1</xsl:text>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                    </xsl:with-param>
+                </xsl:call-template>
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
     <!--
       endnote (bookmarks)

@@ -60,6 +60,15 @@
             <xsl:text>&#x0a;</xsl:text>
         </xsl:if>
     </xsl:template>
+    <!-- fix up tilde in url so the actual URL is correct -->
+    <xsl:template
+        match="text()[contains(.,'\textasciitilde{}') and preceding-sibling::node()[1][name()='tex:spec' and @cat='bg'] and preceding-sibling::node()[2][.='href'] and preceding-sibling::node()[3][name()='tex:spec' and @cat='esc']]">
+        <xsl:variable name="sBefore" select="substring-before(.,'\textasciitilde{}')"/>
+        <xsl:variable name="sAfter" select="substring-after(.,'\textasciitilde{}')"/>
+        <xsl:value-of select="$sBefore"/>
+        <xsl:text>~</xsl:text>
+        <xsl:value-of select="$sAfter"/>
+    </xsl:template>
     <xsl:template name="NormalizeColumnFormatingCharacters">
         <!-- There are some characters that can occur in a XeLaTeXSpecial/@column-formatting attribute which will make TeX stop if used as they
             come out of the character conversion process.  So we need to change them back here to the plain

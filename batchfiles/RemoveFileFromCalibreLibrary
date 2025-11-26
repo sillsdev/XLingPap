@@ -1,4 +1,0 @@
-#!/bin/sh
-calibredb remove $1
-
-

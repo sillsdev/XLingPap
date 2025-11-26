@@ -47,7 +47,8 @@ public class ChooseColorCmd extends RecordableCommand {
 		LocalizeString ls = new LocalizeString();
 		ls.prepare(docView, parameter, x, y);
 		String sChooseAColor = (String)ls.doExecute(docView, "java.colorDialogTitle", x, y);
-		Color newColor = JColorChooser.showDialog(AWTUtil.getDialogAnchor(docView.getPanel()), sChooseAColor, oldColor);
+		Color newColor = JColorChooser.showDialog(docView.getPanel(), sChooseAColor, oldColor);
+		//Color newColor = JColorChooser.showDialog(AWTUtil.getDialogAnchor(docView.getPanel()), sChooseAColor, oldColor);
 		if (newColor == null)
 			return null;
 		String sValue = "#" + Integer.toHexString(newColor.getRGB()).substring(2);

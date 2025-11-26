@@ -19,23 +19,31 @@ References Layouts
     usecitationformatwhennumbereofsharedpaperis = number of shared papers required before using the citation format in 
          collections and proceedings; a value of 0 means do not use the citation format
 -->
-<!ELEMENT referencesLayout ( publisherStyleSheetReferencesName?, publisherStyleSheetReferencesVersion?, refAuthorLayouts,  
+<!ELEMENT referencesLayout ( publisherStyleSheetReferencesName?, comment?, publisherStyleSheetReferencesVersion?, publisherStyleSheetPublisher?, publisherStyleSheetDate?, publisherStyleSheetUrl?, publisherStyleSheetDateAccessed?,
+                                                         refAuthorLayouts,
                                                          articleLayouts, bookLayouts, collectionLayouts, dissertationLayouts, 
                                                          fieldNotesLayouts, msLayouts, paperLayouts, proceedingsLayouts, thesisLayouts, 
-                                                         webPageLayouts, publishedLayout, locationPublisherLayouts, urlDateAccessedLayouts?, iso639-3codeItem?)>
+                                                         webPageLayouts, publishedLayout, locationPublisherLayouts, urlDateAccessedLayouts?, iso639-3codeItem?, refAuthorNameChange?)>
 <!ATTLIST  referencesLayout 
    hangingindentsize CDATA #REQUIRED
    defaultfontsize CDATA #IMPLIED
-   authorform (full | initials) "full"
+   authorform (full | initials | surnamegivenname) "full"
    titleform (uppercase | lowercase) "uppercase"
    uselineforrepeatedauthor (no | yes) "no"
    removecommonhundredsdigitsinpages (yes | no) "no"
    usecitationformatwhennumberofsharedpaperis (0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9) "2"
+   useAuthorSurnameCommaGivenNameInCitations (yes | no) "no"
    useAuthorOverDateStyle (no | yes) "no"
    dateIndentAuthorOverDateStyle CDATA #IMPLIED
    dateToEntrySpaceAuthorOverDateStyle CDATA #IMPLIED
    spaceBetweenEntryAndAuthorInAuthorOverDateStyle CDATA #IMPLIED
    spaceBetweenEntriesAuthorOverDateStyle CDATA #IMPLIED
+   spaceafter CDATA #IMPLIED
+   spacebefore CDATA #IMPLIED
+   ignoreDateAccessed (no | yes) "no"
+   ignoreDoi (no | yes) "no"
+   ignoreLocations (no | yes) "no"
+   ignoreUrl (no | yes) "no"
    >
 
 <!-- Name and version of this references stylesheet -->
@@ -75,25 +83,25 @@ References Layouts
 <!ELEMENT webPageLayouts (comment?, webPageLayout)+>
 
 <!ELEMENT articleLayout (refTitleItem | jTitleItem |  jVolItem | jIssueNumberItem |  jPagesItem | jArticleNumberItem |  
-                                                locationPublisherLayoutsRef | urlDateAccessedLayoutsRef |  urlItem |  dateAccessedItem | iso639-3codeItemRef)+>
-<!ELEMENT bookLayout (refTitleItem | translatedByItem  |  bVolItem |  editionItem | seriesEdItem | seriesItem |  multivolumeWorkItem |
-                                               bookTotalPagesItem | locationPublisherLayoutsRef | urlDateAccessedLayoutsRef | urlItem |  dateAccessedItem | iso639-3codeItemRef)+>
-<!ELEMENT collectionLayout (refTitleItem | collEdItem |  collTitleItem |  editionItem | collVolItem |  collPagesItem | bVolItem | seriesEdItem | seriesItem | multivolumeWorkItem |  collCitationItem | authorRoleItem |
-                                               locationPublisherLayoutsRef | urlDateAccessedLayoutsRef | urlItem |  dateAccessedItem | iso639-3codeItemRef)+>
-<!ELEMENT dissertationLayout (refTitleItem | dissertationLabelItem | locationItem |  institutionItem |  publishedLayoutRef | 
-                                               urlDateAccessedLayoutsRef | urlItem |  dateAccessedItem | iso639-3codeItemRef)+>
+                                                locationPublisherLayoutsRef | reprintInfoItem | urlDateAccessedLayoutsRef | urlItem | dateAccessedItem | doiItem | iso639-3codeItemRef)+>
+<!ELEMENT bookLayout (refTitleItem | translatedByItem  | editorItem | bVolItem | bookversionItem | editionItem | seriesEdItem | seriesItem |  multivolumeWorkItem |
+                                               bookTotalPagesItem | locationPublisherLayoutsRef | reprintInfoItem | urlDateAccessedLayoutsRef | urlItem | dateAccessedItem | doiItem | iso639-3codeItemRef)+>
+<!ELEMENT collectionLayout (refTitleItem | collEdItem |  collTitleItem | bookversionItem |  editionItem | collVolItem |  collPagesItem | bVolItem | seriesEdItem | seriesItem | multivolumeWorkItem |  collCitationItem | authorRoleItem |
+                                               locationPublisherLayoutsRef | reprintInfoItem | urlDateAccessedLayoutsRef | urlItem | dateAccessedItem | doiItem | iso639-3codeItemRef)+>
+<!ELEMENT dissertationLayout (refTitleItem | dissertationLabelItem | locationItem |  institutionItem |  publishedLayoutRef | reprintInfoItem |
+                                               urlDateAccessedLayoutsRef | urlItem | dateAccessedItem | doiItem | iso639-3codeItemRef)+>
 <!ELEMENT fieldNotesLayout (refTitleItem | locationItem |  institutionItem | 
-                                               urlDateAccessedLayoutsRef | urlItem  |  dateAccessedItem | iso639-3codeItemRef)+>
-<!ELEMENT msLayout (refTitleItem | locationItem |  institutionItem | emptyItem | 
-                                               urlDateAccessedLayoutsRef | urlItem  |  dateAccessedItem | iso639-3codeItemRef)+>
-<!ELEMENT paperLayout (refTitleItem | conferenceItem |  locationItem | 
-                                               urlDateAccessedLayoutsRef | urlItem |  dateAccessedItem | iso639-3codeItemRef)+>
-<!ELEMENT proceedingsLayout (refTitleItem | procEdItem |  procTitleItem |  procVolItem |  procPagesItem |  procCitationItem | authorRoleItem |
-                                                locationPublisherLayoutsRef | urlDateAccessedLayoutsRef | urlItem |  dateAccessedItem | iso639-3codeItemRef)+>
-<!ELEMENT thesisLayout (refTitleItem | thesisLabelItem | locationItem |  institutionItem |  publishedLayoutRef | 
-                                               urlDateAccessedLayoutsRef | urlItem |  dateAccessedItem | iso639-3codeItemRef)+>
+                                               urlDateAccessedLayoutsRef | urlItem | dateAccessedItem | doiItem | iso639-3codeItemRef)+>
+<!ELEMENT msLayout (refTitleItem | locationItem |  institutionItem | emptyItem | msVersionItem |
+                                               urlDateAccessedLayoutsRef | urlItem | dateAccessedItem | doiItem | iso639-3codeItemRef)+>
+<!ELEMENT paperLayout (refTitleItem | paperLabelItem | conferenceItem |  locationItem | 
+                                               urlDateAccessedLayoutsRef | urlItem | dateAccessedItem | doiItem | iso639-3codeItemRef)+>
+<!ELEMENT proceedingsLayout (refTitleItem | procEdItem |  procTitleItem |  procVolItem |  procPagesItem | bVolItem | seriesEdItem | seriesItem | multivolumeWorkItem |  procCitationItem | authorRoleItem |
+                                                locationPublisherLayoutsRef | reprintInfoItem | urlDateAccessedLayoutsRef | urlItem | dateAccessedItem | doiItem | iso639-3codeItemRef)+>
+<!ELEMENT thesisLayout (refTitleItem | thesisLabelItem | locationItem |  institutionItem |  publishedLayoutRef | reprintInfoItem |
+                                               urlDateAccessedLayoutsRef | urlItem | dateAccessedItem | doiItem | iso639-3codeItemRef)+>
 <!ELEMENT webPageLayout (refTitleItem | editionItem |  locationItem |  institutionItem |  publisherItem | 
-                                               urlDateAccessedLayoutsRef | urlItem |  dateAccessedItem | iso639-3codeItemRef)+>
+                                               urlDateAccessedLayoutsRef | urlItem | dateAccessedItem | doiItem | iso639-3codeItemRef)+>
 
 <!ELEMENT emptyItem EMPTY >
 <!ATTLIST emptyItem %formatinfo;>
@@ -109,8 +117,14 @@ References Layouts
 <!ATTLIST jArticleNumberItem %formatinfo;>
 <!ELEMENT bVolItem EMPTY >
 <!ATTLIST bVolItem %formatinfo;>
+<!ELEMENT reprintInfoItem EMPTY >
+<!ATTLIST reprintInfoItem %formatinfo;>
 <!ELEMENT dissertationLabelItem EMPTY >
 <!ATTLIST dissertationLabelItem 
+  label CDATA #IMPLIED
+  %formatinfo;>
+<!ELEMENT paperLabelItem EMPTY >
+<!ATTLIST paperLabelItem 
   label CDATA #IMPLIED
   %formatinfo;>
 <!ELEMENT thesisLabelItem EMPTY >
@@ -121,14 +135,20 @@ References Layouts
 <!ATTLIST locationItem %formatinfo;>
 <!ELEMENT publisherItem EMPTY >
 <!ATTLIST publisherItem %formatinfo;>
+<!ELEMENT editorItem EMPTY >
+<!ATTLIST editorItem %formatinfo;>
+<!ELEMENT bookversionItem EMPTY >
+<!ATTLIST bookversionItem %formatinfo;>
 <!ELEMENT editionItem EMPTY >
 <!ATTLIST editionItem %formatinfo;>
 <!ELEMENT institutionItem EMPTY >
 <!ATTLIST institutionItem %formatinfo;>
+<!ELEMENT msVersionItem EMPTY >
+<!ATTLIST msVersionItem %formatinfo;>
 <!ELEMENT dateAccessedItem EMPTY >
 <!ATTLIST dateAccessedItem %formatinfo;>
 
-<!ELEMENT publishedLayout (locationPublisherLayoutsRef  | pubDateItem)+ >
+<!ELEMENT publishedLayout (locationPublisherLayoutsRef | pubDateItem)+ >
 <!ELEMENT pubDateItem EMPTY >
 <!ATTLIST pubDateItem %formatinfo;>
 <!ELEMENT publishedLayoutRef EMPTY >
@@ -136,6 +156,10 @@ References Layouts
 <!ELEMENT procEdItem EMPTY >
 <!ATTLIST procEdItem 
    appendEdAbbreviation (yes | no) "yes"
+   edTextPlural CDATA #IMPLIED
+   edTextSingular CDATA #IMPLIED
+   edTextafter CDATA #IMPLIED
+   edTextbefore CDATA #IMPLIED
    %formatinfo;
 >
 <!ELEMENT procTitleItem EMPTY >
@@ -151,6 +175,10 @@ References Layouts
 <!ELEMENT collEdItem EMPTY >
 <!ATTLIST collEdItem
    appendEdAbbreviation (yes | no) "yes"
+   edTextPlural CDATA #IMPLIED
+   edTextSingular CDATA #IMPLIED
+   edTextafter CDATA #IMPLIED
+   edTextbefore CDATA #IMPLIED
    %formatinfo;
 >
 <!ELEMENT collTitleItem EMPTY >
@@ -166,6 +194,10 @@ References Layouts
 <!ELEMENT seriesEdItem EMPTY >
 <!ATTLIST seriesEdItem 
    appendEdAbbreviation (yes | no) "yes"
+   edTextPlural CDATA #IMPLIED
+   edTextSingular CDATA #IMPLIED
+   edTextafter CDATA #IMPLIED
+   edTextbefore CDATA #IMPLIED
    %formatinfo;
 >
 <!ELEMENT seriesItem EMPTY >
@@ -194,12 +226,20 @@ References Layouts
 <!ELEMENT  locationPublisherLayoutsRef EMPTY >
 <!-- the following is a way to create a common set of url and dateAccessed layouts; it reduces the number of patterns needed -->
 <!ELEMENT urlDateAccessedLayouts (comment?, urlDateAccessedLayout)+ >
-<!ELEMENT  urlDateAccessedLayout (urlItem | dateAccessedItem | missingItem)+>
+<!ELEMENT  urlDateAccessedLayout (urlItem | dateAccessedItem | doiItem | missingItem)+>
 <!ELEMENT  urlDateAccessedLayoutsRef EMPTY >
 <!-- following indicates that the location/publisher or url/dateAccessed items are not present -->
 <!ELEMENT missingItem EMPTY >
+<!ELEMENT doiItem EMPTY >
+<!ATTLIST doiItem %formatinfo;>
+
 
 <!ELEMENT  iso639-3codeItemRef EMPTY >
+<!ELEMENT refAuthorNameChange EMPTY >
+<!ATTLIST refAuthorNameChange
+ from CDATA #REQUIRED
+ to CDATA #REQUIRED
+>
 <!-- REVISION HISTORY
 1.0.0 31-Aug-2007 Andy Black  Initial draft.
 

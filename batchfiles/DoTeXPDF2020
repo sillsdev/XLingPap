@@ -1,0 +1,19 @@
+#!/bin/sh
+PATH=/usr/texbinxlingpaper2020:/usr/local/xlingpapertexbin2020:$PATH
+cd "$2"
+if [ -e xelatex.err ]; then
+	rm xelatex.err
+fi
+xelatex -halt-on-error $1
+if [ $? != "0" ]; then
+	echo found error in TeX
+	echo 'bad news' > xelatex.err
+	exit 0
+fi
+xelatex -halt-on-error $1
+if [ $? != "0" ]; then
+	echo found error in TeX
+	echo 'bad news' > xelatex.err
+fi
+cp "$3" "$4"
+rm "$3"

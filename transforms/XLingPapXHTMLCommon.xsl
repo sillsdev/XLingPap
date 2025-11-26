@@ -1,10 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsl:stylesheet xmlns="http://www.w3.org/1999/xhtml" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0">
+<xsl:stylesheet xmlns="http://www.w3.org/1999/xhtml" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:saxon="http://icl.com/saxon" version="1.1" exclude-result-prefixes="saxon ">
     <!-- ===========================================================
         Global variables
         =========================================================== -->
     <xsl:variable name="sExampleCellPadding">padding-left: .25em</xsl:variable>
     <xsl:variable name="sListLayoutSpaceBetween" select="normalize-space($contentLayoutInfo/listLayout/@spacebetween)"/>
+    <xsl:variable name="bAutomaticallyWrapInterlinears">
+        <xsl:choose>
+            <xsl:when test="//lingPaper/@automaticallywrapinterlinears='yes' and /xlingpaper/styledPaper/publisherStyleSheet/pageLayout/@ignorePageWidthForWebPageOutput='yes'">
+                <xsl:text>yes</xsl:text>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:text>no</xsl:text>
+            </xsl:otherwise>
+        </xsl:choose>
+        </xsl:variable>
+    <xsl:variable name="sInitialGroupIndent" select="$contentLayoutInfo/interlinearTextLayout/@indentOfInitialGroup"/>
     <!-- ===========================================================
         Attribute sets
         =========================================================== -->
@@ -32,7 +43,7 @@
                 <xsl:apply-templates select="ancestor::tablenumbered/shortCaption"/>
             </xsl:when>
             <xsl:otherwise>
-                <xsl:apply-templates select="text() | *[not(descendant-or-self::endnote)]"/>
+                <xsl:apply-templates select="text() | *[not(descendant-or-self::endnote or descendant-or-self::indexedItem)]" mode="contents"/>
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
@@ -48,10 +59,17 @@
     -->
     <xsl:template match="endnote">
         <xsl:param name="originalContext"/>
-        <xsl:call-template name="OutputEndnoteNumber">
-            <xsl:with-param name="attr" select="@id"/>
-            <xsl:with-param name="originalContext" select="$originalContext"/>
-        </xsl:call-template>
+        <xsl:choose>
+            <xsl:when test="$originalContext and ancestor::interlinear-text">
+                <!-- do nothing for an interlinearRef containing an endnote -->
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:call-template name="OutputEndnoteNumber">
+                    <xsl:with-param name="attr" select="@id"/>
+                    <xsl:with-param name="originalContext" select="$originalContext"/>
+                </xsl:call-template>
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
     <!--
         endnote in back matter
@@ -98,80 +116,94 @@
         LISTS
         =========================================================== -->
     <xsl:template match="ol">
-        <xsl:variable name="NestingLevel">
-            <xsl:choose>
-                <xsl:when test="ancestor::endnote">
-                    <xsl:value-of select="count(ancestor::ol[not(descendant::endnote)])"/>
-                </xsl:when>
-                <xsl:otherwise>
-                    <xsl:value-of select="count(ancestor::ol)"/>
-                </xsl:otherwise>
-            </xsl:choose>
-        </xsl:variable>
-        <ol>
-            <xsl:attribute name="style">
-                <xsl:text>list-style-type:</xsl:text>
-                <xsl:variable name="sNumberFormat" select="@numberFormat"/>
-                <xsl:choose>
-                    <xsl:when test="string-length($sNumberFormat) &gt; 0">
+        <xsl:choose>
+            <xsl:when test="count(li) &gt; 0">
+                <xsl:variable name="NestingLevel">
+                    <xsl:choose>
+                        <xsl:when test="ancestor::endnote">
+                            <xsl:value-of select="count(ancestor::ol[not(descendant::endnote)])"/>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:value-of select="count(ancestor::ol)"/>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                </xsl:variable>
+                <ol>
+                    <xsl:attribute name="style">
+                        <xsl:text>list-style-type:</xsl:text>
+                        <xsl:variable name="sNumberFormat" select="@numberFormat"/>
                         <xsl:choose>
-                            <xsl:when test="$sNumberFormat='1'">
-                                <xsl:text>decimal</xsl:text>
-                            </xsl:when>
-                            <xsl:when test="$sNumberFormat='A'">
-                                <xsl:text>upper-alpha</xsl:text>
-                            </xsl:when>
-                            <xsl:when test="$sNumberFormat='a'">
-                                <xsl:text>lower-alpha</xsl:text>
-                            </xsl:when>
-                            <xsl:when test="$sNumberFormat='I'">
-                                <xsl:text>upper-roman</xsl:text>
-                            </xsl:when>
-                            <xsl:when test="$sNumberFormat='i'">
-                                <xsl:text>lower-roman</xsl:text>
-                            </xsl:when>
-                            <xsl:when test="$sNumberFormat='01'">
-                                <xsl:text>decimal-leading-zero</xsl:text>
+                            <xsl:when test="string-length($sNumberFormat) &gt; 0">
+                                <xsl:choose>
+                                    <xsl:when test="$sNumberFormat='1'">
+                                        <xsl:text>decimal</xsl:text>
+                                    </xsl:when>
+                                    <xsl:when test="$sNumberFormat='A'">
+                                        <xsl:text>upper-alpha</xsl:text>
+                                    </xsl:when>
+                                    <xsl:when test="$sNumberFormat='a'">
+                                        <xsl:text>lower-alpha</xsl:text>
+                                    </xsl:when>
+                                    <xsl:when test="$sNumberFormat='I'">
+                                        <xsl:text>upper-roman</xsl:text>
+                                    </xsl:when>
+                                    <xsl:when test="$sNumberFormat='i'">
+                                        <xsl:text>lower-roman</xsl:text>
+                                    </xsl:when>
+                                    <xsl:when test="$sNumberFormat='01'">
+                                        <xsl:text>decimal-leading-zero</xsl:text>
+                                    </xsl:when>
+                                    <xsl:otherwise>
+                                        <xsl:text>decimal</xsl:text>
+                                    </xsl:otherwise>
+                                </xsl:choose>
                             </xsl:when>
                             <xsl:otherwise>
-                                <xsl:text>decimal</xsl:text>
+                                <xsl:choose>
+                                    <xsl:when test="($NestingLevel mod 3)=0">
+                                        <xsl:text>decimal</xsl:text>
+                                    </xsl:when>
+                                    <xsl:when test="($NestingLevel mod 3)=1">
+                                        <xsl:text>lower-alpha</xsl:text>
+                                    </xsl:when>
+                                    <xsl:when test="($NestingLevel mod 3)=2">
+                                        <xsl:text>lower-roman</xsl:text>
+                                    </xsl:when>
+                                </xsl:choose>
                             </xsl:otherwise>
                         </xsl:choose>
-                    </xsl:when>
-                    <xsl:otherwise>
-                        <xsl:choose>
-                            <xsl:when test="($NestingLevel mod 3)=0">
-                                <xsl:text>decimal</xsl:text>
-                            </xsl:when>
-                            <xsl:when test="($NestingLevel mod 3)=1">
-                                <xsl:text>lower-alpha</xsl:text>
-                            </xsl:when>
-                            <xsl:when test="($NestingLevel mod 3)=2">
-                                <xsl:text>lower-roman</xsl:text>
-                            </xsl:when>
-                        </xsl:choose>
-                    </xsl:otherwise>
-                </xsl:choose>
-                <xsl:text>; </xsl:text>
-                <xsl:call-template name="DoType"/>
-                <xsl:call-template name="OutputCssSpecial">
-                    <xsl:with-param name="fDoStyleAttribute" select="'N'"/>
-                </xsl:call-template>
-            </xsl:attribute>
-            <xsl:apply-templates/>
-        </ol>
+                        <xsl:text>; </xsl:text>
+                        <xsl:call-template name="DoType"/>
+                        <xsl:call-template name="OutputCssSpecial">
+                            <xsl:with-param name="fDoStyleAttribute" select="'N'"/>
+                        </xsl:call-template>
+                    </xsl:attribute>
+                    <xsl:apply-templates/>
+                </ol>
+            </xsl:when>
+            <xsl:otherwise>
+                <!-- do nothing -->
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
     <xsl:template match="ul">
-        <ul>
-            <xsl:attribute name="style">
-                <xsl:text>list-style-type:disc; </xsl:text>
-                <xsl:call-template name="DoType"/>
-                <xsl:call-template name="OutputCssSpecial">
-                    <xsl:with-param name="fDoStyleAttribute" select="'N'"/>
-                </xsl:call-template>
-            </xsl:attribute>
-            <xsl:apply-templates/>
-        </ul>
+        <xsl:choose>
+            <xsl:when test="count(li) &gt; 0">
+                <ul>
+                    <xsl:attribute name="style">
+                        <xsl:text>list-style-type:disc; </xsl:text>
+                        <xsl:call-template name="DoType"/>
+                        <xsl:call-template name="OutputCssSpecial">
+                            <xsl:with-param name="fDoStyleAttribute" select="'N'"/>
+                        </xsl:call-template>
+                    </xsl:attribute>
+                    <xsl:apply-templates/>
+                </ul>
+            </xsl:when>
+            <xsl:otherwise>
+                <!-- do nothing -->
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
     <xsl:template match="li">
         <li>
@@ -202,6 +234,11 @@
     </xsl:template>
     <xsl:template match="dd">
         <dd>
+            <xsl:if test="example">
+                <xsl:attribute name="style">
+                    <xsl:text>margin-left:0.0pt</xsl:text>
+                </xsl:attribute>
+            </xsl:if>
             <xsl:apply-templates/>
         </dd>
     </xsl:template>
@@ -209,10 +246,23 @@
         definition
     -->
     <xsl:template match="example/definition">
-        <xsl:element name="table" use-attribute-sets="TablePaddingSpacing">
-            <tr>
-                <xsl:call-template name="DoDefinition"/>
-            </tr>
+        <xsl:element name="table">
+            <xsl:choose>
+                <xsl:when test="$bEBook='Y'">
+                    <xsl:call-template name="DoTablePaddingSpacingEBookAttributes"/>
+                    <tbody>
+                        <tr>
+                            <xsl:call-template name="DoDefinition"/>
+                        </tr>
+                    </tbody>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:call-template name="DoTablePaddingSpacingAttributes"/>
+                    <tr>
+                        <xsl:call-template name="DoDefinition"/>
+                    </tr>
+                </xsl:otherwise>
+            </xsl:choose>
         </xsl:element>
     </xsl:template>
     <xsl:template match="definition[not(parent::example)]">
@@ -338,7 +388,7 @@
     -->
     <xsl:template match="tr | row">
         <tr>
-            <xsl:attribute name="style">
+            <xsl:variable name="sTrStyle">
                 <xsl:call-template name="DoType"/>
                 <xsl:call-template name="OutputCssSpecial">
                     <xsl:with-param name="fDoStyleAttribute">N</xsl:with-param>
@@ -349,7 +399,12 @@
                     <xsl:text>; </xsl:text>
                 </xsl:if>
                 <xsl:call-template name="OutputBackgroundColor"/>
-            </xsl:attribute>
+            </xsl:variable>
+            <xsl:if test="string-length($sTrStyle) &gt; 0">
+                <xsl:attribute name="style">
+                    <xsl:value-of select="$sTrStyle"/>
+                </xsl:attribute>
+            </xsl:if>
             <xsl:apply-templates/>
         </tr>
     </xsl:template>
@@ -359,15 +414,22 @@
     <xsl:template match="td | col">
         <xsl:element name="td">
             <xsl:call-template name="DoCellAttributes"/>
-            <xsl:attribute name="style">
+            <xsl:variable name="sTdStyle">
                 <xsl:call-template name="DoType"/>
                 <xsl:text>padding-left:.2em</xsl:text>
                 <xsl:call-template name="OutputCssSpecial">
                     <xsl:with-param name="fDoStyleAttribute" select="'N'"/>
                 </xsl:call-template>
-                <xsl:call-template name="OutputDirection"/>
+                <xsl:if test="$bEBook!='Y'">
+                    <xsl:call-template name="OutputDirection"/>
+                </xsl:if>
                 <!--                <xsl:call-template name="OutputBackgroundColor"/>-->
-            </xsl:attribute>
+            </xsl:variable>
+            <xsl:if test="string-length($sTdStyle) &gt; 0">
+                <xsl:attribute name="style">
+                    <xsl:value-of select="$sTdStyle"/>
+                </xsl:attribute>
+            </xsl:if>
             <xsl:apply-templates/>
         </xsl:element>
     </xsl:template>
@@ -378,6 +440,22 @@
         <xsl:variable name="sSrc" select="normalize-space(@src)"/>
         <xsl:variable name="sDescription" select="normalize-space(@description)"/>
         <xsl:choose>
+            <xsl:when test="substring($sSrc,string-length($sSrc)-3) ='.mml'">
+                <xsl:variable name="sSvg" select="concat(substring($sSrc,0,string-length($sSrc)-3),'.svg')"/>
+                <xsl:choose>
+                    <xsl:when test="$bEBook='Y'">
+                        <xsl:copy-of select="document(concat($sMainSourcePath, '/', $sSvg))"/>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <embed src="{$sSvg}" type="image/svg+xml" pluginspage="http://www.adobe.com/svg/viewer/install/">
+                            <xsl:call-template name="OutputCssSpecial"/>
+                            <xsl:call-template name="DoImgDescription">
+                                <xsl:with-param name="sDescription" select="$sDescription"/>
+                            </xsl:call-template>
+                        </embed>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </xsl:when>
             <xsl:when test="substring($sSrc,string-length($sSrc)-3) ='.svg'">
                 <xsl:choose>
                     <xsl:when test="$bEBook='Y'">
@@ -396,12 +474,22 @@
             <xsl:otherwise>
                 <xsl:element name="img">
                     <xsl:call-template name="OutputCssSpecial"/>
+                    <xsl:if test="string-length(@alt) &gt; 0">
+                        <xsl:attribute name="alt">
+                            <xsl:value-of select="@alt"/>
+                        </xsl:attribute>
+                    </xsl:if>
                     <xsl:attribute name="src">
                         <xsl:value-of select="@src"/>
                     </xsl:attribute>
                     <xsl:call-template name="DoImgDescription">
                         <xsl:with-param name="sDescription" select="$sDescription"/>
                     </xsl:call-template>
+                    <xsl:if test="@borderaround='yes'">
+                        <xsl:attribute name="class">
+                            <xsl:text>borderaround</xsl:text>
+                        </xsl:attribute>
+                    </xsl:if>
                     <xsl:value-of select="."/>
                 </xsl:element>
             </xsl:otherwise>
@@ -414,54 +502,32 @@
         <xsl:choose>
             <xsl:when test="name(..)='example'">
                 <table>
-                    <tr>
-                        <td>
-                            <xsl:choose>
-                                <xsl:when test="@type">
-                                    <xsl:element name="div">
-                                        <xsl:attribute name="style">
-                                            <xsl:call-template name="DoType"/>
-                                        </xsl:attribute>
-                                        <xsl:choose>
-                                            <xsl:when test="child::ol | child::ul | child::dl | child::img | child::object | child::br | child::hangingIndent">
-                                                <xsl:apply-templates/>
-                                            </xsl:when>
-                                            <xsl:otherwise>
-                                                <xsl:value-of select="." disable-output-escaping="yes"/>
-                                            </xsl:otherwise>
-                                        </xsl:choose>
-                                    </xsl:element>
-                                </xsl:when>
-                                <xsl:otherwise>
-                                    <xsl:apply-templates/>
-                                    <!--                <xsl:value-of select="." disable-output-escaping="yes"/> -->
-                                </xsl:otherwise>
-                            </xsl:choose>
-                        </td>
-                    </tr>
+                    <xsl:choose>
+                        <xsl:when test="$bEBook='Y'">
+                            <tbody>
+                                <xsl:call-template name="DoChartInExample"/>
+                            </tbody>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:call-template name="DoChartInExample"/>
+                        </xsl:otherwise>
+                    </xsl:choose>
                 </table>
             </xsl:when>
             <xsl:otherwise>
                 <xsl:choose>
                     <xsl:when test="parent::endnote and not(position()=1)">
                         <table>
-                            <tr>
-                                <tr>
-                                    <td/>
-                                    <td>
-                                        <div>
-                                            <xsl:choose>
-                                                <xsl:when test="child::ol | child::ul | child::dl | child::img | child::object | child::br">
-                                                    <xsl:apply-templates/>
-                                                </xsl:when>
-                                                <xsl:otherwise>
-                                                    <xsl:value-of select="." disable-output-escaping="yes"/>
-                                                </xsl:otherwise>
-                                            </xsl:choose>
-                                        </div>
-                                    </td>
-                                </tr>
-                            </tr>
+                            <xsl:choose>
+                                <xsl:when test="$bEBook='Y'">
+                                    <tbody>
+                                        <xsl:call-template name="DoChartInEndnote"/>
+                                    </tbody>
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <xsl:call-template name="DoChartInEndnote"/>
+                                </xsl:otherwise>
+                            </xsl:choose>
                         </table>
                     </xsl:when>
                     <xsl:otherwise>
@@ -469,9 +535,14 @@
                             <xsl:call-template name="OutputCssSpecial">
                                 <xsl:with-param name="fDoStyleAttribute" select="'Y'"/>
                             </xsl:call-template>
-                            <xsl:attribute name="style">
+                            <xsl:variable name="sChartStyle">
                                 <xsl:call-template name="DoType"/>
-                            </xsl:attribute>
+                            </xsl:variable>
+                            <xsl:if test="string-length($sChartStyle) &gt; 0">
+                                <xsl:attribute name="style">
+                                    <xsl:value-of select="$sChartStyle"/>
+                                </xsl:attribute>
+                            </xsl:if>
                             <xsl:apply-templates/>
                         </div>
                     </xsl:otherwise>
@@ -488,11 +559,24 @@
                 <xsl:choose>
                     <xsl:when test="name(..)='example'">
                         <table>
-                            <tr>
-                                <td style="vertical-align:top">
-                                    <xsl:apply-templates/>
-                                </td>
-                            </tr>
+                            <xsl:choose>
+                                <xsl:when test="$bEBook='Y'">
+                                    <tbody>
+                                        <tr>
+                                            <td style="vertical-align:top">
+                                                <xsl:apply-templates/>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <tr>
+                                        <td style="vertical-align:top">
+                                            <xsl:apply-templates/>
+                                        </td>
+                                    </tr>
+                                </xsl:otherwise>
+                            </xsl:choose>
                         </table>
                     </xsl:when>
                     <xsl:otherwise>
@@ -538,7 +622,19 @@
                     </xsl:if>
                     <xsl:call-template name="GetInterlinearTextShortTitleAndNumber"/>
                 </div>
-                <div style="margin-left:0.125in">
+                <div>
+                    <xsl:choose>
+                        <xsl:when test="$bAutomaticallyWrapInterlinears='yes'">
+                            <xsl:attribute name="style">
+                                <xsl:text>margin-left:0.25in; text-indent:-.125in</xsl:text>
+                            </xsl:attribute>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:attribute name="style">
+                                <xsl:text>margin-left:0.125in</xsl:text>
+                            </xsl:attribute>
+                        </xsl:otherwise>
+                    </xsl:choose>
                     <xsl:call-template name="OutputInterlinear">
                         <xsl:with-param name="mode" select="'NoTextRef'"/>
                         <xsl:with-param name="originalContext" select="$originalContext"/>
@@ -546,6 +642,11 @@
                 </div>
             </xsl:when>
             <xsl:otherwise>
+<!--                <xsl:if test="$bAutomaticallyWrapInterlinears='yes'">
+                    <xsl:attribute name="style">
+                        <xsl:text> padding-left:0.25in; text-indent:-.25in;</xsl:text>
+                    </xsl:attribute>
+                </xsl:if>-->
                 <xsl:call-template name="OutputInterlinear">
                     <xsl:with-param name="originalContext" select="$originalContext"/>
                 </xsl:call-template>
@@ -564,18 +665,19 @@
         </xsl:if>
         <tr>
             <td>
-                <xsl:element name="table" use-attribute-sets="TablePaddingSpacing">
-                    <tr>
-                        <td style="vertical-align:top">
-                            <xsl:element name="a">
-                                <xsl:attribute name="name">
-                                    <xsl:value-of select="@letter"/>
-                                </xsl:attribute>
-                                <xsl:apply-templates select="." mode="letter"/>
+                <xsl:element name="table">
+                    <xsl:choose>
+                        <xsl:when test="$bEBook='Y'">
+                            <xsl:call-template name="DoTablePaddingSpacingEBookAttributes"/>
+                            <tbody>
+                                <xsl:call-template name="DoListInterlinearAsRow">
+                                    <xsl:with-param name="bListsShareSameCode" select="$bListsShareSameCode"/>
+                                </xsl:call-template>
+<!--           TODO: what is this?                     <xsl:apply-templates select="." mode="letter"/>
                                 <xsl:text>.</xsl:text>
                             </xsl:element>
                         </td>
-                        <xsl:if test="$lingPaper/@showiso639-3codeininterlinear='yes'">
+                        <xsl:if test="$lingPaper/@showiso639-3codeininterlinear='yes' or ancestor-or-self::example/@showiso639-3codes='yes'">
                             <xsl:if test="contains($bListsShareSameCode,'N')">
                                 <td style="vertical-align:top">
                                     <xsl:call-template name="OutputISOCodeInExample">
@@ -585,9 +687,23 @@
                             </xsl:if>
                         </xsl:if>
                         <td>
+                            <xsl:if test="$bAutomaticallyWrapInterlinears='yes'">
+                                <xsl:attribute name="style">
+                                    <xsl:text> padding-left:0.25in; text-indent:-.25in;</xsl:text>
+                                </xsl:attribute>
+                            </xsl:if>
                             <xsl:apply-templates/>
                         </td>
-                    </tr>
+                    </tr>-->
+                            </tbody>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:call-template name="DoTablePaddingSpacingAttributes"/>
+                            <xsl:call-template name="DoListInterlinearAsRow">
+                                <xsl:with-param name="bListsShareSameCode" select="$bListsShareSameCode"/>
+                            </xsl:call-template>
+                        </xsl:otherwise>
+                    </xsl:choose>
                 </xsl:element>
             </td>
         </tr>
@@ -597,14 +713,33 @@
     -->
     <xsl:template match="lineGroup">
         <xsl:param name="originalContext"/>
-        <xsl:call-template name="DoInterlinearLineGroup">
-            <xsl:with-param name="originalContext" select="$originalContext"/>
-        </xsl:call-template>
+        <xsl:choose>
+            <xsl:when test="$bAutomaticallyWrapInterlinears='yes'">
+                <xsl:call-template name="DoWrappableInterlinearLineGroup">
+                    <xsl:with-param name="originalContext" select="$originalContext"/>
+                </xsl:call-template>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:call-template name="DoInterlinearLineGroup">
+                    <xsl:with-param name="originalContext" select="$originalContext"/>
+                </xsl:call-template>
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
     <xsl:template match="lineGroup" mode="NoTextRef">
-        <xsl:call-template name="DoInterlinearLineGroup">
-            <xsl:with-param name="mode" select="'NoTextRef'"/>
-        </xsl:call-template>
+        <xsl:param name="originalContext"/>
+        <xsl:choose>
+            <xsl:when test="$bAutomaticallyWrapInterlinears='yes'">
+                <xsl:call-template name="DoWrappableInterlinearLineGroup">
+                    <xsl:with-param name="originalContext" select="$originalContext"/>
+                </xsl:call-template>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:call-template name="DoInterlinearLineGroup">
+                    <xsl:with-param name="mode" select="'NoTextRef'"/>
+                </xsl:call-template>
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
     <!--
         conflatedLine
@@ -629,7 +764,7 @@
                     <xsl:if test="@letter">
                         <td style="vertical-align:top">
                             <xsl:element name="a">
-                                <xsl:attribute name="name">
+                                <xsl:attribute name="id">
                                     <xsl:value-of select="@letter"/>
                                 </xsl:attribute>
                                 <xsl:apply-templates select="." mode="letter"/>.</xsl:element>
@@ -637,7 +772,16 @@
                     </xsl:if>
                     <td>
                         <table>
-                            <xsl:apply-templates/>
+                            <xsl:choose>
+                                <xsl:when test="$bEBook='Y'">
+                                    <tbody>
+                                        <xsl:apply-templates/>
+                                    </tbody>
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <xsl:apply-templates/>
+                                </xsl:otherwise>
+                            </xsl:choose>
                         </table>
                     </td>
                 </tr>
@@ -645,7 +789,16 @@
             <xsl:otherwise>
                 <td>
                     <table>
-                        <xsl:apply-templates/>
+                        <xsl:choose>
+                            <xsl:when test="$bEBook='Y'">
+                                <tbody>
+                                    <xsl:apply-templates/>
+                                </tbody>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:apply-templates/>
+                            </xsl:otherwise>
+                        </xsl:choose>
                     </table>
                 </td>
             </xsl:otherwise>
@@ -668,7 +821,16 @@
         </td>
         <td>
             <table>
-                <xsl:apply-templates/>
+                <xsl:choose>
+                    <xsl:when test="$bEBook='Y'">
+                        <tbody>
+                            <xsl:apply-templates/>
+                        </tbody>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:apply-templates/>
+                    </xsl:otherwise>
+                </xsl:choose>
             </table>
         </td>
         <td>
@@ -701,14 +863,32 @@
     -->
     <xsl:template match="free">
         <xsl:param name="originalContext"/>
-        <xsl:call-template name="DoInterlinearFree">
-            <xsl:with-param name="originalContext" select="$originalContext"/>
-        </xsl:call-template>
+        <xsl:choose>
+            <xsl:when test="$bAutomaticallyWrapInterlinears='yes'">
+                <xsl:call-template name="DoWrapableInterlinearFree">
+                    <xsl:with-param name="originalContext" select="$originalContext"/>
+                </xsl:call-template>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:call-template name="DoInterlinearFree">
+                    <xsl:with-param name="originalContext" select="$originalContext"/>
+                </xsl:call-template>
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
     <xsl:template match="free" mode="NoTextRef">
-        <xsl:call-template name="DoInterlinearFree">
-            <xsl:with-param name="mode" select="'NoTextRef'"/>
-        </xsl:call-template>
+        <xsl:choose>
+            <xsl:when test="$bAutomaticallyWrapInterlinears='yes'">
+                <xsl:call-template name="DoWrapableInterlinearFree">
+                    <xsl:with-param name="mode" select="'NoTextRef'"/>
+                </xsl:call-template>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:call-template name="DoInterlinearFree">
+                    <xsl:with-param name="mode" select="'NoTextRef'"/>
+                </xsl:call-template>
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
     <!--
         literal
@@ -728,15 +908,33 @@
         word
     -->
     <xsl:template match="word">
-        <xsl:element name="table" use-attribute-sets="TablePaddingSpacing">
-            <tr>
-                <xsl:for-each select="(langData | gloss)">
-                    <td>
-                        <xsl:apply-templates select="."/>
-                    </td>
-                </xsl:for-each>
-            </tr>
-            <xsl:apply-templates select="word"/>
+        <xsl:element name="table">
+            <xsl:choose>
+                <xsl:when test="$bEBook='Y'">
+                    <xsl:call-template name="DoTablePaddingSpacingEBookAttributes"/>
+                    <tbody>
+                        <tr>
+                            <xsl:for-each select="(langData | gloss)">
+                                <td>
+                                    <xsl:apply-templates select="."/>
+                                </td>
+                            </xsl:for-each>
+                        </tr>
+                        <xsl:apply-templates select="word"/>
+                    </tbody>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:call-template name="DoTablePaddingSpacingAttributes"/>
+                    <tr>
+                        <xsl:for-each select="(langData | gloss)">
+                            <td>
+                                <xsl:apply-templates select="."/>
+                            </td>
+                        </xsl:for-each>
+                    </tr>
+                    <xsl:apply-templates select="word"/>
+                </xsl:otherwise>
+            </xsl:choose>
         </xsl:element>
     </xsl:template>
     <xsl:template match="word[ancestor::listWord]">
@@ -775,9 +973,12 @@
         <tr style="vertical-align:top">
             <td>
                 <xsl:element name="a">
-                    <xsl:attribute name="name">
+                    <xsl:attribute name="id">
                         <xsl:value-of select="@letter"/>
                     </xsl:attribute>
+                    <xsl:call-template name="AddAnyTitleAttribute">
+                        <xsl:with-param name="sId" select="@letter"/>
+                    </xsl:call-template>
                     <xsl:apply-templates select="." mode="letter"/>.</xsl:element>
             </td>
             <xsl:call-template name="OutputListLevelISOCode">
@@ -801,12 +1002,27 @@
         single
     -->
     <xsl:template match="single">
-        <xsl:element name="table" use-attribute-sets="TablePaddingSpacing">
-            <tr>
-                <td>
-                    <xsl:apply-templates/>
-                </td>
-            </tr>
+        <xsl:element name="table">
+            <xsl:choose>
+                <xsl:when test="$bEBook='Y'">
+                    <xsl:call-template name="DoTablePaddingSpacingEBookAttributes"/>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <xsl:apply-templates/>
+                            </td>
+                        </tr>
+                    </tbody>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:call-template name="DoTablePaddingSpacingAttributes"/>
+                    <tr>
+                        <td>
+                            <xsl:apply-templates/>
+                        </td>
+                    </tr>
+                </xsl:otherwise>
+            </xsl:choose>
         </xsl:element>
     </xsl:template>
     <!--
@@ -818,12 +1034,15 @@
         <tr>
             <td style="vertical-align:top">
                 <xsl:element name="a">
-                    <xsl:attribute name="name">
+                    <xsl:attribute name="id">
                         <xsl:value-of select="@letter"/>
                     </xsl:attribute>
+                    <xsl:call-template name="AddAnyTitleAttribute">
+                        <xsl:with-param name="sId" select="@letter"/>
+                    </xsl:call-template>
                     <xsl:apply-templates select="." mode="letter"/>.</xsl:element>
             </td>
-            <xsl:if test="$lingPaper/@showiso639-3codeininterlinear='yes'">
+            <xsl:if test="$lingPaper/@showiso639-3codeininterlinear='yes' or ancestor-or-self::example/@showiso639-3codes='yes'">
                 <xsl:if test="contains($bListsShareSameCode,'N')">
                     <td>
                         <xsl:call-template name="OutputISOCodeInExample">
@@ -989,12 +1208,21 @@
         iword
     -->
     <xsl:template match="iword">
-        <!--        <span class="interblock">-->
-        <xsl:element name="table" use-attribute-sets="TablePaddingSpacing">
+        <xsl:element name="table">
             <xsl:attribute name="class">interblock</xsl:attribute>
-            <xsl:apply-templates/>
+            <xsl:choose>
+                <xsl:when test="$bEBook='Y'">
+                    <xsl:call-template name="DoTablePaddingSpacingEBookAttributes"/>
+                    <tbody>
+                        <xsl:apply-templates/>
+                    </tbody>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:call-template name="DoTablePaddingSpacingAttributes"/>
+                    <xsl:apply-templates/>
+                </xsl:otherwise>
+            </xsl:choose>
         </xsl:element>
-        <!--        </span>-->
     </xsl:template>
     <!--
         iword/item[@type='punct']
@@ -1081,12 +1309,21 @@
         morph
     -->
     <xsl:template match="morph">
-        <!--        <span class="interblock">-->
-        <xsl:element name="table" use-attribute-sets="TablePaddingSpacing">
+        <xsl:element name="table">
             <xsl:attribute name="class">interblock</xsl:attribute>
-            <xsl:apply-templates/>
+            <xsl:choose>
+                <xsl:when test="$bEBook='Y'">
+                    <xsl:call-template name="DoTablePaddingSpacingEBookAttributes"/>
+                    <tbody>
+                        <xsl:apply-templates/>
+                    </tbody>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:call-template name="DoTablePaddingSpacingAttributes"/>
+                    <xsl:apply-templates/>
+                </xsl:otherwise>
+            </xsl:choose>
         </xsl:element>
-        <!--        </span>-->
     </xsl:template>
     <!--
         morph/item
@@ -1151,19 +1388,72 @@
                 <xsl:with-param name="originalContext" select="$originalContext"/>
             </xsl:call-template>
         </xsl:variable>
-        <xsl:if test="$sFootnoteNumber='1'">
+        <xsl:if test="$sFootnoteNumber='1' and not(ancestor::chapterInCollection[descendant::title[descendant::endnote] or descendant::author[descendant::endnote]]) or $sFootnoteNumber='*'">
             <tr>
                 <td colspan="2" style="font-style:italic; font-size:larger; font-weight:bold">
                     <xsl:call-template name="DoBookEndnotesLabelingContent">
                         <xsl:with-param name="chapterOrAppendixUnit" select="$chapterOrAppendixUnit"/>
                     </xsl:call-template>
                     <xsl:text>&#x20;</xsl:text>
-                    <xsl:for-each select="$chapterOrAppendixUnit">
+                    <xsl:for-each select="$chapterOrAppendixUnit[contains(name(.),'chapter') or name()='appendix' or name()='part']">
                         <xsl:call-template name="OutputChapterNumber"/>
                     </xsl:for-each>
                 </td>
             </tr>
         </xsl:if>
+    </xsl:template>
+    <!--  
+        DoChartInEndnote
+    -->
+    <xsl:template name="DoChartInEndnote">
+        <tr>
+            <tr>
+                <td/>
+                <td>
+                    <div>
+                        <xsl:choose>
+                            <xsl:when test="child::ol | child::ul | child::dl | child::img | child::object | child::br">
+                                <xsl:apply-templates/>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:value-of select="." disable-output-escaping="yes"/>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                    </div>
+                </td>
+            </tr>
+        </tr>
+    </xsl:template>
+    <!--  
+        DoChartInExample
+    -->
+    <xsl:template name="DoChartInExample">
+        <tr>
+            <td>
+                <xsl:choose>
+                    <xsl:when test="@type">
+                        <xsl:element name="div">
+                            <xsl:attribute name="style">
+                                <xsl:call-template name="DoType"/>
+                            </xsl:attribute>
+                            <xsl:choose>
+                                <xsl:when test="child::ol | child::ul | child::dl | child::img | child::object | child::br | child::hangingIndent">
+                                    <xsl:apply-templates/>
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <xsl:value-of select="." disable-output-escaping="yes"/>
+                                </xsl:otherwise>
+                            </xsl:choose>
+                        </xsl:element>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:apply-templates/>
+                        <!--                <xsl:value-of select="." disable-output-escaping="yes"/> -->
+                    </xsl:otherwise>
+                </xsl:choose>
+            </td>
+        </tr>
+
     </xsl:template>
     <!--  
         DoDefinition
@@ -1241,51 +1531,16 @@
             <xsl:with-param name="fDoStyleAttribute" select="'Y'"/>
         </xsl:call-template>
         <table>
-            <tr>
-                <xsl:variable name="bListsShareSameCode">
-                    <xsl:call-template name="DetermineIfListsShareSameISOCode"/>
-                </xsl:variable>
-                <td style="vertical-align:top">
-                    <xsl:element name="a">
-                        <xsl:attribute name="name">
-                            <xsl:value-of select="@num"/>
-                        </xsl:attribute>
-                        <xsl:call-template name="GetAndFormatExampleNumber"/>
-                        <xsl:if test="not(listDefinition) and not(definition)">
-                            <xsl:call-template name="OutputExampleLevelISOCode">
-                                <xsl:with-param name="bListsShareSameCode" select="$bListsShareSameCode"/>
-                            </xsl:call-template>
-                        </xsl:if>
-                    </xsl:element>
-                </td>
-                <td>
-                    <xsl:variable name="myFirstChild" select="child::*[position()=1]"/>
-                    <xsl:choose>
-                        <xsl:when test="name($myFirstChild) = 'exampleHeading' and substring(name(child::*[position()=2]), 1, 4)='list'">
-                            <xsl:apply-templates select="exampleHeading" mode="NoTextRef"/>
-                            <xsl:element name="table" use-attribute-sets="TablePaddingSpacing">
-                                <xsl:apply-templates select="listInterlinear | listWord | listSingle">
-                                    <xsl:with-param name="bListsShareSameCode" select="$bListsShareSameCode"/>
-                                </xsl:apply-templates>
-                            </xsl:element>
-                        </xsl:when>
-                        <xsl:when test="name($myFirstChild) = 'exampleHeading' and name(child::*[position()=2])='table'">
-                            <xsl:apply-templates select="exampleHeading"/>
-                            <xsl:apply-templates select="table"/>
-                        </xsl:when>
-                        <xsl:when test="substring(name($myFirstChild), 1, 4)='list'">
-                            <xsl:element name="table" use-attribute-sets="TablePaddingSpacing">
-                                <xsl:apply-templates>
-                                    <xsl:with-param name="bListsShareSameCode" select="$bListsShareSameCode"/>
-                                </xsl:apply-templates>
-                            </xsl:element>
-                        </xsl:when>
-                        <xsl:otherwise>
-                            <xsl:apply-templates/>
-                        </xsl:otherwise>
-                    </xsl:choose>
-                </td>
-            </tr>
+            <xsl:choose>
+                <xsl:when test="$bEBook='Y'">
+                    <tbody>
+                        <xsl:call-template name="DoExampleTopRow"/>
+                    </tbody>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:call-template name="DoExampleTopRow"/>
+                </xsl:otherwise>
+            </xsl:choose>
         </table>
     </xsl:template>
     <!--  
@@ -1388,21 +1643,188 @@
         </xsl:if>
     </xsl:template>
     <!--  
+        DoWrappableInterlinearLineGroup
+    -->
+    <xsl:template name="DoWrappableInterlinearLineGroup">
+        <xsl:param name="mode"/>
+        <xsl:param name="bHasExampleHeading"/>
+        <xsl:param name="bListsShareSameCode"/>
+        <xsl:param name="originalContext"/>
+        <xsl:if test="(count(ancestor::interlinear) + count(ancestor::listInterlinear)) &gt; 1">
+            <xsl:if test="$mode='NoTextRef' or  ../preceding-sibling::*[1][name()!='free' and name()!='literal']">
+                <p/>
+            </xsl:if>
+        </xsl:if>
+        <xsl:variable name="sLeftIndent">
+            <xsl:choose>
+                <xsl:when test="../preceding-sibling::*[1][name()='free' or name()='literal'] or count(ancestor::interlinear) &gt; 1">
+                    <xsl:text>0.8</xsl:text>
+                </xsl:when>
+                <xsl:when test="preceding-sibling::*[1][name()='lineGroup']">
+                    <xsl:text>1</xsl:text>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:text>0.25</xsl:text>
+                </xsl:otherwise>
+            </xsl:choose>
+            <xsl:text>em</xsl:text>
+        </xsl:variable>
+        <xsl:variable name="iColCount">
+            <xsl:call-template name="GetMaxColumnCountForLineGroup">
+                <xsl:with-param name="bListsShareSameCode" select="'Y'"/>
+            </xsl:call-template>
+        </xsl:variable>
+        <div class="itxwrap" style="padding-left:{$sLeftIndent};">
+            <xsl:choose>
+                <xsl:when test="line/wrd">
+                    <xsl:variable name="bRtl">
+                        <xsl:choose>
+                            <xsl:when test="id(line[1]/wrd/langData[1]/@lang)/@rtl='yes'">Y</xsl:when>
+                            <xsl:otherwise>N</xsl:otherwise>
+                        </xsl:choose>
+                    </xsl:variable>
+                    <xsl:if test="$bRtl='Y'">
+                        <xsl:attribute name="class">itxwrap rtl</xsl:attribute>
+                    </xsl:if>
+                    <xsl:for-each select="line[count(wrd)=$iColCount][1]/wrd">
+                        <xsl:call-template name="BoxUpWrdsInAllLinesInLineGroup">
+                            <xsl:with-param name="originalContext" select="$originalContext"/>
+                        </xsl:call-template>
+                    </xsl:for-each>
+                </xsl:when>
+                <xsl:otherwise>
+                    <!-- uses langData or gloss with #PCDATA -->
+                    <xsl:variable name="bFlip">
+                        <xsl:choose>
+                            <xsl:when test="id(line[1]/langData[1]/@lang)/@rtl='yes'">Y</xsl:when>
+                            <xsl:otherwise>N</xsl:otherwise>
+                        </xsl:choose>
+                    </xsl:variable>
+                    <xsl:if test="$bFlip='Y'">
+                        <xsl:attribute name="class">itxwrap rtl</xsl:attribute>
+                    </xsl:if>
+                    <xsl:for-each select="line[1]">
+                        <xsl:variable name="lang">
+                            <xsl:call-template name="GetLangInNonWrdLine"/>
+                        </xsl:variable>
+                        <xsl:call-template name="DoNonWrdInterlinearLineAsWrappable">
+                            <xsl:with-param name="sList" select="."/>
+                            <xsl:with-param name="lang" select="$lang"/>
+                            <xsl:with-param name="bFlip" select="'N'"/>
+                            <xsl:with-param name="iPosition" select="1"/>
+                            <xsl:with-param name="iMaxColumns" select="$iColCount"/>
+                        </xsl:call-template>
+                    </xsl:for-each>
+                </xsl:otherwise>
+            </xsl:choose>
+            <xsl:if test="$sInterlinearSourceStyle='AfterFirstLine'">
+                <xsl:call-template name="OutputInterlinearTextReference">
+                    <xsl:with-param name="sRef" select="../@textref"/>
+                    <xsl:with-param name="sSource" select="../interlinearSource"/>
+                </xsl:call-template>
+            </xsl:if>
+        </div>
+    </xsl:template>
+    <!--  
+        DoExampleTopRow
+    -->
+    <xsl:template name="DoExampleTopRow">
+        <tr>
+            <xsl:variable name="bListsShareSameCode">
+                <xsl:call-template name="DetermineIfListsShareSameISOCode"/>
+            </xsl:variable>
+            <td style="vertical-align:top">
+                <xsl:element name="a">
+                    <xsl:attribute name="id">
+                        <xsl:value-of select="@num"/>
+                    </xsl:attribute>
+                    <xsl:call-template name="AddAnyTitleAttribute">
+                        <xsl:with-param name="sId" select="@num"/>
+                    </xsl:call-template>
+                    <xsl:call-template name="GetAndFormatExampleNumber"/>
+                    <xsl:if test="not(listDefinition) and not(definition)">
+                        <xsl:call-template name="OutputExampleLevelISOCode">
+                            <xsl:with-param name="bListsShareSameCode" select="$bListsShareSameCode"/>
+                            <xsl:with-param name="sIsoCode">
+                                <xsl:call-template name="GetISOCode"/>
+                            </xsl:with-param>
+                        </xsl:call-template>
+                    </xsl:if>
+                </xsl:element>
+            </td>
+            <td>
+                <xsl:variable name="myFirstChild" select="child::*[position()=1]"/>
+                <xsl:choose>
+                    <xsl:when test="name($myFirstChild) = 'exampleHeading' and substring(name(child::*[position()=2]), 1, 4)='list'">
+                        <xsl:apply-templates select="exampleHeading" mode="NoTextRef"/>
+                        <xsl:element name="table">
+                            <xsl:choose>
+                                <xsl:when test="$bEBook='Y'">
+                                    <xsl:call-template name="DoTablePaddingSpacingEBookAttributes"/>
+                                    <tbody>
+                                        <xsl:apply-templates select="listInterlinear | listWord | listSingle | listDefinition">
+                                            <xsl:with-param name="bListsShareSameCode" select="$bListsShareSameCode"/>
+                                        </xsl:apply-templates>
+                                    </tbody>
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <xsl:call-template name="DoTablePaddingSpacingAttributes"/>
+                                    <xsl:apply-templates select="listInterlinear | listWord | listSingle | listDefinition">
+                                        <xsl:with-param name="bListsShareSameCode" select="$bListsShareSameCode"/>
+                                    </xsl:apply-templates>
+                                </xsl:otherwise>
+                            </xsl:choose>
+                        </xsl:element>
+                    </xsl:when>
+                    <xsl:when test="name($myFirstChild) = 'exampleHeading' and name(child::*[position()=2])='table'">
+                        <xsl:apply-templates select="exampleHeading"/>
+                        <xsl:apply-templates select="table"/>
+                    </xsl:when>
+                    <xsl:when test="substring(name($myFirstChild), 1, 4)='list'">
+                        <xsl:element name="table">
+                            <xsl:choose>
+                                <xsl:when test="$bEBook='Y'">
+                                    <xsl:call-template name="DoTablePaddingSpacingEBookAttributes"/>
+                                    <tbody>
+                                        <xsl:apply-templates>
+                                            <xsl:with-param name="bListsShareSameCode" select="$bListsShareSameCode"/>
+                                        </xsl:apply-templates>
+                                    </tbody>
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <xsl:call-template name="DoTablePaddingSpacingAttributes"/>
+                                    <xsl:apply-templates>
+                                        <xsl:with-param name="bListsShareSameCode" select="$bListsShareSameCode"/>
+                                    </xsl:apply-templates>
+                                </xsl:otherwise>
+                            </xsl:choose>
+                        </xsl:element>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:apply-templates/>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </td>
+        </tr>
+    </xsl:template>
+    <!--  
         DoImgDescription
     -->
     <xsl:template name="DoImgDescription">
         <xsl:param name="sDescription"/>
-        <xsl:attribute name="alt">
-            <xsl:choose>
-                <xsl:when test="string-length($sDescription) &gt; 0">
-                    <xsl:value-of select="$sDescription"/>
-                </xsl:when>
-                <xsl:otherwise>
-                    <xsl:text>Missing image file: </xsl:text>
-                    <xsl:value-of select="@src"/>
-                </xsl:otherwise>
-            </xsl:choose>
-        </xsl:attribute>
+        <xsl:if test="string-length(normalize-space(@alt))=0">
+            <xsl:attribute name="alt">
+                <xsl:choose>
+                    <xsl:when test="string-length($sDescription) &gt; 0">
+                        <xsl:value-of select="$sDescription"/>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:text>Missing image file: </xsl:text>
+                        <xsl:value-of select="@src"/>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </xsl:attribute>
+        </xsl:if>
     </xsl:template>
     <!--  
         DoInterlinearLineGroup
@@ -1410,7 +1832,15 @@
     <xsl:template name="DoInterlinearLineGroup">
         <xsl:param name="originalContext"/>
         <xsl:param name="mode"/>
-        <xsl:element name="table" use-attribute-sets="TablePaddingSpacing">
+        <xsl:element name="table">
+            <xsl:choose>
+                <xsl:when test="$bEBook='Y'">
+                    <xsl:call-template name="DoTablePaddingSpacingEBookAttributes"/>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:call-template name="DoTablePaddingSpacingAttributes"/>
+                </xsl:otherwise>
+            </xsl:choose>
             <!-- add extra indent for when have an embedded interlinear; 
                 be sure to allow for the case of when a listInterlinear begins with an interlinear -->
             <xsl:variable name="parent" select=".."/>
@@ -1435,25 +1865,83 @@
                     <xsl:text>;border-collapse:collapse</xsl:text>
                 </xsl:attribute>
                 <xsl:if test="count(../../lineGroup[last()]/line) &gt; 1 or count(line) &gt; 1">
-                    <tr>
-                        <td>
-                            <!-- Following does not work 
-                                <xsl:if test="string-length($sSpaceBetweenGroups) &gt; 0">
-                                <xsl:attribute name="style">
-                                <xsl:text>padding-top:</xsl:text>
-                                <xsl:value-of select="$sSpaceBetweenGroups"/>
-                                </xsl:attribute>
-                                </xsl:if>-->
-                            <xsl:text>&#xa0;</xsl:text>
-                        </td>
-                    </tr>
+                    <xsl:choose>
+                        <xsl:when test="$bEBook='Y'">
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <!-- Following does not work 
+                                            <xsl:if test="string-length($sSpaceBetweenGroups) &gt; 0">
+                                            <xsl:attribute name="style">
+                                            <xsl:text>padding-top:</xsl:text>
+                                            <xsl:value-of select="$sSpaceBetweenGroups"/>
+                                            </xsl:attribute>
+                                            </xsl:if>-->
+                                        <xsl:text>&#xa0;</xsl:text>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <tr>
+                                <td>
+                                    <!-- Following does not work 
+                                        <xsl:if test="string-length($sSpaceBetweenGroups) &gt; 0">
+                                        <xsl:attribute name="style">
+                                        <xsl:text>padding-top:</xsl:text>
+                                        <xsl:value-of select="$sSpaceBetweenGroups"/>
+                                        </xsl:attribute>
+                                        </xsl:if>-->
+                                    <xsl:text>&#xa0;</xsl:text>
+                                </td>
+                            </tr>
+                        </xsl:otherwise>
+                    </xsl:choose>
                 </xsl:if>
             </xsl:if>
-            <xsl:call-template name="ApplyTemplatesPerTextRefMode">
-                <xsl:with-param name="mode" select="$mode"/>
-                <xsl:with-param name="originalContext" select="$originalContext"/>
-            </xsl:call-template>
+            <xsl:choose>
+                <xsl:when test="$bEBook='Y'">
+                    <tbody>
+                        <xsl:call-template name="ApplyTemplatesPerTextRefMode">
+                            <xsl:with-param name="mode" select="$mode"/>
+                            <xsl:with-param name="originalContext" select="$originalContext"/>
+                        </xsl:call-template>
+                    </tbody>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:call-template name="ApplyTemplatesPerTextRefMode">
+                        <xsl:with-param name="mode" select="$mode"/>
+                        <xsl:with-param name="originalContext" select="$originalContext"/>
+                    </xsl:call-template>
+                </xsl:otherwise>
+            </xsl:choose>
         </xsl:element>
+    </xsl:template>
+    <!--  
+        DoWrd
+    -->
+    <xsl:template name="DoWrd">
+        <xsl:param name="originalContext"/>
+        <td class="itxitem">
+        <xsl:choose>
+            <xsl:when test="@lang">
+                <span>
+                <xsl:call-template name="OutputFontAttributes">
+                    <xsl:with-param name="language" select="key('LanguageID',@lang)"/>
+                    <xsl:with-param name="originalContext" select="."/>
+                </xsl:call-template>
+                <xsl:apply-templates>
+                    <xsl:with-param name="originalContext" select="$originalContext"/>
+                </xsl:apply-templates>
+                </span>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:apply-templates>
+                    <xsl:with-param name="originalContext" select="$originalContext"/>
+                </xsl:apply-templates>
+            </xsl:otherwise>
+        </xsl:choose>
+        </td>
     </xsl:template>
     <!--
         OutputAbbreviationInTable
@@ -1488,7 +1976,7 @@
     -->
     <xsl:template name="OutputAbbreviationItemInTable">
         <xsl:param name="abbrsShownHere"/>
-        <td valign="top">
+        <td class="valign--top">
             <xsl:call-template name="HandleColumnWidth">
                 <xsl:with-param name="sWidth" select="normalize-space($abbrsShownHere/@abbrWidth)"/>
             </xsl:call-template>
@@ -1499,14 +1987,14 @@
             </a>
         </td>
         <xsl:if test="not($contentLayoutInfo/abbreviationsInTableLayout/@useEqualSignsColumn) or $contentLayoutInfo/abbreviationsInTableLayout/@useEqualSignsColumn!='no'">
-            <td valign="top">
+            <td class="valign--top">
                 <xsl:call-template name="HandleColumnWidth">
                     <xsl:with-param name="sWidth" select="normalize-space($abbrsShownHere/@equalsWidth)"/>
                 </xsl:call-template>
                 <xsl:text> = </xsl:text>
             </td>
         </xsl:if>
-        <td valign="top">
+        <td class="valign--top">
             <xsl:call-template name="HandleColumnWidth">
                 <xsl:with-param name="sWidth" select="normalize-space($abbrsShownHere/@definitionWidth)"/>
             </xsl:call-template>
@@ -1520,10 +2008,10 @@
     -->
     <xsl:template name="OutputAbbreviationsInTable">
         <xsl:param name="abbrsUsed"
-            select="//abbreviation[not(ancestor::chapterInCollection/backMatter/abbreviations)][//abbrRef[not(ancestor::chapterInCollection/backMatter/abbreviations)]/@abbr=@id]"/>
+            select="//abbreviation[not(ancestor::chapterInCollection/backMatter/abbreviations)][//abbrRef[not(ancestor::chapterInCollection/backMatter/abbreviations) and not(ancestor::comment)]/@abbr=@id]"/>
         <xsl:if test="count($abbrsUsed) &gt; 0">
             <table>
-                <xsl:attribute name="style">
+                <xsl:variable name="sStyleItems">
                     <xsl:call-template name="OutputFontAttributes">
                         <xsl:with-param name="language" select="$contentLayoutInfo/abbreviationsInTableLayout"/>
                     </xsl:call-template>
@@ -1533,12 +2021,43 @@
                         <xsl:value-of select="$sStartIndent"/>
                         <xsl:text>;</xsl:text>
                     </xsl:if>
-                </xsl:attribute>
-                <xsl:call-template name="SortAbbreviationsInTable">
-                    <xsl:with-param name="abbrsUsed" select="$abbrsUsed"/>
-                </xsl:call-template>
+                </xsl:variable>
+                <xsl:if test="string-length($sStyleItems) &gt; 0">
+                    <xsl:attribute name="style">
+                        <xsl:value-of select="$sStyleItems"/>
+                    </xsl:attribute>
+                </xsl:if>
+                <xsl:choose>
+                    <xsl:when test="$bEBook='Y'">
+                        <tbody>
+                            <xsl:call-template name="SortAbbreviationsInTable">
+                                <xsl:with-param name="abbrsUsed" select="$abbrsUsed"/>
+                            </xsl:call-template>
+                        </tbody>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:call-template name="SortAbbreviationsInTable">
+                            <xsl:with-param name="abbrsUsed" select="$abbrsUsed"/>
+                        </xsl:call-template>
+                    </xsl:otherwise>
+                </xsl:choose>
+
             </table>
         </xsl:if>
+    </xsl:template>
+    <!--  
+        GetSpaceBetweenGroups
+    -->
+    <xsl:template name="GetSpaceBetweenGroups">
+        <xsl:choose>
+            <xsl:when test="string-length($sSpaceBetweenGroups) &gt; 0">
+                <xsl:value-of select="$sSpaceBetweenGroups"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:value-of select="$sBasicPointSize"/>
+                <xsl:text>pt</xsl:text>
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
     <!--
         HandleColumnWidth
@@ -1558,29 +2077,36 @@
     <xsl:template name="HandleEndnoteInBackMatter">
         <xsl:param name="originalContext"/>
         <xsl:param name="iTablenumberedAdjust" select="0"/>
-        <xsl:if test="$bIsBook">
-            <xsl:call-template name="DoBookEndnoteSectionLabel">
-                <xsl:with-param name="originalContext" select="$originalContext"/>
-            </xsl:call-template>
-        </xsl:if>
-        <tr>
-            <td style="vertical-align:baseline">
-                <a>
-                    <xsl:attribute name="name">
-                        <xsl:value-of select="@id"/>
-                    </xsl:attribute>
-                    <xsl:text>[</xsl:text>
-                    <xsl:call-template name="GetFootnoteNumber">
+        <xsl:choose>
+            <xsl:when test="$originalContext and ancestor::interlinear-text">
+                <!-- do nothing for an interlinearRef containing an endnote -->
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:if test="$bIsBook">
+                    <xsl:call-template name="DoBookEndnoteSectionLabel">
                         <xsl:with-param name="originalContext" select="$originalContext"/>
-                        <xsl:with-param name="iTablenumberedAdjust" select="$iTablenumberedAdjust"/>
                     </xsl:call-template>
-                    <xsl:text>]</xsl:text>
-                </a>
-            </td>
-            <td style="vertical-align:baseline">
-                <xsl:apply-templates/>
-            </td>
-        </tr>
+                </xsl:if>
+                <tr>
+                    <td style="vertical-align:baseline">
+                        <a>
+                            <xsl:attribute name="id">
+                                <xsl:value-of select="@id"/>
+                            </xsl:attribute>
+                            <xsl:text>[</xsl:text>
+                            <xsl:call-template name="GetFootnoteNumber">
+                                <xsl:with-param name="originalContext" select="$originalContext"/>
+                                <xsl:with-param name="iTablenumberedAdjust" select="$iTablenumberedAdjust"/>
+                            </xsl:call-template>
+                            <xsl:text>]</xsl:text>
+                        </a>
+                    </td>
+                    <td style="vertical-align:baseline">
+                        <xsl:apply-templates/>
+                    </td>
+                </tr>
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
     <!--  
         HandleListWordLangDataOrGloss
@@ -1721,6 +2247,9 @@
             <xsl:when test="$bIsOverride='Y'">
                 <xsl:attribute name="class">
                     <xsl:value-of select="name($language)"/>
+                    <xsl:if test="name($language/..)='langDataLayout'">
+                        <xsl:value-of select="normalize-space($language/../@language)"/>
+                    </xsl:if>
                 </xsl:attribute>
             </xsl:when>
             <xsl:otherwise>
@@ -1832,6 +2361,20 @@
         </td>
     </xsl:template>
     <!--
+        OutputGlossaryTermsAsDefinitionList
+    -->
+    <xsl:template name="OutputGlossaryTermsAsDefinitionList">
+        <xsl:param name="glossaryTermsUsed"
+            select="//glossaryTerm[not(ancestor::chapterInCollection/backMatter/glossaryTerms)][//glossaryTermRef[not(ancestor::chapterInCollection/backMatter/glossaryTerms)]/@glossaryTerm=@id]"/>
+        <xsl:if test="count($glossaryTermsUsed) &gt; 0">
+            <div class="glossaryTermsInDefinitionListLayout">
+                <xsl:call-template name="SortGlossaryTermsAsDefinitionList">
+                    <xsl:with-param name="glossaryTermsUsed" select="$glossaryTermsUsed"/>
+                </xsl:call-template>
+            </div>
+        </xsl:if>
+    </xsl:template>
+    <!--
         OutputGlossaryTermsInTable
     -->
     <xsl:template name="OutputGlossaryTermsInTable">
@@ -1850,9 +2393,20 @@
                         <xsl:text>;</xsl:text>
                     </xsl:if>
                 </xsl:attribute>
-                <xsl:call-template name="SortGlossaryTermsInTable">
-                    <xsl:with-param name="glossaryTermsUsed" select="$glossaryTermsUsed"/>
-                </xsl:call-template>
+                <xsl:choose>
+                    <xsl:when test="$bEBook='Y'">
+                        <tbody>
+                            <xsl:call-template name="SortGlossaryTermsInTable">
+                                <xsl:with-param name="glossaryTermsUsed" select="$glossaryTermsUsed"/>
+                            </xsl:call-template>
+                        </tbody>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:call-template name="SortGlossaryTermsInTable">
+                            <xsl:with-param name="glossaryTermsUsed" select="$glossaryTermsUsed"/>
+                        </xsl:call-template>
+                    </xsl:otherwise>
+                </xsl:choose>
             </table>
         </xsl:if>
     </xsl:template>
@@ -1881,48 +2435,164 @@
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
+    <!--  
+        OutputInterlinearLineTableCellContent
+    -->
+    <xsl:template name="OutputInterlinearLineTableCellContent">
+        <xsl:param name="lang"/>
+        <xsl:param name="sFirst"/>
+        <xsl:variable name="sContext">
+            <xsl:call-template name="GetContextOfItem"/>
+        </xsl:variable>
+        <xsl:variable name="langDataLayout">
+            <xsl:call-template name="GetBestLangDataLayout"/>
+        </xsl:variable>
+        <xsl:variable name="glossLayout" select="$contentLayoutInfo/glossLayout"/>
+        <xsl:choose>
+            <xsl:when test="langData">
+                <xsl:call-template name="HandleLangDataTextBeforeOutside">
+                    <xsl:with-param name="langDataLayout" select="$langDataLayout/*"/>
+                    <xsl:with-param name="sLangDataContext" select="$sContext"/>
+                </xsl:call-template>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:call-template name="HandleGlossTextBeforeOutside">
+                    <xsl:with-param name="glossLayout" select="$glossLayout"/>
+                    <xsl:with-param name="sGlossContext" select="$sContext"/>
+                </xsl:call-template>
+            </xsl:otherwise>
+        </xsl:choose>
+        <span>
+            <xsl:attribute name="style">
+            <xsl:call-template name="OutputFontAttributes">
+            <xsl:with-param name="language" select="key('LanguageID',$lang)"/>
+            <xsl:with-param name="originalContext" select="$sFirst"/>
+            </xsl:call-template>
+            </xsl:attribute>
+        </span>
+        <span>
+                <xsl:choose>
+            <xsl:when test="langData">
+                <xsl:call-template name="HandleLangDataTextBeforeAndFontOverrides">
+                    <xsl:with-param name="langDataLayout" select="$langDataLayout/*"/>
+                    <xsl:with-param name="sLangDataContext" select="$sContext"/>
+                </xsl:call-template>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:call-template name="HandleGlossTextBeforeAndFontOverrides">
+                    <xsl:with-param name="glossLayout" select="$glossLayout"/>
+                    <xsl:with-param name="sGlossContext" select="$sContext"/>
+                </xsl:call-template>
+            </xsl:otherwise>
+        </xsl:choose>
+        </span>
+        <xsl:value-of select="$sFirst"/>
+        <span>
+                <xsl:choose>
+            <xsl:when test="langData">
+                <xsl:call-template name="HandleLangDataTextAfterAndFontOverrides">
+                    <xsl:with-param name="langDataLayout" select="$langDataLayout/*"/>
+                    <xsl:with-param name="sLangDataContext" select="$sContext"/>
+                </xsl:call-template>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:call-template name="HandleGlossTextAfterAndFontOverrides">
+                    <xsl:with-param name="glossLayout" select="$glossLayout"/>
+                    <xsl:with-param name="sGlossContext" select="$sContext"/>
+                </xsl:call-template>
+            </xsl:otherwise>
+        </xsl:choose>
+        </span>
+        <xsl:choose>
+            <xsl:when test="langData">
+                <xsl:call-template name="HandleLangDataTextAfterOutside">
+                    <xsl:with-param name="langDataLayout" select="$langDataLayout/*"/>
+                    <xsl:with-param name="sLangDataContext" select="$sContext"/>
+                </xsl:call-template>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:call-template name="HandleGlossTextAfterOutside">
+                    <xsl:with-param name="glossLayout" select="$glossLayout"/>
+                    <xsl:with-param name="sGlossContext" select="$sContext"/>
+                </xsl:call-template>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
     <!--
         OutputISOCodeInExample
     -->
     <xsl:template name="OutputISOCodeInExample">
+        <xsl:param name="sIsoCode"/>
         <xsl:param name="bOutputBreak" select="'Y'"/>
         <xsl:variable name="firstLangData" select="descendant::langData[1] | key('InterlinearReferenceID',interlinearRef/@textref)[1]/descendant::langData[1]"/>
-        <xsl:if test="$firstLangData">
-            <xsl:variable name="sIsoCode" select="key('LanguageID',$firstLangData/@lang)/@ISO639-3Code"/>
-            <xsl:if test="string-length($sIsoCode) &gt; 0">
-                <xsl:if test="$bOutputBreak='Y'">
-                    <br/>
-                </xsl:if>
-                <span style="font-size:smaller">
-                    <xsl:text>[</xsl:text>
-                    <xsl:choose>
-                        <xsl:when test="$bShowISO639-3Codes='Y'">
-                            <a>
-                                <xsl:attribute name="href">
-                                    <xsl:text>#</xsl:text>
-                                    <xsl:value-of select="$firstLangData/@lang"/>
-                                </xsl:attribute>
-                                <xsl:call-template name="AddAnyLinkAttributes">
-                                    <xsl:with-param name="override" select="$pageLayoutInfo/linkLayout/iso639-3CodesLinkLayout"/>
-                                </xsl:call-template>
+        <xsl:choose>
+            <xsl:when test="string-length($sIsoCode) &gt; 0">
+                <xsl:if test="string-length($sIsoCode) &gt; 0">
+                    <xsl:if test="$bOutputBreak='Y'">
+                        <br/>
+                    </xsl:if>
+                    <span style="font-size:smaller">
+                        <xsl:text>[</xsl:text>
+                        <xsl:choose>
+                            <xsl:when test="$bShowISO639-3Codes='Y'">
+                                <a>
+                                    <xsl:attribute name="href">
+                                        <xsl:text>#</xsl:text>
+                                        <xsl:value-of select="$firstLangData/@lang"/>
+                                    </xsl:attribute>
+                                    <xsl:call-template name="AddAnyLinkAttributes">
+                                        <xsl:with-param name="override" select="$pageLayoutInfo/linkLayout/iso639-3CodesLinkLayout"/>
+                                    </xsl:call-template>
+                                    <xsl:value-of select="$sIsoCode"/>
+                                </a>
+                            </xsl:when>
+                            <xsl:otherwise>
                                 <xsl:value-of select="$sIsoCode"/>
-                            </a>
-                        </xsl:when>
-                        <xsl:otherwise>
-                            <xsl:value-of select="$sIsoCode"/>
-                        </xsl:otherwise>
-                    </xsl:choose>
-                    <xsl:text>]</xsl:text>
-                </span>
-            </xsl:if>
-        </xsl:if>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                        <xsl:text>]</xsl:text>
+                    </span>
+                </xsl:if>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:if test="$firstLangData">
+                    <xsl:variable name="sIsoCode2" select="key('LanguageID',$firstLangData/@lang)/@ISO639-3Code"/>
+                    <xsl:if test="string-length($sIsoCode2) &gt; 0">
+                        <xsl:if test="$bOutputBreak='Y'">
+                            <br/>
+                        </xsl:if>
+                        <span style="font-size:smaller">
+                            <xsl:text>[</xsl:text>
+                            <xsl:choose>
+                                <xsl:when test="$bShowISO639-3Codes='Y'">
+                                    <a>
+                                        <xsl:attribute name="href">
+                                            <xsl:text>#</xsl:text>
+                                            <xsl:value-of select="$firstLangData/@lang"/>
+                                        </xsl:attribute>
+                                        <xsl:call-template name="AddAnyLinkAttributes">
+                                            <xsl:with-param name="override" select="$pageLayoutInfo/linkLayout/iso639-3CodesLinkLayout"/>
+                                        </xsl:call-template>
+                                        <xsl:value-of select="$sIsoCode2"/>
+                                    </a>
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <xsl:value-of select="$sIsoCode2"/>
+                                </xsl:otherwise>
+                            </xsl:choose>
+                            <xsl:text>]</xsl:text>
+                        </span>
+                    </xsl:if>
+                </xsl:if>
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
     <!--
         OutputListLevelISOCode
     -->
     <xsl:template name="OutputListLevelISOCode">
         <xsl:param name="bListsShareSameCode"/>
-        <xsl:if test="$lingPaper/@showiso639-3codeininterlinear='yes'">
+        <xsl:if test="$lingPaper/@showiso639-3codeininterlinear='yes' or ancestor-or-self::example/@showiso639-3codes='yes'">
             <xsl:if test="contains($bListsShareSameCode,'N')">
                 <td>
                     <xsl:call-template name="OutputISOCodeInExample">
@@ -1931,6 +2601,38 @@
                 </td>
             </xsl:if>
         </xsl:if>
+    </xsl:template>
+    <!--  
+        DoListInterlinearAsRow
+    -->
+    <xsl:template name="DoListInterlinearAsRow">
+        <xsl:param name="bListsShareSameCode"/>
+        <tr>
+            <td style="vertical-align:top">
+                <xsl:element name="a">
+                    <xsl:attribute name="id">
+                        <xsl:value-of select="@letter"/>
+                    </xsl:attribute>
+                    <xsl:call-template name="AddAnyTitleAttribute">
+                        <xsl:with-param name="sId" select="@letter"/>
+                    </xsl:call-template>
+                    <xsl:apply-templates select="." mode="letter"/>
+                    <xsl:text>.</xsl:text>
+                </xsl:element>
+            </td>
+            <xsl:if test="$lingPaper/@showiso639-3codeininterlinear='yes' or ancestor-or-self::example/@showiso639-3codes='yes'">
+                <xsl:if test="contains($bListsShareSameCode,'N')">
+                    <td style="vertical-align:top">
+                        <xsl:call-template name="OutputISOCodeInExample">
+                            <xsl:with-param name="bOutputBreak" select="'N'"/>
+                        </xsl:call-template>
+                    </td>
+                </xsl:if>
+            </xsl:if>
+            <td>
+                <xsl:apply-templates/>
+            </td>
+        </tr>
     </xsl:template>
     <!--  
         DoNestedTypes
@@ -1952,6 +2654,31 @@
         </xsl:if>
     </xsl:template>
     <!--  
+        DoTablePaddingSpacingAttributes
+    -->
+    <xsl:template name="DoTablePaddingSpacingAttributes">
+        <xsl:attribute name="style">
+            <xsl:text>border-collapse:collapse</xsl:text>
+        </xsl:attribute>
+        <xsl:attribute name="cellpadding">
+            <xsl:call-template name="DefaultCellPaddingSpacing"/>
+        </xsl:attribute>
+        <xsl:attribute name="cellspacing">
+            <xsl:call-template name="DefaultCellPaddingSpacing"/>
+        </xsl:attribute>
+    </xsl:template>
+    <!--  
+        DoTablePaddingSpacingEBookAttributes
+    -->
+    <xsl:template name="DoTablePaddingSpacingEBookAttributes">
+        <xsl:attribute name="style">
+            <xsl:text>border-collapse:collapse</xsl:text>
+        </xsl:attribute>
+        <xsl:attribute name="class">
+            <xsl:text>cell-padding--zero cell-spacing--zero</xsl:text>
+        </xsl:attribute>
+    </xsl:template>
+    <!--  
         DoType
     -->
     <xsl:template name="DoType">
@@ -1970,24 +2697,34 @@
     -->
     <xsl:template name="OutputTable">
         <xsl:element name="table">
-            <xsl:attribute name="style">
+            <xsl:variable name="sTableStyle">
                 <xsl:call-template name="DoType"/>
                 <xsl:call-template name="OutputCssSpecial">
                     <xsl:with-param name="fDoStyleAttribute">N</xsl:with-param>
                 </xsl:call-template>
                 <xsl:call-template name="OutputBackgroundColor"/>
-            </xsl:attribute>
-            <!--  this is deprecated now and does not do what we want,, anyway
-    <xsl:if test="@align">
-                <xsl:attribute name="align">
-                    <xsl:value-of select="@align"/>
+            </xsl:variable>
+            <xsl:if test="string-length($sTableStyle) &gt; 0">
+                <xsl:attribute name="style">
+                    <xsl:value-of select="$sTableStyle"/>
                 </xsl:attribute>
             </xsl:if>
--->
             <xsl:if test="@border">
-                <xsl:attribute name="border">
-                    <xsl:value-of select="@border"/>
-                </xsl:attribute>
+                <xsl:choose>
+                    <xsl:when test="$bEBook='Y'">
+                        <xsl:variable name="sBorder" select="normalize-space(@border)"/>
+                        <xsl:if test="$sBorder='1' or $sBorder='2'">
+                            <xsl:attribute name="border">
+                                <xsl:text>1</xsl:text>
+                            </xsl:attribute>
+                        </xsl:if>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:attribute name="border">
+                            <xsl:value-of select="@border"/>
+                        </xsl:attribute>
+                    </xsl:otherwise>
+                </xsl:choose>
             </xsl:if>
             <xsl:if test="@cellpadding">
                 <xsl:attribute name="cellpadding">
@@ -1999,64 +2736,363 @@
                     <xsl:value-of select="@cellspacing"/>
                 </xsl:attribute>
             </xsl:if>
-            <xsl:if test="caption and not(ancestor::tablenumbered)">
-                <xsl:apply-templates select="caption" mode="show"/>
-            </xsl:if>
-            <!--  Note: we may want something like the following to enable running table headers...
-            <xsl:if test="tr/th[count(following-sibling::td)=0] | headerRow">
-                <thead>
-                    <xsl:call-template name="OutputTypeAttributes">
-                        <xsl:with-param name="sList" select="tr[th]/@xsl-foSpecial"/>
+            <xsl:choose>
+                <xsl:when test="$bEBook='Y'">
+                    <tbody>
+                        <xsl:if test="caption and not(ancestor::tablenumbered)">
+                            <xsl:apply-templates select="caption" mode="show"/>
+                        </xsl:if>
+                        <xsl:apply-templates/>
+                        <xsl:if test="endCaption and not(ancestor::tablenumbered)">
+                            <xsl:apply-templates select="endCaption" mode="show"/>
+                        </xsl:if>
+                    </tbody>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:if test="caption and not(ancestor::tablenumbered)">
+                        <xsl:apply-templates select="caption" mode="show"/>
+                    </xsl:if>
+                    <xsl:apply-templates/>
+                    <xsl:if test="endCaption and not(ancestor::tablenumbered)">
+                        <xsl:apply-templates select="endCaption" mode="show"/>
+                    </xsl:if>
+                </xsl:otherwise>
+            </xsl:choose>
+        </xsl:element>
+    </xsl:template>
+    <xsl:variable name="hasInterlinears">
+        <xsl:choose>
+            <xsl:when test="//interlinear">
+                <xsl:text>Y</xsl:text>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:text>N</xsl:text>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:variable>
+
+    <!--  
+        BoxUpWrdsInAllLinesInLineGroup
+    -->
+    <xsl:template name="BoxUpWrdsInAllLinesInLineGroup">
+        <xsl:param name="originalContext"/>
+        <xsl:variable name="iPos" select="count(preceding-sibling::wrd) + 1"/>
+        <div class="itxitem">
+            <xsl:for-each select="../preceding-sibling::line">
+                <xsl:for-each select="wrd[position()=$iPos]">
+                    <xsl:call-template name="DoWrdWrap">
+                        <xsl:with-param name="originalContext" select="$originalContext"/>
                     </xsl:call-template>
-                    <xsl:for-each select="tr[1] | headerRow">
-                        <xsl:call-template name="DoType"/>
-                        <xsl:call-template name="OutputBackgroundColor"/>
+                </xsl:for-each>
+            </xsl:for-each>
+            <xsl:call-template name="DoWrdWrap">
+                <xsl:with-param name="originalContext" select="$originalContext"/>
+            </xsl:call-template>
+            <xsl:for-each select="../following-sibling::line">
+                <xsl:for-each select="wrd[position()=$iPos]">
+                    <xsl:call-template name="DoWrdWrap">
+                        <xsl:with-param name="originalContext" select="$originalContext"/>
+                    </xsl:call-template>
+                </xsl:for-each>
+            </xsl:for-each>
+        </div>
+        <!--        <xsl:if test="not($originalContext)">
+            <xsl:for-each select="../preceding-sibling::line/wrd[position()=$iPos]">
+            <xsl:call-template name="DoFootnoteTextWithinWrappableWrd">
+            <xsl:with-param name="originalContext" select="$originalContext"/>
+            </xsl:call-template>
+            </xsl:for-each>
+            <xsl:call-template name="DoFootnoteTextWithinWrappableWrd">
+            <xsl:with-param name="originalContext" select="$originalContext"/>
+            </xsl:call-template>
+            <xsl:for-each select="../following-sibling::line/wrd[position()=$iPos]">
+            <xsl:call-template name="DoFootnoteTextWithinWrappableWrd">
+            <xsl:with-param name="originalContext" select="$originalContext"/>
+            </xsl:call-template>
+            </xsl:for-each>
+            </xsl:if>-->
+        <!--        <xsl:if test="position()!=last()">
+            <xsl:choose>
+            <xsl:when test="count(../../line) &gt; 1">
+            <!-\-<tex:cmd name="XLingPaperintspace"/>-\->
+            <span>&#x20;</span>
+            </xsl:when>
+            <xsl:otherwise>
+            <xsl:text>&#x20;</xsl:text>
+            </xsl:otherwise>
+            </xsl:choose>
+            </xsl:if>-->
+    </xsl:template>
+    <!--  
+        CalculateColumnsInInterlinearLine
+    -->
+    <xsl:template name="CalculateColumnsInInterlinearLine">
+        <xsl:param name="sList"/>
+        <xsl:variable name="sNewList" select="concat(normalize-space($sList),' ')"/>
+        <xsl:variable name="sFirst" select="substring-before($sNewList,' ')"/>
+        <xsl:variable name="sRest" select="substring-after($sNewList,' ')"/>
+        <xsl:text>x</xsl:text>
+        <xsl:if test="$sRest">
+            <xsl:call-template name="CalculateColumnsInInterlinearLine">
+                <xsl:with-param name="sList" select="$sRest"/>
+            </xsl:call-template>
+        </xsl:if>
+    </xsl:template>
+    <!--  
+        DoIthCellInNonWrdInterlinearLineAsWrappable
+    -->
+    <xsl:template name="DoIthCellInNonWrdInterlinearLineAsWrappable">
+        <xsl:param name="sList"/>
+        <xsl:param name="lang"/>
+        <xsl:param name="iPositionToUse"/>
+        <xsl:param name="iCurrentPosition"/>
+        <xsl:param name="iMaxColumns"/>
+        <xsl:variable name="sNewList" select="concat(normalize-space($sList),' ')"/>
+        <xsl:variable name="sFirst" select="substring-before($sNewList,' ')"/>
+        <xsl:choose>
+            <xsl:when test="$iCurrentPosition = $iPositionToUse">
+                <xsl:call-template name="OutputInterlinearLineTableCellContent">
+                    <xsl:with-param name="lang" select="$lang"/>
+                    <xsl:with-param name="sFirst" select="$sFirst"/>
+                </xsl:call-template>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:variable name="sRest" select="substring-after($sNewList,' ')"/>
+                <xsl:if test="$sRest or $iCurrentPosition &lt; $iMaxColumns">
+                    <xsl:call-template name="DoIthCellInNonWrdInterlinearLineAsWrappable">
+                        <xsl:with-param name="sList" select="$sRest"/>
+                        <xsl:with-param name="lang" select="$lang"/>
+                        <xsl:with-param name="iPositionToUse" select="$iPositionToUse"/>
+                        <xsl:with-param name="iCurrentPosition" select="$iCurrentPosition + 1"/>
+                        <xsl:with-param name="iMaxColumns" select="$iMaxColumns"/>
+                    </xsl:call-template>
+                </xsl:if>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
+    <!--  
+        DoNonWrdInterlinearLineAsWrappable
+    -->
+    <xsl:template name="DoNonWrdInterlinearLineAsWrappable">
+        <xsl:param name="sList"/>
+        <xsl:param name="lang"/>
+        <xsl:param name="bFlip"/>
+        <xsl:param name="iPosition"/>
+        <xsl:param name="iMaxColumns"/>
+        <xsl:variable name="sNewList" select="concat(normalize-space($sList),' ')"/>
+        <xsl:variable name="sFirst" select="substring-before($sNewList,' ')"/>
+        <xsl:variable name="sRest" select="substring-after($sNewList,' ')"/>
+        <xsl:variable name="iLineCountInLineGroup" select="count(../line)"/>
+        <div class="itxitem">
+            <div>
+                <xsl:call-template name="OutputInterlinearLineTableCellContent">
+                    <xsl:with-param name="lang" select="$lang"/>
+                    <xsl:with-param name="sFirst" select="$sFirst"/>
+                </xsl:call-template>
+            </div>
+            <xsl:for-each select="following-sibling::line">
+                <xsl:variable name="langOfNewLine">
+                    <xsl:call-template name="GetLangInNonWrdLine"/>
+                </xsl:variable>
+                <xsl:variable name="sOrientedContents">
+                    <xsl:call-template name="GetOrientedContents">
+                        <xsl:with-param name="bFlip" select="$bFlip"/>
+                    </xsl:call-template>
+                </xsl:variable>
+                <div>
+                    <xsl:call-template name="DoIthCellInNonWrdInterlinearLineAsWrappable">
+                        <xsl:with-param name="sList" select="$sOrientedContents"/>
+                        <xsl:with-param name="lang" select="$langOfNewLine"/>
+                        <xsl:with-param name="iPositionToUse" select="$iPosition"/>
+                        <xsl:with-param name="iCurrentPosition" select="1"/>
+                        <xsl:with-param name="iMaxColumns" select="$iMaxColumns"/>
+                    </xsl:call-template>
+                </div>
+            </xsl:for-each>
+            <!--                <xsl:if test="$iLineCountInLineGroup &gt; 1 or not($sRest or $iPosition &lt; $iMaxColumns)">
+                <tr>
+                <td>
+                <xsl:value-of select="$sBasicPointSize"/>
+                <xsl:text>pt</xsl:text>
+                </td>
+                </tr>
+                </xsl:if>-->
+        </div>
+        <xsl:if test="$sRest or $iPosition &lt; $iMaxColumns">
+            <!--<xsl:choose>
+                <xsl:when test="$iLineCountInLineGroup &gt; 1">
+                <tex:cmd name="XLingPaperintspace"/>
+                </xsl:when>
+                <xsl:otherwise>
+                <!-\-  if there is only one line we might as well just use spaces -\->-->
+            <xsl:text>&#x20;</xsl:text>
+            <!--                </xsl:otherwise>
+                </xsl:choose>-->
+            <xsl:call-template name="DoNonWrdInterlinearLineAsWrappable">
+                <xsl:with-param name="sList" select="$sRest"/>
+                <xsl:with-param name="lang" select="$lang"/>
+                <xsl:with-param name="bFlip" select="$bFlip"/>
+                <xsl:with-param name="iPosition" select="$iPosition + 1"/>
+                <xsl:with-param name="iMaxColumns" select="$iMaxColumns"/>
+            </xsl:call-template>
+        </xsl:if>
+    </xsl:template>
+    <!--  
+        DoWrdWrap
+    -->
+    <xsl:template name="DoWrdWrap">
+        <xsl:param name="originalContext"/>
+        <div>
+            <xsl:choose>
+                <xsl:when test="@lang">
+                    <span>
+                        <xsl:attribute name="style">
+                            <xsl:call-template name="OutputFontAttributes">
+                                <xsl:with-param name="language" select="key('LanguageID',@lang)"/>
+                                <xsl:with-param name="originalContext" select="."/>
+                            </xsl:call-template>
+                        </xsl:attribute>
+                        <xsl:apply-templates>
+                            <xsl:with-param name="originalContext" select="$originalContext"/>
+                        </xsl:apply-templates>
+                    </span>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:apply-templates>
+                        <xsl:with-param name="originalContext" select="$originalContext"/>
+                    </xsl:apply-templates>
+                </xsl:otherwise>
+            </xsl:choose>
+        </div>
+    </xsl:template>
+    <!--  
+        GetLangInNonWrdLine
+    -->
+    <xsl:template name="GetLangInNonWrdLine">
+        <xsl:choose>
+            <xsl:when test="langData">
+                <xsl:value-of select="langData/@lang"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:value-of select="gloss/@lang"/>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
+    <!--  
+        GetMaxColumnCountForLineGroup
+    -->
+    <xsl:template name="GetMaxColumnCountForLineGroup">
+        <xsl:param name="bListsShareSameCode"/>
+        <xsl:variable name="iTempCount">
+            <xsl:for-each select="line | ../listWord">
+                <xsl:sort select="count(wrd) + count(langData) + count(gloss)" order="descending" data-type="number"/>
+                <xsl:if test="position()=1">
+                    <xsl:value-of select="count(wrd) + count(langData) + count(gloss)"/>
+                </xsl:if>
+            </xsl:for-each>
+        </xsl:variable>
+        <xsl:choose>
+            <xsl:when test=" name()!='listWord' and $iTempCount=1 or name()!='listWord' and count(descendant::wrd)=0">
+                <!-- have space-delimited langData and/or gloss line(s) -->
+                <xsl:variable name="sMaxColCount">
+                    <xsl:call-template name="GetMaxColumnCountForPCDATALines"/>
+                </xsl:variable>
+                <xsl:variable name="sIsoCode">
+                    <xsl:for-each select="parent::listInterlinear">
+                        <xsl:call-template name="GetISOCode"/>
                     </xsl:for-each>
-                    <xsl:variable name="headerRows" select="tr[th[count(following-sibling::td)=0]]"/>
-                    <xsl:choose>
-                        <xsl:when test="count($headerRows) != 1">
-                            <xsl:for-each select="$headerRows">
-                                <tr>
-                                    <xsl:apply-templates select="th[count(following-sibling::td)=0] | headerRow"/>
-                                </tr>
-                            </xsl:for-each>
-                        </xsl:when>
-                        <xsl:otherwise>
-                            <xsl:apply-templates select="tr/th[count(following-sibling::td)=0] | headerRow"/>
-                        </xsl:otherwise>
-                    </xsl:choose>
-                </thead>
-            </xsl:if>
-            <tbody start-indent="0pt" end-indent="0pt">
-                <xsl:variable name="rows" select="tr[not(th) or th[count(following-sibling::td)!=0]]"/>
+                </xsl:variable>
+                <!--  2011.11.16              <xsl:choose>
+                    <xsl:when test="string-length($sIsoCode) = 3">-->
                 <xsl:choose>
-                    <xsl:when test="$rows">
-                        <xsl:apply-templates select="$rows"/>
+                    <xsl:when test="contains($bListsShareSameCode,'N')">
+                        <xsl:value-of select="string-length($sMaxColCount)+1"/>
                     </xsl:when>
                     <xsl:otherwise>
-                        <tr>
-                            <td border-collapse="collapse">
-                                <xsl:choose>
-                                    <xsl:when test="ancestor::table[1]/@border!='0' or count(ancestor::table)=1">
-                                        <xsl:attribute name="padding">.2em</xsl:attribute>
-                                    </xsl:when>
-                                    <xsl:when test="position() &gt; 1">
-                                        <xsl:attribute name="padding-left">.2em</xsl:attribute>
-                                    </xsl:when>
-                                </xsl:choose>
-                                <div>
-                                    <xsl:text>(This table does not have any contents!)</xsl:text>
-                                </div>
-                            </td>
-                        </tr>
+                        <xsl:value-of select="string-length($sMaxColCount)"/>
                     </xsl:otherwise>
                 </xsl:choose>
-            </tbody>
-            -->
-            <xsl:apply-templates/>
-            <xsl:if test="endCaption and not(ancestor::tablenumbered)">
-                <xsl:apply-templates select="endCaption" mode="show"/>
-            </xsl:if>
-        </xsl:element>
+                <!-- 2011.11.16                   </xsl:when>
+                    <xsl:otherwise>
+                    <xsl:value-of select="string-length($sMaxColCount)"/>
+                    </xsl:otherwise>
+                    </xsl:choose>
+                -->
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:variable name="sIsoCode">
+                    <xsl:for-each select="parent::listInterlinear">
+                        <xsl:call-template name="GetISOCode"/>
+                    </xsl:for-each>
+                </xsl:variable>
+                <xsl:choose>
+                    <xsl:when test="contains($bListsShareSameCode,'N')">
+                        <xsl:value-of select="number($iTempCount + 1)"/>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:value-of select="$iTempCount"/>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
+    <!--  
+        GetMaxColumnCountForPCDATALines
+    -->
+    <xsl:template name="GetMaxColumnCountForPCDATALines">
+        <!-- We need to figure out the maximum number of items in the line elements.
+            The maximum could be in any line since the user just keys data in them.
+            We use a bit of a trick.  We put XML into a variable, with a root of <lines> and each line as <line>.
+            Each line contains one x for each item in the line.  We then sort these and get the longest one.
+            We use the longest one to figure out how many columns we will need.
+            Note that with XSLT version 1.0, we have to use something like the Saxon extension function node-set().
+        -->
+        <xsl:variable name="lines">
+            <lines>
+                <xsl:for-each select="line | ../listWord">
+                    <line>
+                        <xsl:call-template name="CalculateColumnsInInterlinearLine">
+                            <xsl:with-param name="sList" select="langData | gloss"/>
+                        </xsl:call-template>
+                    </line>
+                </xsl:for-each>
+            </lines>
+        </xsl:variable>
+        <xsl:for-each select="saxon:node-set($lines)/descendant::*">
+            <xsl:for-each select="line">
+                <xsl:sort select="." order="descending"/>
+                <xsl:if test="position()=1">
+                    <xsl:value-of select="."/>
+                </xsl:if>
+            </xsl:for-each>
+        </xsl:for-each>
+    </xsl:template>
+    <!-- 
+        GetOrientedContents
+    -->
+    <xsl:template name="GetOrientedContents">
+        <xsl:param name="bFlip"/>
+        <xsl:variable name="sContents">
+            <!--               <xsl:apply-templates/>  Why do we want to include all the parameters, etc. when what we really want is the text? -->
+            <!--                    <xsl:value-of select="."/>-->
+            <xsl:value-of select="self::*[not(descendant-or-self::endnote)]"/>
+        </xsl:variable>
+        <xsl:choose>
+            <xsl:when test="$bFlip='Y'">
+                <!-- flip order, left to right -->
+                <xsl:call-template name="ReverseContents">
+                    <xsl:with-param name="sList" select="$sContents"/>
+                </xsl:call-template>
+            </xsl:when>
+            <xsl:when test="langData and id(langData/@lang)/@rtl='yes'">
+                <!-- flip order, left to right -->
+                <xsl:call-template name="ReverseContents">
+                    <xsl:with-param name="sList" select="$sContents"/>
+                </xsl:call-template>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:value-of select="$sContents"/>
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
 </xsl:stylesheet>

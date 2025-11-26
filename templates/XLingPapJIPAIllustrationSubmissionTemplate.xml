@@ -2,10 +2,11 @@
 <!DOCTYPE xlingpaper PUBLIC "-//XMLmind//DTD XLingPap//EN"
 "XLingPap.dtd">
 <xlingpaper
-version="2.28.0"
 ><styledPaper
 ><lingPaper
-version="2.28.0"
+automaticallywrapinterlinears="yes"
+useImageWidthSetToWidthOfExampleFigureOrChart="yes"
+version="3.8.0"
 ><comment
 >Template for producing an illustration article for submission to the Journal of the IPA.</comment
 ><frontMatter
@@ -842,9 +843,9 @@ id="sVowels"
 ><p
 ><comment
 >The following graphic file is a sample vowel chart. It is available for download at <link
-href="http://www.xlingpaper.org/?page_id=4#VowelChart"
->http://www.xlingpaper.org/?page_id=4#VowelChart</link
-> (it is quite small). We recommend you download it and place it in Ihe same directory where you put this file. It is an SVG file which you can edit to place the vowels in your language where they belong. You can use the free Inkscape program to edit the SVG file. See <link
+href="http://software.sil.org/xlingpaper/resources/jipa-vowel-chart/"
+>http://software.sil.org/xlingpaper/resources/jipa-vowel-chart/</link
+> (it is quite small). We recommend you download it and place it in the same directory where you put this file. It is an SVG file which you can edit to place the vowels in your language where they belong. You can use the free Inkscape program to edit the SVG file. See <link
 href="http://inkscape.org/"
 >http://inkscape.org/</link
 >. For the XeLaTeX-way of producing PDF, you will also need to convert the file to PDF. You can do this with Inkscape or by using the SVG to PDF conversion process available with XLingPaper. See section 11.17.1.1 "Known limitations of using XeTeX" in the user documentation. The XMLmind XML Editor can show an SVG file if you install the Apache Batik image toolkit plug-in Addon package. See the Options menu item / Install Add-ons... </comment

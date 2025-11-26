@@ -1,45 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:tex="http://getfo.sourceforge.net/texml/ns1">
+<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:tex="http://getfo.sourceforge.net/texml/ns1" xmlns:saxon="http://icl.com/saxon">
     <xsl:include href="XLingPapPublisherStylesheetCommonContents.xsl"/>
-    <!-- 
-        part (contents) 
-    -->
-    <xsl:template match="part" mode="contents">
-        <!--        <xsl:param name="nLevel"/>-->
-        <xsl:if test="count(preceding-sibling::part)=0">
-            <xsl:for-each select="preceding-sibling::*[name()='chapterBeforePart']">
-                <xsl:apply-templates select="." mode="contents">
-                    <!--                    <xsl:with-param name="nLevel" select="$nLevel"/>-->
-                </xsl:apply-templates>
-            </xsl:for-each>
-        </xsl:if>
-        <tex:cmd name="vspace">
-            <tex:parm>
-                <xsl:call-template name="DoSpaceBeforeContentsLine"/>
-                <xsl:text>pt</xsl:text>
-            </tex:parm>
-        </tex:cmd>
-        <xsl:call-template name="DoInternalHyperlinkBegin">
-            <xsl:with-param name="sName" select="@id"/>
-        </xsl:call-template>
-        <tex:cmd name="centering">
-            <tex:parm>
-                <xsl:call-template name="OutputPartLabel"/>
-                <xsl:text>&#x20;</xsl:text>
-                <xsl:apply-templates select="." mode="numberPart"/>
-                <xsl:text>&#xa0;</xsl:text>
-                <xsl:apply-templates select="secTitle"/>
-                <tex:spec cat="esc"/>
-                <tex:spec cat="esc"/>
-            </tex:parm>
-        </tex:cmd>
-        <xsl:call-template name="DoInternalHyperlinkEnd"/>
-        <xsl:apply-templates select="chapter | chapterInCollection" mode="contents"/>
-    </xsl:template>
     <!-- 
         section1 (contents) 
     -->
     <xsl:template match="section1" mode="contents">
+        <xsl:param name="nLevel" select="$nLevel"/>
+        <xsl:param name="contentsLayoutToUse"/>
         <xsl:variable name="iLevel">
             <xsl:value-of select="count(ancestor::chapter | ancestor::chapterInCollection) + count(ancestor::appendix) + 1"/>
         </xsl:variable>
@@ -47,25 +14,139 @@
             <xsl:with-param name="sLevel" select="$iLevel"/>
             <xsl:with-param name="sSpaceBefore">
                 <xsl:choose>
-                    <xsl:when test="$frontMatterLayoutInfo/contentsLayout/@spacebeforemainsection and not(ancestor::chapter) and not(ancestor::appendix) and not(ancestor::chapterBeforePart and not(ancestor::chapterInCollection))">
-                        <xsl:value-of select="$frontMatterLayoutInfo/contentsLayout/@spacebeforemainsection"/>
+                    <xsl:when
+                        test="saxon:node-set($contentsLayoutToUse)/@spacebeforemainsection and not(ancestor::chapter) and not(ancestor::appendix) and not(ancestor::chapterBeforePart and not(ancestor::chapterInCollection))">
+                        <xsl:value-of select="saxon:node-set($contentsLayoutToUse)/@spacebeforemainsection"/>
                     </xsl:when>
                     <xsl:otherwise>
                         <xsl:text>0</xsl:text>
                     </xsl:otherwise>
                 </xsl:choose>
             </xsl:with-param>
+            <xsl:with-param name="contentsLayoutToUse" select="$contentsLayoutToUse"/>
         </xsl:call-template>
         <xsl:if test="$nLevel>=2 and $bodyLayoutInfo/section2Layout/@ignore!='yes'">
-            <xsl:apply-templates select="section2" mode="contents"/>
+            <xsl:apply-templates select="section2" mode="contents">
+                <xsl:with-param name="nLevel" select="$nLevel"/>
+                <xsl:with-param name="contentsLayoutToUse" select="$contentsLayoutToUse"/>
+            </xsl:apply-templates>
         </xsl:if>
     </xsl:template>
-    <!--  
+    <!--
+        OutputPartTOCLine
+    -->
+    <xsl:template name="OutputContentsPart">
+        <xsl:param name="nLevel"/>
+        <xsl:param name="contentsLayoutToUse"/>
+        <xsl:if test="count(preceding-sibling::part)=0">
+            <xsl:for-each select="preceding-sibling::*[name()='chapterBeforePart']">
+                <xsl:apply-templates select="." mode="contents">
+                    <xsl:with-param name="nLevel" select="$nLevel"/>
+                    <xsl:with-param name="contentsLayoutToUse" select="$contentsLayoutToUse"/>
+                </xsl:apply-templates>
+            </xsl:for-each>
+        </xsl:if>
+        <tex:cmd name="vspace">
+            <tex:parm>
+                <xsl:call-template name="DoSpaceBeforeContentsLine">
+                    <xsl:with-param name="contentsLayoutToUse" select="$contentsLayoutToUse"/>
+                </xsl:call-template>
+                <xsl:text>pt</xsl:text>
+            </tex:parm>
+        </tex:cmd>
+        <xsl:if test="contains(@XeLaTeXSpecial,'contentsbreak')">
+            <tex:cmd name="pagebreak" nl2="0"/>
+        </xsl:if>
+        <xsl:call-template name="DoInternalHyperlinkBegin">
+            <xsl:with-param name="sName" select="@id"/>
+        </xsl:call-template>
+        <xsl:choose>
+            <xsl:when test="$contentsLayoutToUse/@partCentered='yes' and $contentsLayoutToUse/@partShowPageNumber!='yes'">
+                <tex:cmd name="centering">
+                    <tex:parm>
+                        <xsl:call-template name="OutputPartTOCLine">
+                            <xsl:with-param name="contentsLayoutToUse" select="$contentsLayoutToUse"/>
+                        </xsl:call-template>
+                        <tex:spec cat="esc"/>
+                        <tex:spec cat="esc"/>
+                    </tex:parm>
+                </tex:cmd>
+            </xsl:when>
+            <xsl:when test="$contentsLayoutToUse/@partShowPageNumber='yes'">
+                <tex:cmd name="XLingPaperdottedtocline" nl2="1">
+                    <tex:parm>
+                        <xsl:text>0pt</xsl:text>
+                    </tex:parm>
+                    <tex:parm>
+                        <xsl:text>0pt</xsl:text>
+                    </tex:parm>
+                    <tex:parm>
+                        <xsl:call-template name="OutputPartTOCLine">
+                            <xsl:with-param name="contentsLayoutToUse" select="$contentsLayoutToUse"/>
+                        </xsl:call-template>
+                    </tex:parm>
+                    <tex:parm>
+                        <xsl:call-template name="OutputTOCPageNumber">
+                            <xsl:with-param name="linkLayout" select="$pageLayoutInfo/linkLayout/contentsLinkLayout"/>
+                            <xsl:with-param name="sLink" select="@id"/>
+                        </xsl:call-template>
+                    </tex:parm>
+                </tex:cmd>
+            </xsl:when>
+            <xsl:otherwise>
+                <tex:cmd name="XLingPaperplaintocline" nl2="1">
+                    <tex:parm>
+                        <xsl:text>0pt</xsl:text>
+                    </tex:parm>
+                    <tex:parm>
+                        <xsl:text>0pt</xsl:text>
+                    </tex:parm>
+                    <tex:parm>
+                        <xsl:call-template name="OutputPartTOCLine">
+                            <xsl:with-param name="contentsLayoutToUse" select="$contentsLayoutToUse"/>
+                        </xsl:call-template>
+                    </tex:parm>
+                </tex:cmd>
+            </xsl:otherwise>
+        </xsl:choose>
+        <xsl:call-template name="DoInternalHyperlinkEnd"/>
+        <xsl:if test="$contentsLayoutToUse/@partSpaceAfter">
+            <tex:cmd name="vspace">
+                <tex:parm>
+                    <xsl:value-of select="$contentsLayoutToUse/@partSpaceAfter"/>
+                    <xsl:text>pt</xsl:text>
+                </tex:parm>
+            </tex:cmd>
+        </xsl:if>
+        <xsl:apply-templates select="child::*[contains(name(),'chapter')]" mode="contents">
+            <xsl:with-param name="nLevel" select="$nLevel"/>
+            <xsl:with-param name="contentsLayoutToUse" select="$contentsLayoutToUse"/>
+        </xsl:apply-templates>
+    </xsl:template>
+    <!--
+        OutputPartTOCLine
+    -->
+    <xsl:template name="OutputPartTOCLine">
+        <xsl:param name="contentsLayoutToUse" select="saxon:node-set($contentsLayout)/contentsLayout"/>
+        <xsl:if test="$contentsLayoutToUse/@singlespaceeachcontentline='yes'">
+            <tex:spec cat="bg"/>
+            <tex:cmd name="{$sSingleSpacingCommand}" gr="0" nl2="1"/>
+        </xsl:if>
+        <xsl:call-template name="OutputPartLabelNumberAndTitle">
+            <xsl:with-param name="contentsLayoutToUse" select="$contentsLayoutToUse"/>
+            <xsl:with-param name="fInContents" select="'Y'"/>
+        </xsl:call-template>
+        <xsl:if test="$contentsLayoutToUse/@singlespaceeachcontentline='yes'">
+            <tex:spec cat="eg"/>
+        </xsl:if>
+    </xsl:template>
+    <!--
         OutputSectionTOC
     -->
     <xsl:template name="OutputSectionTOC">
         <xsl:param name="sLevel"/>
         <xsl:param name="sSpaceBefore" select="'0'"/>
+        <xsl:param name="contentsLayoutToUse"/>
         <!-- set level command name -->
         <xsl:variable name="sLevelName">
             <xsl:choose>
@@ -91,7 +172,9 @@
         </xsl:variable>
         <!-- figure out what the new value of the indent based on the section number itself -->
         <xsl:variable name="sSectionNumberIndentFormula">
-            <xsl:call-template name="CalculateSectionNumberIndent"/>
+            <xsl:call-template name="CalculateSectionNumberIndent">
+                <xsl:with-param name="contentsLayout" select="$contentsLayoutToUse"/>
+            </xsl:call-template>
         </xsl:variable>
         <xsl:call-template name="SetTeXCommand">
             <xsl:with-param name="sTeXCommand" select="'settowidth'"/>
@@ -107,13 +190,14 @@
             <xsl:with-param name="sCommandToSet" select="concat($sLevelName,'width')"/>
             <xsl:with-param name="sValue" select="$sSectionNumberWidthFormula"/>
         </xsl:call-template>
+        <xsl:variable name="sChapterLineIndent" select="normalize-space($contentsLayoutToUse/@chapterlineindent)"/>
         <xsl:if test="string-length($sChapterLineIndent)&gt;0">
             <tex:cmd name="addtolength">
                 <tex:parm>
                     <tex:cmd name="{$sLevelName}indent" gr="0"/>
                 </tex:parm>
                 <tex:parm>
-                    <xsl:value-of select="$sChapterLineIndent"/>        
+                    <xsl:value-of select="$sChapterLineIndent"/>
                 </tex:parm>
             </tex:cmd>
         </xsl:if>
@@ -121,7 +205,9 @@
         <xsl:call-template name="OutputTOCLine">
             <xsl:with-param name="sLink" select="@id"/>
             <xsl:with-param name="sLabel">
-                <xsl:call-template name="OutputSectionNumberAndTitleInContents"/>
+                <xsl:call-template name="OutputSectionNumberAndTitleInContents">
+                    <xsl:with-param name="contentsLayoutToUse" select="$contentsLayoutToUse"/>
+                </xsl:call-template>
             </xsl:with-param>
             <xsl:with-param name="sIndent">
                 <tex:cmd name="{$sLevelName}indent" gr="0" nl2="0"/>
@@ -130,6 +216,10 @@
                 <tex:cmd name="{$sLevelName}width" gr="0" nl2="0"/>
             </xsl:with-param>
             <xsl:with-param name="sSpaceBefore" select="$sSpaceBefore"/>
+            <xsl:with-param name="contentsLayoutToUse" select="$contentsLayoutToUse"/>
+            <xsl:with-param name="hangingIndent">
+                <xsl:call-template name="SetSectionTocHangingIndent"/>
+            </xsl:with-param>
         </xsl:call-template>
     </xsl:template>
     <!--  
@@ -143,7 +233,9 @@
         <xsl:param name="override"/>
         <xsl:param name="sNumWidth" select="'0pt'"/>
         <xsl:param name="fUseHalfSpacing"/>
-        <xsl:variable name="layout" select="$frontMatterLayoutInfo/contentsLayout"/>
+        <xsl:param name="text-transform"/>
+        <xsl:param name="contentsLayoutToUse" select="saxon:node-set($contentsLayout)/contentsLayout"/>
+        <xsl:param name="hangingIndent" select="$tocHangingIndent"/>
         <xsl:variable name="linkLayout" select="$pageLayoutInfo/linkLayout/contentsLinkLayout"/>
         <xsl:if test="number($sSpaceBefore)>0">
             <tex:cmd name="vspace">
@@ -153,13 +245,18 @@
                 </tex:parm>
             </tex:cmd>
         </xsl:if>
-        <xsl:if test="$frontMatterLayoutInfo/contentsLayout/@singlespaceeachcontentline='yes'">
+        <xsl:if test="saxon:node-set($contentsLayout)/contentsLayout/@singlespaceeachcontentline='yes'">
             <tex:spec cat="bg"/>
             <tex:cmd name="{$sSingleSpacingCommand}" gr="0" nl2="1"/>
+        </xsl:if>
+        <xsl:if test="contains(@XeLaTeXSpecial,'contentsbreak')">
+            <tex:cmd name="pagebreak" nl2="0"/>
         </xsl:if>
         <xsl:call-template name="DoInternalHyperlinkBegin">
             <xsl:with-param name="sName" select="$sLink"/>
         </xsl:call-template>
+        <xsl:variable name="stocline">
+        </xsl:variable>
         <tex:cmd name="XLingPaperdottedtocline" nl2="1">
             <tex:parm>
                 <xsl:copy-of select="$sIndent"/>
@@ -171,19 +268,24 @@
                 <xsl:call-template name="OutputTOCTitle">
                     <xsl:with-param name="linkLayout" select="$linkLayout"/>
                     <xsl:with-param name="sLabel" select="$sLabel"/>
+                    <xsl:with-param name="text-transform" select="$text-transform"/>
+                    <xsl:with-param name="contentsLayoutToUse" select="$contentsLayoutToUse"/>
                 </xsl:call-template>
             </tex:parm>
             <tex:parm>
-                <xsl:if test="$layout/@showpagenumber!='no'">
+                <xsl:if test="$contentsLayoutToUse/@showpagenumber!='no'">
                     <xsl:call-template name="OutputTOCPageNumber">
                         <xsl:with-param name="linkLayout" select="$linkLayout"/>
                         <xsl:with-param name="sLink" select="$sLink"/>
                     </xsl:call-template>
                 </xsl:if>
             </tex:parm>
+            <tex:parm>
+                <xsl:value-of select="$hangingIndent"/>
+            </tex:parm>
         </tex:cmd>
         <xsl:call-template name="DoInternalHyperlinkEnd"/>
-        <xsl:if test="$frontMatterLayoutInfo/contentsLayout/@singlespaceeachcontentline='yes'">
+        <xsl:if test="saxon:node-set($contentsLayout)/contentsLayout/@singlespaceeachcontentline='yes'">
             <tex:spec cat="eg"/>
         </xsl:if>
     </xsl:template>
@@ -217,16 +319,84 @@
     <xsl:template name="OutputTOCTitle">
         <xsl:param name="linkLayout"/>
         <xsl:param name="sLabel"/>
+        <xsl:param name="text-transform"/>
+        <xsl:param name="contentsLayoutToUse" select="$contentsLayout/contentsLayout"/>
         <xsl:if test="$linkLayout/@linktitle!='no'">
             <xsl:call-template name="LinkAttributesBegin">
                 <xsl:with-param name="override" select="$linkLayout"/>
             </xsl:call-template>
         </xsl:if>
+        <xsl:if test="$contentsLayoutToUse/@usetext-transformofitem='yes'">
+            <xsl:call-template name="OutputTextTransform">
+                <xsl:with-param name="sTextTransform" select="normalize-space($text-transform)"/>
+            </xsl:call-template>
+        </xsl:if>
         <xsl:copy-of select="$sLabel"/>
+        <xsl:if test="$contentsLayoutToUse/@usetext-transformofitem='yes'">
+            <xsl:call-template name="OutputTextTransformEnd">
+                <xsl:with-param name="sTextTransform" select="normalize-space($text-transform)"/>
+            </xsl:call-template>
+        </xsl:if>
         <xsl:if test="$linkLayout/@linktitle!='no'">
             <xsl:call-template name="LinkAttributesEnd">
                 <xsl:with-param name="override" select="$linkLayout"/>
             </xsl:call-template>
+        </xsl:if>
+    </xsl:template>
+    <!--
+        OutputVolumeTOCLine
+    -->
+    <xsl:template name="OutputTOCVolumeLine">
+        <xsl:param name="volume"/>
+        <xsl:param name="contentsLayoutToUse" select="saxon:node-set($contentsLayout)/contentsLayout"/>
+        <xsl:if test="$contentsLayoutToUse/@singlespaceeachcontentline='yes'">
+            <tex:spec cat="bg"/>
+            <tex:cmd name="{$sSingleSpacingCommand}" gr="0" nl2="1"/>
+        </xsl:if>
+        <xsl:call-template name="OutputSpaceBeforeOrAfter">
+            <xsl:with-param name="spacing" select="$volumeLayout/@spacebefore"/> 
+        </xsl:call-template>
+        <tex:spec cat="bg"/>
+        <tex:spec cat="esc"/>
+        <xsl:text>protect</xsl:text>
+        <xsl:choose>
+            <xsl:when test="$volumeLayout/@textalign='center'">
+                <tex:spec cat="esc"/>
+                <xsl:text>centering </xsl:text>
+            </xsl:when>
+            <xsl:when test="$volumeLayout/@textalign='right'">
+                <tex:spec cat="esc"/>
+                <xsl:text>raggedleft</xsl:text>
+            </xsl:when>
+            <xsl:otherwise>
+                <tex:spec cat="esc"/>
+                <xsl:text>raggedright</xsl:text>
+            </xsl:otherwise>
+        </xsl:choose>
+        <xsl:call-template name="OutputFontAttributes">
+            <xsl:with-param name="language" select="$volumeLayout"/>
+        </xsl:call-template>
+        <xsl:call-template name="OutputVolumeLabel"/>
+        <xsl:variable name="sContentBetween" select="$volumeLayout/@contentBetweenLabelAndNumber"/>
+        <xsl:choose>
+            <xsl:when test="string-length($sContentBetween) &gt; 0">
+                <xsl:value-of select="$sContentBetween"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:text>&#x20;</xsl:text>
+            </xsl:otherwise>
+        </xsl:choose>
+        <xsl:value-of select="$volume/@number"/>
+        <xsl:call-template name="OutputFontAttributesEnd">
+            <xsl:with-param name="language" select="$volumeLayout"/>
+        </xsl:call-template>
+        <tex:cmd name="par"/>
+        <tex:spec cat="eg"/>
+        <xsl:call-template name="OutputSpaceBeforeOrAfter">
+            <xsl:with-param name="spacing" select="$volumeLayout/@spaceafter"/> 
+        </xsl:call-template>
+        <xsl:if test="$contentsLayoutToUse/@singlespaceeachcontentline='yes'">
+            <tex:spec cat="eg"/>
         </xsl:if>
     </xsl:template>
 </xsl:stylesheet>

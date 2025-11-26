@@ -23,7 +23,7 @@ public class ConvertAnyAbbreviationsToAbbrRefs extends RecordableCommand {
     	// used for debugging
     boolean m_showAlerts = false; 
     	// the delimiters that separate potential abbreviations
-    String m_delims = "-=~<>\\._;:\\\\  \\[\\]\\(\\)"; 
+    String m_delims = "-=~<>\\._;:\\\\ Â \\[\\]\\(\\)"; 
     String m_sAbbreviationLang = "";
     String m_fontissmallcaps = "";
 
@@ -66,7 +66,7 @@ public class ConvertAnyAbbreviationsToAbbrRefs extends RecordableCommand {
 	}
     }
 
-    protected Object convertAnyAbbreviations(DocumentView docView, Element gloss, Element parent)
+    public Object convertAnyAbbreviations(DocumentView docView, Element gloss, Element parent)
 	    throws ParseException, EvalException {
 	Document doc = docView.getDocument();
 	

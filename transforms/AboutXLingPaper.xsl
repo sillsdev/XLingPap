@@ -38,7 +38,14 @@
                 <hr/>
                 <div align="center">
                     <p>For more information, including contact email address, see:  
-                    <a href="http://www.xlingpaper.org">http://www.xlingpaper.org</a>
+                        <a href="http://software.sil.org/xlingpaper/">http://software.sil.org/xlingpaper/</a>
+                    </p>
+                </div>
+                <div align="center">
+                    <p>The refWork icons are from FamFamSilk and Fugue:<br/>
+                        FamFamSilk: <a href="http://www.famfamfam.com/lab/icons/silk/previews/index_abc.png">http://www.famfamfam.com/lab/icons/silk/previews/index_abc.png</a> and
+                        <a hrfe="http://www.famfamfam.com/lab/icons/silk/">http://www.famfamfam.com/lab/icons/silk/</a><br/>
+                        Fugue: <a href="https://p.yusukekamiyamane.com/">https://p.yusukekamiyamane.com/</a>
                     </p>
                 </div>
             </body>

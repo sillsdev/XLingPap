@@ -4,6 +4,10 @@
 /* Custom Java extension for XXE so we can handle feature paths */
 @extension "xlingpaper.xxe.StyleSheetExtension";
 
+/* Do not report an error if the "MathML support" add-on
+   has not been installed. */
+@import url(---mathml-config:common/mathml.css);
+
 @property-value abbreviation-background-color() #FFFFBB; /* a light yellow */
 @property-value appendix-background-color() #D8BFD8; /* #D8BFD8 is thistle */
 @property-value annotatedbibliographytype-background-color() #FBDFFB;
@@ -28,9 +32,9 @@
 @property-value section-background-color() #BFD0FF; /* #ADD8E6 is lightblue */
 @property-value tablenumbered-background-color() #F0CCA0; /* #F0CCA0 is a soft brown */
 
-@property-value figure-label() label(xpath,"if((/xlingpaper/styledPaper/lingPaper|/lingPaper)[string-length(normalize-space(@figureLabel))>0],(/xlingpaper/styledPaper/lingPaper|/lingPaper)/@figureLabel, 'Figure ')");
+@property-value figure-label() label(xpath,"if((/xlingpaper/styledPaper/lingPaper|/lingPaper)[string-length(normalize-space(@figureLabel))>0],(/xlingpaper/styledPaper/lingPaper|/lingPaper)/@figureLabel, 'Figure ')",background-color,figure-background-color());
 
-@property-value tablenumbered-label() label(xpath,"if((/xlingpaper/styledPaper/lingPaper|/lingPaper)[string-length(normalize-space(@tablenumberedLabel))>0],(/xlingpaper/styledPaper/lingPaper|/lingPaper)/@tablenumberedLabel, 'Table ')");
+@property-value tablenumbered-label() label(xpath,"if((/xlingpaper/styledPaper/lingPaper|/lingPaper)[string-length(normalize-space(@tablenumberedLabel))>0],(/xlingpaper/styledPaper/lingPaper|/lingPaper)/@tablenumberedLabel, 'Table ')",background-color,tablenumbered-background-color());
 
 @property-value glossListWordOverrideBefore() label(xpath,"if(/xlingpaper/styledPaper/publisherStyleSheet and string-length(normalize-space(@textbefore))>0,normalize-space(@textbefore),/xlingpaper/styledPaper/publisherStyleSheet/contentLayout/glossLayout/glossInListWordLayout[string-length(normalize-space(@textbefore))>0],/xlingpaper/styledPaper/publisherStyleSheet/contentLayout/glossLayout/glossInListWordLayout/@textbefore,/xlingpaper/styledPaper/publisherStyleSheet/contentLayout/glossLayout/glossInExampleLayout[string-length(normalize-space(@textbefore))>0],/xlingpaper/styledPaper/publisherStyleSheet/contentLayout/glossLayout/glossInExampleLayout/@textbefore, '')");
 
@@ -48,21 +52,21 @@
 
 @property-value glossTableOverrideAfter() label(xpath,"if(/xlingpaper/styledPaper/publisherStyleSheet and string-length(normalize-space(@textafter))>0,normalize-space(@textafter),/xlingpaper/styledPaper/publisherStyleSheet/contentLayout/glossLayout/glossInTableLayout[string-length(normalize-space(@textafter))>0],/xlingpaper/styledPaper/publisherStyleSheet/contentLayout/glossLayout/glossInTableLayout/@textafter, '')");
 
-@property-value langDataExampleOverrideBefore() label(xpath,"if(/xlingpaper/styledPaper/publisherStyleSheet and string-length(normalize-space(@textbefore))>0,normalize-space(@textbefore),/xlingpaper/styledPaper/publisherStyleSheet/contentLayout/langDataLayout/langDataInExampleLayout[string-length(normalize-space(@textbefore))>0],/xlingpaper/styledPaper/publisherStyleSheet/contentLayout/langDataLayout/langDataInExampleLayout/@textbefore, '')");
+@property-value langDataExampleOverrideBefore() label(xpath,"if(/xlingpaper/styledPaper/publisherStyleSheet and string-length(normalize-space(@textbefore))>0,normalize-space(@textbefore),/xlingpaper/styledPaper/publisherStyleSheet/contentLayout/langDataLayout[@language=current()/@lang]/langDataInExampleLayout[string-length(normalize-space(@textbefore))>0],/xlingpaper/styledPaper/publisherStyleSheet/contentLayout/langDataLayout[@language=current()/@lang]/langDataInExampleLayout/@textbefore,/xlingpaper/styledPaper/publisherStyleSheet/contentLayout/langDataLayout[1][string-length(@language)=0]/langDataInExampleLayout[string-length(normalize-space(@textbefore))>0],/xlingpaper/styledPaper/publisherStyleSheet/contentLayout/langDataLayout[1]/langDataInExampleLayout/@textbefore, '')");
 
-@property-value langDataProseOverrideBefore() label(xpath,"if(/xlingpaper/styledPaper/publisherStyleSheet and string-length(normalize-space(@textbefore))>0,normalize-space(@textbefore),/xlingpaper/styledPaper/publisherStyleSheet/contentLayout/langDataLayout/langDataInProseLayout[string-length(normalize-space(@textbefore))>0],/xlingpaper/styledPaper/publisherStyleSheet/contentLayout/langDataLayout/langDataInProseLayout/@textbefore, '')");
+@property-value langDataProseOverrideBefore() label(xpath,"if(/xlingpaper/styledPaper/publisherStyleSheet and string-length(normalize-space(@textbefore))>0,normalize-space(@textbefore),/xlingpaper/styledPaper/publisherStyleSheet/contentLayout/langDataLayout[@language=current()/@lang]/langDataInProseLayout[string-length(normalize-space(@textbefore))>0],/xlingpaper/styledPaper/publisherStyleSheet/contentLayout/langDataLayout[@language=current()/@lang]/langDataInProseLayout/@textbefore,/xlingpaper/styledPaper/publisherStyleSheet/contentLayout/langDataLayout[1][string-length(@language)=0]/langDataInProseLayout[string-length(normalize-space(@textbefore))>0],/xlingpaper/styledPaper/publisherStyleSheet/contentLayout/langDataLayout[1]/langDataInProseLayout/@textbefore, '')");
 
-@property-value langDataTableOverrideBefore() label(xpath,"if(/xlingpaper/styledPaper/publisherStyleSheet and string-length(normalize-space(@textbefore))>0,normalize-space(@textbefore),/xlingpaper/styledPaper/publisherStyleSheet/contentLayout/langDataLayout/langDataInTableLayout[string-length(normalize-space(@textbefore))>0],/xlingpaper/styledPaper/publisherStyleSheet/contentLayout/langDataLayout/langDataInTableLayout/@textbefore, '')");
+@property-value langDataTableOverrideBefore() label(xpath,"if(/xlingpaper/styledPaper/publisherStyleSheet and string-length(normalize-space(@textbefore))>0,normalize-space(@textbefore),/xlingpaper/styledPaper/publisherStyleSheet/contentLayout/langDataLayout[@language=current()/@lang]/langDataInTableLayout[string-length(normalize-space(@textbefore))>0],/xlingpaper/styledPaper/publisherStyleSheet/contentLayout/langDataLayout[@language=current()/@lang]/langDataInTableLayout/@textbefore,/xlingpaper/styledPaper/publisherStyleSheet/contentLayout/langDataLayout[1][string-length(@language)=0]/langDataInTableLayout[string-length(normalize-space(@textbefore))>0],/xlingpaper/styledPaper/publisherStyleSheet/contentLayout/langDataLayout[1]/langDataInTableLayout/@textbefore, '')");
 
-@property-value langDataExampleOverrideAfter() label(xpath,"if(/xlingpaper/styledPaper/publisherStyleSheet and string-length(normalize-space(@textafter))>0,normalize-space(@textafter),/xlingpaper/styledPaper/publisherStyleSheet/contentLayout/langDataLayout/langDataInExampleLayout[string-length(normalize-space(@textafter))>0],/xlingpaper/styledPaper/publisherStyleSheet/contentLayout/langDataLayout/langDataInExampleLayout/@textafter, '')");
+@property-value langDataExampleOverrideAfter() label(xpath,"if(/xlingpaper/styledPaper/publisherStyleSheet and string-length(normalize-space(@textafter))>0,normalize-space(@textafter),/xlingpaper/styledPaper/publisherStyleSheet/contentLayout/langDataLayout[@language=current()/@lang]/langDataInExampleLayout[string-length(normalize-space(@textafter))>0],/xlingpaper/styledPaper/publisherStyleSheet/contentLayout/langDataLayout[@language=current()/@lang]/langDataInExampleLayout/@textafter,/xlingpaper/styledPaper/publisherStyleSheet/contentLayout/langDataLayout[1][string-length(@language)=0]/langDataInExampleLayout[string-length(normalize-space(@textafter))>0],/xlingpaper/styledPaper/publisherStyleSheet/contentLayout/langDataLayout[1]/langDataInExampleLayout/@textafter, '')");
 
-@property-value langDataTableOverrideAfter() label(xpath,"if(/xlingpaper/styledPaper/publisherStyleSheet and string-length(normalize-space(@textafter))>0,normalize-space(@textafter),/xlingpaper/styledPaper/publisherStyleSheet/contentLayout/langDataLayout/langDataInTableLayout[string-length(normalize-space(@textafter))>0],/xlingpaper/styledPaper/publisherStyleSheet/contentLayout/langDataLayout/langDataInTableLayout/@textafter, '')");
+@property-value langDataTableOverrideAfter() label(xpath,"if(/xlingpaper/styledPaper/publisherStyleSheet and string-length(normalize-space(@textafter))>0,normalize-space(@textafter),/xlingpaper/styledPaper/publisherStyleSheet/contentLayout/langDataLayout[@language=current()/@lang]/langDataInTableLayout[string-length(normalize-space(@textafter))>0],/xlingpaper/styledPaper/publisherStyleSheet/contentLayout/langDataLayout[@language=current()/@lang]/langDataInTableLayout/@textafter,/xlingpaper/styledPaper/publisherStyleSheet/contentLayout/langDataLayout[1][string-length(@language)=0]/langDataInTableLayout[string-length(normalize-space(@textafter))>0],/xlingpaper/styledPaper/publisherStyleSheet/contentLayout/langDataLayout[1]/langDataInTableLayout/@textafter, '')");
 
-@property-value langDataProseOverrideAfter() label(xpath,"if(/xlingpaper/styledPaper/publisherStyleSheet and string-length(normalize-space(@textafter))>0,normalize-space(@textafter),/xlingpaper/styledPaper/publisherStyleSheet/contentLayout/langDataLayout/langDataInProseLayout[string-length(normalize-space(@textafter))>0],/xlingpaper/styledPaper/publisherStyleSheet/contentLayout/langDataLayout/langDataInProseLayout/@textafter, '')");
+@property-value langDataProseOverrideAfter() label(xpath,"if(/xlingpaper/styledPaper/publisherStyleSheet and string-length(normalize-space(@textafter))>0,normalize-space(@textafter),/xlingpaper/styledPaper/publisherStyleSheet/contentLayout/langDataLayout[@language=current()/@lang]/langDataInProseLayout[string-length(normalize-space(@textafter))>0],/xlingpaper/styledPaper/publisherStyleSheet/contentLayout/langDataLayout[@language=current()/@lang]/langDataInProseLayout/@textafter,/xlingpaper/styledPaper/publisherStyleSheet/contentLayout/langDataLayout[1][string-length(@language)=0]/langDataInProseLayout[string-length(normalize-space(@textafter))>0],/xlingpaper/styledPaper/publisherStyleSheet/contentLayout/langDataLayout[1]/langDataInProseLayout/@textafter, '')");
 
-@property-value drop-down-setReference() command-button(icon, icon(pop-down), color, black, command, "setReference");
+@property-value drop-down-setReference(background-color-in) command-button(icon, icon(pop-down), color, black, command, "setReference", background-color, background-color-in);
 
-@property-value citationRefDate() label(xpath, "id(@ref)/refDate") invoke("citationRefDateAugment", "null");
+@property-value citationRefDate() label(xpath, "if(id(@ref)/refDate/@citedate and string-length(id(@ref)/refDate/@citedate)>0,id(@ref)/refDate/@citedate,id(@ref)/refDate)",background-color,citation-background-color()) invoke("citationRefDateAugment", "null");
 
 @property-group authorInitialsBefore( )
 {
@@ -80,48 +84,61 @@
 	;
 	font-size:smaller;
 } 
+@property-group authorSurnameGivennameBefore( )
+{
+	content:" (Name(s) surname, given name: "
+	;
+	font-size: smaller;
+} 
+@property-group authorSurnameGivenname( )
+{
+	display:inline;
+} 
+@property-group authorSurnameGivennameAfter( )
+{
+	content:") "
+	;
+	font-size:smaller;
+} 
 @property-group chapterBeforePartBefore( )
 {	
-    content: collapser(collapsed-icon, icon(plus-box), expanded-icon, icon(minus-box)) 
-    "0 "
-    text-field(attribute, id, columns, 10, font-size, small) 
+    content: collapser(collapsed-icon, icon(url(resources/plus-box-chapter.png)), expanded-icon, icon(url(resources/minus-box-chapter.png))) 
+    " 0 "
+    text-field(attribute, id, columns, 10, font-size, small,background-color,chapter-background-color())
     ;
 	font-weight: bold;
 	font-size:large;
-	background-color:chapter-background-color();
 }
 @property-group chapterBeforePartSectionBefore( counter-level)
 {	
-    content: collapser(collapsed-icon, icon(plus-box), expanded-icon, icon(minus-box)) 
+    content: collapser(collapsed-icon, icon(url(resources/plus-box-section.png)), expanded-icon, icon(url(resources/minus-box-section.png))) 
     "0."
     simple-counter(counter-level, decimal)
     " " 
-    text-field(attribute, id, columns, 10, font-size, small) 
+    text-field(attribute, id, columns, 10, font-size, small,background-color,section-background-color())
     ;
 	font-weight: bold;
 	font-size:large;
-	background-color:section-background-color();
 }
 
 @property-group chapterInCollectionAppendixSectionBefore( counter-level )
 {
-    content: collapser(collapsed-icon, icon(plus-box), expanded-icon, icon(minus-box)) 
+    content: collapser(collapsed-icon, icon(url(resources/plus-box-chapter.png)), expanded-icon, icon(url(resources/minus-box-chapter.png))) 
     " "
-    label(xpath, "count(preceding::chapterInCollection) + 1")
+    label(xpath, "count(preceding::chapterInCollection) + 1",background-color,appendix-background-color())
      ". "
     counter(appendix, upper-alpha) 
     "."
     simple-counter(counter-level, decimal)
     " " 
-    text-field(attribute, id, columns, 10, font-size, small) 
+    text-field(attribute, id, columns, 10, font-size, small,background-color,appendix-background-color()) 
     ;
 	font-weight: bold;
 	font-size:large;
-	background-color:appendix-background-color();
 }
 @property-group collasper( label )
 {
-	content: collapser(collapsed-icon, icon(plus-box), expanded-icon, icon(minus-box)) 
+	content: collapser(collapsed-icon, icon(url(resources/plus-box.png)), expanded-icon, icon(url(resources/minus-box.png))) 
 	         label;
 }
 @property-group fontColor()
@@ -171,7 +188,7 @@
 
 @property-group labelIsPresent(  )
 {
-	content:collapser(collapsed-icon, icon(plus-box), expanded-icon, icon(minus-box))
+	content:collapser(collapsed-icon, icon(url(resources/plus-box.png)), expanded-icon, icon(url(resources/minus-box.png)))
 	" "
 	text-field(attribute,label)
 	;
@@ -179,7 +196,7 @@
 
 @property-group labelNotPresent( defaultLabel )
 {
-	content:collapser(collapsed-icon, icon(plus-box), expanded-icon, icon(minus-box))
+	content:collapser(collapsed-icon, icon(url(resources/plus-box.png)), expanded-icon, icon(url(resources/minus-box.png)))
 	defaultLabel
 	;
 } 
@@ -209,11 +226,10 @@
 
 @property-group listExampleBefore( )
 {
-	content: "(" 
-	text-field(attribute, letter, columns, 15, font-size, small) 
-	") " 
+	content: text("(",background-color,example-background-color())
+	text-field(attribute, letter, columns, 15, font-size, small,background-color,example-background-color()) 
+	text(") ",background-color,example-background-color())
 	;
-	background-color:example-background-color();
 /* if show counters:
         counter-increment:listexample;
 	content: counter(listexample,lower-alpha)
@@ -312,45 +328,54 @@
 	         ;
 	margin-left:.125in;
 }
-@property-group chapterBeforeWithPart( background-color )
+@property-group chapterBeforeWithPart( background-color-in )
 {	
-    content: collapser(collapsed-icon, icon(plus-box), expanded-icon, icon(minus-box)) 
+    content: collapser(collapsed-icon, icon(url(resources/plus-box-chapter.png)), expanded-icon, icon(url(resources/minus-box-chapter.png))) 
     " "
     label(xpath, "count(preceding::chapter) + 1")
     " " 
-    text-field(attribute, id, columns, 10, font-size, small) 
+    text-field(attribute, id, columns, 10, font-size, small, background-color, background-color-in) 
     ;
 	font-weight: bold;
 	font-size:large;
-	background-color:background-color;
 }
 
-@property-group sectionBefore( counter-level, background-color )
+@property-group chapterBefore( counter-level, background-color-in )
 {	
-    content: collapser(collapsed-icon, icon(plus-box), expanded-icon, icon(minus-box)) 
+    content: collapser(collapsed-icon,icon(url(resources/plus-box-chapter.png)),expanded-icon,icon(url(resources/minus-box-chapter.png))) 
     " "
-    simple-counter(counter-level, decimal) 
+    simple-counter(counter-level, decimal)
     " " 
-    text-field(attribute, id, columns, 10, font-size, small) 
+    text-field(attribute, id, columns, 10, background-color, background-color-in, font-size, small) 
     ;
 	font-weight: bold;
 	font-size:large;
-	background-color:background-color;
 }
 
-@property-group sectionBeforeWithPart( counter-level, background-color )
+@property-group sectionBefore( counter-level, background-color-in )
 {	
-    content: collapser(collapsed-icon, icon(plus-box), expanded-icon, icon(minus-box)) 
+    content: collapser(collapsed-icon,icon(url(resources/plus-box-section.png)),expanded-icon,icon(url(resources/minus-box-section.png))) 
     " "
-    label(xpath, "count(preceding::chapter|preceding::chapterInCollection) + 1")
+    simple-counter(counter-level, decimal)
+    " " 
+    text-field(attribute, id, columns, 10, background-color, background-color-in, font-size, small) 
+    ;
+	font-weight: bold;
+	font-size:large;
+}
+
+@property-group sectionBeforeWithPart( counter-level, background-color-in )
+{	
+    content: collapser(collapsed-icon, icon(url(resources/plus-box-section.png)), expanded-icon, icon(url(resources/minus-box-section.png))) 
+    " "
+    label(xpath, "count(preceding::chapter|preceding::chapterInCollection) + 1",background-color,background-color-in)
     "."
     simple-counter(counter-level, decimal) 
     " " 
-    text-field(attribute, id, columns, 10, font-size, small) 
+    text-field(attribute, id, columns, 10, font-size, small,background-color,background-color-in) 
     ;
 	font-weight: bold;
 	font-size:large;
-	background-color:background-color;
 }
 
 @property-group section(  )
@@ -371,8 +396,7 @@
 
 abbreviation:before
 {
-    content: text-field(attribute, id, columns, 10, font-size, small);
-	background-color:abbreviation-background-color();
+    content: text-field(attribute, id, columns, 10, font-size, small,background-color,abbreviation-background-color());
 }
 abbreviation
 {
@@ -381,12 +405,12 @@ abbreviation
 }
 abbreviations[label]:before
 {
-		content: collapser(collapsed-icon, icon(plus-box), expanded-icon, icon(minus-box))
+		content: collapser(collapsed-icon, icon(url(resources/plus-box.png)), expanded-icon, icon(url(resources/minus-box.png)))
 	"  " text-field(attribute,label);
 }
 abbreviations:before
 {
-	content:collapser(collapsed-icon, icon(plus-box), expanded-icon, icon(minus-box))
+	content:collapser(collapsed-icon, icon(url(resources/plus-box.png)), expanded-icon, icon(url(resources/minus-box.png)))
     " Abbreviations Master List";
 }
 backMatter > abbreviations 
@@ -440,11 +464,9 @@ abbrInLang
 }
 abbrRef
 {
-	content: drop-down-setReference()
-	label(xpath,"if((/xlingpaper/styledPaper/lingPaper|/lingPaper)[string-length(normalize-space(@abbreviationlang))>0] and id(@abbr)/abbrInLang[(/xlingpaper/styledPaper/lingPaper|/lingPaper)/@abbreviationlang=@lang]/abbrTerm,id(@abbr)/abbrInLang[(/xlingpaper/styledPaper/lingPaper|/lingPaper)/@abbreviationlang=@lang]/abbrTerm, id(@abbr)/abbrInLang[1]/abbrTerm)");
+	content: drop-down-setReference(abbreviation-background-color())
+	label(xpath,"if((/xlingpaper/styledPaper/lingPaper|/lingPaper)[string-length(normalize-space(@abbreviationlang))>0] and id(@abbr)/abbrInLang[(/xlingpaper/styledPaper/lingPaper|/lingPaper)/@abbreviationlang=@lang]/abbrTerm,id(@abbr)/abbrInLang[(/xlingpaper/styledPaper/lingPaper|/lingPaper)/@abbreviationlang=@lang]/abbrTerm, id(@abbr)/abbrInLang[1]/abbrTerm)",background-color,abbreviation-background-color());
 	font-family: concatenate("'",xpath("if(/xlingpaper/styledPaper/lingPaper/backMatter/abbreviations[string-length(normalize-space(@font-family))>0],/xlingpaper/styledPaper/lingPaper/backMatter/abbreviations/@font-family,/lingPaper/backMatter/abbreviations[string-length(normalize-space(@font-family))>0],/lingPaper/backMatter/abbreviations/@font-family,'inherit')"),"'");
-
-	background-color:abbreviation-background-color();
 }
 abbrTerm
 {
@@ -509,7 +531,7 @@ annotatedBibliographyType
 }
 annotatedBibliographyTypes:before
 {
-	content:collapser(collapsed-icon, icon(plus-box), expanded-icon, icon(minus-box))
+	content:collapser(collapsed-icon, icon(url(resources/plus-box.png)), expanded-icon, icon(url(resources/minus-box.png)))
 	" Annotated Bibliography Types: ";
 }
 annotatedBibliographyTypes
@@ -536,24 +558,23 @@ annotation
 }
 annotationRef:before
 {
-	content: label(xpath, "id(@citation)/../@citename")
-                 " ("
-	         label(xpath, "id(@citation)/refDate")
-	         ") "
+	content: label(xpath, "id(@citation)/../@citename",background-color,citation-background-color())
+                 text(" (",background-color,citation-background-color())
+	         label(xpath, "id(@citation)/refDate",background-color,citation-background-color())
+	         text(") ",background-color,citation-background-color())
                  ;
-	background-color:citation-background-color();
 }
 annotationRef
 {
 	display:block;
 	margin: 1.33ex 0;
-	content: label(xpath, "if(string-length(id(@annotation))<51,id(@annotation),concat(substring(id(@annotation),1,50),'...'))")
+	content: drop-down-setReference(citation-background-color())
+                 label(xpath, "if(string-length(id(@annotation))<51,id(@annotation),concat(substring(id(@annotation),1,50),'...'))",background-color,annotation-background-color())
              " ";
-	background-color:annotation-background-color();
 }
 annotations:before
 {
-	content:collapser(collapsed-icon, icon(plus-box), expanded-icon, icon(minus-box))
+	content:collapser(collapsed-icon, icon(url(resources/plus-box.png)), expanded-icon, icon(url(resources/minus-box.png)))
 	" Annotations: ";
 }
 annotations
@@ -565,31 +586,29 @@ annotations
 chapterInCollection appendix:before
 {
     counter-increment: appendix;
-    content: collapser(collapsed-icon, icon(plus-box), expanded-icon, icon(minus-box))
+    content: collapser(collapsed-icon, icon(url(resources/plus-box-chapter.png)), expanded-icon, icon(url(resources/minus-box-chapter.png)))
     " "
-    label(xpath, "count(preceding::chapterInCollection) + 1")
+    label(xpath, "count(preceding::chapterInCollection) + 1",background-color,appendix-background-color())
      ". "
     counter(appendix, upper-alpha)
      ". "
-     text-field(attribute, id, columns, 10, font-size, small) 
+     text-field(attribute, id, columns, 10, font-size, small,background-color,appendix-background-color()) 
      ;
 	font-weight: bold;
 	font-size:large;
-	background-color:appendix-background-color();
 }
 
 appendix:before
 {
     counter-increment: appendix;
-    content: collapser(collapsed-icon, icon(plus-box), expanded-icon, icon(minus-box))
+    content: collapser(collapsed-icon, icon(url(resources/plus-box-chapter.png)), expanded-icon, icon(url(resources/minus-box-chapter.png)))
     " "
      counter(appendix, upper-alpha)
      ". "
-     text-field(attribute, id, columns, 10, font-size, small) 
+     text-field(attribute, id, columns, 10, font-size, small, background-color, appendix-background-color()) 
      ;
 	font-weight: bold;
 	font-size:large;
-	background-color:appendix-background-color();
 }
 appendix 
 {
@@ -597,23 +616,49 @@ appendix
 	property-group: isCollapsible( yes, 1);
 }
 
+appendixLabelContentChoices
+{
+    display:inline;
+}
+
 appendixRef[showTitle='short']
 {
-	content: drop-down-setReference()
-	label(xpath, "if(string-length(id(@app)/shortTitle)>0,concat('“',id(@app)/shortTitle,'”'),string-length(id(@app)/secTitle)>0,concat('“',id(@app)/secTitle,'”'),'“unnamed”')");
-	background-color:appendix-background-color();
+	content: drop-down-setReference(appendix-background-color())
+	label(xpath, "if(string-length(id(@app)/shortTitle)>0,concat('Â“',id(@app)/shortTitle,'Â”'),string-length(id(@app)/secTitle)>0,concat('Â“',id(@app)/secTitle,'Â”'),'Â“unnamedÂ”')",background-color,appendix-background-color());
 }
 appendixRef[showTitle='full']
 {
-	content: drop-down-setReference()
-	label(xpath, "if(string-length(id(@app)/secTitle)>0,concat('“',id(@app)/secTitle,'”'),'“unnamed”')");
-	background-color:appendix-background-color();
+	content: drop-down-setReference(appendix-background-color())
+	label(xpath, "if(string-length(id(@app)/secTitle)>0,concat('Â“',id(@app)/secTitle,'Â”'),'Â“unnamedÂ”')",background-color,appendix-background-color());
+}
+appendixRef[textBefore="capitalizedPlural"]:before
+{
+	content: label(xpath,"if((/xlingpaper/styledPaper/lingPaper|/lingPaper)[string-length(normalize-space(@appendixRefCapitalizedPluralLabel))>0],(/xlingpaper/styledPaper/lingPaper|/lingPaper)/@appendixRefCapitalizedPluralLabel, 'Appendixes ')");
+}
+appendixRef[textBefore="capitalizedSingular"]:before
+{
+	content: label(xpath,"if((/xlingpaper/styledPaper/lingPaper|/lingPaper)[string-length(normalize-space(@appendixRefCapitalizedSingularLabel))>0],(/xlingpaper/styledPaper/lingPaper|/lingPaper)/@appendixRefCapitalizedSingularLabel, 'Appendix ')");
+}
+appendixRef[textBefore="plural"]:before
+{
+	content: label(xpath,"if((/xlingpaper/styledPaper/lingPaper|/lingPaper)[string-length(normalize-space(@appendixRefPluralLabel))>0],(/xlingpaper/styledPaper/lingPaper|/lingPaper)/@appendixRefPluralLabel, 'appendixes ')");
+}
+appendixRef[textBefore="singular"]:before
+{
+	content: label(xpath,"if((/xlingpaper/styledPaper/lingPaper|/lingPaper)[string-length(normalize-space(@appendixRefSingularLabel))>0],(/xlingpaper/styledPaper/lingPaper|/lingPaper)/@appendixRefSingularLabel, 'appendix ')");
+}
+appendixRef[textBefore="none"]:before
+{
+	content:"";
+}
+appendixRef:before
+{
+	content: label(xpath,"if((/xlingpaper/styledPaper/lingPaper|/lingPaper)[@appendixRefDefault='singular'][string-length(normalize-space(@appendixRefSingularLabel))>0],(/xlingpaper/styledPaper/lingPaper|/lingPaper)/@appendixRefSingularLabel,(/xlingpaper/styledPaper/lingPaper|/lingPaper)[@appendixRefDefault='singular'][string-length(normalize-space(@appendixRefSingularLabel))=0], 'appendix ', (/xlingpaper/styledPaper/lingPaper|/lingPaper)[@appendixRefDefault='plural'][string-length(normalize-space(@appendixRefPluralLabel))>0],(/xlingpaper/styledPaper/lingPaper|/lingPaper)/@appendixRefPluralLabel,(/xlingpaper/styledPaper/lingPaper|/lingPaper)[@appendixRefDefault='plural'][string-length(normalize-space(@appendixRefPluralLabel))=0], 'appendixes ',(/xlingpaper/styledPaper/lingPaper|/lingPaper)[@appendixRefDefault='capitalizedSingular'][string-length(normalize-space(@appendixRefCapitalizedSingularLabel))>0],(/xlingpaper/styledPaper/lingPaper|/lingPaper)/@appendixRefCapitalizedSingularLabel,(/xlingpaper/styledPaper/lingPaper|/lingPaper)[@appendixRefDefault='capitalizedSingular'][string-length(normalize-space(@appendixRefCapitalizedSingularLabel))=0], 'Appendix ', (/xlingpaper/styledPaper/lingPaper|/lingPaper)[@appendixRefDefault='capitalizedPlural'][string-length(normalize-space(@appendixRefCapitalizedPluralLabel))>0],(/xlingpaper/styledPaper/lingPaper|/lingPaper)/@appendixRefCapitalizedPluralLabel,(/xlingpaper/styledPaper/lingPaper|/lingPaper)[@appendixRefDefault='capitalizedPlural'][string-length(normalize-space(@appendixRefCapitalizedPluralLabel))=0], 'Appendixes ','')");
 }
 appendixRef
 {
-	content: drop-down-setReference()
-	         label(attribute, app, text-decoration, underline);
-	background-color:appendix-background-color();
+	content: drop-down-setReference(appendix-background-color())
+	         label(attribute, app, text-decoration, underline,background-color,appendix-background-color());
 }
 
 article
@@ -634,10 +679,9 @@ author {
 authorContact:before
 {
 	content: "" 
-	text-field(attribute, id, columns, 10, font-size, small) 
+	text-field(attribute, id, columns, 10, font-size, small,background-color,authorContact-background-color()) 
 	" " 
 	;
-	background-color:authorContact-background-color();
 }
 authorContact
 {
@@ -646,33 +690,31 @@ authorContact
 } 
 authorContactInfo:before
 {
-	content: "Author contact info: ";
-	background-color:white;
+	content: text("Author contact info: ",background-color,white)
+	;
 }
 authorContactInfo + authorContactInfo:before
 {
-	content: "; ";
-	background-color:white;
+	content: text("; ",background-color,white)
+	;
 }
 authorContactInfo
 {
-	content: drop-down-setReference()
-	         label(attribute, author, text-decoration, underline)
+	content: drop-down-setReference(authorContact-background-color())
+	         label(attribute, author, text-decoration, underline,background-color,authorContact-background-color())
 	        ;
-	background-color:authorContact-background-color();
 	display:inline;
 }
 authorContactInfo:after
 {
 	content: " "
-	         label(xpath, "id(@author)/contactName")
+	         label(xpath, "id(@author)/contactName",background-color,white)
                  ;
-	background-color:white;
 }
 
 authorContacts:before
 {
-	content:collapser(collapsed-icon, icon(plus-box), expanded-icon, icon(minus-box))
+	content:collapser(collapsed-icon, icon(url(resources/plus-box.png)), expanded-icon, icon(url(resources/minus-box.png)))
 	" Author Contacts: ";
 }
 authorContacts
@@ -735,6 +777,15 @@ bookTotalPages:after
 	content:".";
 }
 
+bookversion
+{
+	display:inline;
+}
+bookversion:after
+{
+	content: ". ";
+}
+
 bVol
 {
 	display:inline;
@@ -771,21 +822,20 @@ part chapter:before
 }
 part chapterInCollection:before
 {
-    content: collapser(collapsed-icon, icon(plus-box), expanded-icon, icon(minus-box)) 
+    content: collapser(collapsed-icon, icon(url(resources/plus-box-chapter.png)), expanded-icon, icon(url(resources/minus-box-chapter.png))) 
     " "
     label(xpath, "count(preceding::chapterInCollection) + 1")
     " " 
-    text-field(attribute, id, columns, 10, font-size, small) 
+    text-field(attribute, id, columns, 10, font-size, small,background-color,chapter-background-color()) 
     " "
-    label(xpath, "frontMatter/title")
+    label(xpath, "frontMatter/title/child::node()[name()!='endnote']",background-color,chapter-background-color())
     ;
 	font-weight: bold;
 	font-size:large;
-	background-color:chapter-background-color();
 }
 chapter:before
 {
-	property-group: sectionBefore( n, chapter-background-color() );
+	property-group: chapterBefore( n, chapter-background-color() );
 	/* counter-reset:example; */
 }
 chapter 
@@ -805,22 +855,26 @@ chapterBeforePart
 chapterInCollection:before
 {
 /*	property-group: sectionBefore( n, chapter-background-color() ); */
-    content: collapser(collapsed-icon, icon(plus-box), expanded-icon, icon(minus-box)) 
+    content: collapser(collapsed-icon, icon(url(resources/plus-box-chapter.png)), expanded-icon, icon(url(resources/minus-box-chapter.png))) 
     " "
     simple-counter(n, decimal) 
     " " 
-    text-field(attribute, id, columns, 10, font-size, small) 
+    text-field(attribute, id, columns, 10, font-size, small,background-color,chapter-background-color()) 
     " "
 /*    concatenate(frontMatter/title)*/
-    label(xpath, "frontMatter/title")
+    label(xpath, "frontMatter/title/child::node()[name()!='endnote']",background-color,chapter-background-color())
     ;
 	font-weight: bold;
 	font-size:large;
-	background-color:chapter-background-color();
 }
 chapterInCollection 
 {
 	property-group: section(  );
+}
+
+chapterLabelContentChoices
+{
+    display:inline;
 }
 
 chart
@@ -830,134 +884,171 @@ chart
 }
 citation[author='no']
 {
-	content: drop-down-setReference()
+	content: drop-down-setReference(citation-background-color())
              ;
-	background-color:citation-background-color();
 }
 
 selectedBibliography > citation
 {
 	display: block;
-	content: drop-down-setReference()
-		 label(xpath, "id(@ref)/../@citename")
+	content: drop-down-setReference(citation-background-color())
+		 label(xpath, "id(@ref)/../@citename",background-color,citation-background-color())
              ;
-	background-color:citation-background-color();
 	margin: indented-block();
 }
 
 citation[author='no'][paren='citationBoth']
 {
-	content: drop-down-setReference()
-		"("
+	content: drop-down-setReference(citation-background-color())
+		 text("(",background-color,citation-background-color())
              ;
-	background-color:citation-background-color();
 }
 citation[paren='citationBoth']
 {
-	content: drop-down-setReference()
-		"("
-                 label(xpath, "id(@ref)/../@citename")
+	content: drop-down-setReference(citation-background-color())
+		 text("(",background-color,citation-background-color())
+                 label(xpath, "id(@ref)/../@citename",background-color,citation-background-color())
              ;
-	background-color:citation-background-color();
 }
 citation[author='no'][paren='citationInitial']
 {
-	content: drop-down-setReference()
-		"("
+	content: drop-down-setReference(citation-background-color())
+		 text("(",background-color,citation-background-color())
              ;
-	background-color:citation-background-color();
 }
 citation[paren='citationInitial']
 {
-	content: drop-down-setReference()
-		"("
-                 label(xpath, "id(@ref)/../@citename")
+	content: drop-down-setReference(citation-background-color())
+		 text("(",background-color,citation-background-color())
+                 label(xpath, "id(@ref)/../@citename",background-color,citation-background-color())
              ;
-	background-color:citation-background-color();
 }
 citation
 {
-	content: drop-down-setReference()
-		 label(xpath, "id(@ref)/../@citename")
+	content: drop-down-setReference(citation-background-color())
+		 label(xpath, "id(@ref)/../@citename",background-color,citation-background-color())
              ;
-	background-color:citation-background-color();
 }
 citation[page][paren='both']:after
 {
-	content:" ("
+	content:text(" (",background-color,citation-background-color())
 	        citationRefDate()
-	        ":"
-	        label(attribute, page)
-	        ")"
+	        text(":",background-color,citation-background-color())
+	        label(attribute, page,background-color,citation-background-color())
+	        text(")",background-color,citation-background-color())
+	        ;
+}
+citation[timestamp][paren='both']:after
+{
+	content:text(" (",background-color,citation-background-color())
+	        citationRefDate()
+	        text(" ",background-color,citation-background-color())
+	        label(attribute, timestamp,background-color,citation-background-color())
+	        text(")",background-color,citation-background-color())
 	        ;
 }
 citation[paren='both']:after
 {
-	content:" ("
+	content:text(" (",background-color,citation-background-color())
 	        citationRefDate()
-	        ")"
+	        text(")",background-color,citation-background-color())
 	        ;
 }
 citation[page][paren='citationBoth']:after
 {
-	content:" "
+	content:text(" ",background-color,citation-background-color())
 	        citationRefDate()
-	        ":"
-	        label(attribute, page)
-	        ")"
+	        text(":",background-color,citation-background-color())
+	        label(attribute, page,background-color,citation-background-color())
+	        text(")",background-color,citation-background-color())
+	        ;
+}
+citation[timestamp][paren='citationBoth']:after
+{
+	content:text(" ",background-color,citation-background-color())
+	        citationRefDate()
+	        text(" ",background-color,citation-background-color())
+	        label(attribute, timestamp,background-color,citation-background-color())
+	        text(")",background-color,citation-background-color())
 	        ;
 }
 citation[author='no'][paren='citationBoth']:after
 {
 	content:citationRefDate()
-	        ")"
+	        text(")",background-color,citation-background-color())
 	        ;
 }
 citation[paren='citationBoth']:after
 {
-	content:" "
+	content:text(" ",background-color,citation-background-color())
 	        citationRefDate()
-	        ")"
+	        text(")",background-color,citation-background-color())
 	        ;
 }
 citation[page][paren='final']:after
 {
-	content:" "
+	content:text(" ",background-color,citation-background-color())
 	        citationRefDate()
-	        ":"
-	        label(attribute, page)
-	        ")"
+	        text(":",background-color,citation-background-color())
+	        label(attribute, page,background-color,citation-background-color())
+	        text(")",background-color,citation-background-color())
+	        ;
+}
+citation[timestamp][paren='final']:after
+{
+	content:text(" ",background-color,citation-background-color())
+	        citationRefDate()
+	        text(" ",background-color,citation-background-color())
+	        label(attribute, timestamp,background-color,citation-background-color())
+	        text(")",background-color,citation-background-color())
 	        ;
 }
 citation[paren='final']:after
 {
-	content:" "
+	content:text(" ",background-color,citation-background-color())
 	        citationRefDate()
-	        ")"
+	        text(")",background-color,citation-background-color())
 	        ;
 }
 citation[page][paren='citationBoth']:after
 {
-	content:" "
+	content:text(" ",background-color,citation-background-color())
 	        citationRefDate()
-	        ":"
-	        label(attribute, page)
-	        ")"
+	        text(":",background-color,citation-background-color())
+	        label(attribute, page,background-color,citation-background-color())
+	        text(")",background-color,citation-background-color())
+	        ;
+}
+citation[timestamp][paren='citationBoth']:after
+{
+	content:text(" ",background-color,citation-background-color())
+	        citationRefDate()
+	        text(" ",background-color,citation-background-color())
+	        label(attribute, timestamp,background-color,citation-background-color())
+	        text(")",background-color,citation-background-color())
 	        ;
 }
 citation[paren='citationBoth']:after
 {
-	content:" "
+	content:text(" ",background-color,citation-background-color())
 	        citationRefDate()
-	        ")"
+	        text(")",background-color,citation-background-color())
 	        ;
 }
 citation[page][paren='citationInitial']:after
 {
-	content:" "
+	content:text(" ",background-color,citation-background-color())
 	        citationRefDate()
-	        ":"
-	        label(attribute, page)
+	        text(":",background-color,citation-background-color())
+	        label(attribute, page,background-color,citation-background-color())
+	        ;
+}
+citation[timestamp][paren='citationInitial']:after
+{
+	content:text(" ",background-color,citation-background-color())
+	        citationRefDate()
+	        text(" ",background-color,citation-background-color())
+	        label(attribute, timestamp,background-color,citation-background-color())
 	        ;
 }
 citation[author='no'][paren='citationInitial']:after
@@ -967,52 +1058,77 @@ citation[author='no'][paren='citationInitial']:after
 }
 citation[paren='citationInitial']:after
 {
-	content:" "
+	content:text(" ",background-color,citation-background-color())
 	        citationRefDate()
 	        ;
 }
 citation[page][paren='initial']:after
 {
-	content:" ("
+	content:text(" (",background-color,citation-background-color())
 	        citationRefDate()
-	        ":"
-	        label(attribute, page)
+	        text(":",background-color,citation-background-color())
+	        label(attribute, page,background-color,citation-background-color())
+	        ;
+}
+citation[timestamp][paren='initial']:after
+{
+	content:text(" (",background-color,citation-background-color())
+	        citationRefDate()
+	        text(" ",background-color,citation-background-color())
+	        label(attribute, timestamp,background-color,citation-background-color())
 	        ;
 }
 citation[paren='initial']:after
 {
-	content:" ("
+	content:text(" (",background-color,citation-background-color())
 	        citationRefDate()
 	        ;
 }
 citation[page][paren='none']:after
 {
-	content:" "
+	content:text(" ",background-color,citation-background-color())
 	        citationRefDate()
-	        ":"
-	        label(attribute, page)
+	        text(":",background-color,citation-background-color())
+	        label(attribute, page,background-color,citation-background-color())
+	        ;
+}
+citation[timestamp][paren='none']:after
+{
+	content:text(" ",background-color,citation-background-color())
+	        citationRefDate()
+	        text(" ",background-color,citation-background-color())
+	        label(attribute, timestamp,background-color,citation-background-color())
 	        ;
 }
 citation[paren='none']:after
 {
-	content:" "
+	content:text(" ",background-color,citation-background-color())
 	        citationRefDate()
 	        ;
 }
 citation[page]:after
 {
-	content:" ("
+	content:text(" (",background-color,citation-background-color())
 	        citationRefDate()
-	        ":"
-	        label(attribute, page)
+	        text(" ",background-color,citation-background-color())
+	        label(attribute, page,background-color,citation-background-color())
+	        ")"
+	        ;
+}
+citation[timestamp]:after
+{
+	content:text(" (",background-color,citation-background-color())
+	        citationRefDate()
+	        text(" ",background-color,citation-background-color())
+	        label(attribute, timestamp,background-color,citation-background-color())
 	        ")"
 	        ;
 }
 citation:after
 {
-	content:" ("
+	content:text(" (",background-color,citation-background-color())
 	        citationRefDate()
-	        ")"
+	        text(")",background-color,citation-background-color())
 	        ;
 }
 /*
@@ -1034,31 +1150,46 @@ col {
     padding: 2;
 }
 */
+citeName:before
+{
+	content:" (Custom citation name(s): "
+	;
+	font-size: smaller;
+}
+citeName
+{
+	display:inline;
+}
+citeName:after
+{
+	content:") "
+	;
+	font-size:smaller;
+}
 collCitation:before
 {
 	content: " In ";
 }
 collCitation
 {
-	content: drop-down-setReference()
-		 label(xpath, "id(@refToBook)/../@citename")
+	content: drop-down-setReference(citation-background-color())
+		 label(xpath, "id(@refToBook)/../@citename",background-color,citation-background-color())
              ;
-	background-color:citation-background-color();
 }
 collCitation[page]:after
 {
-	content:" ("
-	        label(xpath, "id(@refToBook)/refDate")
-	        ":"
-	        label(attribute, page)
-	        "). "
+	content:text(" (",background-color,citation-background-color())
+	        label(xpath, "id(@refToBook)/refDate",background-color,citation-background-color())
+	        text(":",background-color,citation-background-color())
+	        label(attribute, page,background-color,citation-background-color())
+	        text("). ",background-color,citation-background-color())
 	        ;
 }
 collCitation:after
 {
-	content:" ("
-	        label(xpath, "id(@refToBook)/refDate")
-	        "). "
+	content:text(" (",background-color,citation-background-color())
+	        label(xpath, "id(@refToBook)/refDate",background-color,citation-background-color())
+	        text("). ",background-color,citation-background-color())
 	        ;
 }
 collEd
@@ -1081,6 +1212,19 @@ collEdInitials
 collEdInitials:after
 {
 	property-group: authorInitialsAfter();
+}
+
+collEdSurnameGivenName:before
+{
+	property-group: authorSurnameGivennameBefore();
+}
+collEdSurnameGivenName
+{
+	property-group: authorSurnameGivenname();
+}
+collEdSurnameGivenName:after
+{
+	property-group: authorSurnameGivennameAfter();
 }
 
 collPages
@@ -1209,7 +1353,7 @@ contactPhone
 
 contentControl:before
 {
-	content: collapser(collapsed-icon, icon(plus-box), expanded-icon, icon(minus-box))
+	content: collapser(collapsed-icon, icon(url(resources/plus-box.png)), expanded-icon, icon(url(resources/minus-box.png)))
 	" Content control: ";
 }
 contentControl
@@ -1220,14 +1364,14 @@ contentControl
 
 contentControlChoice[active='yes']:before
 {
-	content: icon(radio-on)
+	content: icon(url(resources/radio-on.png))
 	" "
 	         ;
 }
 contentControlChoice:before
 {
 	content: 
-	command-button(icon, icon(radio-off), command, "UseThisContentControlChoice")
+	command-button(icon, icon(url(resources/radio-off.png)), command, "UseThisContentControlChoice")
 	" "
 	         ;
 }
@@ -1239,7 +1383,7 @@ contentControlChoice
 
 contentControlChoices:before
 {
-	content: collapser(collapsed-icon, icon(plus-box), expanded-icon, icon(minus-box))
+	content: collapser(collapsed-icon, icon(url(resources/plus-box.png)), expanded-icon, icon(url(resources/minus-box.png)))
 	" Content control choices: ";
 }
 contentControlChoices
@@ -1264,7 +1408,7 @@ contentType
 
 contentTypes:before
 {
-	content: collapser(collapsed-icon, icon(plus-box), expanded-icon, icon(minus-box))
+	content: collapser(collapsed-icon, icon(url(resources/plus-box.png)), expanded-icon, icon(url(resources/minus-box.png)))
 	" Content types: ";
 }
 contentTypes
@@ -1274,23 +1418,29 @@ contentTypes
 	padding-left: 0.25in;
 }
 
-contents[label]:before
+contents[label]:empty:before
 {
-	content:text-field(attribute,label);
+	content:text-field(attribute,label)
+	" showLevel="
+	attr(showLevel)
+	;
 	color:Silver;
 }
 contents:before
 {
-	content:"contents: ";
-	color:Silver;
-}
-contents 
-{
-	display:block;
-	content: " showLevel=" 
+	content:"contents: "
+	" showLevel="
 	attr(showLevel)
 	;
 	color:Silver;
+}
+contents:empty
+{
+	display:block;
+	color:Silver;
+}
+contents {
+    display:inline;
 }
 
 appendixRef[contentType] 
@@ -1317,7 +1467,7 @@ sectionRef[contentType]
 {
 	display:concatenate(xpath("if(not((/xlingpaper/styledPaper/lingPaper|/lingPaper)/contentControl/@showOnlyChosenItemsInEditor) or (/xlingpaper/styledPaper/lingPaper|/lingPaper)/contentControl/@showOnlyChosenItemsInEditor='no','inline',contains((/xlingpaper/styledPaper/lingPaper|/lingPaper)/contentControl/contentControlChoices/contentControlChoice[@active='yes']/@exclude,@contentType),'none','inline')"));
 }
-tablenumberedRef[contentType] 
+tablenumberedRef[contentType]
 {
 	display:concatenate(xpath("if(not((/xlingpaper/styledPaper/lingPaper|/lingPaper)/contentControl/@showOnlyChosenItemsInEditor) or (/xlingpaper/styledPaper/lingPaper|/lingPaper)/contentControl/@showOnlyChosenItemsInEditor='no','inline',contains((/xlingpaper/styledPaper/lingPaper|/lingPaper)/contentControl/contentControlChoices/contentControlChoice[@active='yes']/@exclude,@contentType),'none','inline')"));
 }
@@ -1326,6 +1476,62 @@ tablenumberedRef[contentType]
 	display:concatenate(xpath("if(not((/xlingpaper/styledPaper/lingPaper|/lingPaper)/contentControl/@showOnlyChosenItemsInEditor) or (/xlingpaper/styledPaper/lingPaper|/lingPaper)/contentControl/@showOnlyChosenItemsInEditor='no','block',contains((/xlingpaper/styledPaper/lingPaper|/lingPaper)/contentControl/contentControlChoices/contentControlChoice[@active='yes']/@exclude,@contentType),'none','block')"));
 }
 
+table[counterNumberFormat='A'] > tr > td > counter:before
+{
+        counter-increment:row-counter;
+	content: counter(row-counter, upper-alpha)
+	"."
+	;
+}
+table[counterNumberFormat='A'] > tr > th > counter:before
+{
+        counter-increment:row-counter;
+	content: counter(row-counter, upper-alpha)
+	"."
+	;
+}
+table[counterNumberFormat='a'] > tr > td > counter:before
+{
+        counter-increment:row-counter;
+	content: counter(row-counter, lower-alpha)
+	"."
+	;
+}
+table[counterNumberFormat='a'] > tr > th > counter:before
+{
+        counter-increment:row-counter;
+	content: counter(row-counter, lower-alpha)
+	"."
+	;
+}
+table[counterNumberFormat='I'] > tr > td > counter:before
+{
+        counter-increment:row-counter;
+	content: counter(row-counter, upper-roman)
+	"."
+	;
+}
+table[counterNumberFormat='I'] > tr > th > counter:before
+{
+        counter-increment:row-counter;
+	content: counter(row-counter, upper-roman)
+	"."
+	;
+}
+table[counterNumberFormat='i'] > tr > td > counter:before
+{
+        counter-increment:row-counter;
+	content: counter(row-counter, lower-roman)
+	"."
+	;
+}
+table[counterNumberFormat='i'] > tr > th > counter:before
+{
+        counter-increment:row-counter;
+	content: counter(row-counter, lower-roman)
+	"."
+	;
+}
 counter:before
 {
         counter-increment:row-counter;
@@ -1391,6 +1597,19 @@ dl {
     margin-bottom: 1.33ex;
 }
 
+doi:before
+{
+	content: " doi:";
+}
+doi
+{
+	display:inline;
+}
+doi:after
+{
+	content: ".";
+}
+
 dt {
     display: block;
     font-weight: bold; 
@@ -1403,6 +1622,39 @@ edition
 edition:after
 {
 	content:".  ";
+}
+
+editor
+{
+	display:inline;
+}
+editor:after
+{
+	content:".  ";
+}
+editorInitials:before
+{
+	property-group: authorInitialsBefore();
+}
+editorInitials
+{
+	property-group: authorInitials();
+}
+editorInitials:after
+{
+	property-group: authorInitialsAfter();
+}
+editorSurnameGivenName:before
+{
+	property-group: authorSurnameGivennameBefore();
+}
+editorSurnameGivenName
+{
+	property-group: authorSurnameGivenname();
+}
+editorSurnameGivenName:after
+{
+	property-group: authorSurnameGivennameAfter();
 }
 
 emailAddress { 
@@ -1441,9 +1693,9 @@ endnote:before
 {
 	font-size:medium;
 	font-weight:normal;
-    content: collapser(collapsed-icon, icon(plus-box), expanded-icon, icon(minus-box)) 
+    content: collapser(collapsed-icon, icon(url(resources/plus-box-endnote.png)), expanded-icon, icon(url(resources/minus-box-endnote.png))) 
 	" endnote: " 
-	text-field(attribute, id, columns, 10, font-size, small)
+	text-field(attribute, id, columns, 10, font-size, small,background-color,endnote-background-color())
 	;
 /* if show counters
         counter-reset: endnoteexample; */
@@ -1460,9 +1712,8 @@ endnote
 
 endnoteRef
 {
-	content: drop-down-setReference()
-		 label(attribute, note, text-decoration, underline);
-     	background-color:endnote-background-color();
+	content: drop-down-setReference(endnote-background-color())
+		 label(attribute, note, text-decoration, underline,background-color,endnote-background-color());
 }
 endnotes[label]:before
 {
@@ -1502,11 +1753,10 @@ framedUnit example:before
 } */
 example:before
 {
-	content: "(" 
-	text-field(attribute, num, columns, 10, font-size, small) 
-	") " 
+	content: text("(",background-color,example-background-color())
+	text-field(attribute, num, columns, 10, font-size, small,background-color,example-background-color()) 
+	text(") ",background-color,example-background-color())
 	;
-	background-color:example-background-color();
 /* if show counters
 	counter-increment:example;
 	content: "(" 
@@ -1541,97 +1791,86 @@ exampleHeading
 
 exampleRef[punct]:after
 {
-	content:label(attribute, punct);
+	content:label(attribute, punct,background-color,example-background-color());
 }
 exampleRef[equal='yes']:before
 {
-	content:"=";
+	content:text("=",background-color,example-background-color());
 }
 exampleRef[letter][paren='final']
 {
-	content: drop-down-setReference()
-	         label(attribute, letter, text-decoration, underline)
-	        ")"
+	content: drop-down-setReference(example-background-color())
+	         label(attribute, letter, text-decoration, underline,background-color,example-background-color())
+	        text(")",background-color,example-background-color())
 	        ;
-	background-color:example-background-color();
 }
 exampleRef[letter][paren='initial']
 {
-	content:"("
-		 drop-down-setReference()
-	         label(attribute, letter, text-decoration, underline)
+	content:text("(",background-color,example-background-color())
+		 drop-down-setReference(example-background-color())
+	         label(attribute, letter, text-decoration, underline,background-color,example-background-color())
 	        ;
-	background-color:example-background-color();
 }
 exampleRef[letter][paren='none']
 {
-	content: drop-down-setReference()
-	         label(attribute, letter, text-decoration, underline)
+	content: drop-down-setReference(example-background-color())
+	         label(attribute, letter, text-decoration, underline,background-color,example-background-color())
 	        ;
-	background-color:example-background-color();
 }
 exampleRef[letter]
 {
-	content: "("
-		 drop-down-setReference()
-	         label(attribute, letter, text-decoration, underline)
-	         ")"
+	content: text("(",background-color,example-background-color())
+		 drop-down-setReference(example-background-color())
+	         label(attribute, letter, text-decoration, underline,background-color,example-background-color())
+	         text(")",background-color,example-background-color())
 	         ;
-	background-color:example-background-color();
 }
 exampleRef[letter][paren='final']
 {
-	content: drop-down-setReference()
-	         label(attribute, letter, text-decoration, underline)
-	        ")"
+	content: drop-down-setReference(example-background-color())
+	         label(attribute, letter, text-decoration, underline,background-color,example-background-color())
+	        text(")",background-color,example-background-color())
 	        ;
-	background-color:example-background-color();
 }
 exampleRef[letter][paren='initial']
 {
-	content:"("
-		 drop-down-setReference()
-	         label(attribute, letter, text-decoration, underline)
+	content:text("(",background-color,example-background-color())
+		 drop-down-setReference(example-background-color())
+	         label(attribute, letter, text-decoration, underline,background-color,example-background-color())
 	        ;
-	background-color:example-background-color();
 }
 exampleRef[letter][paren='none']
 {
-	content: drop-down-setReference()
-	         label(attribute, letter, text-decoration, underline)
+	content: drop-down-setReference(example-background-color())
+	         label(attribute, letter, text-decoration, underline,background-color,example-background-color())
 	        ;
-	background-color:example-background-color();
 }
 exampleRef[num][paren='final']
 {
-	content: drop-down-setReference()
-	         label(attribute, num, text-decoration, underline)
-	        ")"
+	content: drop-down-setReference(example-background-color())
+	         label(attribute, num, text-decoration, underline,background-color,example-background-color())
+	        text(")",background-color,example-background-color())
 	        ;
-	background-color:example-background-color();
 }
 exampleRef[num][paren='initial']
 {
-	content:"("
-		 drop-down-setReference()
-	         label(attribute, num, text-decoration, underline)
+	content:text("(",background-color,example-background-color())
+		 drop-down-setReference(example-background-color())
+	         label(attribute, num, text-decoration, underline,background-color,example-background-color())
 	        ;
-	background-color:example-background-color();
 }
 exampleRef[num][paren='none']
 {
-	content: drop-down-setReference()
-	         label(attribute, num, text-decoration, underline)
+	content: drop-down-setReference(example-background-color())
+	         label(attribute, num, text-decoration, underline,background-color,example-background-color())
 	        ;
-	background-color:example-background-color();
 }
 exampleRef[num]
 {
-	content: "("
-	         drop-down-setReference()
-	         label(attribute, num, text-decoration, underline)
-	         ")";
-	background-color:example-background-color();
+	content: text("(", background-color, example-background-color())
+	         drop-down-setReference(example-background-color())
+	         label(attribute, num, text-decoration, underline, background-color, example-background-color())
+	         text(")", background-color, example-background-color());
 }
 
 listInterlinear > free
@@ -1648,11 +1887,10 @@ fieldNotes
 figure:before
 {
 	content: figure-label()
-	"(" 
-	text-field(attribute, id, columns, 10, font-size, small) 
-	") " 
+	text("(",background-color,figure-background-color())
+	text-field(attribute, id, columns, 10, font-size, small,background-color,figure-background-color()) 
+	text(") ",background-color,figure-background-color())
 	;
-	background-color:figure-background-color();
 	font-weight:bold;
 }
 figure
@@ -1662,19 +1900,19 @@ figure
 
 figureRef[textBefore="capitalizedPlural"]:before
 {
-	content: label(xpath,"if((/xlingpaper/styledPaper/lingPaper|/lingPaper)[string-length(normalize-space(@figureRefCapitalizedPluralLabel))>0],(/xlingpaper/styledPaper/lingPaper|/lingPaper)/@figureRefCapitalizedPluralLabel, 'Figures ')");
+	content: label(xpath,"if((/xlingpaper/styledPaper/lingPaper|/lingPaper)[string-length(normalize-space(@figureRefCapitalizedPluralLabel))>0],(/xlingpaper/styledPaper/lingPaper|/lingPaper)/@figureRefCapitalizedPluralLabel, 'Figures ')",background-color,figure-background-color());
 }
 figureRef[textBefore="capitalizedSingular"]:before
 {
-	content: label(xpath,"if((/xlingpaper/styledPaper/lingPaper|/lingPaper)[string-length(normalize-space(@figureRefCapitalizedSingularLabel))>0],(/xlingpaper/styledPaper/lingPaper|/lingPaper)/@figureRefCapitalizedSingularLabel, 'Figure ')");
+	content: label(xpath,"if((/xlingpaper/styledPaper/lingPaper|/lingPaper)[string-length(normalize-space(@figureRefCapitalizedSingularLabel))>0],(/xlingpaper/styledPaper/lingPaper|/lingPaper)/@figureRefCapitalizedSingularLabel, 'Figure ')",background-color,figure-background-color());
 }
 figureRef[textBefore="plural"]:before
 {
-	content: label(xpath,"if((/xlingpaper/styledPaper/lingPaper|/lingPaper)[string-length(normalize-space(@figureRefPluralLabel))>0],(/xlingpaper/styledPaper/lingPaper|/lingPaper)/@figureRefPluralLabel, 'figures ')");
+	content: label(xpath,"if((/xlingpaper/styledPaper/lingPaper|/lingPaper)[string-length(normalize-space(@figureRefPluralLabel))>0],(/xlingpaper/styledPaper/lingPaper|/lingPaper)/@figureRefPluralLabel, 'figures ')",background-color,figure-background-color());
 }
 figureRef[textBefore="singular"]:before
 {
-	content: label(xpath,"if((/xlingpaper/styledPaper/lingPaper|/lingPaper)[string-length(normalize-space(@figureRefSingularLabel))>0],(/xlingpaper/styledPaper/lingPaper|/lingPaper)/@figureRefSingularLabel, 'figure ')");
+	content: label(xpath,"if((/xlingpaper/styledPaper/lingPaper|/lingPaper)[string-length(normalize-space(@figureRefSingularLabel))>0],(/xlingpaper/styledPaper/lingPaper|/lingPaper)/@figureRefSingularLabel, 'figure ')",background-color,figure-background-color());
 }
 figureRef[textBefore="none"]:before
 {
@@ -1683,25 +1921,22 @@ figureRef[textBefore="none"]:before
 /*figureRef[textBefore="useDefault"]:before */
 figureRef:before
 {
-	content: label(xpath,"if((/xlingpaper/styledPaper/lingPaper|/lingPaper)[@figureRefDefault='singular'][string-length(normalize-space(@figureRefSingularLabel))>0],(/xlingpaper/styledPaper/lingPaper|/lingPaper)/@figureRefSingularLabel,(/xlingpaper/styledPaper/lingPaper|/lingPaper)[@figureRefDefault='singular'][string-length(normalize-space(@figureRefSingularLabel))=0], 'figure ', (/xlingpaper/styledPaper/lingPaper|/lingPaper)[@figureRefDefault='plural'][string-length(normalize-space(@figureRefPluralLabel))>0],(/xlingpaper/styledPaper/lingPaper|/lingPaper)/@figureRefPluralLabel,(/xlingpaper/styledPaper/lingPaper|/lingPaper)[@figureRefDefault='plural'][string-length(normalize-space(@figureRefPluralLabel))=0], 'figures ',(/xlingpaper/styledPaper/lingPaper|/lingPaper)[@figureRefDefault='capitalizedSingular'][string-length(normalize-space(@figureRefCapitalizedSingularLabel))>0],(/xlingpaper/styledPaper/lingPaper|/lingPaper)/@figureRefCapitalizedSingularLabel,(/xlingpaper/styledPaper/lingPaper|/lingPaper)[@figureRefDefault='capitalizedSingular'][string-length(normalize-space(@figureRefCapitalizedSingularLabel))=0], 'Figure ', (/xlingpaper/styledPaper/lingPaper|/lingPaper)[@figureRefDefault='capitalizedPlural'][string-length(normalize-space(@figureRefCapitalizedPluralLabel))>0],(/xlingpaper/styledPaper/lingPaper|/lingPaper)/@figureRefCapitalizedPluralLabel,(/xlingpaper/styledPaper/lingPaper|/lingPaper)[@figureRefDefault='capitalizedPlural'][string-length(normalize-space(@figureRefCapitalizedPluralLabel))=0], 'Figures ','')");
+	content: label(xpath,"if((/xlingpaper/styledPaper/lingPaper|/lingPaper)[@figureRefDefault='singular'][string-length(normalize-space(@figureRefSingularLabel))>0],(/xlingpaper/styledPaper/lingPaper|/lingPaper)/@figureRefSingularLabel,(/xlingpaper/styledPaper/lingPaper|/lingPaper)[@figureRefDefault='singular'][string-length(normalize-space(@figureRefSingularLabel))=0], 'figure ', (/xlingpaper/styledPaper/lingPaper|/lingPaper)[@figureRefDefault='plural'][string-length(normalize-space(@figureRefPluralLabel))>0],(/xlingpaper/styledPaper/lingPaper|/lingPaper)/@figureRefPluralLabel,(/xlingpaper/styledPaper/lingPaper|/lingPaper)[@figureRefDefault='plural'][string-length(normalize-space(@figureRefPluralLabel))=0], 'figures ',(/xlingpaper/styledPaper/lingPaper|/lingPaper)[@figureRefDefault='capitalizedSingular'][string-length(normalize-space(@figureRefCapitalizedSingularLabel))>0],(/xlingpaper/styledPaper/lingPaper|/lingPaper)/@figureRefCapitalizedSingularLabel,(/xlingpaper/styledPaper/lingPaper|/lingPaper)[@figureRefDefault='capitalizedSingular'][string-length(normalize-space(@figureRefCapitalizedSingularLabel))=0], 'Figure ', (/xlingpaper/styledPaper/lingPaper|/lingPaper)[@figureRefDefault='capitalizedPlural'][string-length(normalize-space(@figureRefCapitalizedPluralLabel))>0],(/xlingpaper/styledPaper/lingPaper|/lingPaper)/@figureRefCapitalizedPluralLabel,(/xlingpaper/styledPaper/lingPaper|/lingPaper)[@figureRefDefault='capitalizedPlural'][string-length(normalize-space(@figureRefCapitalizedPluralLabel))=0], 'Figures ','')",background-color,figure-background-color());
 }
 figureRef[showCaption='short']
 {
-	content: drop-down-setReference()
-	label(xpath, "if(string-length(id(@figure)/shortCaption)>0,concat('“',id(@figure)/shortCaption,'”'),string-length(id(@figure)/caption)>0,concat('“',id(@figure)/caption,'”'),'“uncaptioned”')");
-	background-color:figure-background-color();
+	content: drop-down-setReference(figure-background-color())
+	label(xpath, "if(string-length(id(@figure)/shortCaption)>0,concat('Â“',id(@figure)/shortCaption,'Â”'),string-length(id(@figure)/caption)>0,concat('Â“',id(@figure)/caption,'Â”'),'Â“uncaptionedÂ”')",background-color,figure-background-color());
 }
 figureRef[showCaption='full']
 {
-	content: drop-down-setReference()
-	label(xpath, "if(string-length(id(@figure)/caption)>0,concat('“',id(@figure)/caption,'”'),'“uncaptioned”')");
-	background-color:figure-background-color();
+	content: drop-down-setReference(figure-background-color())
+	label(xpath, "if(string-length(id(@figure)/caption)>0,concat('Â“',id(@figure)/caption,'Â”'),'Â“uncaptionedÂ”')",background-color,figure-background-color());
 }
 figureRef
 {
-	content: drop-down-setReference()
-	         label(attribute, figure, text-decoration, underline);
-	background-color:figure-background-color();
+	content: drop-down-setReference(figure-background-color())
+	         label(attribute, figure, text-decoration, underline,background-color,figure-background-color());
 }
 
 framedType:before
@@ -1722,7 +1957,7 @@ framedType
 }
 framedTypes:before
 {
-	content:collapser(collapsed-icon, icon(plus-box), expanded-icon, icon(minus-box))
+	content:collapser(collapsed-icon, icon(url(resources/plus-box.png)), expanded-icon, icon(url(resources/minus-box.png)))
 	" Framed Types: ";
 }
 lingPaper framedTypes
@@ -1782,9 +2017,9 @@ frontMatter
 
 genericRef:before
 {
-	content: drop-down-setReference()
-	         label(attribute, gref, text-decoration, underline) " ";
-	background-color:generic-background-color();
+	content: drop-down-setReference(generic-background-color())
+	         label(attribute, gref, text-decoration, underline,background-color,generic-background-color())
+		 " ";
 }
 genericRef
 {
@@ -1793,11 +2028,10 @@ genericRef
 }
 genericTarget
 {
-	content: "(" 
-	text-field(attribute, id, columns, 10, font-size, small) 
-	") " 
+	content: text("(",background-color,generic-background-color())
+	text-field(attribute, id, columns, 10, font-size, small,background-color,generic-background-color())
+	text(") ",background-color,generic-background-color())
 	;
-	background-color:generic-background-color();
 }
 
 example listWord gloss:before
@@ -1941,8 +2175,7 @@ glossary
 
 glossaryTerm:before
 {
-    content: text-field(attribute, id, columns, 10, font-size, small);
-	background-color:glossaryterm-background-color();
+    content: text-field(attribute, id, columns, 10, font-size, small,background-color,glossaryterm-background-color());
 }
 glossaryTerm
 {
@@ -1951,12 +2184,12 @@ glossaryTerm
 }
 glossaryTerms[label]:before
 {
-		content: collapser(collapsed-icon, icon(plus-box), expanded-icon, icon(minus-box))
+		content: collapser(collapsed-icon, icon(url(resources/plus-box.png)), expanded-icon, icon(url(resources/minus-box.png)))
 	"  " text-field(attribute,label);
 }
 glossaryTerms:before
 {
-	content:collapser(collapsed-icon, icon(plus-box), expanded-icon, icon(minus-box))
+	content:collapser(collapsed-icon, icon(url(resources/plus-box.png)), expanded-icon, icon(url(resources/minus-box.png)))
     " Glossary Terms Master List";
 }
 backMatter > glossaryTerms 
@@ -1973,6 +2206,13 @@ glossaryTermsShownHere
 {
 	display:block;
 	content: "The glossary terms will appear here as a table.";
+	font-style:italic;
+	padding-bottom:1ex;
+}
+glossaryTermsShownHereAsDefinitionList
+{
+	display:block;
+	content: "The glossary terms will appear here as a definition list.";
 	font-style:italic;
 	padding-bottom:1ex;
 }
@@ -1998,21 +2238,17 @@ glossaryTermInLang
 }
 glossaryTermRef[capitalize='yes']:before
 {
-	content: drop-down-setReference()
+	content: drop-down-setReference(glossaryTerm-background-color())
 	         invoke("capitalize", "null")
 	;
 	font-family: concatenate("'",xpath("if(/xlingpaper/styledPaper/lingPaper/backMatter/glossaryTerms[string-length(normalize-space(@font-family))>0],/xlingpaper/styledPaper/lingPaper/backMatter/glossaryTerms/@font-family,/lingPaper/backMatter/glossaryTerms[string-length(normalize-space(@font-family))>0],/lingPaper/backMatter/glossaryTerms/@font-family,'inherit')"),"'");
-
-	background-color:glossaryTerm-background-color();
 }
 glossaryTermRef:before
 {
-	content: drop-down-setReference()
-        label(xpath,"if(string-length(.)>0,'',(/xlingpaper/styledPaper/lingPaper|/lingPaper)[string-length(normalize-space(@glossarytermlang))>0] and id(@glossaryTerm)/glossaryTermInLang[(/xlingpaper/styledPaper/lingPaper|/lingPaper)/@glossarytermlang=@lang]/glossaryTermTerm,id(@glossaryTerm)/glossaryTermInLang[(/xlingpaper/styledPaper/lingPaper|/lingPaper)/@glossarytermlang=@lang]/glossaryTermTerm, id(@glossaryTerm)/glossaryTermInLang[1]/glossaryTermTerm)")
+	content: drop-down-setReference(glossaryTerm-background-color())
+        label(xpath,"if(string-length(.)>0,'',(/xlingpaper/styledPaper/lingPaper|/lingPaper)[string-length(normalize-space(@glossarytermlang))>0] and id(@glossaryTerm)/glossaryTermInLang[(/xlingpaper/styledPaper/lingPaper|/lingPaper)/@glossarytermlang=@lang]/glossaryTermTerm,id(@glossaryTerm)/glossaryTermInLang[(/xlingpaper/styledPaper/lingPaper|/lingPaper)/@glossarytermlang=@lang]/glossaryTermTerm, id(@glossaryTerm)/glossaryTermInLang[1]/glossaryTermTerm)",background-color,glossaryTerm-background-color())
 	;
 	font-family: concatenate("'",xpath("if(/xlingpaper/styledPaper/lingPaper/backMatter/glossaryTerms[string-length(normalize-space(@font-family))>0],/xlingpaper/styledPaper/lingPaper/backMatter/glossaryTerms/@font-family,/lingPaper/backMatter/glossaryTerms[string-length(normalize-space(@font-family))>0],/lingPaper/backMatter/glossaryTerms/@font-family,'inherit')"),"'");
-
-	background-color:glossaryTerm-background-color();
 }
 glossaryTermRef
 {
@@ -2024,17 +2260,10 @@ glossaryTermTerm
 	display:inline;
 }
 
-hangingIndent:before 
-{
-	content: icon(pop-ne) " ";
-}
 hangingIndent 
 {
 	display:block;
-/* negative text-indent does not work 
 	text-indent: -.25in; 
-	padding-left: .25in; */
-	margin: 1.33ex 0;
 }
 
 headerCol { 
@@ -2103,9 +2332,9 @@ lingPaper[showindexeditemsineditor="no"] indexedItem
 
 indexedItem:before
 {
-	content: drop-down-setReference()
-	         label(attribute, term, text-decoration, underline) " ";
-	background-color:index-background-color();
+	content: drop-down-setReference(index-background-color())
+	         label(attribute, term, text-decoration, underline,background-color,index-background-color())
+		 " ";
 }
 indexedItem
 {
@@ -2120,13 +2349,13 @@ lingPaper[showindexeditemsineditor="no"] indexedRangeBegin
 
 indexedRangeBegin:before
 {
-	content: "("
-  	         text-field(attribute, id, columns, 10, font-size, small) 
-  	         " , "
-	         drop-down-setReference()
-	         label(attribute, term, text-decoration, underline)
-	         ")[";
-	background-color:indexRange-background-color();
+	content: text("(",background-color,indexRange-background-color())
+  	         text-field(attribute, id, columns, 10, font-size, small,background-color,indexRange-background-color()) 
+  	         text(" , ",background-color,indexRange-background-color())
+	         drop-down-setReference(indexRange-background-color())
+	         label(attribute, term, text-decoration, underline,background-color,indexRange-background-color())
+	         text(")[",background-color,indexRange-background-color())
+		 ;
 }
 indexedRangeBegin
 {
@@ -2141,10 +2370,10 @@ lingPaper[showindexeditemsineditor="no"] indexedRangeEnd
 
 indexedRangeEnd:before
 {
-	content: "]"
-		 drop-down-setReference()
-	         label(attribute, begin, text-decoration, underline) " ";
-	background-color:indexRange-background-color();
+	content: text("]",background-color,indexRange-background-color())
+		 drop-down-setReference(indexRange-background-color())
+	         label(attribute, begin, text-decoration, underline,background-color,indexRange-background-color())
+		 " ";
 }
 indexedRangeEnd
 {
@@ -2154,12 +2383,11 @@ indexedRangeEnd
 
 indexTerm:before
 {
-	content:collapser(collapsed-icon, icon(plus-box), expanded-icon, icon(minus-box))
+	content:collapser(collapsed-icon, icon(url(resources/plus-box.png)), expanded-icon, icon(url(resources/minus-box.png)))
 	" " /* " index term: "  */
 	text-field(attribute, id, columns, 10, font-size, small, background-color, index-background-color())
 	" "
 	;
-	/* background-color:index-background-color(); */
 }
 indexTerm
 {
@@ -2175,7 +2403,7 @@ indexTerm indexTerms
 }
 indexTerms:before
 {
-	content:collapser(collapsed-icon, icon(plus-box), expanded-icon, icon(minus-box))
+	content:collapser(collapsed-icon, icon(url(resources/plus-box.png)), expanded-icon, icon(url(resources/minus-box.png)))
 	" Index Terms: ";
 }
 lingPaper > indexTerms
@@ -2200,34 +2428,31 @@ institution:after
 
 iso639-3codeRef[brackets='final']
 {
-	content: drop-down-setReference()
-	         label(attribute, lang, text-decoration, underline)
-	        "]"
+	content: drop-down-setReference(iso639-3code-background-color())
+	         label(attribute, lang, text-decoration, underline,background-color,iso639-3code-background-color())
+	        text("]",background-color,iso639-3code-background-color())
 	        ;
-	background-color:iso639-3code-background-color();
 }
 iso639-3codeRef[brackets='initial']
 {
-	content:"["
-		 drop-down-setReference()
-	         label(attribute, lang, text-decoration, underline)
+	content:text("[",background-color,iso639-3code-background-color())
+		 drop-down-setReference(iso639-3code-background-color())
+	         label(attribute, lang, text-decoration, underline,background-color,iso639-3code-background-color())
 	        ;
-	background-color:iso639-3code-background-color();
 }
 iso639-3codeRef[brackets='none']
 {
-	content: drop-down-setReference()
-	         label(attribute, lang, text-decoration, underline)
+	content: drop-down-setReference(iso639-3code-background-color())
+	         label(attribute, lang, text-decoration, underline,background-color,iso639-3code-background-color())
 	        ;
-	background-color:iso639-3code-background-color();
 }
 iso639-3codeRef
 {
-	content: "["
-	         drop-down-setReference()
+	content: text("[",background-color,iso639-3code-background-color())
+	         drop-down-setReference(iso639-3code-background-color())
 	         label(attribute, lang, text-decoration, underline)
-	         "]";
-	background-color:iso639-3code-background-color();
+	         text("]",background-color,iso639-3code-background-color())
+		 ;
 }
 
 endnote p iso639-3codesShownHere
@@ -2271,6 +2496,22 @@ phrase > item {
 	font-weight: concatenate(xpath("id(@lang)/@font-weight"));
 }
 
+keywordsShownHere labelContentChoices:after {
+    content:text("The keywords listed under Publishing Info will appear here.",font-style,italic);}
+labelContentChoices
+{
+    display:inline;
+}
+labelContent:first-of-type:before {
+    content:"   ";
+}
+labelContent + labelContent:before {
+    content:" / ";
+}
+labelContent {
+    display:inline;
+}
+
 landscape
 {
 	display:block;
@@ -2297,110 +2538,94 @@ interlinear
 }
 example interlinear[textref]:before
 {
-		content: "(" 
-	text-field(attribute, textref, columns, 10, font-size, small) 
-	") " 
+	content: text("(",background-color,interlinearSource-background-color())
+	text-field(attribute, textref, columns, 10, font-size, small,background-color,interlinearSource-background-color()) 
+	text(") ",background-color,interlinearSource-background-color())
 	;
-	background-color:interlinearSource-background-color();
-
 }
 interlinear-text > interlinear[text]:before
 {
-		content: "(" 
-	text-field(attribute, text, columns, 10, font-size, small) 
-	") " 
+	content: text("(",background-color,interlinearSource-background-color())
+	text-field(attribute, text, columns, 10, font-size, small,background-color,interlinearSource-background-color()) 
+	text(") ",background-color,interlinearSource-background-color())
 	;
-	background-color:interlinearSource-background-color();
-
 }
 
 interlinearRef:before
 {
-		content: "(" 
-	text-field(attribute, textref, columns, 10, font-size, small) 
-	") " 
+	content: text("(",background-color,interlinearSource-background-color())
+	text-field(attribute, textref, columns, 10, font-size, small,background-color,interlinearSource-background-color()) 
+	text(") ",background-color,interlinearSource-background-color())
 	;
-	background-color:interlinearSource-background-color();
-
 }
 			 
 interlinearRefCitation[bracket='none']:before
 {
-	content: drop-down-setReference()
-	label(xpath, "if(string-length(id(@textref)/../textInfo/shortTitle)>0,concat(id(@textref)/../textInfo/shortTitle,':',count(id(@textref)/preceding-sibling::interlinear) + 1),string-length(id(@textref)/../textInfo/textTitle)>0,concat(id(@textref)/../textInfo/textTitle,':',count(id(@textref)/preceding-sibling::interlinear) + 1),string-length(id(@textref)/textInfo/shortTitle)>0,id(@textref)/textInfo/shortTitle,string-length(id(@textref)/textInfo/textTitle)>0,id(@textref)/textInfo/textTitle,concat('unnamed',':',count(id(@textref)/preceding-sibling::interlinear) + 1))")
+	content: drop-down-setReference(interlinearSource-background-color())
+	label(xpath, "if(string-length(id(@textref)/../textInfo/shortTitle)>0,concat(id(@textref)/../textInfo/shortTitle,':',count(id(@textref)/preceding-sibling::interlinear) + 1),string-length(id(@textref)/../textInfo/textTitle)>0,concat(id(@textref)/../textInfo/textTitle,':',count(id(@textref)/preceding-sibling::interlinear) + 1),string-length(id(@textref)/textInfo/shortTitle)>0,id(@textref)/textInfo/shortTitle,string-length(id(@textref)/textInfo/textTitle)>0,id(@textref)/textInfo/textTitle,concat('unnamed',':',count(id(@textref)/preceding-sibling::interlinear) + 1))",background-color,interlinearSource-background-color())
 	;
-	background-color:interlinearSource-background-color();
 }
 interlinearRefCitation[bracket='initial']:before
 {
-	content: drop-down-setReference()
-	"[" 
-	label(xpath, "if(string-length(id(@textref)/../textInfo/shortTitle)>0,concat(id(@textref)/../textInfo/shortTitle,':',count(id(@textref)/preceding-sibling::interlinear) + 1),string-length(id(@textref)/../textInfo/textTitle)>0,concat(id(@textref)/../textInfo/textTitle,':',count(id(@textref)/preceding-sibling::interlinear) + 1),string-length(id(@textref)/textInfo/shortTitle)>0,id(@textref)/textInfo/shortTitle,string-length(id(@textref)/textInfo/textTitle)>0,id(@textref)/textInfo/textTitle,concat('unnamed',':',count(id(@textref)/preceding-sibling::interlinear) + 1))")
+	content: drop-down-setReference(interlinearSource-background-color())
+	text("[",background-color,interlinearSource-background-color())
+	label(xpath, "if(string-length(id(@textref)/../textInfo/shortTitle)>0,concat(id(@textref)/../textInfo/shortTitle,':',count(id(@textref)/preceding-sibling::interlinear) + 1),string-length(id(@textref)/../textInfo/textTitle)>0,concat(id(@textref)/../textInfo/textTitle,':',count(id(@textref)/preceding-sibling::interlinear) + 1),string-length(id(@textref)/textInfo/shortTitle)>0,id(@textref)/textInfo/shortTitle,string-length(id(@textref)/textInfo/textTitle)>0,id(@textref)/textInfo/textTitle,concat('unnamed',':',count(id(@textref)/preceding-sibling::interlinear) + 1))",background-color,interlinearSource-background-color())
 	;
-	background-color:interlinearSource-background-color();
 }
 interlinearRefCitation[bracket='final']:before
 {
-	content: drop-down-setReference()
-	label(xpath, "if(string-length(id(@textref)/../textInfo/shortTitle)>0,concat(id(@textref)/../textInfo/shortTitle,':',count(id(@textref)/preceding-sibling::interlinear) + 1),string-length(id(@textref)/../textInfo/textTitle)>0,concat(id(@textref)/../textInfo/textTitle,':',count(id(@textref)/preceding-sibling::interlinear) + 1),string-length(id(@textref)/textInfo/shortTitle)>0,id(@textref)/textInfo/shortTitle,string-length(id(@textref)/textInfo/textTitle)>0,id(@textref)/textInfo/textTitle,concat('unnamed',':',count(id(@textref)/preceding-sibling::interlinear) + 1))")
-	"]" 
+	content: drop-down-setReference(interlinearSource-background-color())
+	label(xpath, "if(string-length(id(@textref)/../textInfo/shortTitle)>0,concat(id(@textref)/../textInfo/shortTitle,':',count(id(@textref)/preceding-sibling::interlinear) + 1),string-length(id(@textref)/../textInfo/textTitle)>0,concat(id(@textref)/../textInfo/textTitle,':',count(id(@textref)/preceding-sibling::interlinear) + 1),string-length(id(@textref)/textInfo/shortTitle)>0,id(@textref)/textInfo/shortTitle,string-length(id(@textref)/textInfo/textTitle)>0,id(@textref)/textInfo/textTitle,concat('unnamed',':',count(id(@textref)/preceding-sibling::interlinear) + 1))",background-color,interlinearSource-background-color())
+	txt("]",background-color,interlinearSource-background-color())
 	;
-	background-color:interlinearSource-background-color();
 }
 interlinearRefCitation[lineNumberOnly='yes']:before
 {
-	content: drop-down-setReference()
-	"[" 
-	label(xpath, "count(id(@textref)/preceding-sibling::interlinear) + 1")
-	"]" 
+	content: drop-down-setReference(interlinearSource-background-color())
+	text("[",background-color,interlinearSource-background-color())
+	label(xpath, "count(id(@textref)/preceding-sibling::interlinear) + 1",background-color,interlinearSource-background-color())
+	text("]",background-color,interlinearSource-background-color())
 	;
-	background-color:interlinearSource-background-color();
 }
 interlinearRefCitation[bracket='none'][lineNumberOnly='yes']:before
 {
-	content: drop-down-setReference()
-	label(xpath, "count(id(@textref)/preceding-sibling::interlinear) + 1")
+	content: drop-down-setReference(interlinearSource-background-color())
+	label(xpath, "count(id(@textref)/preceding-sibling::interlinear) + 1",background-color,interlinearSource-background-color())
 	;
-	background-color:interlinearSource-background-color();
 }
 interlinearRefCitation[bracket='initial'][lineNumberOnly='yes']:before
 {
-	content: drop-down-setReference()
-	"[" 
-	label(xpath, "count(id(@textref)/preceding-sibling::interlinear) + 1")
+	content: drop-down-setReference(interlinearSource-background-color())
+	text("[",background-color,interlinearSource-background-color())
+	label(xpath, "count(id(@textref)/preceding-sibling::interlinear) + 1",background-color,interlinearSource-background-color())
 	;
-	background-color:interlinearSource-background-color();
 }
 interlinearRefCitation[bracket='final'][lineNumberOnly='yes']:before
 {
-	content: drop-down-setReference()
-	label(xpath, "count(id(@textref)/preceding-sibling::interlinear) + 1")
-	"]" 
+	content: drop-down-setReference(interlinearSource-background-color())
+	label(xpath, "count(id(@textref)/preceding-sibling::interlinear) + 1",background-color,interlinearSource-background-color())
+	text("]",background-color,interlinearSource-background-color())
 	;
-	background-color:interlinearSource-background-color();
 }
 interlinearRefCitation[showTitleOnly='short']:before
 {
-	content: drop-down-setReference()
-	label(xpath, "if(string-length(id(@textref)/../textInfo/shortTitle)>0,concat('“',id(@textref)/../textInfo/shortTitle,'”'),string-length(id(@textref)/textInfo/shortTitle)>0,concat('“',id(@textref)/textInfo/shortTitle,'”'),'“unnamed”')")
+	content: drop-down-setReference(interlinearSource-background-color())
+	label(xpath, "if(string-length(id(@textref)/../textInfo/shortTitle)>0,concat('Â“',id(@textref)/../textInfo/shortTitle,'Â”'),string-length(id(@textref)/textInfo/shortTitle)>0,concat('Â“',id(@textref)/textInfo/shortTitle,'Â”'),'Â“unnamedÂ”')",background-color,interlinearSource-background-color())
 	;
-	background-color:interlinearSource-background-color();
 }
 interlinearRefCitation[showTitleOnly='full']:before
 {
-	content: drop-down-setReference()
-	label(xpath, "if(string-length(id(@textref)/../textInfo/textTitle)>0,concat('“',id(@textref)/../textInfo/textTitle,'”'),string-length(id(@textref)/textInfo/textTitle)>0,concat('“',id(@textref)/textInfo/textTitle,'”'),'“unnamed”')")
+	content: drop-down-setReference(interlinearSource-background-color())
+	label(xpath, "if(string-length(id(@textref)/../textInfo/textTitle)>0,concat('Â“',id(@textref)/../textInfo/textTitle,'Â”'),string-length(id(@textref)/textInfo/textTitle)>0,concat('Â“',id(@textref)/textInfo/textTitle,'Â”'),'Â“unnamedÂ”')",background-color,interlinearSource-background-color())
 	;
-	background-color:interlinearSource-background-color();
 }
 interlinearRefCitation:before
 {
-	content: drop-down-setReference()
-	"[" 
-	label(xpath, "if(string-length(id(@textref)/../textInfo/shortTitle)>0,concat(id(@textref)/../textInfo/shortTitle,':',count(id(@textref)/preceding-sibling::interlinear) + 1),string-length(id(@textref)/../textInfo/textTitle)>0,concat(id(@textref)/../textInfo/textTitle,':',count(id(@textref)/preceding-sibling::interlinear) + 1),string-length(id(@textref)/textInfo/shortTitle)>0,id(@textref)/textInfo/shortTitle,string-length(id(@textref)/textInfo/textTitle)>0,id(@textref)/textInfo/textTitle,concat('unnamed',':',count(id(@textref)/preceding-sibling::interlinear) + 1))")
-	"]" 
+	content: drop-down-setReference(interlinearSource-background-color())
+	text("[",background-color,interlinearSource-background-color())
+	label(xpath, "if(string-length(id(@textref)/../textInfo/shortTitle)>0,concat(id(@textref)/../textInfo/shortTitle,':',count(id(@textref)/preceding-sibling::interlinear) + 1),string-length(id(@textref)/../textInfo/textTitle)>0,concat(id(@textref)/../textInfo/textTitle,':',count(id(@textref)/preceding-sibling::interlinear) + 1),string-length(id(@textref)/textInfo/shortTitle)>0,id(@textref)/textInfo/shortTitle,string-length(id(@textref)/textInfo/textTitle)>0,id(@textref)/textInfo/textTitle,concat('unnamed',':',count(id(@textref)/preceding-sibling::interlinear) + 1))",background-color,interlinearSource-background-color())
+	text("]",background-color,interlinearSource-background-color())
 	;
-	background-color:interlinearSource-background-color();
 }
 interlinearSource:before
 {
@@ -2414,18 +2639,17 @@ interlinearSource
 
 interlinear-text[text]:before
 {
-	content: "(" 
-        collapser(collapsed-icon, icon(plus-box), expanded-icon, icon(minus-box))
-	text-field(attribute, text, columns, 10, font-size, small) 
-	") " 
-	" Interlinear text: "
-	label(xpath, "if(textInfo[string-length(normalize-space(shortTitle))>0], textInfo/shortTitle, textInfo/textTitle)")
+	content: text("(" ,background-color,interlinearSource-background-color())
+        collapser(collapsed-icon, icon(url(resources/plus-box.png)), expanded-icon, icon(url(resources/minus-box.png)))
+	text-field(attribute, text, columns, 10, font-size, small,background-color,interlinearSource-background-color()) 
+	text(") " ,background-color,interlinearSource-background-color())
+	text(" Interlinear text: ",background-color,interlinearSource-background-color())
+	label(xpath, "if(textInfo[string-length(normalize-space(shortTitle))>0], textInfo/shortTitle, textInfo/textTitle)",background-color,interlinearSource-background-color())
 	;
-	background-color:interlinearSource-background-color();
 }
 interlinear-text:before
 {
-	    content: collapser(collapsed-icon, icon(plus-box), expanded-icon, icon(minus-box))
+	    content: collapser(collapsed-icon, icon(url(resources/plus-box.png)), expanded-icon, icon(url(resources/minus-box.png)))
 	" Interlinear text: "
 
 	label(xpath, "if(textInfo[string-length(normalize-space(shortTitle))>0], textInfo/shortTitle, textInfo/textTitle)")
@@ -2558,12 +2782,12 @@ keyword
 }
 publishingInfo keywords:before
 {
-	content:collapser(collapsed-icon, icon(plus-box), expanded-icon, icon(minus-box))
+	content:collapser(collapsed-icon, icon(url(resources/plus-box.png)), expanded-icon, icon(url(resources/minus-box.png)))
 	" Keywords: ";
 }
 refWork keywords:before
 {
-	content:collapser(collapsed-icon, icon(plus-box), expanded-icon, icon(minus-box))
+	content:collapser(collapsed-icon, icon(url(resources/plus-box.png)), expanded-icon, icon(url(resources/minus-box.png)))
 	" Keywords: ";
 }
 publishingInfo keywords
@@ -2582,13 +2806,21 @@ keywordsShownHere:before
 {
 	content:"Keywords: ";
 }
-keywordsShownHere
+keywordsShownHere:empty
 {
 	display:block;
 	padding-left: 0.25in;
 	padding-top: 0.05in;
 	content:text("The keywords listed under Publishing Info will appear here.",font-style,italic);
 }
+keywordsShownHere
+{
+	display:block;
+	padding-left: 0.25in;
+	padding-top: 0.05in;
+/*	content:text("The keywords listed under Publishing Info will appear here.",font-style,italic); */
+}
+
 refWork keywords
 {
 	display:block;
@@ -2736,7 +2968,7 @@ language
 
 languages:before
 {
-	content:collapser(collapsed-icon, icon(plus-box), expanded-icon, icon(minus-box))
+	content:collapser(collapsed-icon, icon(url(resources/plus-box.png)), expanded-icon, icon(url(resources/minus-box.png)))
 	" Languages: ";
 	/* color:Silver; is too light */
 }
@@ -2912,12 +3144,27 @@ location:after
 	content: ". ";
 }
 
+mediaObject[icon='cinema']:before
+{ 
+    content: icon(url(resources/cinema-icon.png));
+}
+mediaObject[icon='moviecamera']:before
+{ 
+    content: icon(url(resources/movie-camera-icon.png));
+}
+mediaObject[icon='opticaldisk']:before
+{ 
+    content: icon(url(resources//optical-disk-icon.png));
+}
+mediaObject[icon='sound']:before
+{ 
+    content: icon(url(resources/speaker-icon.png));
+}
 mediaObject:before
 { 
-    content: icon(file);
-/*    content: image("%c%Sdoc%Sresources%SAbbreviationArticle.png");
-    font-family: Quivira; */
+    content: icon(url(resources/speaker-icon.png));
 }
+
 morph
 {
 	display:table-cell;
@@ -2949,6 +3196,15 @@ ms
 	display:inline;
 }
 
+msVersion
+{
+	display:inline;
+}
+msVersion:after
+{
+	content: ". ";
+}
+
 multivolumeWork
 {
 	display:inline;
@@ -2965,8 +3221,8 @@ object:before
 	font-size: 100%;
 	font-style: normal;
 	font-weight: normal;
-	content:text-field(attribute, type, columns, 8, font-size, small)
-	xpath("id(@type)/@before")
+	content:text-field(attribute, type, columns, 8, font-size, small,background-color,object-background-color())
+	label(xpath("(/xlingpaper/styledPaper/lingPaper|/lingPaper)/types/type[@id=current()/@type]/@before"),background-color,object-background-color())
 	;
 }
 object
@@ -2983,7 +3239,8 @@ object
 }
 object:after
 {
-	content:xpath("id(@type)/@after");
+	content:label(xpath("(/xlingpaper/styledPaper/lingPaper|/lingPaper)/types/type[@id=current()/@type]/@after"),background-color,object-background-color())
+	;
 }
 
 ol { 
@@ -3037,11 +3294,10 @@ part:before
 {	
     content: simple-counter(p, upper-roman) 
     " " 
-    text-field(attribute, id, columns, 10, font-size, small) 
+    text-field(attribute, id, columns, 10, font-size, small,background-color,part-background-color())
     ;
 	font-weight: bold;
 	font-size:large;
-	background-color:part-background-color();
 }
 
 part
@@ -3050,6 +3306,10 @@ part
 	text-align:center;
 }
 
+partLabelContentChoices
+{
+    display:inline;
+}
 
 pc
 {
@@ -3107,29 +3367,28 @@ presentedAt
 
 procCitation:before
 {
-	content: " In ";
+	content: text(" In ",background-color,citation-background-color());
 }
 procCitation
 {
-	content: drop-down-setReference()
-		 label(xpath, "id(@refToBook)/../@citename")
+	content: drop-down-setReference(citation-background-color())
+		 label(xpath, "id(@refToBook)/../@citename",background-color,citation-background-color())
              ;
-	background-color:citation-background-color();
 }
 procCitation[page]:after
 {
-	content:" ("
-	        label(xpath, "id(@refToBook)/refDate")
-	        ":"
-	        label(attribute, page)
-	        ")"
+	content:text(" (",background-color,citation-background-color())
+	        label(xpath, "id(@refToBook)/refDate",background-color,citation-background-color())
+	        text(":",background-color,citation-background-color())
+	        label(attribute, page,background-color,citation-background-color())
+	        text(")",background-color,citation-background-color())
 	        ;
 }
 procCitation:after
 {
-	content:" ("
-	        label(xpath, "id(@refToBook)/refDate")
-	        ")"
+	content:text(" (",background-color,citation-background-color())
+	        label(xpath, "id(@refToBook)/refDate",background-color,citation-background-color())
+	        text(")",background-color,citation-background-color())
 	        ;
 }
 procEd
@@ -3153,6 +3412,19 @@ procEdInitials
 procEdInitials:after
 {
 	property-group: authorInitialsAfter();
+}
+
+procEdSurnameGivenName:before
+{
+	property-group: authorSurnameGivennameBefore();
+}
+procEdSurnameGivenName
+{
+	property-group: authorSurnameGivenname();
+}
+procEdSurnameGivenName:after
+{
+	property-group: authorSurnameGivennameAfter();
 }
 
 procPages
@@ -3235,7 +3507,7 @@ publisher:after
 
 publishingInfo:before
 {
-	content: collapser(collapsed-icon, icon(plus-box), expanded-icon, icon(minus-box))
+	content: collapser(collapsed-icon, icon(url(resources/plus-box.png)), expanded-icon, icon(url(resources/minus-box.png)))
 	" Publishing info: ";
 }
 publishingInfo
@@ -3274,7 +3546,7 @@ referencedInterlinearText
 }
 referencedInterlinearTexts:before
 {
-	content:collapser(collapsed-icon, icon(plus-box), expanded-icon, icon(minus-box))
+	content:collapser(collapsed-icon, icon(url(resources/plus-box.png)), expanded-icon, icon(url(resources/minus-box.png)))
 	" Referenced Interlinear Texts:";
 }
 referencedInterlinearTexts
@@ -3284,7 +3556,7 @@ referencedInterlinearTexts
 }
 references[authorformtoshowineditor="full"] refAuthor:before
 {
-	content: collapser(collapsed-icon, icon(plus-box), expanded-icon, icon(minus-box))
+	content: collapser(collapsed-icon, icon(url(resources/plus-box.png)), expanded-icon, icon(url(resources/minus-box.png)))
 	" name: "
 	text-field(attribute, name, columns, 40)
 	" cite as: "
@@ -3293,7 +3565,7 @@ references[authorformtoshowineditor="full"] refAuthor:before
 }
 references[authorformtoshowineditor="both"] refAuthor:before
 {
-	content: collapser(collapsed-icon, icon(plus-box), expanded-icon, icon(minus-box))
+	content: collapser(collapsed-icon, icon(url(resources/plus-box.png)), expanded-icon, icon(url(resources/minus-box.png)))
 	" name: "
 	text-field(attribute, name, columns, 40)
 	" cite as: "
@@ -3302,7 +3574,7 @@ references[authorformtoshowineditor="both"] refAuthor:before
 }
 references[authorformtoshowineditor="initials"] refAuthor:before
 {
-	content: collapser(collapsed-icon, icon(plus-box), expanded-icon, icon(minus-box))
+	content: collapser(collapsed-icon, icon(url(resources/plus-box.png)), expanded-icon, icon(url(resources/minus-box.png)))
 	" cite as: "
 	text-field(attribute, citename, columns 15)
 	;
@@ -3310,7 +3582,7 @@ references[authorformtoshowineditor="initials"] refAuthor:before
 
 refAuthor:before
 {
-	content: collapser(collapsed-icon, icon(plus-box), expanded-icon, icon(minus-box))
+	content: collapser(collapsed-icon, icon(url(resources/plus-box.png)), expanded-icon, icon(url(resources/minus-box.png)))
 	" name: "
 	text-field(attribute, name, columns, 40)
 	" cite as: "
@@ -3340,29 +3612,157 @@ refAuthorName
 	padding-left: .5in;
 }
 
+references[authorformtoshowineditor="all"] refAuthorInitials:before
+{
+	property-group: authorInitialsBefore();
+}
 references[authorformtoshowineditor="both"] refAuthorInitials:before
 {
 	property-group: authorInitialsBefore();
 }
+references[authorformtoshowineditor="full"] refAuthorInitials:before
+{
+	display:none;
+}
+references[authorformtoshowineditor="fullsurnamegivenname"] refAuthorInitials:before
+{
+	display:none;
+}
 references[authorformtoshowineditor="initials"] refAuthorInitials:before
 {
 	content:" name (initials): ";
+}
+references[authorformtoshowineditor="surnamegivenname"] refAuthorInitials:before
+{
+	display:none;
+}
+references[authorformtoshowineditor="all"] refAuthorInitials
+{
+	property-group: authorInitials();
+	padding-left: .25in;
 }
 references[authorformtoshowineditor="both"] refAuthorInitials
 {
 	property-group: authorInitials();
 	padding-left: .25in;
 }
+references[authorformtoshowineditor="full"] refAuthorInitials
+{
+	display:none;
+}
+references[authorformtoshowineditor="fullsurnamegivenname"] refAuthorInitials
+{
+	display:none;
+}
 references[authorformtoshowineditor="initials"] refAuthorInitials
 {
 	property-group: authorInitials();
 	padding-left: .25in;
 }
+references[authorformtoshowineditor="surnamegivenname"] refAuthorInitials
+{
+	display:none;
+}
+references[authorformtoshowineditor="all"] refAuthorInitials:after
+{
+	property-group: authorInitialsAfter();
+}
 references[authorformtoshowineditor="both"] refAuthorInitials:after
 {
 	property-group: authorInitialsAfter();
 }
+references[authorformtoshowineditor="full"] refAuthorInitials:after
+{
+	display:none;
+}
+references[authorformtoshowineditor="fullsurnamegivenname"] refAuthorInitials:after
+{
+	display:none;
+}
+references[authorformtoshowineditor="initials"] refAuthorInitials:after
+{
+	property-group: authorInitialsAfter();
+}
+references[authorformtoshowineditor="surnamegivenname"] refAuthorInitials:after
+{
+	display:none;
+}
 
+references[authorformtoshowineditor="all"] refAuthorSurnameGivenName:before
+{
+	property-group: authorSurnameGivennameBefore();
+}
+references[authorformtoshowineditor="both"] refAuthorSurnameGivenName:before
+{
+    display:none;
+}
+references[authorformtoshowineditor="full"] refAuthorSurnameGivenName:before
+{
+    display:none;
+}
+references[authorformtoshowineditor="fullsurnamegivenname"] refAuthorSurnameGivenName:before
+{
+	property-group: authorSurnameGivennameBefore();
+}
+references[authorformtoshowineditor="initials"] refAuthorSurnameGivenName:before
+{
+    display:none;
+}
+references[authorformtoshowineditor="surnamegivenname"] refAuthorSurnameGivenName:before
+{
+	property-group: authorSurnameGivennameBefore();
+}
+references[authorformtoshowineditor="all"] refAuthorSurnameGivenName
+{
+	property-group: authorSurnameGivenname();
+	padding-left: .25in;
+}
+references[authorformtoshowineditor="both"] refAuthorSurnameGivenName
+{
+	display:none;
+}
+references[authorformtoshowineditor="full"] refAuthorSurnameGivenName
+{
+	display:none;
+}
+references[authorformtoshowineditor="fullsurnamegivenname"] refAuthorSurnameGivenName
+{
+	property-group: authorSurnameGivenname();
+	padding-left: .25in;
+}
+references[authorformtoshowineditor="initials"] refAuthorSurnameGivenName
+{
+	display:none;
+}
+references[authorformtoshowineditor="surnamegivenname"] refAuthorSurnameGivenName
+{
+	property-group: authorSurnameGivenname();
+	padding-left: .25in;
+}
+references[authorformtoshowineditor="all"] refAuthorSurnameGivenName:after
+{
+	property-group: authorSurnameGivennameAfter();
+}
+references[authorformtoshowineditor="both"] refAuthorSurnameGivenName:after
+{
+	display:none;
+}
+references[authorformtoshowineditor="full"] refAuthorSurnameGivenName:after
+{
+	display:none;
+}
+references[authorformtoshowineditor="fullsurnamegivenname"] refAuthorSurnameGivenName:after
+{
+	property-group: authorSurnameGivennameAfter();
+}
+references[authorformtoshowineditor="initial"] refAuthorSurnameGivenName:after
+{
+	display:none;
+}
+references[authorformtoshowineditor="surnamegivenname"] refAuthorSurnameGivenName:after
+{
+	property-group: authorSurnameGivennameAfter();
+}
 refDate:before
 {
 	content: " ";
@@ -3397,6 +3797,10 @@ references[titleformtoshowineditor="both"] refTitle:after
 	content: ". ";
 }
 
+references[showrefTitleInBoldInEditor="yes"] refTitle
+{
+	font-weight: bold;
+}
 refTitle:after
 {
 	content: ". ";
@@ -3431,6 +3835,86 @@ references[titleformtoshowineditor="both"] refTitleLowerCase:after
 	property-group: lowerCaseTitleAfter();
 }
 
+references[showrefWorkIconsInEditor="yes"] refWork:contains-element(article):before
+{
+	content: text-field(attribute, id, columns 10, 
+	                    background-color, citation-background-color(), 
+	                    font-size, small)
+	                    icon(url(resources/treeitem-journalArticle.png))
+ 	;
+}
+references[showrefWorkIconsInEditor="yes"] refWork:contains-element(book):before
+{
+	content: text-field(attribute, id, columns 10, 
+	                    background-color, citation-background-color(), 
+	                    font-size, small)
+	                    icon(url(resources/treeitem-bookSection.png))
+ 	;
+}
+references[showrefWorkIconsInEditor="yes"] refWork:contains-element(collection):before
+{
+	content: text-field(attribute, id, columns 10, 
+	                    background-color, citation-background-color(), 
+	                    font-size, small)
+	                    icon(url(resources/treeitem-encyclopediaArticle.png))
+ 	;
+}
+references[showrefWorkIconsInEditor="yes"] refWork:contains-element(dissertation):before
+{
+	content: text-field(attribute, id, columns 10, 
+	                    background-color, citation-background-color(), 
+	                    font-size, small)
+	                    icon(url(resources/treeitem-thesis.png))
+ 	;
+}
+references[showrefWorkIconsInEditor="yes"] refWork:contains-element(fieldNotes):before
+{
+	content: text-field(attribute, id, columns 10, 
+	                    background-color, citation-background-color(), 
+	                    font-size, small)
+	                    icon(url(resources/treeitem-interview.png))
+ 	;
+}
+references[showrefWorkIconsInEditor="yes"] refWork:contains-element(ms):before
+{
+	content: text-field(attribute, id, columns 10, 
+	                    background-color, citation-background-color(), 
+	                    font-size, small)
+	                    icon(url(resources/treeitem-manuscript.png))
+ 	;
+}
+references[showrefWorkIconsInEditor="yes"] refWork:contains-element(paper):before
+{
+	content: text-field(attribute, id, columns 10, 
+	                    background-color, citation-background-color(), 
+	                    font-size, small)
+	                    icon(url(resources/treeitem-presentation.png))
+ 	;
+}
+references[showrefWorkIconsInEditor="yes"] refWork:contains-element(proceedings):before
+{
+	content: text-field(attribute, id, columns 10, 
+	                    background-color, citation-background-color(), 
+	                    font-size, small)
+	                    icon(url(resources/treeitem-conferencePaper.png))
+ 	;
+}
+references[showrefWorkIconsInEditor="yes"] refWork:contains-element(thesis):before
+{
+	content: text-field(attribute, id, columns 10, 
+	                    background-color, citation-background-color(), 
+	                    font-size, small)
+	                    icon(url(resources/treeitem-thesis.png))
+ 	;
+}
+references[showrefWorkIconsInEditor="yes"] refWork:contains-element(webPage):before
+{
+	content: text-field(attribute, id, columns 10, 
+	                    background-color, citation-background-color(), 
+	                    font-size, small)
+	                    icon(url(resources/treeitem-webpage.png))
+ 	;
+}
 refWork:before
 {
 	content: text-field(attribute, id, columns 10, 
@@ -3471,6 +3955,15 @@ references
 	property-group: isCollapsible( no, 1);
 }
 
+reprintInfo
+{
+    display:inline;
+}
+reprintInfo:after
+{
+	content: ". ";
+}
+
 row { 
     display: table-row;
 }
@@ -3478,7 +3971,7 @@ row {
 chapterInCollection appendix > section1:before
 {
     property-group: chapterInCollectionAppendixSectionBefore(n);
-/*    content: collapser(collapsed-icon, icon(plus-box), expanded-icon, icon(minus-box)) 
+/*    content: collapser(collapsed-icon, icon(url(resources/plus-box.png)), expanded-icon, icon(url(resources/minus-box.png))) 
     " "
     label(xpath, "count(preceding::chapterInCollection) + 1")
      ". "
@@ -3496,18 +3989,16 @@ appendix > section1:before
 {
 /*	property-group: sectionBefore( an, appendix-background-color() ); */
 
-    content: collapser(collapsed-icon, icon(plus-box), expanded-icon, icon(minus-box)) 
+    content: collapser(collapsed-icon, icon(url(resources/plus-box-chapter.png)), expanded-icon, icon(url(resources/minus-box-chapter.png))) 
     " "
     counter(appendix, upper-alpha) 
     "."
     simple-counter(n, decimal)
     " " 
-    text-field(attribute, id, columns, 10, font-size, small) 
+    text-field(attribute, id, columns, 10, font-size, small, background-color, appendix-background-color()) 
     ;
 	font-weight: bold;
 	font-size:large;
-	background-color:appendix-background-color();
-
 }
 chapterBeforePart section1:before
 {
@@ -3547,35 +4038,31 @@ appendix > section1 > section2:before
 {
 /*	property-group: sectionBefore( an, appendix-background-color() ); */
 
-    content: collapser(collapsed-icon, icon(plus-box), expanded-icon, icon(minus-box)) 
+    content: collapser(collapsed-icon, icon(url(resources/plus-box-chapter.png)), expanded-icon, icon(url(resources/minus-box-chapter.png))) 
     " "
     counter(appendix, upper-alpha) 
     "."
     simple-counter(nn, decimal)
     " " 
-    text-field(attribute, id, columns, 10, font-size, small) 
+    text-field(attribute, id, columns, 10, font-size, small,background-color,appendix-background-color()) 
     ;
 	font-weight: bold;
 	font-size:large;
-	background-color:appendix-background-color();
-
 }
 appendix > section2:before
 {
 /*	property-group: sectionBefore( an, appendix-background-color() ); */
 
-    content: collapser(collapsed-icon, icon(plus-box), expanded-icon, icon(minus-box)) 
+    content: collapser(collapsed-icon, icon(url(resources/plus-box-chapter.png)), expanded-icon, icon(url(resources/minus-box-chapter.png))) 
     " "
     counter(appendix, upper-alpha) 
     "."
     simple-counter(n, decimal)
     " " 
-    text-field(attribute, id, columns, 10, font-size, small) 
+    text-field(attribute, id, columns, 10, font-size, small,background-color,appendix-background-color()) 
     ;
 	font-weight: bold;
 	font-size:large;
-	background-color:appendix-background-color();
-
 }
 chapterBeforePart section2:before
 {
@@ -3613,35 +4100,31 @@ appendix > section1 > section2 > section3:before
 {
 /*	property-group: sectionBefore( an, appendix-background-color() ); */
 
-    content: collapser(collapsed-icon, icon(plus-box), expanded-icon, icon(minus-box)) 
+    content: collapser(collapsed-icon, icon(url(resources/plus-box-chapter.png)), expanded-icon, icon(url(resources/minus-box-chapter.png))) 
     " "
     counter(appendix, upper-alpha) 
     "."
     simple-counter(nnn, decimal)
     " " 
-    text-field(attribute, id, columns, 10, font-size, small) 
+    text-field(attribute, id, columns, 10, font-size, small,background-color,appendix-background-color())
     ;
 	font-weight: bold;
 	font-size:large;
-	background-color:appendix-background-color();
-
 }
 appendix > section2 > section3:before
 {
 /*	property-group: sectionBefore( an, appendix-background-color() ); */
 
-    content: collapser(collapsed-icon, icon(plus-box), expanded-icon, icon(minus-box)) 
+    content: collapser(collapsed-icon, icon(url(resources/plus-box-chapter.png)), expanded-icon, icon(url(resources/minus-box-chapter.png))) 
     " "
     counter(appendix, upper-alpha) 
     "."
     simple-counter(nn, decimal)
     " " 
-    text-field(attribute, id, columns, 10, font-size, small) 
+    text-field(attribute, id, columns, 10, font-size, small,background-color,appendix-background-color())
     ;
 	font-weight: bold;
 	font-size:large;
-	background-color:appendix-background-color();
-
 }
 chapterBeforePart section3:before
 {
@@ -3680,35 +4163,31 @@ appendix > section1 > section2 > section3 > section4:before
 {
 /*	property-group: sectionBefore( an, appendix-background-color() ); */
 
-    content: collapser(collapsed-icon, icon(plus-box), expanded-icon, icon(minus-box)) 
+    content: collapser(collapsed-icon, icon(url(resources/plus-box-chapter.png)), expanded-icon, icon(url(resources/minus-box-chapter.png))) 
     " "
     counter(appendix, upper-alpha) 
     "."
     simple-counter(nnnn, decimal)
     " " 
-    text-field(attribute, id, columns, 10, font-size, small) 
+    text-field(attribute, id, columns, 10, font-size, small,background-color,appendix-background-color()) 
     ;
 	font-weight: bold;
 	font-size:large;
-	background-color:appendix-background-color();
-
 }
 appendix > section2 > section3 > section4:before
 {
 /*	property-group: sectionBefore( an, appendix-background-color() ); */
 
-    content: collapser(collapsed-icon, icon(plus-box), expanded-icon, icon(minus-box)) 
+    content: collapser(collapsed-icon, icon(url(resources/plus-box-chapter.png)), expanded-icon, icon(url(resources/minus-box-chapter.png))) 
     " "
     counter(appendix, upper-alpha) 
     "."
     simple-counter(nnn, decimal)
     " " 
-    text-field(attribute, id, columns, 10, font-size, small) 
+    text-field(attribute, id, columns, 10, font-size, small,background-color,appendix-background-color())
     ;
 	font-weight: bold;
 	font-size:large;
-	background-color:appendix-background-color();
-
 }
 chapterBeforePart section4:before
 {
@@ -3747,35 +4226,31 @@ appendix > section1 > section2 > section3 > section4 > section5:before
 {
 /*	property-group: sectionBefore( an, appendix-background-color() ); */
 
-    content: collapser(collapsed-icon, icon(plus-box), expanded-icon, icon(minus-box)) 
+    content: collapser(collapsed-icon, icon(url(resources/plus-box-chapter.png)), expanded-icon, icon(url(resources/minus-box-chapter.png))) 
     " "
     counter(appendix, upper-alpha) 
     "."
     simple-counter(nnnnn, decimal)
     " " 
-    text-field(attribute, id, columns, 10, font-size, small) 
+    text-field(attribute, id, columns, 10, font-size, small,background-color,appendix-background-color()) 
     ;
 	font-weight: bold;
 	font-size:large;
-	background-color:appendix-background-color();
-
 }
 appendix > section2 > section3 > section4 > section5:before
 {
 /*	property-group: sectionBefore( an, appendix-background-color() ); */
 
-    content: collapser(collapsed-icon, icon(plus-box), expanded-icon, icon(minus-box)) 
+    content: collapser(collapsed-icon, icon(url(resources/plus-box-chapter.png)), expanded-icon, icon(url(resources/minus-box-chapter.png))) 
     " "
     counter(appendix, upper-alpha) 
     "."
     simple-counter(nnnn, decimal)
     " " 
-    text-field(attribute, id, columns, 10, font-size, small) 
+    text-field(attribute, id, columns, 10, font-size, small,background-color,appendix-background-color())
     ;
 	font-weight: bold;
 	font-size:large;
-	background-color:appendix-background-color();
-
 }
 chapterBeforePart section5:before
 {
@@ -3814,35 +4289,31 @@ appendix > section1 > section2 > section3 > section4 > section5 > section6:befor
 {
 /*	property-group: sectionBefore( an, appendix-background-color() ); */
 
-    content: collapser(collapsed-icon, icon(plus-box), expanded-icon, icon(minus-box)) 
+    content: collapser(collapsed-icon, icon(url(resources/plus-box-chapter.png)), expanded-icon, icon(url(resources/minus-box-chapter.png))) 
     " "
     counter(appendix, upper-alpha) 
     "."
     simple-counter(nnnnnn, decimal)
     " " 
-    text-field(attribute, id, columns, 10, font-size, small) 
+    text-field(attribute, id, columns, 10, font-size, small,background-color,appendix-background-color())
     ;
 	font-weight: bold;
 	font-size:large;
-	background-color:appendix-background-color();
-
 }
 appendix > section2 > section3 > section4 > section5 > section6:before
 {
 /*	property-group: sectionBefore( an, appendix-background-color() ); */
 
-    content: collapser(collapsed-icon, icon(plus-box), expanded-icon, icon(minus-box)) 
+    content: collapser(collapsed-icon, icon(url(resources/plus-box-chapter.png)), expanded-icon, icon(url(resources/minus-box-chapter.png))) 
     " "
     counter(appendix, upper-alpha) 
     "."
     simple-counter(nnnnn, decimal)
     " " 
-    text-field(attribute, id, columns, 10, font-size, small) 
+    text-field(attribute, id, columns, 10, font-size, small,background-color,appendix-background-color())
     ;
 	font-weight: bold;
 	font-size:large;
-	background-color:appendix-background-color();
-
 }
 chapterBeforePart section6:before
 {
@@ -3895,21 +4366,19 @@ sectionRef:before
 }
 sectionRef[showTitle='short']
 {
-	content: drop-down-setReference()
-	label(xpath, "if(string-length(id(@sec)/shortTitle)>0,concat('“',id(@sec)/shortTitle,'”'),string-length(id(@sec)/secTitle)>0,concat('“',id(@sec)/secTitle,'”'),string-length(id(@sec)/frontMatter/shortTitle)>0,concat('“',id(@sec)/frontMatter/shortTitle,'”'),string-length(id(@sec)/frontMatter/title)>0,concat('“',id(@sec)/frontMatter/title,'”'),'“unnamed”')");
-	background-color:section-background-color();
+	content: drop-down-setReference(section-background-color())
+	label(xpath, "if(string-length(id(@sec)/shortTitle)>0,concat('Â“',id(@sec)/shortTitle,'Â”'),string-length(id(@sec)/secTitle)>0,concat('Â“',id(@sec)/secTitle,'Â”'),string-length(id(@sec)/frontMatter/shortTitle)>0,concat('Â“',id(@sec)/frontMatter/shortTitle,'Â”'),string-length(id(@sec)/frontMatter/title)>0,concat('Â“',id(@sec)/frontMatter/title,'Â”'),'Â“unnamedÂ”')",background-color,section-background-color());
 }
 sectionRef[showTitle='full']
 {
-	content: drop-down-setReference()
-	label(xpath, "if(string-length(id(@sec)/secTitle)>0,concat(id(@sec)/secTitle),string-length(id(@sec)/frontMatter/title)>0,concat('“',id(@sec)/frontMatter/title,'”'),'“unnamed”')");
-	background-color:section-background-color();
+	content: drop-down-setReference(section-background-color())
+	label(xpath, "if(string-length(id(@sec)/secTitle)>0,concat(id(@sec)/secTitle),string-length(id(@sec)/frontMatter/title)>0,concat('Â“',id(@sec)/frontMatter/title,'Â”'),'Â“unnamedÂ”')",background-color,section-background-color());
 }
 sectionRef
 {
-	content: drop-down-setReference()
-	         label(attribute, sec, text-decoration, underline);
-	background-color:section-background-color();
+	content: drop-down-setReference(section-background-color())
+	         label(attribute, sec, text-decoration, underline,
+		      background-color, section-background-color());
 }
 
 secTitle:before
@@ -3945,7 +4414,7 @@ seeDefinition
 }
 seeDefinitions:before
 {
-	content:collapser(collapsed-icon, icon(plus-box), expanded-icon, icon(minus-box))
+	content:collapser(collapsed-icon, icon(url(resources/plus-box.png)), expanded-icon, icon(url(resources/minus-box.png)))
 	" Definitions for word(s) for 'See' by language:  ";
 }
 seeDefinitions
@@ -4015,6 +4484,18 @@ seriesEdInitials:after
 {
 	property-group: authorInitialsAfter();
 }
+seriesEdSurnameGivenName:before
+{
+	property-group: authorSurnameGivennameBefore();
+}
+seriesEdSurnameGivenName
+{
+	property-group: authorSurnameGivenname();
+}
+seriesEdSurnameGivenName:after
+{
+	property-group: authorSurnameGivennameAfter();
+}
 shortAuthor:before
 {
 	content:" shortened author(s): ";
@@ -4080,6 +4561,15 @@ subtitle {
     margin-bottom: .67ex;
 }
 
+table[contentType] {
+    display:concatenate(xpath("if(not((/xlingpaper/styledPaper/lingPaper|/lingPaper)/contentControl/@showOnlyChosenItemsInEditor) or (/xlingpaper/styledPaper/lingPaper|/lingPaper)/contentControl/@showOnlyChosenItemsInEditor='no','table',contains((/xlingpaper/styledPaper/lingPaper|/lingPaper)/contentControl/contentControlChoices/contentControlChoice[@active='yes']/@exclude,@contentType),'none','table')"));
+    border-style: solid;
+    border-width: concatenate(attr(border));
+    margin-top: 1.33ex;
+    margin-bottom: 1.33ex;
+    counter-reset:row-counter;
+}
+
 table { 
     display: table;
     border-style: solid;
@@ -4092,11 +4582,10 @@ table {
 tablenumbered:before
 {
 	content: tablenumbered-label()
-	"(" 
-	text-field(attribute, id, columns, 10, font-size, small) 
-	") " 
+	text("(",background-color,tablenumbered-background-color())
+	text-field(attribute, id, columns, 10, font-size, small,background-color,tablenumbered-background-color()) 
+	text(") ",background-color,tablenumbered-background-color())
 	;
-	background-color:tablenumbered-background-color();
 	font-weight:bold;
 }
 tablenumbered { 
@@ -4129,21 +4618,18 @@ tablenumberedRef:before
 }
 tablenumberedRef[showCaption='short']
 {
-	content: drop-down-setReference()
-	label(xpath, "if(string-length(id(@table)/shortCaption)>0,concat('“',id(@table)/shortCaption,'”'),string-length(id(@table)/table/caption)>0,concat('“',id(@table)/table/caption,'”'),'“uncaptioned”')");
-	background-color:tablenumbered-background-color();
+	content: drop-down-setReference(tablenumbered-background-color())
+	label(xpath, "if(string-length(id(@table)/shortCaption)>0,concat('Â“',id(@table)/shortCaption,'Â”'),string-length(id(@table)/table/caption)>0,concat('Â“',id(@table)/table/caption,'Â”'),'Â“uncaptionedÂ”')",background-color,tablenumbered-background-color());
 }
 tablenumberedRef[showCaption='full']
 {
-	content: drop-down-setReference()
-	label(xpath, "if(string-length(id(@table)/table/caption)>0,concat('“',id(@table)/table/caption,'”'),'“uncaptioned”')");
-	background-color:tablenumbered-background-color();
+	content: drop-down-setReference(tablenumbered-background-color())
+	label(xpath, "if(string-length(id(@table)/table/caption)>0,concat('Â“',id(@table)/table/caption,'Â”'),'Â“uncaptionedÂ”')",background-color,tablenumbered-background-color());
 }
 tablenumberedRef
 {
-	content: drop-down-setReference()
-	         label(attribute, table, text-decoration, underline);
-	background-color:tablenumbered-background-color();
+	content: drop-down-setReference(tablenumbered-background-color())
+	         label(attribute, table, text-decoration, underline,background-color,tablenumbered-background-color());
 }
 
 td { 
@@ -4210,6 +4696,20 @@ title {
     margin-bottom: .67ex;
 }
 
+titleContentChoices
+{
+    display:block;
+    padding-left: 0.25in;
+}
+
+secTitle titleContent {
+    display:inline;
+}
+
+titleContent {
+    display:block;
+}
+
 tr { 
     display: table-row;
 }
@@ -4248,7 +4748,7 @@ type
 
 types:before
 {
-	content:collapser(collapsed-icon, icon(plus-box), expanded-icon, icon(minus-box))
+	content:collapser(collapsed-icon, icon(url(resources/plus-box.png)), expanded-icon, icon(url(resources/minus-box.png)))
 	" Types: ";
 }
 types
@@ -4324,6 +4824,29 @@ version
     color: maroon;
     margin-top: .67ex;
     margin-bottom: .67ex;
+}
+
+volume[label]:before
+{
+    content:text-field(attribute,label,columns,10)
+	    " "
+	    text-field(attribute,number,columns,5);
+	font-weight: bold;
+	font-size:large;
+	text-align:center;
+}
+volume:before
+{
+    content: " Volume "
+	     text-field(attribute,number,columns,5);
+	font-weight: bold;
+	font-size:large;
+	text-align:center;
+}
+volume
+{
+	display:block;
+	text-align:center;
 }
 
 webpage
@@ -4446,12 +4969,12 @@ table {
 
 caption:before {
     /* Remove if caption-side:bottom */
-    content: collapser(collapsed-icon, icon(plus-box), expanded-icon, icon(minus-box)) " ";
+    content: collapser(collapsed-icon, icon(url(resources/plus-box.png)), expanded-icon, icon(url(resources/minus-box.png))) " ";
 }
 
 endCaption:before {
     /* Remove if caption-side:bottom */
-    content: collapser(collapsed-icon, icon(plus-box), expanded-icon, icon(minus-box)) " ";
+    content: collapser(collapsed-icon, icon(url(resources/plus-box.png)), expanded-icon, icon(url(resources/minus-box.png))) " ";
 }
 
 /*
@@ -4473,6 +4996,14 @@ tr > td[bgcolor] {
  * Publisher Stylesheet items
  */
 
+abbreviationsInFootnoteLayout
+{
+	display:block;
+	content:"abbreviations in footnote layout";
+	margin-bottom:12pt;
+	margin-top:12pt;
+	margin-left:.125in;
+}
 abbreviationsInTableLayout[color]
 {
 	color:concatenate(attr(color));
@@ -4693,6 +5224,47 @@ affiliationLayout
 {
 	property-group: titledItem("Author's Affiliation");
 }
+annotationLayout[color]
+{
+	color:concatenate(attr(color));
+}
+annotationLayout[end-indent]
+{
+	margin-right:concatenate(attr(end-indent));
+}
+annotationLayout[font-family]
+{
+	font-family:concatenate(attr(font-family));
+}
+annotationLayout[font-size]
+{
+	font-size:concatenate(attr(font-size));
+}
+annotationLayout[font-style]
+{
+	font-style:concatenate(attr(font-style));
+}
+annotationLayout[font-weight]
+{
+	font-weight:concatenate(attr(font-weight));
+}
+annotationLayout[spacebefore]
+{
+	padding-top:concatenate(attr(spacebefore));
+}
+annotationLayout[spaceafter]
+{
+	padding-bottom:concatenate(attr(spaceafter));
+}
+annotationLayout[start-indent]
+{
+	margin-left:concatenate(attr(start-indent));
+}
+annotationLayout
+{
+	property-group: titledItem("annotation");
+}
+
 appendicesTitlePageLayout[color]
 {
 	color:concatenate(attr(color));
@@ -4741,6 +5313,32 @@ appendixLayout
 {
 	display:block;
 }
+appendixRefLayout[color]
+{
+	color:concatenate(attr(color));
+}
+appendixRefLayout[font-family]
+{
+	font-family:concatenate(attr(font-family));
+}
+appendixRefLayout[font-size]
+{
+	font-size:concatenate(attr(font-size));
+}
+appendixRefLayout[font-style]
+{
+	font-style:concatenate(attr(font-style));
+}
+appendixRefLayout[font-weight]
+{
+	font-weight:concatenate(attr(font-weight));
+}
+appendixRefLayout
+{
+	property-group: titledItem("appendix reference");
+	margin-bottom:12pt;
+	margin-top:12pt;
+}
 appendixRefLinkLayout[showmarking='no']
 {
 	color:Gray;
@@ -4772,6 +5370,32 @@ appendixRefLinkLayout
 	property-group:linkLayoutParameter("appendixRef");
 	color: gray;
 	text-decoration:none;
+}
+appendixRefTitleLayout[color]
+{
+	color:concatenate(attr(color));
+}
+appendixRefTitleLayout[font-family]
+{
+	font-family:concatenate(attr(font-family));
+}
+appendixRefTitleLayout[font-size]
+{
+	font-size:concatenate(attr(font-size));
+}
+appendixRefTitleLayout[font-style]
+{
+	font-style:concatenate(attr(font-style));
+}
+appendixRefTitleLayout[font-weight]
+{
+	font-weight:concatenate(attr(font-weight));
+}
+appendixRefTitleLayout
+{
+	property-group: titledItem("appendix reference title");
+	margin-bottom:12pt;
+	margin-top:12pt;
 }
 appendixTitleLayout[color]
 {
@@ -5056,6 +5680,30 @@ bookTotalPagesItem
 {
 	property-group: referencesItem("456");
 }
+bookversionItem[color]
+{
+	color:concatenate(attr(color));
+}
+bookversionItem[font-family]
+{
+	font-family:concatenate(attr(font-family));
+}
+bookversionItem[font-size]
+{
+	font-size:concatenate(attr(font-size));
+}
+bookversionItem[font-style]
+{
+	font-style:concatenate(attr(font-style));
+}
+bookversionItem[font-weight]
+{
+	font-weight:concatenate(attr(font-weight));
+}
+bookversionItem
+{
+	property-group: referencesItem("2023.4");
+}
 bVolItem[color]
 {
 	color:concatenate(attr(color));
@@ -5266,7 +5914,10 @@ chapterInCollectionLayout chapterTitleLayout
 citationLayout
 {
 	display:block;
-	content:"citation layout:  Doe (2003:"
+	content:"citation layout:  Doe"
+	   label(xpath,"if(string-length(@textbetweenauthoranddate)>0,@textbetweenauthoranddate,' ')")
+	   "(2003"
+	   label(xpath,"if(string-length(@replacecolonwith)>0,@replacecolonwith,':')")
            label(attribute, textbeforepages)
             "23-45)";
 	margin-bottom:12pt;
@@ -5891,6 +6542,11 @@ defaultFontFamily
 	property-group: layoutParameter(.67ex);
 }
 
+definitionListLayout
+{
+	property-group: titledItem("definition list");
+}
+
 dissertationLabelItem[color]
 {
 	color:concatenate(attr(color));
@@ -5932,6 +6588,62 @@ dissertationLayouts
 {
 	property-group: referencesLayouts();
 }
+doiItem[color]
+{
+	color:concatenate(attr(color));
+}
+doiItem[font-family]
+{
+	font-family:concatenate(attr(font-family));
+}
+doiItem[font-size]
+{
+	font-size:concatenate(attr(font-size));
+}
+doiItem[font-style]
+{
+	font-style:concatenate(attr(font-style));
+}
+doiItem[font-weight]
+{
+	font-weight:concatenate(attr(font-weight));
+}
+doiItem
+{
+	property-group: referencesItem("10.2345/6789");
+}
+doiLinkLayout[showmarking='no']
+{
+	color:Gray;
+	text-decoration:none;
+}
+linkLayout[color] doiLinkLayout[color='default'][showmarking='yes']
+{
+	color:concatenate(xpath("../@color"));
+}
+doiLinkLayout[color][showmarking='yes']
+{
+	color:concatenate(attr(color));
+}
+linkLayout[decoration] doiLinkLayout[decoration='default'][showmarking='yes']
+{
+	text-decoration:concatenate(xpath("../@decoration"));
+}
+doiLinkLayout[decoration][showmarking='yes']
+{
+	text-decoration:concatenate(attr(decoration));
+}
+doiLinkLayout[showmarking='yes']
+{
+	color: concatenate(xpath("../@color"));
+	text-decoration:concatenate(xpath("../@decoration"));
+}
+doiLinkLayout
+{
+	property-group:linkLayoutParameter("doi");
+	color: concatenate(xpath("../@color"));
+	text-decoration:concatenate(xpath("../@decoration"));
+}
 editionItem[color]
 {
 	color:concatenate(attr(color));
@@ -5955,6 +6667,30 @@ editionItem[font-weight]
 editionItem
 {
 	property-group: referencesItem("2nd");
+}
+editorItem[color]
+{
+	color:concatenate(attr(color));
+}
+editorItem[font-family]
+{
+	font-family:concatenate(attr(font-family));
+}
+editorItem[font-size]
+{
+	font-size:concatenate(attr(font-size));
+}
+editorItem[font-style]
+{
+	font-style:concatenate(attr(font-style));
+}
+editorItem[font-weight]
+{
+	font-weight:concatenate(attr(font-weight));
+}
+editorItem
+{
+	property-group: referencesItem("Samuel Jones, ed.");
 }
 emailAddressLayout[color]
 {
@@ -6391,6 +7127,10 @@ footnoteIndent
 {
 	property-group: layoutParameter(.67ex);
 }
+footnoteLayout
+{
+	property-group: titledItem("footnote number-to-text link");
+}
 footnoteLine:before
 {
 	property-group:layoutParameterLabel( "footnote line separator attributes" );
@@ -6400,6 +7140,7 @@ footnoteLine
 {
 	property-group: layoutParameter(.67ex);
 }
+
 footnotePointSize:before
 {
 	property-group:pointSizeLayoutParameterLabel( "footnote" );
@@ -6549,6 +7290,73 @@ genericRefLinkLayout
 	text-decoration:none;
 }
 
+glossaryTermDefinitionInDefinitionListLayout[color]
+{
+	color:concatenate(attr(color));
+}
+glossaryTermDefinitionInDefinitionListLayout[font-family]
+{
+	font-family:concatenate(attr(font-family));
+}
+glossaryTermDefinitionInDefinitionListLayout[font-size]
+{
+	font-size:concatenate(attr(font-size));
+}
+glossaryTermDefinitionInDefinitionListLayout[font-style]
+{
+	font-style:concatenate(attr(font-style));
+}
+glossaryTermDefinitionInDefinitionListLayout[font-weight]
+{
+	font-weight:concatenate(attr(font-weight));
+}
+glossaryTermDefinitionInDefinitionListLayout
+{
+        display:inline;
+	content: label(attribute, textbefore)
+	         "glossary definition"
+		 label(attribute, textafter);
+}
+glossaryTermsInDefinitionListLayout:before
+{
+	content:"glossary terms in definition list layout:\A";
+}
+glossaryTermsInDefinitionListLayout
+{
+	display:block;
+/*	content:"glossary terms in definition list layout"; */
+	margin-bottom:12pt;
+	margin-top:12pt;
+	margin-left:.125in;
+}
+glossaryTermTermInDefinitionListLayout[color]
+{
+	color:concatenate(attr(color));
+}
+glossaryTermTermInDefinitionListLayout[font-family]
+{
+	font-family:concatenate(attr(font-family));
+}
+glossaryTermTermInDefinitionListLayout[font-size]
+{
+	font-size:concatenate(attr(font-size));
+}
+glossaryTermTermInDefinitionListLayout[font-style]
+{
+	font-style:concatenate(attr(font-style));
+}
+glossaryTermTermInDefinitionListLayout[font-weight]
+{
+	font-weight:concatenate(attr(font-weight));
+}
+glossaryTermTermInDefinitionListLayout
+{
+        display:inline;
+	content: "   "
+                 label(attribute, textbefore)
+	         "glossary term"
+		 label(attribute, textafter);
+}
 glossaryTermsInTableLayout[color]
 {
 	color:concatenate(attr(color));
@@ -7102,6 +7910,10 @@ headerMargin
 {
 	property-group: layoutParameter(.67ex);
 }
+imageBorderLayout
+{
+	property-group: titledItem("Image border");
+}
 indexLayout[color]
 {
 	color:concatenate(attr(color));
@@ -7208,6 +8020,34 @@ interlinearRefLinkLayout[showmarking='no']
 	text-decoration:none;
 }
 
+iso639-3CodesInTableLayout[color]
+{
+	color:concatenate(attr(color));
+}
+iso639-3CodesInTableLayout[font-family]
+{
+	font-family:concatenate(attr(font-family));
+}
+iso639-3CodesInTableLayout[font-size]
+{
+	font-size:concatenate(attr(font-size));
+}
+iso639-3CodesInTableLayout[font-style]
+{
+	font-style:concatenate(attr(font-style));
+}
+iso639-3CodesInTableLayout[font-weight]
+{
+	font-weight:concatenate(attr(font-weight));
+}
+iso639-3CodesInTableLayout
+{
+	display:block;
+	content:"ISO 639-3 codes in table layout";
+	margin-bottom:12pt;
+	margin-top:12pt;
+	margin-left:.125in;
+}
 iso639-3CodesLinkLayout[showmarking='no']
 {
 	color:Gray;
@@ -7925,6 +8765,12 @@ lineSpacing::attribute(singlespaceexamples)
 		check-box(attribute, singlespaceexamples, label, "Examples are single spaced", unchecked-value, "no", checked-value, "yes");
 	show-attribute: always;
 }
+lineSpacing::attribute(singlespaceframedunits)
+{
+	attribute-content-middle:
+		check-box(attribute, singlespaceframedunits, label, "Framed units are single spaced", unchecked-value, "no", checked-value, "yes");
+	show-attribute: always;
+}
 lineSpacing::attribute(singlespacetables)
 {
 	attribute-content-middle:
@@ -8203,6 +9049,30 @@ msLayouts
 	property-group: referencesLayouts();
 }
 
+msVersionItem[color]
+{
+	color:concatenate(attr(color));
+}
+msVersionItem[font-family]
+{
+	font-family:concatenate(attr(font-family));
+}
+msVersionItem[font-size]
+{
+	font-size:concatenate(attr(font-size));
+}
+msVersionItem[font-style]
+{
+	font-style:concatenate(attr(font-style));
+}
+msVersionItem[font-weight]
+{
+	font-weight:concatenate(attr(font-weight));
+}
+msVersionItem
+{
+	property-group: referencesItem("Version 0.6");
+}
 multivolumeWorkItem[color]
 {
 	color:concatenate(attr(color));
@@ -8350,6 +9220,29 @@ paperAuthor
 {
 	display:inline;
 }
+paperLabelItem[color]
+{
+	color:concatenate(attr(color));
+}
+paperLabelItem[font-family]
+{
+	font-family:concatenate(attr(font-family));
+}
+paperLabelItem[font-size]
+{
+	font-size:concatenate(attr(font-size));
+}
+paperLabelItem[font-style]
+{
+	font-style:concatenate(attr(font-style));
+}
+paperLabelItem[font-weight]
+{
+	font-weight:concatenate(attr(font-weight));
+}
+paperLabelItem
+{
+	property-group: referencesItem(label(xpath,"if(string-length(normalize-space(@label))>0,@label,/xlingpaper/lingPaper/backMatter/references[string-length(normalize-space(@labelPaper))>0],/xlingpaper/lingPaper/backMatter/references/@labelPaper, ' Paper presented at the ')"));}
 paperLayout:before
 {
 	property-group: referencesItemLayoutBefore();
@@ -8384,6 +9277,15 @@ paperTitle
 {
 	content:"";
 	display:inline;
+}
+paragraphAlignment:before
+{
+	property-group:layoutParameterLabel( "paragraph alignment attribute" );
+/*	color:Blue; */
+}
+paragraphAlignment
+{
+	property-group: layoutParameter(.67ex);
 }
 paragraphIndent:before
 {
@@ -8807,7 +9709,7 @@ references[label]:before
 }
 styledPaper publisherStyleSheet:before
 {
-	content:collapser(collapsed-icon, icon(plus-box), expanded-icon, icon(minus-box))
+	content:collapser(collapsed-icon, icon(url(resources/plus-box.png)), expanded-icon, icon(url(resources/minus-box.png)))
 	  " Publisher Stylesheet: "
 	  xpath("publisherStyleSheetName");
 	  ;
@@ -8824,6 +9726,30 @@ publisherStyleSheet
 {
 	display:block;
 	property-group: isCollapsible( no, 1);
+}
+publisherStyleSheetDate:before
+{
+   content:"Date: ";
+}
+publisherStyleSheetDate
+{
+    display:block;
+    text-align: center;
+    color: black;
+    margin-top: .37ex;
+    margin-bottom: .37ex;
+}
+publisherStyleSheetDateAccessed:before
+{
+   content:"Date Accessed: ";
+}
+publisherStyleSheetDateAccessed
+{
+    display:block;
+    text-align: center;
+    color: black;
+    margin-top: .37ex;
+    margin-bottom: .37ex;
 }
 publisherStyleSheetName:before
 {
@@ -8848,15 +9774,29 @@ publisherStyleSheetPublisher:before
 {
    content:"Publisher: ";
    font-size:12pt;
+   font-weight:normal;
 }
 publisherStyleSheetPublisher
 {
-	display:block;
-	text-align: center;
+    display:block;
+    text-align: center;
     color: black;
     margin-top: .37ex;
     margin-bottom: .37ex;
     font-size:larger;
+    font-weight:bold;
+}
+publisherStyleSheetUrl:before
+{
+   content:"URL: ";
+}
+publisherStyleSheetUrl
+{
+    display:block;
+    text-align: center;
+    color: black;
+    margin-top: .37ex;
+    margin-bottom: .37ex;
 }
 publisherStyleSheetVersion
 {
@@ -9002,6 +9942,20 @@ refAuthorLayouts
 {
 	property-group: referencesLayouts();
 }
+refAuthorNameChange:before
+{
+	content:"Change in author name from '"
+	label(attribute,from)
+	"' to '"
+	label(attribute,to)
+	"'"
+	;
+}
+refAuthorNameChange
+{
+	display:block;
+	margin-left:.125in;
+}
 refDateItem[color]
 {
 	color:concatenate(attr(color));
@@ -9107,6 +10061,30 @@ referencesLayout
 {
 	display:block;
 	property-group: isCollapsible( no, 1 );
+}
+reprintInfoItem[color]
+{
+	color:concatenate(attr(color));
+}
+reprintInfoItem[font-family]
+{
+	font-family:concatenate(attr(font-family));
+}
+reprintInfoItem[font-size]
+{
+	font-size:concatenate(attr(font-size));
+}
+reprintInfoItem[font-style]
+{
+	font-style:concatenate(attr(font-style));
+}
+reprintInfoItem[font-weight]
+{
+	font-weight:concatenate(attr(font-weight));
+}
+reprintInfoItem
+{
+	property-group: referencesItem("Reprint information");
 }
 /*
 rightHeaderFooterItem:before
@@ -9727,6 +10705,61 @@ seriesItem
 	property-group: referencesItem("Occasional Publications in Academic Computing No. 16");
 }
 
+shortSectionTitleLayout[color]
+{
+	color:concatenate(attr(color));
+}
+shortSectionTitleLayout[font-family]
+{
+	font-family:concatenate(attr(font-family));
+}
+shortSectionTitleLayout[font-size]
+{
+	font-size:concatenate(attr(font-size));
+}
+shortSectionTitleLayout[font-style]
+{
+	font-style:concatenate(attr(font-style));
+}
+shortSectionTitleLayout[font-weight]
+{
+	font-weight:concatenate(attr(font-weight));
+}
+shortSectionTitleLayout[pagebreakbefore='no']
+{
+    property-group: pagebreakBeforeIsNo();
+}
+shortSectionTitleLayout[pagebreakbefore='yes']
+{
+    property-group: pagebreakBeforeIsYes();
+}
+shortSectionTitleLayout[spacebefore]
+{
+	padding-top:concatenate(attr(spacebefore));
+}
+shortSectionTitleLayout[spaceafter]
+{
+	padding-bottom:concatenate(attr(spaceafter));
+}
+shortSectionTitleLayout[textalign]
+{
+	text-align:concatenate(attr(textalign));
+}
+
+shortSubsectionLayout shortSectionTitleLayout
+{
+	property-group: titledItem("Short subsection");
+}
+shortSubsectionLayout[ignore='yes']
+{
+	display:block;
+	color:Gray;
+}
+shortSubsectionLayout
+{
+	display:block;
+}
+
 subtitleLayout[color]
 {
 	color:concatenate(attr(color));
@@ -9770,6 +10803,34 @@ subtitleLayout[textalign]
 subtitleLayout
 {
 	property-group: titledItem("Subtitle of the Document");
+}
+tableCaptionLayout[color]
+{
+	color:concatenate(attr(color));
+}
+tableCaptionLayout[font-family]
+{
+	font-family:concatenate(attr(font-family));
+}
+tableCaptionLayout[font-size]
+{
+	font-size:concatenate(attr(font-size));
+}
+tableCaptionLayout[font-style]
+{
+	font-style:concatenate(attr(font-style));
+}
+tableCaptionLayout[font-weight]
+{
+	font-weight:concatenate(attr(font-weight));
+}
+tableCaptionLayout
+{
+	display:inline;
+	content: label(attribute, textbefore)
+	         "Table caption (or end caption)"
+	         label(attribute, textafter)
+	         ;
 }
 tablenumberedCaptionLayout[color]
 {
@@ -10272,6 +11333,42 @@ volumeAuthorRef:before
 }
 volumeAuthorRef
 {
+}
+volumeLayout[color]
+{
+	color:concatenate(attr(color));
+}
+volumeLayout[font-family]
+{
+	font-family:concatenate(attr(font-family));
+}
+volumeLayout[font-size]
+{
+	font-size:concatenate(attr(font-size));
+}
+volumeLayout[font-style]
+{
+	font-style:concatenate(attr(font-style));
+}
+volumeLayout[font-weight]
+{
+    font-weight:concatenate(attr(font-weight));
+}
+volumeLayout[spacebefore]
+{
+	padding-top:concatenate(attr(spacebefore));
+}
+volumeLayout[spaceafter]
+{
+	padding-bottom:concatenate(attr(spaceafter));
+}
+volumeLayout[textalign]
+{
+	text-align:concatenate(attr(textalign));
+}
+volumeLayout
+{
+	property-group: titledItem("Volume in contents");
 }
 volumeTitle:before
 {

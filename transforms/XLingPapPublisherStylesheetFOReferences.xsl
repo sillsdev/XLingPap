@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:fo="http://www.w3.org/1999/XSL/Format">
-    <xsl:variable name="authorForm" select="//publisherStyleSheet/backMatterLayout/referencesLayout/@authorform"/>
-    <xsl:variable name="titleForm" select="//publisherStyleSheet/backMatterLayout/referencesLayout/@titleform"/>
-    <xsl:variable name="iso639-3codeItem" select="//publisherStyleSheet/backMatterLayout/referencesLayout/iso639-3codeItem"/>
+<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:fo="http://www.w3.org/1999/XSL/Format" xmlns:saxon="http://icl.com/saxon">
+    <xsl:variable name="titleForm" select="//publisherStyleSheet[1]/backMatterLayout/referencesLayout/@titleform"/>
+    <xsl:variable name="iso639-3codeItem" select="//publisherStyleSheet[1]/backMatterLayout/referencesLayout/iso639-3codeItem"/>
     <!--  
         DoAuthorLayout
     -->
@@ -10,6 +9,7 @@
         <xsl:param name="referencesLayoutInfo"/>
         <xsl:param name="work"/>
         <xsl:param name="works"/>
+        <xsl:param name="sortedWorks"/>
         <xsl:param name="iPos" select="'0'"/>
         <xsl:variable name="authorLayoutToUsePosition">
             <xsl:call-template name="GetAuthorLayoutToUsePosition">
@@ -45,11 +45,11 @@
                                         </xsl:variable>
                                         <xsl:choose>
                                             <xsl:when
-                                                test="$sAuthorName!='______' and $authorForm='full' and $referencesLayoutInfo/refAuthorLayouts/refAuthorLastNameLayout or not(refAuthorInitials) and $referencesLayoutInfo/refAuthorLayouts/refAuthorLastNameLayout">
+                                                test="$sAuthorName!='______' and $authorForm='full' and $referencesLayoutInfo/refAuthorLayouts/refAuthorLastNameLayout or not(refAuthorInitials or refAuthorSurnameGivenName) and $referencesLayoutInfo/refAuthorLayouts/refAuthorLastNameLayout">
                                                 <xsl:apply-templates select="$work/.."/>
                                             </xsl:when>
                                             <xsl:otherwise>
-                                                <xsl:value-of select="$sAuthorName"/>
+                                                <xsl:copy-of select="$sAuthorName"/>
                                             </xsl:otherwise>
                                         </xsl:choose>
                                         <xsl:call-template name="DoFormatLayoutInfoTextAfter">
@@ -74,11 +74,14 @@
                                     </fo:inline>
                                 </xsl:when>
                                 <xsl:when test="name(.)='refDateItem'">
-                                    <xsl:call-template name="DoDateLayout">
-                                        <xsl:with-param name="refDateItem" select="."/>
-                                        <xsl:with-param name="work" select="$work"/>
-                                        <xsl:with-param name="works" select="$works"/>
-                                    </xsl:call-template>
+                                    <xsl:if test="$referencesLayoutInfo/@useAuthorOverDateStyle!='yes'">
+                                        <xsl:call-template name="DoDateLayout">
+                                            <xsl:with-param name="refDateItem" select="."/>
+                                            <xsl:with-param name="work" select="$work"/>
+                                            <xsl:with-param name="works" select="$works"/>
+                                            <xsl:with-param name="sortedWorks" select="$sortedWorks"/>
+                                        </xsl:call-template>
+                                    </xsl:if>
                                 </xsl:when>
                             </xsl:choose>
                         </xsl:for-each>
@@ -94,6 +97,7 @@
         <xsl:param name="refDateItem"/>
         <xsl:param name="work"/>
         <xsl:param name="works"/>
+        <xsl:param name="sortedWorks"/>
         <fo:inline>
             <xsl:call-template name="OutputFontAttributes">
                 <xsl:with-param name="language" select="$refDateItem"/>
@@ -103,12 +107,26 @@
             </xsl:call-template>
             <xsl:apply-templates select="$work/refDate">
                 <xsl:with-param name="works" select="$works"/>
+                <xsl:with-param name="sortedWorks" select="$sortedWorks"/>
             </xsl:apply-templates>
             <xsl:call-template name="DoFormatLayoutInfoTextAfter">
                 <xsl:with-param name="layoutInfo" select="$refDateItem"/>
                 <xsl:with-param name="sPrecedingText" select="$work/refDate"/>
             </xsl:call-template>
         </fo:inline>
+    </xsl:template>
+    <!--  
+        DoDoiLayout
+    -->
+    <xsl:template name="DoDoiLayout">
+        <!-- remove any zero width spaces in the hyperlink -->
+        <fo:basic-link external-destination="url(https://doi.org/{normalize-space(translate(.,$sStripFromUrl,''))})">
+            <xsl:call-template name="AddAnyLinkAttributes">
+                <xsl:with-param name="override" select="$pageLayoutInfo/linkLayout/doiLinkLayout"/>
+            </xsl:call-template>
+            <!--            <xsl:text>&#x20;</xsl:text>-->
+            <xsl:value-of select="normalize-space(.)"/>
+        </fo:basic-link>
     </xsl:template>
     <!--  
         DoRefCitation
@@ -125,7 +143,16 @@
                     <xsl:call-template name="AddAnyLinkAttributes">
                         <xsl:with-param name="override" select="$pageLayoutInfo/linkLayout/citationLinkLayout"/>
                     </xsl:call-template>
-                    <xsl:value-of select="$refer/../@citename"/>
+                    <xsl:choose>
+                        <xsl:when test="$refer/../citeName">
+                            <xsl:apply-templates select="$refer/../citeName"/>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:call-template name="OutputCitationName">
+                                <xsl:with-param name="citeName" select="$refer/../@citename"/>
+                            </xsl:call-template>
+                        </xsl:otherwise>
+                    </xsl:choose>
                 </fo:basic-link>
             </fo:inline>
         </xsl:for-each>
@@ -135,7 +162,7 @@
     -->
     <xsl:template name="DoUrlLayout">
         <!-- remove any zero width spaces in the hyperlink -->
-        <fo:basic-link external-destination="url({normalize-space(translate(.,'&#x200b;',''))})">
+        <fo:basic-link external-destination="url({normalize-space(translate(.,$sStripFromUrl,''))})">
             <xsl:call-template name="AddAnyLinkAttributes">
                 <xsl:with-param name="override" select="$pageLayoutInfo/linkLayout/urlLinkLayout"/>
             </xsl:call-template>
@@ -189,12 +216,34 @@
                 </xsl:otherwise>
             </xsl:choose>
             <xsl:value-of select="$iso639-3codeItem/@text"/>
+            <xsl:value-of select="$iso639-3codeItem/@textafter"/>
             <xsl:if test="position() != last()">
                 <xsl:value-of select="$iso639-3codeItem/@textbetween"/>
             </xsl:if>
             <xsl:if test="position() = last()">
                 <xsl:value-of select="$iso639-3codeItem/@textafterlast"/>
             </xsl:if>
+        </fo:inline>
+    </xsl:template>
+    <!--  
+        OutputReferenceEditorItem
+    -->
+    <xsl:template name="OutputReferenceEditorItem">
+        <xsl:param name="item"/>
+        <fo:inline>
+            <xsl:call-template name="OutputFontAttributes">
+                <xsl:with-param name="language" select="."/>
+            </xsl:call-template>
+            <xsl:call-template name="DoFormatLayoutInfoTextBefore">
+                <xsl:with-param name="layoutInfo" select="."/>
+            </xsl:call-template>
+            <xsl:call-template name="OutputReferencedEditorNode">
+                <xsl:with-param name="item" select="$item"/>
+            </xsl:call-template>
+            <xsl:call-template name="DoFormatLayoutInfoTextAfter">
+                <xsl:with-param name="layoutInfo" select="."/>
+                <xsl:with-param name="sPrecedingText" select="$item"/>
+            </xsl:call-template>
         </fo:inline>
     </xsl:template>
     <!--  
@@ -209,7 +258,7 @@
             <xsl:call-template name="DoFormatLayoutInfoTextBefore">
                 <xsl:with-param name="layoutInfo" select="."/>
             </xsl:call-template>
-            <xsl:value-of select="$item"/>
+            <xsl:apply-templates select="saxon:node-set($item)"/>
             <xsl:call-template name="DoFormatLayoutInfoTextAfter">
                 <xsl:with-param name="layoutInfo" select="."/>
                 <xsl:with-param name="sPrecedingText" select="$item"/>

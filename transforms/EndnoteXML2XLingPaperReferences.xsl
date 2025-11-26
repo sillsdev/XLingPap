@@ -8,7 +8,7 @@
     <xsl:template match="//records">
         <references>
             <xsl:for-each
-                select="record[ref-type[@name='Book' or @name='Book Section' or @name='Conference Paper' or @name='Conference Proceedings' or @name='Edited Book' or @name='Electronic Article' or @name='Government Document' or @name='Journal Article' or @name='Manuscript' or @name='Online Multimedia' or @name='Report' or @name='Thesis' or @name='Unpublished Work' or @name='Web Page']]">
+                select="record[ref-type[@name='Audiovisual Material' or @name='Book' or @name='Dictionary' or @name='Book Section' or @name='Conference Paper' or @name='Conference Proceedings' or @name='Edited Book' or @name='Electronic Article' or @name='Government Document' or @name='Journal Article' or @name='Manuscript' or @name='Online Multimedia' or @name='Report' or @name='Standard' or @name='Thesis' or @name='Unpublished Work' or @name='Web Page' or @name='Electronic Book' or @name='Artwork' or @name='Computer Program' or @name='Electronic Book Section' or @name='Grant' or @name='Newspaper Article']]">
                 <xsl:sort lang="en"
                     select="concat(contributors/authors/author[1],contributors/authors/author[2],contributors/authors/author[3],contributors/authors/author[4],contributors/authors/author[5],contributors/authors/author[6],contributors/authors/author[7],contributors/authors/author[8],contributors/authors/author[9],contributors/authors/author[10])"/>
                 <xsl:sort select="dates/year"/>
@@ -54,6 +54,14 @@
         </xsl:call-template>
     </xsl:template>
     <!-- 
+        electronic-resource-num (DOI)
+    -->
+    <xsl:template match="electronic-resource-num">
+        <doi>
+            <xsl:value-of select="."/>
+        </doi>
+    </xsl:template>
+    <!-- 
         publisher
     -->
     <xsl:template match="publisher">
@@ -75,16 +83,28 @@
     <xsl:template match="ref-type">
         <!-- ignore all others -->
     </xsl:template>
+    <!--
+        ref-type Artwork
+    -->
+    <xsl:template match="ref-type[@name='Artwork']">
+        <xsl:call-template name="DoWebPage"/>
+    </xsl:template>
+    <!--
+        ref-type Audiovisual Material
+    -->
+    <xsl:template match="ref-type[@name='Audiovisual Material']">
+        <xsl:call-template name="DoBook"/>
+    </xsl:template>
     <!-- 
         ref-type Book
     -->
-    <xsl:template match="ref-type[@name='Book']">
+    <xsl:template match="ref-type[@name='Book' or @name='Dictionary' or @name='Electronic Book' or @name='Computer Program' or @name='Grant']">
         <xsl:call-template name="DoBook"/>
     </xsl:template>
     <!-- 
         ref-type Book Section
     -->
-    <xsl:template match="ref-type[@name='Book Section']">
+    <xsl:template match="ref-type[@name='Book Section' or @name='Electronic Book Section']">
         <collection>
             <!--        ((((collEd, collEdInitials?)?, collTitle, collTitleLowerCase?, edition?, collVol?, collPages?, (seriesEd?, seriesEdInitials?, series)?, bVol?, location?, publisher?) | collCitation), url?, dateAccessed?, iso639-3code*, comment?)-->
             <xsl:if test="../contributors/secondary-authors">
@@ -136,6 +156,7 @@
             <xsl:apply-templates select="../publisher"/>
             <xsl:apply-templates select="../urls/related-urls"/>
             <xsl:apply-templates select="../dates/access-date"/>
+            <xsl:apply-templates select="../electronic-resource-num"/>
             <xsl:apply-templates select="../custom7"/>
         </collection>
     </xsl:template>
@@ -151,6 +172,7 @@
             <xsl:apply-templates select="../pub-location"/>
             <xsl:apply-templates select="../urls/related-urls"/>
             <xsl:apply-templates select="../dates/access-date"/>
+            <xsl:apply-templates select="../electronic-resource-num"/>
             <xsl:apply-templates select="../custom7"/>
         </paper>
     </xsl:template>
@@ -184,6 +206,7 @@
             <xsl:apply-templates select="../publisher"/>
             <xsl:apply-templates select="../urls/related-urls"/>
             <xsl:apply-templates select="../dates/access-date"/>
+            <xsl:apply-templates select="../electronic-resource-num"/>
             <xsl:apply-templates select="../custom7"/>
         </proceedings>
     </xsl:template>
@@ -218,6 +241,12 @@
     <xsl:template match="ref-type[@name='Manuscript']">
         <xsl:call-template name="DoMs"/>
     </xsl:template>
+    <!--
+        ref-type Newspaper Article
+    -->
+    <xsl:template match="ref-type[@name='Newspaper Article']">
+        <xsl:call-template name="DoWebPage"/>
+    </xsl:template>
     <!-- 
         ref-type Online Multimedia
     -->
@@ -228,22 +257,28 @@
         ref-type Report
     -->
     <xsl:template match="ref-type[@name='Report']">
-        <xsl:call-template name="DoArticle"/>
+        <xsl:call-template name="DoBook"/>
+    </xsl:template>
+    <!-- 
+        ref-type Standard
+    -->
+    <xsl:template match="ref-type[@name='Standard']">
+        <xsl:call-template name="DoBook"/>
     </xsl:template>
     <!-- 
         ref-type Thesis
     -->
     <xsl:template match="ref-type[@name='Thesis']">
         <xsl:choose>
-            <xsl:when test="contains(../work-type,'M.A.') or contains(../volume,'M.A.')">
-                <thesis>
-                    <xsl:call-template name="DoDissertationOrThesis"/>
-                </thesis>
-            </xsl:when>
-            <xsl:otherwise>
+            <xsl:when test="contains(../work-type,'Ph.D.') or contains(../volume,'Ph.D.')">
                 <dissertation>
                     <xsl:call-template name="DoDissertationOrThesis"/>
                 </dissertation>
+            </xsl:when>
+            <xsl:otherwise>
+                <thesis>
+                    <xsl:call-template name="DoDissertationOrThesis"/>
+                </thesis>
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
@@ -308,6 +343,7 @@
             <xsl:apply-templates select="../publisher"/>
             <xsl:apply-templates select="../urls/related-urls"/>
             <xsl:apply-templates select="../dates/access-date"/>
+            <xsl:apply-templates select="../electronic-resource-num"/>
             <xsl:apply-templates select="../custom7"/>
         </article>
     </xsl:template>
@@ -423,6 +459,11 @@
                     <xsl:value-of select="normalize-space(../edition)"/>
                 </edition>
             </xsl:if>
+            <xsl:if test="@name='Report' and ../number">
+                <edition>
+                    <xsl:value-of select="normalize-space(../number)"/>
+                </edition>
+            </xsl:if>
             <xsl:if test="../contributors/secondary-authors">
                 <seriesEd>
                     <xsl:for-each select="../contributors/secondary-authors">
@@ -447,6 +488,7 @@
             <xsl:apply-templates select="../publisher"/>
             <xsl:apply-templates select="../urls/related-urls"/>
             <xsl:apply-templates select="../dates/access-date"/>
+            <xsl:apply-templates select="../electronic-resource-num"/>
             <xsl:apply-templates select="../custom7"/>
         </book>
     </xsl:template>
@@ -474,6 +516,7 @@
         </institution>
         <xsl:apply-templates select="../urls/related-urls"/>
         <xsl:apply-templates select="../dates/access-date"/>
+        <xsl:apply-templates select="../electronic-resource-num"/>
         <xsl:apply-templates select="../custom7"/>
     </xsl:template>
     <!-- 
@@ -533,6 +576,7 @@
             </institution>
             <xsl:apply-templates select="../urls/related-urls"/>
             <xsl:apply-templates select="../dates/access-date"/>
+            <xsl:apply-templates select="../electronic-resource-num"/>
             <xsl:apply-templates select="../custom7"/>
         </ms>
     </xsl:template>
@@ -551,6 +595,11 @@
         <xsl:choose>
             <xsl:when test="titles/title">
                 <xsl:apply-templates select="titles/title"/>
+                <xsl:if test="titles/tertiary-title">
+                    <xsl:text> (</xsl:text>
+                    <xsl:apply-templates select="titles/tertiary-title"/>
+                    <xsl:text>)</xsl:text>
+                </xsl:if>
             </xsl:when>
             <xsl:otherwise>
                 <xsl:text>** There was no title for this work! **</xsl:text>
@@ -563,11 +612,18 @@
     <xsl:template name="DoWebPage">
         <webPage>
             <!-- (edition?, location?, (institution | publisher)?, url, dateAccessed?, iso639-3code*, comment?) -->
-            <xsl:if test="../edition">
-                <edition>
-                    <xsl:value-of select="normalize-space(../edition)"/>
-                </edition>
-            </xsl:if>
+            <xsl:choose>
+                <xsl:when test="../edition">
+                    <edition>
+                        <xsl:value-of select="normalize-space(../edition)"/>
+                    </edition>
+                </xsl:when>
+                <xsl:when test="../number">
+                    <edition>
+                        <xsl:value-of select="normalize-space(../number)"/>
+                    </edition>
+                </xsl:when>
+            </xsl:choose>
             <xsl:apply-templates select="../pub-location"/>
             <xsl:apply-templates select="../publisher"/>
             <xsl:choose>
@@ -579,6 +635,7 @@
                 </xsl:otherwise>
             </xsl:choose>
             <xsl:apply-templates select="../dates/access-date"/>
+            <xsl:apply-templates select="../electronic-resource-num"/>
             <xsl:apply-templates select="../custom7"/>
         </webPage>
     </xsl:template>

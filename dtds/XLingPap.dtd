@@ -7,9 +7,9 @@
 <!ATTLIST xlingpaper
   version CDATA #IMPLIED>
   
-<!ELEMENT styledPaper (lingPaper, publisherStyleSheet) >
-<!ELEMENT publishedPaper (publishedDocument, lingPaper, publisherStyleSheet) >
-<!ELEMENT publishedCollection  (publishedDocument, (publishedDocument, lingPaper)+, references?, publisherStyleSheet) >
+<!ELEMENT styledPaper (lingPaper, publisherStyleSheet+) >
+<!ELEMENT publishedPaper (publishedDocument, lingPaper, publisherStyleSheet+) >
+<!ELEMENT publishedCollection  (publishedDocument, (publishedDocument, lingPaper)+, references?, publisherStyleSheet+) >
 
 <!-- Entity definitions -->
 <!ENTITY % embedded "langData | gloss | exampleRef | sectionRef | appendixRef | citation | comment | object | br | endnote | endnoteRef | figureRef | tablenumberedRef | q | img | genericRef | genericTarget | link | 
@@ -82,7 +82,7 @@
      When the xml:lang attribute is set, it is the default xml:lang for the document.
      The version attribute is the version of XLingPap the document is for.
   -->
-<!ELEMENT lingPaper (comment*, frontMatter?, ((chapterBeforePart?, part*) | chapter* | chapterInCollection* | section1*), backMatter?, referencedInterlinearTexts?, languages?, types?, framedTypes?, indexTerms*, comment*, publishingInfo?, contentControl?, validation?)>
+<!ELEMENT lingPaper (comment*, frontMatter?, ((chapterBeforePart?, part*, (volume, part*)*) | ((volume?, chapter*)*) | ((volume?, chapterInCollection*)*) | section1*), backMatter?, referencedInterlinearTexts?, languages?, types?, framedTypes?, indexTerms*, comment*, publishingInfo?, contentControl?, validation?)>
 <!ATTLIST lingPaper
     partlabel CDATA #IMPLIED
     chapterlabel CDATA #IMPLIED
@@ -90,11 +90,16 @@
     xml:lang CDATA #IMPLIED
     sortRefsAbbrsByDocumentLanguage (yes | no) "no"
     version CDATA #IMPLIED
+    appendixRefSingularLabel CDATA #IMPLIED
+    appendixRefPluralLabel CDATA #IMPLIED
+    appendixRefCapitalizedSingularLabel CDATA #IMPLIED
+    appendixRefCapitalizedPluralLabel CDATA #IMPLIED
+    appendixRefDefault (none | singular | plural | capitalizedSingular | capitalizedPlural ) "none"
     sectionRefSingularLabel CDATA #IMPLIED
     sectionRefPluralLabel CDATA #IMPLIED
     sectionRefCapitalizedSingularLabel CDATA #IMPLIED
     sectionRefCapitalizedPluralLabel CDATA #IMPLIED
-    sectionRefDefault (none | singular | plural | capitalizedSingular | capitalizedPlural ) "none" 
+    sectionRefDefault (none | singular | plural | capitalizedSingular | capitalizedPlural ) "none"
     showcommentinoutput (yes | no) "no"
     showindexeditemsineditor (yes | no) "yes"
     showiso639-3codeininterlinear (yes | no) "no"
@@ -108,19 +113,21 @@
     figureRefPluralLabel CDATA #IMPLIED
     figureRefCapitalizedSingularLabel CDATA #IMPLIED
     figureRefCapitalizedPluralLabel CDATA #IMPLIED
-    figureRefDefault (none | singular | plural | capitalizedSingular | capitalizedPlural ) "none" 
+    figureRefDefault (none | singular | plural | capitalizedSingular | capitalizedPlural ) "none"
     tablenumberedLabel CDATA #IMPLIED
     tablenumberedLabelAndCaptionLocation (before|after) "before"
     tablenumberedRefSingularLabel CDATA #IMPLIED
     tablenumberedRefPluralLabel CDATA #IMPLIED
     tablenumberedRefCapitalizedSingularLabel CDATA #IMPLIED
     tablenumberedRefCapitalizedPluralLabel CDATA #IMPLIED
-    tablenumberedRefDefault (none | singular | plural | capitalizedSingular | capitalizedPlural ) "none" 
+    tablenumberedRefDefault (none | singular | plural | capitalizedSingular | capitalizedPlural ) "none"
     automaticallywrapinterlinears (no | yes) "no"
     literalLabel CDATA #IMPLIED
     defaultGlossLanguage IDREF #IMPLIED
     defaultVernacularLanguage IDREF #IMPLIED
     XeLaTeXSpecial CDATA #IMPLIED
+    showExampleIdOnHoverInWebpage (yes | no) "no"
+    useImageWidthSetToWidthOfExampleFigureOrChart (yes | no) "no"
 >
 <!-- Languages groups a set of language definitions.  This is at the end because it looks better in a tool like XMLMind -->
 <!ELEMENT languages (language+)>
@@ -142,18 +149,31 @@
     xml:lang CDATA #REQUIRED
 >
 <!-- Front matter -->
-<!ELEMENT frontMatter (title, shortTitle?, subtitle?, ((author, affiliation*, emailAddress*) | authorContactInfo)+, shortAuthor?, presentedAt?, date?, version?, keywordsShownHere?, contents?, acknowledgements?, abstract?, preface*)>
-<!ELEMENT title (#PCDATA | %embedded;)*>
+<!-- We allow more than one abstract and more than one contents for cases where one needs the abstract or contents to be in more than one language. -->
+<!ELEMENT frontMatter (title, shortTitle?, subtitle?, ((author, affiliation*, emailAddress*) | authorContactInfo)+, shortAuthor?, presentedAt?, date?, version*, keywordsShownHere?, volume?, contents?, acknowledgements?, abstract*, preface*)>
+<!ELEMENT title (#PCDATA | %embedded; | titleContentChoices)*>
 <!ATTLIST title
     xml:lang CDATA #IMPLIED
 >
 <!-- shortTitle is what can appear in a header or footer -->
-<!ELEMENT shortTitle (#PCDATA | %embedded;)*>
+<!ELEMENT shortTitle (#PCDATA | %embedded; | titleContentChoices)*>
 <!ATTLIST shortTitle
     xml:lang CDATA #IMPLIED
 >
-<!ELEMENT subtitle (#PCDATA | %embedded;)*>
+<!ELEMENT subtitle (#PCDATA | %embedded; | titleContentChoices)*>
 <!ATTLIST subtitle
+    xml:lang CDATA #IMPLIED
+>
+<!ELEMENT titleContentChoices (titleContent, titleContent+) >
+<!ELEMENT titleContent (#PCDATA | %embedded;)*>
+<!ATTLIST titleContent
+    contentType IDREF #REQUIRED
+    xml:lang CDATA #IMPLIED
+>
+<!ELEMENT labelContentChoices (labelContent, labelContent+) >
+<!ELEMENT labelContent (#PCDATA)>
+<!ATTLIST labelContent
+    contentType IDREF #REQUIRED
     xml:lang CDATA #IMPLIED
 >
 <!-- ORCID is the Open Researcher and Contributor ID; see http://en.wikipedia.org/wiki/ORCID -->
@@ -197,101 +217,133 @@
     xml:lang CDATA #IMPLIED
     contentType IDREF #IMPLIED
 >
-<!ELEMENT acknowledgements (%chunk;)+>
+<!ELEMENT acknowledgements (labelContentChoices?, shortTitle?, (%chunk;)+)>
 <!ATTLIST acknowledgements
     XeLaTeXSpecial CDATA #IMPLIED
     label CDATA #IMPLIED
     contentType IDREF #IMPLIED
     showinlandscapemode (yes | no) "no"
 >
-<!ELEMENT abstract (%chunk;)+>
+<!ELEMENT abstract (labelContentChoices?, shortTitle?, (%chunk;)+)>
 <!ATTLIST abstract
+    XeLaTeXSpecial CDATA #IMPLIED
     label CDATA #IMPLIED
     contentType IDREF #IMPLIED
     showinlandscapemode (yes | no) "no"
 >
-<!ELEMENT preface (%chunk; | landscape | framedUnit | abbreviationsShownHere | listOfFiguresShownHere | listOfTablesShownHere | glossaryTermsShownHere | iso639-3codesShownHere)+>
+<!ELEMENT preface (labelContentChoices?, shortTitle?, (%chunk; | landscape | framedUnit | abbreviationsShownHere | listOfFiguresShownHere | listOfTablesShownHere | glossaryTermsShownHere | glossaryTermsShownHereAsDefinitionList | iso639-3codesShownHere)+)>
 <!ATTLIST preface
+    XeLaTeXSpecial CDATA #IMPLIED
     label CDATA #IMPLIED
     contentType IDREF #IMPLIED
     showinlandscapemode (yes | no) "no"
 >
-<!ELEMENT contents EMPTY>
+<!ELEMENT contents (labelContentChoices?, shortTitle?)>
 <!ATTLIST contents
+    XeLaTeXSpecial CDATA #IMPLIED
     showLevel (1 | 2 | 3 | 4 | 5 | 6 | 0) "3"
     label CDATA #IMPLIED
+    backmattershowLevel (1 | 2 | 3 | 4 | 5 | 6 | 0) "3"
+    backmatterlabel CDATA #IMPLIED
     contentType IDREF #IMPLIED
     showinlandscapemode (yes | no) "no"
+    bookmarksShowLevel (0 | 1 | 2 | 3 | 4 | 5 | 6 | 7) "3"
 >
 <!-- an keywordsShownHere element can be placed in front matter or back matter.
     The list of keywords defined within publishingInfo will be listed one after the other separated by what is in the separationText attribute.
 -->
-<!ELEMENT keywordsShownHere EMPTY >
+<!ELEMENT keywordsShownHere (labelContentChoices?, shortTitle?) >
 <!ATTLIST keywordsShownHere
+    XeLaTeXSpecial CDATA #IMPLIED
     label CDATA #IMPLIED
     showincontents (yes | no) "no"
 >
 
 <!-- Main content -->
-<!ELEMENT part (secTitle, shortTitle?, (%chunk; | landscape | framedUnit)*, (chapter* | chapterInCollection*))>
+<!ELEMENT volume (part* | (chapter* | chapterInCollection*))>
+<!ATTLIST volume
+    XeLaTeXSpecial CDATA #IMPLIED
+    label CDATA #IMPLIED
+    number CDATA #IMPLIED
+>
+<!ELEMENT part (secTitle, shortTitle?,(%chunk; | landscape | framedUnit)*, (chapter* | chapterInCollection*))>
 <!ATTLIST part
+    XeLaTeXSpecial CDATA #IMPLIED
     id ID #REQUIRED
     contentType IDREF #IMPLIED
     showinlandscapemode (yes | no) "no"
+    startingPageNumber CDATA #IMPLIED
 >
-<!ELEMENT chapter (secTitle, shortTitle?, (%chunk; | landscape | framedUnit)*, section1*)>
+    <!-- N.B. we include excludeShortSubsectionsFromContents and subsectionsAreShort attributes from sections to prevent validity errors
+    after promoting a section1 to a chapter.  They are not used, normally. -->
+<!ELEMENT chapter (secTitle, shortTitle?, (%chunk; | landscape | framedUnit | abbreviationsShownHere)*, section1*)>
 <!ATTLIST chapter
     id ID #REQUIRED
     XeLaTeXSpecial CDATA #IMPLIED
     contentType IDREF #IMPLIED
     showinlandscapemode (yes | no) "no"
+    startingPageNumber CDATA #IMPLIED
+    excludeShortSubsectionsFromContents (yes | no) "yes"
+    subsectionsAreShort (yes | no) "no"
 >
 <!ELEMENT chapterBeforePart (secTitle, shortTitle?, (%chunk; | landscape | framedUnit)*, section1*)>
 <!ATTLIST chapterBeforePart
+    XeLaTeXSpecial CDATA #IMPLIED
     id ID #REQUIRED
     contentType IDREF #IMPLIED
     showinlandscapemode (yes | no) "no"
 >
 <!ELEMENT chapterInCollection (frontMatter, (%chunk; | landscape | framedUnit)*, section1*, backMatter?, publishingInfo?) >
 <!ATTLIST chapterInCollection
+    XeLaTeXSpecial CDATA #IMPLIED
     id ID #REQUIRED
     contentType IDREF #IMPLIED
     showinlandscapemode (yes | no) "no"
 >
-<!ELEMENT section1 (secTitle, shortTitle?, (%chunk; | landscape | framedUnit)*, section2*)>
+<!ELEMENT section1 (secTitle, shortTitle?, (%chunk; | landscape | framedUnit | abbreviationsShownHere)*, section2*)>
 <!ATTLIST section1
     id ID #REQUIRED
     XeLaTeXSpecial CDATA #IMPLIED
     contentType IDREF #IMPLIED
+    excludeShortSubsectionsFromContents (yes | no) "yes"
     showinlandscapemode (yes | no) "no"
+    subsectionsAreShort (yes | no) "no"
 >
 <!ELEMENT section2 (secTitle, shortTitle?, (%chunk; | landscape | framedUnit)*, section3*)>
 <!ATTLIST section2
     id ID #REQUIRED
     XeLaTeXSpecial CDATA #IMPLIED
     contentType IDREF #IMPLIED
+    excludeShortSubsectionsFromContents (yes | no) "yes"
     showinlandscapemode (yes | no) "no"
+    subsectionsAreShort (yes | no) "no"
 >
 <!ELEMENT section3 (secTitle, shortTitle?, (%chunk; | landscape | framedUnit)*, section4*)>
 <!ATTLIST section3
     id ID #REQUIRED
     XeLaTeXSpecial CDATA #IMPLIED
     contentType IDREF #IMPLIED
+    excludeShortSubsectionsFromContents (yes | no) "yes"
     showinlandscapemode (yes | no) "no"
+    subsectionsAreShort (yes | no) "no"
 >
 <!ELEMENT section4 (secTitle, shortTitle?, (%chunk; | landscape | framedUnit)*, section5*)>
 <!ATTLIST section4
     id ID #REQUIRED
     XeLaTeXSpecial CDATA #IMPLIED
     contentType IDREF #IMPLIED
+    excludeShortSubsectionsFromContents (yes | no) "yes"
     showinlandscapemode (yes | no) "no"
+    subsectionsAreShort (yes | no) "no"
 >
 <!ELEMENT section5 (secTitle, shortTitle?, (%chunk; | landscape | framedUnit)*, section6*)>
 <!ATTLIST section5
     id ID #REQUIRED
     XeLaTeXSpecial CDATA #IMPLIED
     contentType IDREF #IMPLIED
+    excludeShortSubsectionsFromContents (yes | no) "yes"
     showinlandscapemode (yes | no) "no"
+    subsectionsAreShort (yes | no) "no"
 >
 <!ELEMENT section6 (secTitle, shortTitle?, (%chunk; | landscape | framedUnit)*)>
 <!ATTLIST section6
@@ -300,7 +352,7 @@
     contentType IDREF #IMPLIED
     showinlandscapemode (yes | no) "no"
 >
-<!ELEMENT secTitle (#PCDATA | %embedded;)*>
+<!ELEMENT secTitle (#PCDATA | %embedded; | titleContentChoices)*>
 <!ATTLIST secTitle
     xml:lang CDATA #IMPLIED
 >
@@ -315,6 +367,7 @@
 <!ELEMENT appendixRef EMPTY>
 <!ATTLIST appendixRef
     app IDREF #REQUIRED
+    textBefore (none | singular | plural | capitalizedSingular | capitalizedPlural | useDefault ) "useDefault"
     showTitle (short | full | numberOnly) "numberOnly"
     contentType IDREF #IMPLIED
 >
@@ -477,10 +530,11 @@
 
      If one includes the num attribute, then one can reference the example by number.
 -->
-    <!ELEMENT example (exampleHeading?, (word | listWord+ | single | listSingle+ | interlinear | interlinearRef | listInterlinear+ | tree | chart | table | definition | listDefinition+))>
+    <!ELEMENT example (exampleHeading?, (word | listWord+ | single | listSingle+ | interlinear | interlinearRef | listInterlinear+ | tree | chart | table | definition | listDefinition+ | annotationRef+))>
 <!ATTLIST example
     num ID #IMPLIED
     %special;
+    showiso639-3codes (yes | no) "no"
     contentType IDREF #IMPLIED
 >
 <!ELEMENT word ((langData | gloss)+, word?)>
@@ -537,8 +591,12 @@
 >
 <!ELEMENT lineGroup (line | conflatedLine)+>
 <!ELEMENT line ((langData | gloss)+ | wrd+)>
+<!ATTLIST line
+    contentType IDREF #IMPLIED
+>
 <!ELEMENT wrd (#PCDATA | %embedded;)*>
 <!ATTLIST wrd
+    XeLaTeXSpecial CDATA #IMPLIED
     lang IDREF #IMPLIED
     xml:lang CDATA #IMPLIED
 >
@@ -600,6 +658,7 @@
     text ID #IMPLIED
     %special;
     contentType IDREF #IMPLIED
+    linesToInclude CDATA #IMPLIED
 >
 <!ELEMENT textInfo (textTitle*, shortTitle*, source*, genres?)>
 <!ATTLIST textInfo
@@ -634,9 +693,11 @@
     %special;
     pagecontrol (keepAllOnSamePage | letFormatterDecide) "letFormatterDecide"
     contentType IDREF #IMPLIED
+    counterNumberFormat CDATA #IMPLIED
 >
 <!ELEMENT tablenumbered (shortCaption?, (table | (caption?, img)))>
 <!ATTLIST tablenumbered
+    alignoverride (left | center | right | none) "none"
     location (here | topOfPage | bottomOfPage) "here"
     id ID #REQUIRED
     type IDREF #IMPLIED
@@ -683,7 +744,7 @@
     width CDATA #IMPLIED
     xml:lang CDATA #IMPLIED
 >
-<!ELEMENT th (#PCDATA | %embedded; | table)*>
+<!ELEMENT th (#PCDATA | %embedded; | table | counter)*>
 <!ATTLIST th
     align (left | center | right | justify) "left"
     backgroundcolor CDATA #IMPLIED
@@ -724,7 +785,7 @@
     direction (ltr | rtl | inherit) #IMPLIED
     xml:lang CDATA #IMPLIED
 >
-<!ELEMENT td (#PCDATA | %embedded; | table | interlinear | example | counter)*>
+<!ELEMENT td (#PCDATA | %embedded; | table | interlinear | interlinearRef | example | counter)*>
 <!ATTLIST td
     align (left | center | right | justify) "left"
     backgroundcolor CDATA #IMPLIED
@@ -745,10 +806,11 @@
     %special;
     contentType IDREF #IMPLIED
 >
-<!ELEMENT figure (chart, (caption, shortCaption?)?)>
+<!ELEMENT figure ((chart | framedUnit), (caption, shortCaption?)?)>
 <!ATTLIST figure
     location (here | topOfPage | bottomOfPage) "here"
     align (left | center | right | justify) "left"
+    alignoverride (left | center | right | none) "none"
     id ID #REQUIRED
     type IDREF #IMPLIED
     %special;
@@ -803,6 +865,7 @@
     description CDATA #IMPLIED
     width CDATA #IMPLIED
     height CDATA #IMPLIED
+    borderaround (no | yes ) 'no'
     %special;
 >
 <!ELEMENT mediaObject EMPTY >
@@ -891,19 +954,27 @@
     href CDATA #REQUIRED
     xml:lang CDATA #IMPLIED
     XeLaTeXSpecial CDATA #IMPLIED
+    openInNewTab ( no | yes) "no"
 >
 <!-- backmatter includes appendices, endnotes and references -->
 <!ELEMENT backMatter (acknowledgements?, appendix*, glossary*, abbreviations?, glossaryTerms?, endnotes?, (references, selectedBibliography?)?, keywordsShownHere?, index*, authorContactInfo*)>
 <!-- endnotes -->
-<!ELEMENT endnotes EMPTY>
+<!ELEMENT endnotes (labelContentChoices?, shortTitle?, chapterLabelContentChoices?, appendixLabelContentChoices?, partLabelContentChoices?)>
 <!ATTLIST endnotes
+    XeLaTeXSpecial CDATA #IMPLIED
     label CDATA #IMPLIED
 >
+<!-- following three are used for controlling label of each kind in endnotes in a book when using endnotes instead of footnotes -->
+<!ELEMENT chapterLabelContentChoices (labelContent, labelContent+) >
+<!ELEMENT appendixLabelContentChoices (labelContent, labelContent+) >
+<!ELEMENT partLabelContentChoices (labelContent, labelContent+) >
+
 <!-- An endnote goes in the flow of the text.  One may refer to a footnote via
      an endnoteRef.  -->
 <!ELEMENT endnote (%chunk; | abbreviationsShownHere | iso639-3codesShownHere)*>
 <!ATTLIST endnote
     id ID #REQUIRED
+    symbolOverride ( none | asterisk | dagger | doubledagger | sectionsign | pilcrowsign | fullstop | twoasterisks | twodaggers | twodoubledaggers  ) "none"
 >
 <!ELEMENT endnoteRef EMPTY>
 <!ATTLIST endnoteRef
@@ -911,7 +982,7 @@
     showNumberOnly (yes | no) "no"
 >
 <!-- appendices are handled like chapters -->
-<!ELEMENT appendix (secTitle, shortTitle?, (%chunk; | landscape | framedUnit | abbreviationsShownHere | glossaryTermsShownHere | iso639-3codesShownHere | section1 | section2)*)>
+<!ELEMENT appendix (secTitle, shortTitle?, (%chunk; | landscape | framedUnit | abbreviationsShownHere | glossaryTermsShownHere | glossaryTermsShownHereAsDefinitionList | iso639-3codesShownHere | section1 | section2)*)>
 <!ATTLIST appendix
     id ID #REQUIRED
     label CDATA #IMPLIED
@@ -921,7 +992,7 @@
     contentType IDREF #IMPLIED
 >
 <!-- glossary -->
-<!ELEMENT glossary (%chunk; | landscape | framedUnit | abbreviationsShownHere | listOfFiguresShownHere | listOfTablesShownHere | glossaryTermsShownHere | iso639-3codesShownHere)+>
+<!ELEMENT glossary (labelContentChoices?, shortTitle?, (%chunk; | landscape | framedUnit | abbreviationsShownHere | listOfFiguresShownHere | listOfTablesShownHere | glossaryTermsShownHere | glossaryTermsShownHereAsDefinitionList | iso639-3codesShownHere)+)>
 <!ATTLIST glossary
     XeLaTeXSpecial CDATA #IMPLIED
     label CDATA #IMPLIED
@@ -932,7 +1003,7 @@
 <!-- selected bibliography 
        This is a place to put citations in the few cases where one wants to have more references than are actually cited in the document body.
 -->
-<!ELEMENT selectedBibliography (citation+)>
+<!ELEMENT selectedBibliography (labelContentChoices?, shortTitle?, (citation+))>
 <!ATTLIST selectedBibliography
     XeLaTeXSpecial CDATA #IMPLIED
     label CDATA #IMPLIED
@@ -998,7 +1069,7 @@ Can have more than one (for names, languages, and subjects, e.g.).
        the label attribute provides a way to give it a title 
        the kind attribute indicates which kind of index it is ('common' is used for a single, common index)
        -->
-<!ELEMENT index (%chunk; | landscape | framedUnit)*>
+<!ELEMENT index (labelContentChoices?, shortTitle?, (%chunk; | landscape | framedUnit)*)>
 <!ATTLIST index
     XeLaTeXSpecial CDATA #IMPLIED
     label CDATA #IMPLIED
@@ -1010,6 +1081,8 @@ Can have more than one (for names, languages, and subjects, e.g.).
  startingPageNumber CDATA #IMPLIED
  startingPageNumberInBook CDATA #IMPLIED
  version CDATA #IMPLIED
+ showVolumeInContents (yes | no) "no"
+ whichVolumeToShowInContents (all | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10) "all"
  >
 <!ELEMENT publishingBlurb (#PCDATA | %embedded;)* >
 

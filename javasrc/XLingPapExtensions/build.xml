@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='ISO-8859-1'?>
 <project basedir="." default="all">
 
-  <property name="xxe.bin.dir" value="C:/Program Files (x86)/XMLmind_XML_Editor/bin" />
+  <property name="xxe.bin.dir" value="C:/Program Files (x86)/XMLmind_XML_Editor 8/bin" />
 	<property name="xlingpaper.config.dir" value=".." />
 
   <path id="cp">
@@ -10,10 +10,13 @@
     <pathelement location="${xxe.bin.dir}/xerces.jar" />
     <pathelement location="${xxe.bin.dir}/resolver.jar" />
     <pathelement location="${xxe.bin.dir}/relaxng.jar" />
-    <pathelement location="${xxe.bin.dir}/xsc.jar" />
+<!--    <pathelement location="${xxe.bin.dir}/xsc.jar" />  spelling check  -->
     <pathelement location="${xxe.bin.dir}/jh.jar" />
     <pathelement location="${xxe.bin.dir}/saxon.jar" />
+    <pathelement location="${xxe.bin.dir}/../addon/jeuclid_imagetoolkit/jeuclid_imagetoolkit.jar" />
+    <pathelement location="${xxe.bin.dir}/../addon/batik_imagetoolkit/batik-all.jar" />
   	<pathelement location="./TagSoup/tagsoup-1.2.1.jar" />
+  	<pathelement location="./ApacheFontBox/fontbox-2.0.33.jar" />
   </path>
 
   <target name="init">
@@ -28,7 +31,7 @@
 
   <target name="jar" depends="compile"> 
   	 <copy todir="class/localizations">
-  	    <fileset dir="${xlingpaper.config.dir}/localizations"/>
+  	    <fileset dir="${xlingpaper.config.dir}/../localizations"/>
   	  </copy>
 
     <jar jarfile="XLingPap.jar" basedir="class">
@@ -43,7 +46,7 @@
       </manifest>
 -->
     </jar>
-  	<copy file="XLingPap.jar" todir="${xlingpaper.config.dir}"/>
+  	<copy file="XLingPap.jar" todir="${xlingpaper.config.dir}/.."/>
   </target>
 
   <target name="clean">

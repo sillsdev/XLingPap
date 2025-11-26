@@ -16,9 +16,13 @@ type="tXLingPap"
 ><affiliation
 >SIL International</affiliation
 ><date
->24 October 2016</date
+>10 November 2025</date
 ><version
->2.29.4</version
+contentType="ctVersion5.3"
+>2.48.0</version
+><version
+contentType="ctVersion7Plus"
+>3.18.0</version
 ><contents
 showLevel="3"
 ></contents
@@ -71,7 +75,7 @@ type="tXLingPap"
 ></object
 > also creates a hyperlink between the abbreviation in the text and the abbreviation in the list of abbreviations. Thus, a reader can click on the abbreviation and see what it means.</p
 ><p
->In addition, in some formatting systems such as HTML, headers (i.e. <object
+>In addition, in some formatting systems such as HTML, headers (i.e., <object
 type="tElement"
 >h1</object
 >, <object
@@ -115,7 +119,7 @@ id="sIntroLang"
 ><secTitle
 >Language Definitions</secTitle
 ><p
->Besides the main text of the paper, one may also define the languages used within the paper. One can then tag individual data items as belonging to one of these languages. Each language definition has font-related information associated with it, so one can set the font, size, color, etc. for each language. When the paper is formatted, each data item tagged with a given language will consistently be shown in the specified way.</p
+>Besides the main text of the paper, one may also define the languages used within the paper. One can then tag individual data items as belonging to one of these languages. Each language definition has font-related information associated with it, so one can set the font, size, color, etc., for each language. When the paper is formatted, each data item tagged with a given language will consistently be shown in the specified way.</p
 ></section2
 ><section2
 id="sIntroUsing"
@@ -133,7 +137,7 @@ type="tXLingPap"
 >The first consists of entering the appropriate element tags into an XML document. That is, the writer needs to key the correct tags in the file(s) to enable <object
 type="tXLingPap"
 ></object
-> to recognize them. To do this, one may use a plain text editor (e.g. <object
+> to recognize them. To do this, one may use a plain text editor (e.g., <object
 type="tTool"
 >Notepad</object
 > or even <object
@@ -156,12 +160,12 @@ type="tXLingPap"
 > is to process the document file(s) to show the output in some form. Currently there are ways to produce these kinds of outputs:</p
 ><ul
 ><li
->Webpages (i.e. HTML) which can be loaded into a web browser (e.g. <object
+>Webpages (i.e., HTML) which can be loaded into a web browser (e.g., <object
 type="tTool"
 >Internet Explorer</object
 > version 5.5 or later).</li
 ><li
->PDF file which can be read with a PDF Reader (e.g. <object
+>PDF file which can be read with a PDF Reader (e.g., <object
 type="tTool"
 >Adobe Reader</object
 > 7.0)</li
@@ -177,7 +181,7 @@ type="tXMLmindXMLEditor"
 ></object
 > is that it makes it easier to produce these outputs, too.</pc
 ><p
->If you need to key the XML itself (i.e. you are not going to use the <object
+>If you need to key the XML itself (i.e., you are not going to use the <object
 type="tXMLmindXMLEditor"
 ></object
 >), you'll need to create the elements in a particular way. The syntax of the element tags follows the syntax of the XML elements. The basic syntax for an XML element is given in <exampleRef
@@ -401,7 +405,7 @@ type="tXLingPap"
 ></object
 > to automatically generate a table of contents.</p
 ><p
->The default situation is for the table of contents to include sections up to three levels deep (i.e. it will include the titles for all of the following: <object
+>The default situation is for the table of contents to include sections up to three levels deep (i.e., it will include the titles for all of the following: <object
 type="tElement"
 >part</object
 >, <object
@@ -1108,7 +1112,7 @@ type="tXLingPap"
 ></object
 > from XML to HTML or one of the other formats will take care of whether these elements show up as endnotes or as footnotes.</p
 ><p
->One keys an endnote in the text at the point where the reference to the endnote should go (i.e. the <q
+>One keys an endnote in the text at the point where the reference to the endnote should go (i.e., the <q
 >endnote number</q
 >, usually rendered in superscript). Create the <object
 type="tElement"
@@ -1169,7 +1173,7 @@ sec="sBMExample"
 >). You may also include a <object
 type="tElement"
 >refAuthorInitials</object
-> element for those cases where you need to use initials for the author(s) first, etc.names. The <object
+> element for those cases where you need to use initials for the author(s) first, etc., names. The <object
 type="tAttribute"
 >citename</object
 > attribute is how you want the author's name to be shown in a citation within the body of the paper.</p
@@ -1203,7 +1207,7 @@ type="tElement"
 > element. The <object
 type="tElement"
 >refDate</object
-> element contains the date (i.e. year) of the work. If there is more than one work by the same author within a given year, merely list the year for each such work. <object
+> element contains the date (i.e., year) of the work. If there is more than one work by the same author within a given year, merely list the year for each such work. <object
 type="tXLingPap"
 ></object
 > will automatically append a letter after the year as appropriate. The <object
@@ -1332,6 +1336,9 @@ type="tElement"
 >This is for a book. Besides the date and the title, a book also has optional <object
 type="tElement"
 >translatedBy</object
+>, <object
+type="tElement"
+>editor</object
 >, <object
 type="tElement"
 >edition</object
@@ -1728,7 +1735,7 @@ type="tXLingPap"
 ><li
 >Creating the set of terms to be included in the index, including their relative hierarchical structure and any cross-referencing. This set of terms is what will show in the index section(s) in the output.</li
 ><li
->Marking the document body for indexed items (i.e. tagging the places in the text that correspond to one of the index terms in the set of terms). If the indexed item covers a range of the document, then the beginning and ending points need to be marked.</li
+>Marking the document body for indexed items (i.e., tagging the places in the text that correspond to one of the index terms in the set of terms). If the indexed item covers a range of the document, then the beginning and ending points need to be marked.</li
 ><li
 >Adding one or more <object
 type="tElement"
@@ -1789,7 +1796,7 @@ type="tXLingPap"
 >The top-level <object
 type="tElement"
 >indexTerms</object
-> element goes as the last top-level element in the file (i.e. just before the closing <object
+> element goes as the last top-level element in the file (i.e., just before the closing <object
 type="tElement"
 >/lingPaper</object
 > element). You may have more than one of them (in order to include the master set and any document-specific ones). <object
@@ -1981,7 +1988,7 @@ type="tAttribute"
 > attribute which refers to a <object
 type="tElement"
 >language</object
-> element. This is a way to tag the term as being for a particular language (e.g. English or Spanish or French). The <object
+> element. This is a way to tag the term as being for a particular language (e.g., English or Spanish or French). The <object
 type="tElement"
 >index</object
 > element also has a <object
@@ -4478,8 +4485,8 @@ type="tHtmlOutput"
 id="nLocationOfInterlinearSource"
 ><p
 >If you want to know how to manually change the setting, please contact <link
-href="mailto:support@xlingpaper.org"
->support@xlingpaper.org</link
+href="mailto:xlingpaper_support@sil.org"
+>xlingpaper_support@sil.org</link
 >.</p
 ></endnote
 ></li
@@ -5441,7 +5448,7 @@ id="sTCTTrees"
 ><secTitle
 >Trees</secTitle
 ><p
->One can also create tree diagrams. You can type plain text to try and format the tree (by using a lot of non-breaking spaces, for example) or you can use some tool to produce a tree image file (e.g. <link
+>One can also create tree diagrams. You can type plain text to try and format the tree (by using a lot of non-breaking spaces, for example) or you can use some tool to produce a tree image file (e.g., <link
 href="https://sdev.sil.org/sdev/ls/dev/project/carla/software/LingTree"
 >LingTree</link
 >). The following tree uses the latter.</p
@@ -5515,7 +5522,7 @@ type="tElement"
 > element. <object
 type="tXLingPap"
 ></object
-> will automatically number the figures in your document. (Figures are numbered independently of numbered tables.) For papers, each figure is numbered consecutively. For books (i.e. documents containing <object
+> will automatically number the figures in your document. (Figures are numbered independently of numbered tables.) For papers, each figure is numbered consecutively. For books (i.e., documents containing <object
 type="tElement"
 >chapter</object
 > elements), the numbering for figures starts over with each <object
@@ -6161,7 +6168,7 @@ type="tAttrValue"
 >none</object
 ></td
 ><td
->No text will be inserted. This is useful for when you have a list of figure references and you do not want to insert any text before the second, third, etc. references.</td
+>No text will be inserted. This is useful for when you have a list of figure references and you do not want to insert any text before the second, third, etc., references.</td
 ></tr
 ><tr
 ><td
@@ -6306,7 +6313,7 @@ type="tElement"
 > element. <object
 type="tXLingPap"
 ></object
-> will automatically number the tables in your document. (These tables are numbered independently of figures.) For papers, each numbered table is numbered consecutively. For books (i.e. documents containing <object
+> will automatically number the tables in your document. (These tables are numbered independently of figures.) For papers, each numbered table is numbered consecutively. For books (i.e., documents containing <object
 type="tElement"
 >chapter</object
 > elements), the numbering for numbered tables starts over with each <object
@@ -6993,7 +7000,7 @@ type="tAttrValue"
 >none</object
 ></td
 ><td
->No text will be inserted. This is useful for when you have a list of numbered table references and you do not want to insert any text before the second, third, etc. references.</td
+>No text will be inserted. This is useful for when you have a list of numbered table references and you do not want to insert any text before the second, third, etc., references.</td
 ></tr
 ><tr
 ><td
@@ -7490,7 +7497,7 @@ type="tElementExample"
 ></chart
 ></example
 ><p
->If only the second such entry is cited in the text (i.e. via a <object
+>If only the second such entry is cited in the text (i.e., via a <object
 type="tElement"
 >citation</object
 > element), then the date should be produced as <object
@@ -8066,8 +8073,8 @@ type="tXLingPap"
 id="nFLExTextExport"
 ><p
 >The ability to export an interlinear text as a text (and not only as a series of examples) should be available in the October 2007 version. If you need it sooner, please contact <link
-href="mailto:support@xlingpaper.org"
->support@xlingpaper.org</link
+href="mailto:xlingpaper_support@sil.org"
+>xlingpaper_support@sil.org</link
 >.</p
 ></endnote
 > One can then merely copy and paste the resulting text into an <object
@@ -8275,7 +8282,7 @@ type="tElement"
 >Unless you already have one, create a <object
 type="tElement"
 >types</object
-> element as the last top-level element in the file (i.e. just before the closing <object
+> element as the last top-level element in the file (i.e., just before the closing <object
 type="tElement"
 >/lingPaper</object
 > element).<endnote
@@ -8464,7 +8471,7 @@ lang="lEng"
 ><td
 ><langData
 lang="lEng"
->This is the font name to use (e.g. <object
+>This is the font name to use (e.g., <object
 type="tAttrValue"
 >Times New Roman</object
 > or <object
@@ -8915,7 +8922,7 @@ type="tXLingPap"
 ><li
 >There are templates which make it easy to start a new document and also to easily create various kinds of examples, lists, tables, etc.</li
 ><li
->As a structured editor, one can only insert elements (e.g. citations, examples, lists) when it is appropriate to do so.</li
+>As a structured editor, one can only insert elements (e.g., citations, examples, lists) when it is appropriate to do so.</li
 ><li
 >There are ways to easily set references to examples, sections, etc.</li
 ><li
@@ -9176,6 +9183,13 @@ type="tElement"
 ><dt
 ><object
 type="tElement"
+>appendixLabelContentChoices</object
+></dt
+><dd
+>Used for controlling label of appendices in endnotes in a book when using endnotes instead of footnotes</dd
+><dt
+><object
+type="tElement"
 >appendixRef</object
 ></dt
 ><dd
@@ -9214,7 +9228,7 @@ type="tElement"
 >authorRole</object
 ></dt
 ><dd
->The role of the author in the paper (e.g. editor, illustrator, etc.)</dd
+>The role of the author in the paper (e.g., editor, illustrator, etc.)</dd
 ><dt
 ><object
 type="tElement"
@@ -9250,6 +9264,13 @@ type="tElement"
 ></dt
 ><dd
 >Total page count for a book</dd
+><dt
+><object
+type="tElement"
+>bookversion</object
+></dt
+><dd
+>The version number of a book</dd
 ><dt
 ><object
 type="tElement"
@@ -9295,6 +9316,13 @@ type="tElement"
 ><dt
 ><object
 type="tElement"
+>chapterLabelContentChoices</object
+></dt
+><dd
+>Used for controlling label of chapters in endnotes in a book when using endnotes instead of footnotes</dd
+><dt
+><object
+type="tElement"
 >chart</object
 ></dt
 ><dd
@@ -9306,6 +9334,13 @@ type="tElement"
 ></dt
 ><dd
 >A citation to a reference</dd
+><dt
+><object
+type="tElement"
+>citeName</object
+></dt
+><dd
+>A way to create custom formatting of a citation name for a reference.</dd
 ><dt
 ><object
 type="tElement"
@@ -9337,6 +9372,13 @@ type="tElement"
 ></dt
 ><dd
 >Reference information for an editor of a collection of papers volume; using initials instead of author's first (etc.) name(s)</dd
+><dt
+><object
+type="tElement"
+>collEdSurnameGivenName</object
+></dt
+><dd
+>Reference information for an editor of a collection of papers volume, using the "surname, given name" form for all author names</dd
 ><dt
 ><object
 type="tElement"
@@ -9542,6 +9584,13 @@ type="tElement"
 ><dt
 ><object
 type="tElement"
+>doi</object
+></dt
+><dd
+>Reference information for a DOI (Digital Object Identifier)</dd
+><dt
+><object
+type="tElement"
 >dt</object
 ></dt
 ><dd
@@ -9553,6 +9602,27 @@ type="tElement"
 ></dt
 ><dd
 >The edition of the book or webpage</dd
+><dt
+><object
+type="tElement"
+>editor</object
+></dt
+><dd
+>The editor of a book that has authors and is not a collection</dd
+><dt
+><object
+type="tElement"
+>editorInitials</object
+></dt
+><dd
+>The editor of a book that has authors and is not a collection, using initials instead of author's first (etc.) name(s)</dd
+><dt
+><object
+type="tElement"
+>editorSurnameGivenName</object
+></dt
+><dd
+>The editor of a book that has authors and is not a collection, using the "surname, given name" form for all author names</dd
 ><dt
 ><object
 type="tElement"
@@ -9608,7 +9678,7 @@ type="tElement"
 >exampleHeading</object
 ></dt
 ><dd
->A “heading” in an example; this is a way to label or tag what is being shown in an example; e.g. a language or a construction</dd
+>A “heading” in an example; this is a way to label or tag what is being shown in an example; e.g., a language or a construction</dd
 ><dt
 ><object
 type="tElement"
@@ -9775,6 +9845,13 @@ type="tElement"
 ></dt
 ><dd
 >This indicates where the table of glossary terms is to appear</dd
+><dt
+><object
+type="tElement"
+>glossaryTermsShownHereAsDefinitionList</object
+></dt
+><dd
+>This indicates where the list of glossary terms is to appear as a series of hanging indent paragraphs</dd
 ><dt
 ><object
 type="tElement"
@@ -10035,6 +10112,20 @@ type="tElement"
 ><dt
 ><object
 type="tElement"
+>labelContent</object
+></dt
+><dd
+>Content to use for an element's label given a content choice</dd
+><dt
+><object
+type="tElement"
+>labelContentChoices</object
+></dt
+><dd
+>Two or more content items (labelContent) controlled by content control</dd
+><dt
+><object
+type="tElement"
 >landscape</object
 ></dt
 ><dd
@@ -10177,7 +10268,10 @@ type="tElement"
 >mediaObject</object
 ></dt
 ><dd
->Used to embed a sound or movie file. Only works with the <object
+>Used to embed a sound or movie file. Only works with the default <object
+type="tXeTeX"
+></object
+> way of producing PDF and the <object
 type="tRenderX"
 ></object
 > way of producing PDF.</dd
@@ -10221,6 +10315,13 @@ type="tElement"
 ><dt
 ><object
 type="tElement"
+>msVersion</object
+></dt
+><dd
+>Version information for a manuscript</dd
+><dt
+><object
+type="tElement"
 >multivolumeWork</object
 ></dt
 ><dd
@@ -10260,6 +10361,13 @@ type="tElement"
 ></dt
 ><dd
 >A part section which contains chapters</dd
+><dt
+><object
+type="tElement"
+>partLabelContentChoices</object
+></dt
+><dd
+>Used for controlling label of parts in endnotes in a book when using endnotes instead of footnotes</dd
 ><dt
 ><object
 type="tElement"
@@ -10310,7 +10418,14 @@ type="tElement"
 >procEdInitials</object
 ></dt
 ><dd
->Reference information for the editor(s) of a proceedings volume; using initials instead of author's first (etc.) name(s)</dd
+>Reference information for the editor(s) of a proceedings volume, using initials instead of author's first (etc.) name(s)</dd
+><dt
+><object
+type="tElement"
+>procEdSurnameGivenName</object
+></dt
+><dd
+>Reference information for the editor(s) of a proceedings volume, using the "surname, given name" form for all author names</dd
 ><dt
 ><object
 type="tElement"
@@ -10426,6 +10541,13 @@ type="tElement"
 ><dt
 ><object
 type="tElement"
+>refAuthorSurnameGivenName</object
+></dt
+><dd
+>Reference information for an author, using the "surname, given name" form for all author names</dd
+><dt
+><object
+type="tElement"
 >refDate</object
 ></dt
 ><dd
@@ -10461,6 +10583,13 @@ type="tElement"
 ><dt
 ><object
 type="tElement"
+>reprintInfo</object
+></dt
+><dd
+>Reference information for reprint information of a publication</dd
+><dt
+><object
+type="tElement"
 >row</object
 ></dt
 ><dd
@@ -10481,7 +10610,7 @@ type="tElement"
 >section2</object
 ></dt
 ><dd
->A level two section of the paper (i.e. a sub-section)</dd
+>A level two section of the paper (i.e., a sub-section)</dd
 ><dt
 ><object
 type="tElement"
@@ -10576,6 +10705,13 @@ type="tElement"
 ><dt
 ><object
 type="tElement"
+>seriesEdSurnameGivenName</object
+></dt
+><dd
+>Reference information for the editor(s) (using the "surname, given name" form for all author names) of a book that is published within a series</dd
+><dt
+><object
+type="tElement"
 >secTitle</object
 ></dt
 ><dd
@@ -10614,7 +10750,7 @@ type="tElement"
 >source</object
 ></dt
 ><dd
->The source information of an interlinear text (e.g. who gave the textl, where, when, etc.)</dd
+>The source information of an interlinear text (e.g., who gave the text, where, when, etc.)</dd
 ><dt
 ><object
 type="tElement"
@@ -10713,6 +10849,20 @@ type="tElement"
 ><dt
 ><object
 type="tElement"
+>titleContent</object
+></dt
+><dd
+>Content to use for an element's title given a content choice</dd
+><dt
+><object
+type="tElement"
+>titleContentChoices</object
+></dt
+><dd
+>Two or more content items (titleContent) controlled by content control</dd
+><dt
+><object
+type="tElement"
 >tr</object
 ></dt
 ><dd
@@ -10774,6 +10924,13 @@ type="tElement"
 ><dt
 ><object
 type="tElement"
+>volume</object
+></dt
+><dd
+>Indicates the beginning of a volume in a multi-volume book</dd
+><dt
+><object
+type="tElement"
 >webPage</object
 ></dt
 ><dd
@@ -10820,6 +10977,13 @@ type="tXLingPap"
 ></object
 > publisher style sheet and briefly explains their usage. They are listed in alphabetical order.</p
 ><dl
+><dt
+><object
+type="tElement"
+>abbreviationsInFootnoteLayout</object
+></dt
+><dd
+>Layout info for showing abbreviations used in a footnote</dd
 ><dt
 ><object
 type="tElement"
@@ -10882,6 +11046,13 @@ type="tElement"
 ><dt
 ><object
 type="tElement"
+>appendixRefLayout</object
+></dt
+><dd
+>Layout info for an appendix reference element</dd
+><dt
+><object
+type="tElement"
 >appendixRefLinkLayout</object
 ></dt
 ><dd
@@ -10889,6 +11060,13 @@ type="tElement"
 type="tElement"
 >appendixRef</object
 > hyperlinks</dd
+><dt
+><object
+type="tElement"
+>appendixRefTitleLayout</object
+></dt
+><dd
+>Layout info for an appendix reference element that outputs the appendix title</dd
 ><dt
 ><object
 type="tElement"
@@ -10990,6 +11168,13 @@ type="tElement"
 ></dt
 ><dd
 >Layout info for the total pages of a book (within references)</dd
+><dt
+><object
+type="tElement"
+>bookversionItem</object
+></dt
+><dd
+>Layout info for the version number of a book (within references)</dd
 ><dt
 ><object
 type="tElement"
@@ -11244,6 +11429,26 @@ type="tElement"
 ><dt
 ><object
 type="tElement"
+>doiItem</object
+></dt
+><dd
+>Layout info for a <object
+type="tElement"
+>doi</object
+> element (within references)</dd
+><dt
+><object
+type="tElement"
+>doiLinkLayout</object
+></dt
+><dd
+>Layout info for special link formatting for <object
+type="tElement"
+>doi</object
+> hyperlinks</dd
+><dt
+><object
+type="tElement"
 >emailAddressLayout</object
 ></dt
 ><dd
@@ -11255,6 +11460,13 @@ type="tElement"
 ></dt
 ><dd
 >Layout info for edition information (within references)</dd
+><dt
+><object
+type="tElement"
+>editorItem</object
+></dt
+><dd
+>Layout info for editor information (within references)</dd
 ><dt
 ><object
 type="tElement"
@@ -11455,7 +11667,7 @@ type="tElement"
 >Layout info for <object
 type="tElement"
 >gloss</object
-> elements which are in prose (i.e. non-<object
+> elements which are in prose (i.e., non-<object
 type="tElement"
 >example</object
 > and non-<object
@@ -11495,6 +11707,20 @@ type="tElement"
 ><dt
 ><object
 type="tElement"
+>glossaryTermDefinitionInDefinitionListLayout</object
+></dt
+><dd
+>Layout info for showing a glossary term definition when using a definition list</dd
+><dt
+><object
+type="tElement"
+>glossaryTermTermInDefinitionListLayout</object
+></dt
+><dd
+>Layout info for showing a glossary term when using a definition list</dd
+><dt
+><object
+type="tElement"
 >glossaryTermRefLinkLayout</object
 ></dt
 ><dd
@@ -11502,6 +11728,13 @@ type="tElement"
 type="tElement"
 >glossaryTermRef</object
 > hyperlinks</dd
+><dt
+><object
+type="tElement"
+>glossaryTermsInDefinitionListLayout</object
+></dt
+><dd
+>Layout info for showing glossary terms used in a series of hanging indent paragraphs</dd
 ><dt
 ><object
 type="tElement"
@@ -11582,6 +11815,13 @@ type="tElement"
 ></dt
 ><dd
 >Margin to use for the header</dd
+><dt
+><object
+type="tElement"
+>imageBorderLayout</object
+></dt
+><dd
+>Layout for a border on an image</dd
 ><dt
 ><object
 type="tElement"
@@ -11749,7 +11989,7 @@ type="tElement"
 >Layout info for <object
 type="tElement"
 >langData</object
-> elements which are in prose (i.e. non-<object
+> elements which are in prose (i.e., non-<object
 type="tElement"
 >example</object
 > and non-<object
@@ -11892,6 +12132,13 @@ type="tElement"
 ><dt
 ><object
 type="tElement"
+>msVersionItem</object
+></dt
+><dd
+>Layout info for a version information of a manuscript (within references)</dd
+><dt
+><object
+type="tElement"
 >multivolumeWorkItem</object
 ></dt
 ><dd
@@ -11976,6 +12223,13 @@ type="tElement"
 ><dt
 ><object
 type="tElement"
+>paperLabelItem</object
+></dt
+><dd
+>Layout info for a paper label (within references)</dd
+><dt
+><object
+type="tElement"
 >paperLayout</object
 ></dt
 ><dd
@@ -12001,6 +12255,13 @@ type="tElement"
 ></dt
 ><dd
 >Indicates to use the title of the paper in a header or footer</dd
+><dt
+><object
+type="tElement"
+>paragraphAlignment</object
+></dt
+><dd
+>Alignment to use for paragraphs</dd
 ><dt
 ><object
 type="tElement"
@@ -12140,6 +12401,23 @@ type="tElement"
 ><dt
 ><object
 type="tElement"
+>publisherStyleSheetDate</object
+></dt
+><dd
+>A date for the style sheet</dd
+><dt
+><object
+type="tElement"
+>publisherStyleSheetDateAccessed</object
+></dt
+><dd
+>The date when the url was accessed (see <object
+type="tElement"
+>publisherStyleSheetUrl</object
+> below)</dd
+><dt
+><object
+type="tElement"
 >publisherStyleSheetName</object
 ></dt
 ><dd
@@ -12165,6 +12443,13 @@ type="tElement"
 ></dt
 ><dd
 >The name of the publisher for which this is a style sheet</dd
+><dt
+><object
+type="tElement"
+>publisherStyleSheetUrl</object
+></dt
+><dd
+>A URL indicating where the style sheet information came from</dd
 ><dt
 ><object
 type="tElement"
@@ -12220,6 +12505,13 @@ type="tElement"
 ><dt
 ><object
 type="tElement"
+>refAuthorNameChange</object
+></dt
+><dd
+>Change needed for author name and citation name</dd
+><dt
+><object
+type="tElement"
 >refDateItem</object
 ></dt
 ><dd
@@ -12265,6 +12557,13 @@ type="tElement"
 ></dt
 ><dd
 >Layout info for the title of a references section in the document</dd
+><dt
+><object
+type="tElement"
+>reprintInfoItem</object
+></dt
+><dd
+>Layout info for reprint information within references</dd
 ><dt
 ><object
 type="tElement"
@@ -12390,7 +12689,14 @@ type="tElement"
 >seriesItem</object
 ></dt
 ><dd
->Layout info for a series item (withiin references)</dd
+>Layout info for a series item (within references)</dd
+><dt
+><object
+type="tElement"
+>shortSubsectionLayout</object
+></dt
+><dd
+>Layout info for a short subsection</dd
 ><dt
 ><object
 type="tElement"
@@ -12567,6 +12873,13 @@ type="tElement"
 ><dt
 ><object
 type="tElement"
+>volumeLayout</object
+></dt
+><dd
+>Layout info for a volume element in the table of contents</dd
+><dt
+><object
+type="tElement"
 >volumeTitleRef</object
 ></dt
 ><dd
@@ -12661,96 +12974,30 @@ id="lMeaning"
 name="Value"
 ></language
 ></languages
-><types
-><type
-color="purple"
-font-family="fixed"
-id="tAttribute"
-></type
-><type
-color="steelblue"
-font-family="fixed"
-font-style="italic"
-id="tAttrValue"
-></type
-><type
-font-weight="bold"
-id="tBold"
-></type
-><type
-font-family="fixed"
-font-weight="bold"
-id="tCitationLabel"
-></type
-><type
-color="maroon"
-font-family="fixed"
-id="tElement"
-></type
-><type
-color="black"
-cssSpecial="background-color:wheat;"
-font-family="fixed"
-id="tElementExample"
-></type
-><type
-cssSpecial="background-color:linen; margin-left:10pt; margin-right:5pt; margin-top:5pt; margin-bottom:5pt; padding-left:10pt; padding-right:10pt; padding-top:10pt; padding-bottom:10pt; border-left-width:1pt; border-right-width:1pt; border-top-width:1pt; border-bottom-width:1pt; border-right-style:dashed; border-left-style:dashed; border-top-style:dashed; border-bottom-style:dashed;"
-id="tHtmlOutput"
-></type
-><type
-color="maroon"
-id="tInstruction"
-></type
-><type
-font-family="fixed"
-font-weight="bold"
-id="tInTextExample"
-></type
-><type
-font-style="italic"
-id="tItalic"
-></type
-><type
-font-family="Courier New"
-id="tKey"
-></type
-><type
-font-family="Courier New"
-font-weight="bold"
-id="tKeyTerm"
-></type
-><type
-after="RenderX XEP"
-id="tRenderX"
-types="tTool"
-></type
-><type
-cssSpecial="vertical-align:sub;"
-font-size="65%"
-id="tSubscript"
-xsl-foSpecial="baseline-shift='sub'"
-></type
-><type
-cssSpecial="margin-left:.5in;"
-id="tTableCSS"
-></type
-><type
-color="navy"
-font-family="Courier New"
-font-weight="bold"
-id="tTool"
-></type
-><type
-after="XLingPaper"
-before=""
-id="tXLingPap"
-types="tTool"
-></type
-><type
-after="XMLmind XML Editor"
-id="tXMLmindXMLEditor"
-types="tTool"
-></type
-></types
+><xi:include
+href="Types.xml"
+xpointer="element(/1)"
+xmlns:xi="http://www.w3.org/2001/XInclude"
+></xi:include
+><contentControl
+><contentTypes
+><contentType
+id="ctVersion5.3"
+>Version 5.3 only</contentType
+><contentType
+id="ctVersion7Plus"
+>Version 7+ only</contentType
+></contentTypes
+><contentControlChoices
+><contentControlChoice
+active="no"
+exclude="ctVersion7Plus"
+>Version 5.3</contentControlChoice
+><contentControlChoice
+active="yes"
+exclude="ctVersion5.3"
+>Version 7+</contentControlChoice
+></contentControlChoices
+></contentControl
 ></lingPaper
 >

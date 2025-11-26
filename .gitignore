@@ -1,6 +1,8 @@
 *.classpath
 *~
 javasrc/XLingPapExtensions/bin
+javasrc/XLingPapExtensions/class
 javasrc/XLingPapExtensions/XLingPap.jar
-
-
+*.bak
+*.jao
+doc/XLingPaperPDFTemp

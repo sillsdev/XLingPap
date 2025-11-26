@@ -3,6 +3,15 @@
     <!-- 
         Variables and templates common to all "canned" style sheets.
     -->
+    <xsl:variable name="gtAuthors" select="//refAuthor[refWork/@id=//citation[ancestor::glossaryTerm[key('GlossaryTermRefs',@id)]]/@ref]"/>
+    <xsl:variable name="otherAuthors" select="//refAuthor[refWork[@id=$citations[not(ancestor::comment) and not(ancestor::referencedInterlinearText) and not(ancestor::glossaryTerm) and not(ancestor::abbrDefinition)][not(ancestor::refWork) or ancestor::annotation[@id=//annotationRef/@annotation] or ancestor::refWork[@id=$citations[not(ancestor::refWork)]/@ref]]/@ref]]"/>
+    <!--  
+        dateLetter
+    -->
+    <xsl:template mode="dateLetter" match="*">
+        <xsl:param name="date"/>
+        <xsl:number level="single" count="refWork[@id=//citation/@ref][refDate=$date or refDate/@citedate=$date]" format="a"/>
+    </xsl:template>
     <!--
         DoAppendixRef
     -->
@@ -33,7 +42,7 @@
     <xsl:template name="DoCollectionEdition">
         <xsl:if test="collection/edition">
             <xsl:text>&#x20;</xsl:text>
-            <xsl:value-of select="normalize-space(collection/edition)"/>
+            <xsl:apply-templates select="collection/edition"/>
             <xsl:call-template name="OutputPeriodIfNeeded">
                 <xsl:with-param name="sText" select="collection/edition"/>
             </xsl:call-template>
@@ -114,6 +123,26 @@
         </xsl:choose>
     </xsl:template>
     <!--  
+        DoItemRefLabel
+    -->
+    <xsl:template name="DoItemRefLabel">
+        <xsl:param name="sLabel"/>
+        <xsl:param name="sDefault"/>
+        <xsl:choose>
+            <xsl:when test="string-length($sLabel) &gt; 0">
+                <xsl:value-of select="$sLabel"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:value-of select="$sDefault"/>
+                <!-- a plain space is removed here, so we have to overtly add a non-breaking space -->
+                <xsl:variable name="sLastChar" select="substring($sDefault,string-length($sDefault),1)"/>
+                <xsl:if test="$sLastChar != ' ' and $sLastChar != '&#xa0;'">
+                    <xsl:text>&#xa0;</xsl:text>
+                </xsl:if>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
+    <!--  
         DoReferenceShowTitleAfter
     -->
     <xsl:template name="DoReferenceShowTitleAfter">
@@ -129,6 +158,17 @@
         <xsl:param name="showTitle"/>
         <xsl:if test="$showTitle='short' or $showTitle='full'">
             <xsl:text>“</xsl:text>
+        </xsl:if>
+    </xsl:template>
+    <!--  
+        DoReprintInfo
+    -->
+    <xsl:template name="DoReprintInfo">
+        <xsl:param name="reprintInfo"/>
+        <xsl:if test="$reprintInfo">
+            <xsl:text>&#x20;</xsl:text>
+            <xsl:apply-templates select="$reprintInfo"/>
+            <xsl:text>.</xsl:text>
         </xsl:if>
     </xsl:template>
     <!--  
@@ -205,38 +245,208 @@
         <xsl:param name="layoutInfo"/>
         <!-- default is to do nothing -->
     </xsl:template>
+    <!--
+        OutputAnyTextBeforeRef
+    -->
+    <xsl:template name="OutputAnyTextBeforeRef">
+        <!-- output any canned text before the section reference -->
+        <xsl:param name="ssingular" select="'section'"/>
+        <xsl:param name="splural" select="'sections'"/>
+        <xsl:param name="sSingular" select="'Section'"/>
+        <xsl:param name="sPlural" select="'Sections'"/>
+        <xsl:param name="default" select="$lingPaper/@sectionRefDefault"/>
+        <xsl:param name="singularLabel" select="$lingPaper/@sectionRefSingularLabel"/>
+        <xsl:param name="SingularLabel" select="$lingPaper/@sectionRefCapitalizedSingularLabel"/>
+        <xsl:param name="pluralLabel" select="$lingPaper/@sectionRefPluralLabel"/>
+        <xsl:param name="PluralLabel" select="$lingPaper/@sectionRefCapitalizedPluralLabel"/>
+        <xsl:choose>
+            <xsl:when test="@textBefore='useDefault'">
+                <xsl:choose>
+                    <xsl:when test="$default='none'">
+                        <!-- do nothing -->
+                    </xsl:when>
+                    <xsl:when test="$default='singular'">
+                        <xsl:call-template name="DoItemRefLabel">
+                            <xsl:with-param name="sLabel" select="$singularLabel"/>
+                            <xsl:with-param name="sDefault" select="$ssingular"/>
+                        </xsl:call-template>
+                    </xsl:when>
+                    <xsl:when test="$default='capitalizedSingular'">
+                        <xsl:call-template name="DoItemRefLabel">
+                            <xsl:with-param name="sLabel" select="$SingularLabel"/>
+                            <xsl:with-param name="sDefault" select="$sSingular"/>
+                        </xsl:call-template>
+                    </xsl:when>
+                    <xsl:when test="$default='plural'">
+                        <xsl:call-template name="DoItemRefLabel">
+                            <xsl:with-param name="sLabel" select="$pluralLabel"/>
+                            <xsl:with-param name="sDefault" select="$splural"/>
+                        </xsl:call-template>
+                    </xsl:when>
+                    <xsl:when test="$default='capitalizedPlural'">
+                        <xsl:call-template name="DoItemRefLabel">
+                            <xsl:with-param name="sLabel" select="$PluralLabel"/>
+                            <xsl:with-param name="sDefault" select="$sPlural"/>
+                        </xsl:call-template>
+                    </xsl:when>
+                </xsl:choose>
+            </xsl:when>
+            <xsl:when test="@textBefore='singular'">
+                <xsl:call-template name="DoItemRefLabel">
+                    <xsl:with-param name="sLabel" select="$singularLabel"/>
+                    <xsl:with-param name="sDefault" select="$ssingular"/>
+                </xsl:call-template>
+            </xsl:when>
+            <xsl:when test="@textBefore='capitalizedSingular'">
+                <xsl:call-template name="DoItemRefLabel">
+                    <xsl:with-param name="sLabel" select="$SingularLabel"/>
+                    <xsl:with-param name="sDefault" select="$sSingular"/>
+                </xsl:call-template>
+            </xsl:when>
+            <xsl:when test="@textBefore='plural'">
+                <xsl:call-template name="DoItemRefLabel">
+                    <xsl:with-param name="sLabel" select="$pluralLabel"/>
+                    <xsl:with-param name="sDefault" select="$splural"/>
+                </xsl:call-template>
+            </xsl:when>
+            <xsl:when test="@textBefore='capitalizedPlural'">
+                <xsl:call-template name="DoItemRefLabel">
+                    <xsl:with-param name="sLabel" select="$PluralLabel"/>
+                    <xsl:with-param name="sDefault" select="$sPlural"/>
+                </xsl:call-template>
+            </xsl:when>
+        </xsl:choose>
+    </xsl:template>
+    <!--
+        OutputAnyTextBeforeAppendixRef
+    -->
+    <xsl:template name="OutputAnyTextBeforeAppendixRef">
+        <xsl:call-template name="OutputAnyTextBeforeRef">
+            <xsl:with-param name="ssingular" select="'appendix'"/>
+            <xsl:with-param name="sSingular" select="'Appendix'"/>
+            <xsl:with-param name="splural" select="'appendices'"/>
+            <xsl:with-param name="sPlural" select="'Appendices'"/>
+            <xsl:with-param name="default" select="$lingPaper/@appendixRefDefault"/>
+            <xsl:with-param name="singularLabel" select="$lingPaper/@appendixRefSingularLabel"/>
+            <xsl:with-param name="SingularLabel" select="$lingPaper/@appendixRefCapitalizedSingularLabel"/>
+            <xsl:with-param name="pluralLabel" select="$lingPaper/@appendixRefPluralLabel"/>
+            <xsl:with-param name="PluralLabel" select="$lingPaper/@appendixRefCapitalizedPluralLabel"/>
+        </xsl:call-template>
+    </xsl:template>
+    <!--
+        OutputAnyTextBeforeFigureRef
+    -->
+    <xsl:template name="OutputAnyTextBeforeFigureRef">
+        <xsl:call-template name="OutputAnyTextBeforeRef">
+            <xsl:with-param name="ssingular" select="'figure'"/>
+            <xsl:with-param name="sSingular" select="'Figure'"/>
+            <xsl:with-param name="splural" select="'figures'"/>
+            <xsl:with-param name="sPlural" select="'Figures'"/>
+            <xsl:with-param name="default" select="$lingPaper/@figureRefDefault"/>
+            <xsl:with-param name="singularLabel" select="$lingPaper/@figureRefSingularLabel"/>
+            <xsl:with-param name="SingularLabel" select="$lingPaper/@figureRefCapitalizedSingularLabel"/>
+            <xsl:with-param name="pluralLabel" select="$lingPaper/@figureRefPluralLabel"/>
+            <xsl:with-param name="PluralLabel" select="$lingPaper/@figureRefCapitalizedPluralLabel"/>
+        </xsl:call-template>
+    </xsl:template>
+    <!--
+        OutputAnyTextBeforeSectionRef
+    -->
+    <xsl:template name="OutputAnyTextBeforeSectionRef">
+        <xsl:call-template name="OutputAnyTextBeforeRef">
+            <xsl:with-param name="ssingular" select="'section'"/>
+            <xsl:with-param name="sSingular" select="'Section'"/>
+            <xsl:with-param name="splural" select="'sections'"/>
+            <xsl:with-param name="sPlural" select="'Sections'"/>
+            <xsl:with-param name="default" select="$lingPaper/@sectionRefDefault"/>
+            <xsl:with-param name="singularLabel" select="$lingPaper/@sectionRefSingularLabel"/>
+            <xsl:with-param name="SingularLabel" select="$lingPaper/@sectionRefCapitalizedSingularLabel"/>
+            <xsl:with-param name="pluralLabel" select="$lingPaper/@sectionRefPluralLabel"/>
+            <xsl:with-param name="PluralLabel" select="$lingPaper/@sectionRefCapitalizedPluralLabel"/>
+        </xsl:call-template>
+    </xsl:template>
+    <!--
+        OutputAnyTextBeforeTablenumberedRef
+    -->
+    <xsl:template name="OutputAnyTextBeforeTablenumberedRef">
+        <xsl:call-template name="OutputAnyTextBeforeRef">
+            <xsl:with-param name="ssingular" select="'table'"/>
+            <xsl:with-param name="sSingular" select="'Table'"/>
+            <xsl:with-param name="splural" select="'tables'"/>
+            <xsl:with-param name="sPlural" select="'Tables'"/>
+            <xsl:with-param name="default" select="$lingPaper/@sectionRefDefault"/>
+            <xsl:with-param name="singularLabel" select="$lingPaper/@tablenumberedRefSingularLabel"/>
+            <xsl:with-param name="SingularLabel" select="$lingPaper/@tablenumberedRefCapitalizedSingularLabel"/>
+            <xsl:with-param name="pluralLabel" select="$lingPaper/@tablenumberedRefPluralLabel"/>
+            <xsl:with-param name="PluralLabel" select="$lingPaper/@tablenumberedRefCapitalizedPluralLabel"/>
+        </xsl:call-template>
+    </xsl:template>
     <!--  
         OutputCitationContents
     -->
     <xsl:template name="OutputCitationContents">
         <xsl:param name="refer"/>
+        <xsl:param name="refWorks" select="$refWorks"/>
         <xsl:if test="@paren='citationBoth' or @paren='citationInitial'">
             <xsl:text>(</xsl:text>
         </xsl:if>
         <xsl:if test="@author='yes'">
-            <xsl:value-of select="$refer/../@citename"/>
-            <xsl:text>&#x20;</xsl:text>
+            <xsl:choose>
+                <xsl:when test="$refer/../citeName">
+                    <xsl:apply-templates select="$refer/../citeName"/>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:choose>
+                        <xsl:when test="$refer/../citeName">
+                            <xsl:apply-templates select="$refer/../citeName"/>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:value-of select="$refer/../@citename"/>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                </xsl:otherwise>
+            </xsl:choose>
+            <xsl:if test="@date='yes'">
+                <xsl:text>&#x20;</xsl:text>
+            </xsl:if>
         </xsl:if>
         <xsl:if test="not(@paren) or @paren='both' or @paren='initial'">
             <xsl:text>(</xsl:text>
         </xsl:if>
         <xsl:variable name="works" select="$refWorks[../@name=$refer/../@name and @id=//citation/@ref]"/>
         <xsl:variable name="date">
-            <xsl:value-of select="$refer/refDate"/>
+            <xsl:variable name="sCiteDate" select="$refer/refDate/@citedate"/>
+            <xsl:choose>
+                <xsl:when test="string-length($sCiteDate) &gt; 0">
+                    <xsl:value-of select="$sCiteDate"/>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:value-of select="$refer/refDate"/>
+                </xsl:otherwise>
+            </xsl:choose>
         </xsl:variable>
         <xsl:if test="@author='yes' and not(not(@paren) or @paren='both' or @paren='initial')">
-            <xsl:text>&#x20;</xsl:text>
+            <xsl:if test="@date='yes'">
+                <xsl:text>&#x20;</xsl:text>
+            </xsl:if>
         </xsl:if>
-        <xsl:value-of select="$date"/>
-        <xsl:if test="count($works[refDate=$date])>1">
-            <xsl:apply-templates select="$refer" mode="dateLetter">
-                <xsl:with-param name="date" select="$date"/>
-            </xsl:apply-templates>
+        <xsl:if test="@date!='no'">
+            <xsl:value-of select="$date"/>
+            <xsl:if test="count($works[refDate=$date or refDate/@citedate=$date])>1">
+                <xsl:apply-templates select="$refer" mode="dateLetter">
+                    <xsl:with-param name="date" select="$date"/>
+                </xsl:apply-templates>
+           </xsl:if>
         </xsl:if>
         <xsl:variable name="sPage" select="normalize-space(@page)"/>
         <xsl:if test="string-length($sPage) &gt; 0">
             <xsl:text>:</xsl:text>
             <xsl:value-of select="$sPage"/>
+        </xsl:if>
+        <xsl:variable name="sTimestamp" select="normalize-space(@timestamp)"/>
+        <xsl:if test="string-length($sTimestamp) &gt; 0">
+            <xsl:text>&#x20;</xsl:text>
+            <xsl:value-of select="$sTimestamp"/>
         </xsl:if>
         <xsl:if test="not(@paren) or @paren='both' or @paren='final' or @paren='citationBoth'">
             <xsl:text>)</xsl:text>
@@ -255,5 +465,61 @@
                 <xsl:text>Figure </xsl:text>
             </xsl:otherwise>
         </xsl:choose>
+    </xsl:template>
+    <!--  
+        OutputPaperLabel
+    -->
+    <xsl:template name="OutputPaperLabel">
+        <xsl:call-template name="OutputLabel">
+            <xsl:with-param name="sDefault" select="$sPaperDefaultLabel"/>
+            <xsl:with-param name="pLabel">
+                <xsl:choose>
+                    <xsl:when test="string-length(normalize-space(paper/@labelPaper)) &gt; 0">
+                        <xsl:value-of select="paper/@labelPaper"/>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:value-of select="//references/@labelPaper"/>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </xsl:with-param>
+        </xsl:call-template>
+    </xsl:template>
+    <!--  
+        OutputVolumeInContents
+    -->
+    <xsl:template name="OutputVolumeInContents">
+        <xsl:param name="volume"/>
+        <xsl:if test="$volumes and $publishingInfo/@showVolumeInContents='yes'">
+            <xsl:variable name="iPreceds" select="count($volume[parent::lingPaper]/preceding-sibling::volume)"/>
+            <xsl:choose>
+                <xsl:when test="$publishingInfo/@whichVolumeToShowInContents='all'">
+                    <xsl:for-each select="$volume">
+                        <xsl:call-template name="OutputTOCVolumeLine">
+                            <xsl:with-param name="sSpaceBefore" select="'10'"/>
+                            <xsl:with-param name="sLabel">
+                                <xsl:call-template name="OutputVolumeLabel"/>
+                                <xsl:text>&#x20;</xsl:text>
+                                <xsl:value-of select="@number"/>
+                            </xsl:with-param>
+                        </xsl:call-template>
+                    </xsl:for-each>
+                </xsl:when>
+                <xsl:when test="$volume[parent::lingPaper] and $publishingInfo/@whichVolumeToShowInContents=count($volume/preceding-sibling::volume[parent::lingPaper])+2">
+                    <xsl:for-each select="$volume">
+                        <xsl:call-template name="OutputTOCVolumeLine">
+                            <xsl:with-param name="sSpaceBefore" select="'10'"/>
+                            <xsl:with-param name="sLabel">
+                                <xsl:call-template name="OutputVolumeLabel"/>
+                                <xsl:text>&#x20;</xsl:text>
+                                <xsl:value-of select="@number"/>
+                            </xsl:with-param>
+                        </xsl:call-template>
+                    </xsl:for-each>
+                </xsl:when>
+                <xsl:otherwise>
+                    <!-- do nothing -->
+                </xsl:otherwise>
+            </xsl:choose>
+        </xsl:if>
     </xsl:template>
 </xsl:stylesheet>

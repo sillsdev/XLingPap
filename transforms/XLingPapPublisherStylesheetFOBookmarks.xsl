@@ -4,16 +4,62 @@
         abstract  (bookmarks)
     -->
    <xsl:template match="abstract" mode="bookmarks">
-      <xsl:call-template name="OutputBookmark">
-         <xsl:with-param name="sLink">
-            <xsl:call-template name="GetIdToUse">
-               <xsl:with-param name="sBaseId" select="$sAbstractID"/>
+      <xsl:param name="iLayoutPosition" select="0"/>
+      <xsl:variable name="iPos" select="count(preceding-sibling::abstract) + 1"/>
+      <xsl:variable name="fLayoutIsLastOfMany">
+         <xsl:choose>
+            <xsl:when test="$iLayoutPosition=0">
+               <xsl:text>N</xsl:text>
+            </xsl:when>
+            <xsl:when test="count($frontMatterLayoutInfo/abstractLayout[number($iLayoutPosition)]/following-sibling::abstractLayout)=0">
+               <xsl:text>Y</xsl:text>
+            </xsl:when>
+            <xsl:otherwise>
+               <xsl:text>N</xsl:text>
+            </xsl:otherwise>
+         </xsl:choose>
+      </xsl:variable>
+      <xsl:choose>
+         <xsl:when test="$iLayoutPosition = 0">
+            <!-- there's one and only one abstractLayout; use it -->
+            <xsl:call-template name="OutputBookmark">
+               <xsl:with-param name="sLink">
+                  <xsl:call-template name="GetIdToUse">
+                     <xsl:with-param name="sBaseId" select="concat($sAbstractID,count(preceding-sibling::abstract))"/>
+                  </xsl:call-template>
+               </xsl:with-param>
+               <xsl:with-param name="sLabel">
+                  <xsl:call-template name="OutputAbstractLabel"/>
+               </xsl:with-param>
             </xsl:call-template>
-         </xsl:with-param>
-         <xsl:with-param name="sLabel">
-            <xsl:call-template name="OutputAbstractLabel"/>
-         </xsl:with-param>
-      </xsl:call-template>
+         </xsl:when>
+         <xsl:when test="$iLayoutPosition = $iPos">
+            <!-- there are many abstractLayouts; use the one that matches in position -->
+            <xsl:call-template name="OutputBookmark">
+               <xsl:with-param name="sLink">
+                  <xsl:call-template name="GetIdToUse">
+                     <xsl:with-param name="sBaseId" select="concat($sAbstractID,count(preceding-sibling::abstract))"/>
+                  </xsl:call-template>
+               </xsl:with-param>
+               <xsl:with-param name="sLabel">
+                  <xsl:call-template name="OutputAbstractLabel"/>
+               </xsl:with-param>
+            </xsl:call-template>
+         </xsl:when>
+         <xsl:when test="$fLayoutIsLastOfMany='Y' and $iPos &gt; $iLayoutPosition">
+            <!-- there are many abstractLayouts and there are more abstract elements than abstractLayout elements; use the last layout -->
+            <xsl:call-template name="OutputBookmark">
+               <xsl:with-param name="sLink">
+                  <xsl:call-template name="GetIdToUse">
+                     <xsl:with-param name="sBaseId" select="concat($sAbstractID,count(preceding-sibling::abstract))"/>
+                  </xsl:call-template>
+               </xsl:with-param>
+               <xsl:with-param name="sLabel">
+                  <xsl:call-template name="OutputAbstractLabel"/>
+               </xsl:with-param>
+            </xsl:call-template>
+         </xsl:when>
+      </xsl:choose>
    </xsl:template>
    <!--
         acknowledgements (bookmarks)
@@ -170,10 +216,10 @@
                <xsl:with-param name="sLabel">
                   <xsl:call-template name="OutputGlossaryLabel"/>
                </xsl:with-param>
-            </xsl:call-template>            
+            </xsl:call-template>
          </xsl:when>
       </xsl:choose>
-<!--      
+      <!--      
       
       <xsl:if test="$iLayoutPosition = 0 or $iLayoutPosition = $iPos">
          <xsl:call-template name="OutputBookmark">
@@ -297,7 +343,7 @@
                   <xsl:call-template name="OutputPrefaceLabel"/>
                </xsl:with-param>
             </xsl:call-template>
-            </xsl:when>
+         </xsl:when>
          <xsl:when test="$fLayoutIsLastOfMany='Y' and $iPos &gt; $iLayoutPosition">
             <!-- there are many prefaceLayouts and there are more preface elements than prefaceLayout elements; use the last layout -->
             <xsl:call-template name="OutputBookmark">
@@ -309,7 +355,7 @@
                <xsl:with-param name="sLabel">
                   <xsl:call-template name="OutputPrefaceLabel"/>
                </xsl:with-param>
-            </xsl:call-template>            
+            </xsl:call-template>
          </xsl:when>
       </xsl:choose>
    </xsl:template>

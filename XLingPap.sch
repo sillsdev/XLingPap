@@ -16,11 +16,13 @@
         <active pattern="definitions"/>
         <active pattern="interlinears"/>
         <active pattern="lineembeded"/>
-        <active pattern="badbr"/>
+        <!-- following no longer relevant -->
+<!--        <active pattern="badbr"/>-->
         <active pattern="deprecatedsmallcaps"/>
         <active pattern="deprecatedsmallcaps2"/>
         <active pattern="fontsize"/>
         <active pattern="index"/>
+        <active pattern="linebefore-weight"/>
         <active pattern="startpagenumber"/>
         <active pattern="graphics"/>
         <active pattern="pubstylesheets"/>
@@ -31,6 +33,10 @@
         <active pattern="contentTypeLocation"/>
         <active pattern="abbrRef"/>
         <active pattern="endnoteInSecTitle"/>
+        <active pattern="indexRangeInSecTitle"/>
+        <active pattern="deprecatedethnCode"/>
+        <active pattern="glossaryTermRefersToItself"/>
+        <active pattern="emptycitation"/>
     </phase>
     <pattern id="line">
         <title>
@@ -193,6 +199,9 @@
         <rule context="interlinear">
             <report test="ancestor::table and descendant::endnote and not(parent::example)">Warning: There is an interlinear within a table and that interlinear contains an endnote somewhere.  This will fail to produce the PDF using the XeLaTex method.  Furthermore, the other outputs will probably not format correctly.  Please consider Convert/wrapping the interlinear within an example or using something else for the interlinear.</report>
         </rule>
+        <rule context="interlinearSource">
+            <report test="ancestor::interlinear-text">Warning: There is an interlinearSource element within an interlinear inside an interlinear-text.  This is not appropriate and not needed.  Please remove the interlinearSource element.</report>
+        </rule>
     </pattern>
     <pattern id="lineembeded">
         <title>
@@ -206,6 +215,7 @@
             <report test="parent::line and descendant::*[name()='endnoteRef' or name()='citation' or name()='langData' or name()='gloss' or name()='exampleRef' or name()='sectionRef' or name()='appendixRef' or name()='comment' or name()='br' or name()='figureRef' or name()='tablenumberedRef' or name()='q' or name()='img' or name()='genericRef' or name()='genericTarget' or name()='link' or name()='indexedItem' or name()='indexedRangeBegin' or name()='indexedRangeEnd' or name()='interlinearRefCitation' or name()='mediaObject']">Warning: There is an interlinear using the space alignment and there is a gloss element with an embedded element (e.g. citation or endnoteRef).  This will not format correctly.  To fix this, please remove each such embedded element (you can cut and paste them in a paragraph somewhere to save your work).  Then see section 5.3.1.2 'Word-aligned, marking certain words or morphemes' of the user documentation for how to convert what you have to wrd elements. </report>
         </rule>
     </pattern>
+<!-- This no longer causes the PDF to fail. 
     <pattern id="badbr">
         <title>
             <dir value="ltr">Check for br elements within a line in an interlinear</dir>
@@ -214,7 +224,7 @@
             <report test="descendant::br"
                 >Warning: There is a br element within an interlinear.  This will not produce PDF output.  Please either use an example(chart) or a table to do what you have in mind. </report>
         </rule>
-    </pattern>
+    </pattern>-->
     <pattern id="deprecatedsmallcaps">
         <title>
             <dir value="ltr">Check for abbreviation element with @usesmallcaps='Y'</dir>
@@ -228,7 +238,7 @@
             <dir value="ltr">Check for use of font-variant='small-caps'</dir>
         </title>
         <rule context="/lingPaper/languages/language | /lingPaper/types/type | /xlingpaper/styledPaper/lingPaper/languages/language | /xlingpaper/styledPaper/lingPaper/types/type | /xlingpaper/styledPaper/publisherStyleSheet//* | /publisherStyleSheet//*">
-            <report test="@font-variant='small-caps'">Warning: using a font-variant of 'small-caps' is now deprecated.  Please use a real, true-blue small-caps font and put its name in the font-family attribute.</report>
+            <report test="@font-variant='small-caps'">Warning: using a font-variant of 'small-caps' is now deprecated.  Please use a real, true-blue small-caps font and put its name in the font-family attribute.  Also be sure to either remove the font-variant attribute or at least set it to 'normal'.</report>
         </rule>
     </pattern>
     <pattern id="index">
@@ -237,6 +247,13 @@
         </title>
         <rule context="indexTerm">
             <report test="@see=@id">The 'see' attribute of this indexTerm is referring to itself.  It should refer to a different indexTerm element.</report>
+        </rule>
+    </pattern>
+    <pattern id="linebefore-weight">
+        <title>Check for ill-formed linebefore-weight attribute values</title>
+        <rule context="*/@linebefore-weight">
+            <report test="contains(normalize-space(.),' ')">The linebefore-weight attribute should not contain a space. Please remove it.</report>
+            <report test="string-length(normalize-space(.)) &gt; 0 and substring(normalize-space(.),string-length(normalize-space(.))-1,2)!='pt'">Warning: this linebefore-weight attribute does not end with 'pt'.  Please add 'pt' after the number.  The PDF may fail to be produced.</report>
         </rule>
     </pattern>
     <pattern id="startpagenumber">
@@ -252,9 +269,11 @@
             <dir value="ltr">Check for graphic formats that will not work.</dir>
         </title>
         <rule context="img/@src">
+            <report test="contains(.,'  ') or contains(.,'%20%20')">Graphic file names containing two spaces in a row are not supported.  Producing the default PDF will fail.</report>
             <report test="substring(.,string-length(.)-3)='.odg'">Sorry, but .odg graphic files are not supported.  Producing the default PDF will fail.</report>
         </rule>
     </pattern>
+    
     <pattern id="pubstylesheets">
         <title>
             <dir value="ltr">Check for issues related to publisher style sheets</dir>
@@ -356,13 +375,16 @@
     </pattern>
     <pattern id="chapterInCollection">
         <rule context="chapterInCollectionBackMatterLayout">
-            <assert test="preceding-sibling::chapterInCollectionLayout ">There is a chapterInCollectionBackMatterLayout element in a publisher style sheet but no chapterInCollectionLayout  element.  The chapterInCollectionBackMatterLayout will be ignored.</assert>
+            <assert test="preceding-sibling::chapterInCollectionLayout ">There is a chapterInCollectionBackMatterLayout element in a publisher style sheet but no chapterInCollectionLayout element.  The chapterInCollectionBackMatterLayout will be ignored.</assert>
         </rule>
         <rule context="chapterInCollectionFrontMatterLayout">
             <assert test="preceding-sibling::chapterInCollectionLayout ">There is a chapterInCollectionFrontMatterLayout element in a publisher style sheet but no chapterInCollectionLayout  element.  The chapterInCollectionFrontMatterLayout will be ignored.</assert>
         </rule>
         <rule context="authorLayout[preceding-sibling::*[1][name()='contentsLayout']]">
             <assert test="//chapterInCollectionLayout">There is an authorLayout element immediately after a contentsLayout element, but no chapterInCollectionLayout.  This authorLayout will be ignored.</assert>
+        </rule>
+        <rule context="chapterInCollection">
+            <report test="/xlingpaper/styledPaper and not(/xlingpaper/styledPaper/publisherStyleSheet/bodyLayout/chapterInCollectionLayout)">This document has a chapterInCollection element and a publisher style sheet, but there is no chapterInCollectionLayout element in the body layout of the publisher style sheet.  The output will probably be incorrect.  Please add a chapterInCollectionLayout element.</report>
         </rule>
     </pattern>
     <pattern id="fontsize">
@@ -394,11 +416,44 @@
         <rule context="abbrRef[parent::item]">
             <report test="parent::item/@type!='gls'">There is an abbrRef in an item element that is not a gloss.  Please only use abbrRef elements in gloss lines.</report>
         </rule>
+        <rule context="abbrRef[ancestor::secTitle]">
+            <report test="ancestor::langData">Using an abbrRef element embedded within a langData inside of a secTitle element may fail to produce PDF output.  Please use a gloss element instead of langData.</report>
+        </rule>
     </pattern>
     <pattern id="endnoteInSecTitle">
         <title><dir value="ltr">Check for embedded endnote in secTitle</dir></title>
         <rule context="secTitle">
             <report test="*/endnote">Using an endnote element embedded within another element here may fail to produce PDF output.  Put the endnote directly within the secTitle element, not inside the embedded element.</report>
+        </rule>
+    </pattern>
+    <pattern id="indexRangeInSecTitle">
+        <title><dir value="ltr">Check for index range items in secTitle</dir></title>
+        <rule context="secTitle">
+            <report test="indexedRangeBegin | indexedRangeEnd">Using an indexedRangeBegin and/or indexedRangeEnd element within a secTitle element may fail to create the page in the index portion of the PDF output.  Put the indexedRangeBegin element at the beginning of the first paragraph of the chapter/section/appendix, not inside the secTitle element.</report>
+        </rule>
+    </pattern>
+    <pattern id="deprecatedethnCode">
+        <title>
+            <dir value="ltr">Check for use of ethnCode</dir>
+        </title>
+        <rule context="/lingPaper/languages/language | /xlingpaper/styledPaper/lingPaper/languages/language">
+            <report test="string-length(normalize-space(@ethnCode)) &gt; 0">Warning: using an ethnCode is now deprecated.  Please use ISO639-3Code instead.</report>
+        </rule>
+    </pattern>
+    <pattern id="glossaryTermRefersToItself">
+        <title>
+            <dir value="ltr">Check for a gloosaryTerm referring to itself</dir>
+        </title>
+        <rule context="glossaryTermRef">
+            <report test="@glossaryTerm=ancestor::glossaryTerm/@id">Warning: This glossary term definition refers to itself. Only refer to other glossary terms.</report>
+        </rule>
+    </pattern>
+    <pattern id="emptycitation">
+        <title>
+            <dir value="ltr">Check for a citation that has no text in the output</dir>
+        </title>
+        <rule context="citation">
+            <report test="@author='no' and @date='no' and @paren='none' and string-length(@page)=0">Warning: This citation is empty.  Nothing will show in the output, yet the cited reference may appear in the list of references.</report>
         </rule>
     </pattern>
 </schema>

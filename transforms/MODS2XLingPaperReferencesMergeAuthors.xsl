@@ -10,11 +10,12 @@
         <references>
             <xsl:for-each select="refAuthor">
                 <xsl:variable name="sThisAuthor" select="@name"/>
+                <xsl:variable name="sPreviousAuthor" select="preceding-sibling::refAuthor[1]/@name"/>
                 <xsl:choose>
                     <xsl:when test="$sThisAuthor=$sMissingAuthorsMessage">
                         <xsl:copy-of select="."/>
                     </xsl:when>
-                    <xsl:when test="preceding-sibling::refAuthor[1]/@name!=$sThisAuthor">
+                    <xsl:when test="not($sPreviousAuthor) or $sPreviousAuthor!=$sThisAuthor">
                         <refAuthor name="{@name}" citename="{@citename}">
                             <xsl:copy-of select="refWork"/>
                             <xsl:for-each select="following-sibling::refAuthor[@name=$sThisAuthor]">

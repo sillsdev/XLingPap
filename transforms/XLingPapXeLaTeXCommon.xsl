@@ -6574,6 +6574,9 @@
                 <xsl:if test="id(line[1]/@lang)/@rtl='yes' or id(line[1]/wrd/langData[1]/@lang)/@rtl='yes' or id(line[1]/wrd[1]/@lang)/@rtl='yes'">
                     <tex:cmd name="endR" gr="0"/>
                 </xsl:if>
+                <xsl:if test="$pageLayoutInfo/@showLineNumbers='yes' and ancestor::listInterlinear[count(preceding-sibling::listInterlinear)=0]">
+                    <tex:cmd name="linenumbers" gr="0"/>
+                </xsl:if>
                 <tex:cmd name="par" nl2="1"/>
             </xsl:otherwise>
         </xsl:choose>
@@ -10163,6 +10166,9 @@
         <xsl:choose>
             <xsl:when test="name()='listInterlinear'">
                 <xsl:variable name="toDoList" select=". | following-sibling::listInterlinear"/>
+                <xsl:if test="$pageLayoutInfo/@showLineNumbers='yes'">
+                    <tex:cmd name="nolinenumbers" gr="0"/>
+                </xsl:if>
                 <xsl:for-each select=". | following-sibling::listInterlinear">
                     <xsl:if test="position() = 1">
                         <xsl:choose>
@@ -10278,6 +10284,9 @@
                                 </tex:cmd>
                             </xsl:otherwise>
                         </xsl:choose>
+                    </xsl:if>
+                    <xsl:if test="$pageLayoutInfo/@showLineNumbers='yes' and position()=1">
+                        <tex:cmd name="linenumbers" gr="0"/>
                     </xsl:if>
                 </xsl:for-each>
             </xsl:when>
@@ -13459,6 +13468,9 @@ What might go in a TeX package file
             <tex:opt>5</tex:opt>
             <tex:parm>
                 <xsl:if test="contains($sXeLaTeXVersion,'2020')">
+                    <xsl:if test="$pageLayoutInfo/@showLineNumbers='yes'">
+                        <tex:cmd name="nolinenumbers" gr="0"/>
+                    </xsl:if>
                     <!-- following vspace* command needed for TeX Live 2020 hyperlink command; not sure why  -->
                     <tex:cmd name="vspace*">
                         <tex:parm>
@@ -13527,6 +13539,9 @@ What might go in a TeX package file
                             <xsl:text>4</xsl:text>
                         </tex:parm>
                     </tex:cmd>
+                    <xsl:if test="$pageLayoutInfo/@showLineNumbers='yes' and contains($sXeLaTeXVersion,'2020')">
+                        <tex:cmd name="linenumbers" gr="0"/>
+                    </xsl:if>
                     <tex:cmd name="par" gr="0" nl1="1"/>
                 </tex:group>
             </tex:parm>

@@ -1190,7 +1190,7 @@ align--center {
         </xsl:call-template>
     </xsl:template>
     <!-- 
-        glossInListTableLayout
+        glossInListWordLayout
     -->
     <xsl:template match="glossInListWordLayout">
         <xsl:call-template name="OutputTitleFormatInfo">
@@ -1299,6 +1299,17 @@ align--center {
         </xsl:variable>
         <xsl:call-template name="OutputTitleFormatInfo">
             <xsl:with-param name="name" select="concat('langDataInProseLayout',$sLanguageSpecific)"/>
+        </xsl:call-template>
+    </xsl:template>
+    <!-- 
+        langDataInListWordLayout
+    -->
+    <xsl:template match="langDataInListWordLayout">
+        <xsl:variable name="sLanguageSpecific">
+            <xsl:call-template name="GetLangDataLayoutLanguage"/>
+        </xsl:variable>
+        <xsl:call-template name="OutputTitleFormatInfo">
+            <xsl:with-param name="name" select="concat('langDataInListWordLayout',$sLanguageSpecific)"/>
         </xsl:call-template>
     </xsl:template>
     <!-- 

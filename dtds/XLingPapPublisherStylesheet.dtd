@@ -847,9 +847,15 @@ Content Layout
 
     <!ELEMENT magnificationFactor (#PCDATA) >
    
-    <!ELEMENT langDataLayout (langDataInExampleLayout, langDataInTableLayout, langDataInProseLayout) >
+    <!ELEMENT langDataLayout (langDataInListWordLayout?, langDataInExampleLayout, langDataInTableLayout, langDataInProseLayout) >
     <!ATTLIST langDataLayout
        language IDREF #IMPLIED
+    >
+<!-- langDataInListWordLayout is for listWord and word examples (listWord is the most commonly used) -->
+   <!ELEMENT langDataInListWordLayout EMPTY >
+    <!ATTLIST langDataInListWordLayout
+       textbeforeafterusesfontinfo (no | yes) 'no'
+       %formatinfo;
     >
     <!ELEMENT langDataInExampleLayout EMPTY >
     <!ATTLIST langDataInExampleLayout

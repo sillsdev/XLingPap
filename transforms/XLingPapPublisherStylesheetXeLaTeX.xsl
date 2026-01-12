@@ -7406,6 +7406,12 @@
         <xsl:param name="sLangDataContext"/>
         <xsl:param name="langDataLayout"/>
         <xsl:choose>
+            <xsl:when test="$sLangDataContext='listWord'">
+                <xsl:call-template name="OutputFontAttributesEnd">
+                    <xsl:with-param name="language" select="$langDataLayout/langDataInListWordLayout"/>
+                    <xsl:with-param name="originalContext" select="."/>
+                </xsl:call-template>
+            </xsl:when>
             <xsl:when test="$sLangDataContext='example'">
                 <xsl:call-template name="OutputFontAttributesEnd">
                     <xsl:with-param name="language" select="$langDataLayout/langDataInExampleLayout"/>

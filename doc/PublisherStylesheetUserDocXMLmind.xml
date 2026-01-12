@@ -18,13 +18,13 @@ type="tXLingPap"
 ><emailAddress
 >xlingpaper_support@sil.org</emailAddress
 ><date
->10 November 2025</date
+>12 January 2026</date
 ><version
 contentType="ctVersion5.3"
->2.48.0</version
+>2.48.2</version
 ><version
 contentType="ctVersion7Plus"
->3.18.0</version
+>3.18.2</version
 ><contents
 showLevel="6"
 ></contents
@@ -15006,13 +15006,39 @@ type="tAttrValue"
 ></table
 ></example
 ><p
+>There is actually a fourth element called <object
+type="tElement"
+>langDataInListWordLayout</object
+> that controls how <object
+type="tElement"
+>langData</object
+> elements are formatted in either <object
+type="tElement"
+>listWord</object
+> or <object
+type="tElement"
+>word</object
+> examples. You can insert it before the “langData in example” line.</p
+><p
 >For a given <object
 type="tElement"
 >langData</object
 > element, the formatting that is used depends on what the closest element to that <object
 type="tElement"
 >langData</object
-> element is. If an <object
+> element is. If you are using a <object
+type="tElement"
+>langDataInListWordLayout</object
+> element, then if either a <object
+type="tElement"
+>listWord</object
+> or a <object
+type="tElement"
+>word</object
+> element is closest, then the formatting of the <object
+type="tElement"
+>langDataInListWordLayout</object
+> element is used. If an <object
 type="tElement"
 >example</object
 > is closest, then the formatting for an example is used. If a <object

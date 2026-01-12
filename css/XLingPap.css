@@ -52,11 +52,15 @@
 
 @property-value glossTableOverrideAfter() label(xpath,"if(/xlingpaper/styledPaper/publisherStyleSheet and string-length(normalize-space(@textafter))>0,normalize-space(@textafter),/xlingpaper/styledPaper/publisherStyleSheet/contentLayout/glossLayout/glossInTableLayout[string-length(normalize-space(@textafter))>0],/xlingpaper/styledPaper/publisherStyleSheet/contentLayout/glossLayout/glossInTableLayout/@textafter, '')");
 
+@property-value langDataListWordOverrideBefore() label(xpath,"if(/xlingpaper/styledPaper/publisherStyleSheet and string-length(normalize-space(@textbefore))>0,normalize-space(@textbefore),/xlingpaper/styledPaper/publisherStyleSheet/contentLayout/langDataLayout[@language=current()/@lang]/langDataInListWordLayout[string-length(normalize-space(@textbefore))>0],/xlingpaper/styledPaper/publisherStyleSheet/contentLayout/langDataLayout[@language=current()/@lang]/langDataInListWordLayout/@textbefore,/xlingpaper/styledPaper/publisherStyleSheet/contentLayout/langDataLayout[1]/langDataInListWordLayout[string-length(normalize-space(@textbefore))>0],/xlingpaper/styledPaper/publisherStyleSheet/contentLayout/langDataLayout[1]/langDataInListWordLayout/@textbefore, '')");
+
 @property-value langDataExampleOverrideBefore() label(xpath,"if(/xlingpaper/styledPaper/publisherStyleSheet and string-length(normalize-space(@textbefore))>0,normalize-space(@textbefore),/xlingpaper/styledPaper/publisherStyleSheet/contentLayout/langDataLayout[@language=current()/@lang]/langDataInExampleLayout[string-length(normalize-space(@textbefore))>0],/xlingpaper/styledPaper/publisherStyleSheet/contentLayout/langDataLayout[@language=current()/@lang]/langDataInExampleLayout/@textbefore,/xlingpaper/styledPaper/publisherStyleSheet/contentLayout/langDataLayout[1][string-length(@language)=0]/langDataInExampleLayout[string-length(normalize-space(@textbefore))>0],/xlingpaper/styledPaper/publisherStyleSheet/contentLayout/langDataLayout[1]/langDataInExampleLayout/@textbefore, '')");
 
 @property-value langDataProseOverrideBefore() label(xpath,"if(/xlingpaper/styledPaper/publisherStyleSheet and string-length(normalize-space(@textbefore))>0,normalize-space(@textbefore),/xlingpaper/styledPaper/publisherStyleSheet/contentLayout/langDataLayout[@language=current()/@lang]/langDataInProseLayout[string-length(normalize-space(@textbefore))>0],/xlingpaper/styledPaper/publisherStyleSheet/contentLayout/langDataLayout[@language=current()/@lang]/langDataInProseLayout/@textbefore,/xlingpaper/styledPaper/publisherStyleSheet/contentLayout/langDataLayout[1][string-length(@language)=0]/langDataInProseLayout[string-length(normalize-space(@textbefore))>0],/xlingpaper/styledPaper/publisherStyleSheet/contentLayout/langDataLayout[1]/langDataInProseLayout/@textbefore, '')");
 
 @property-value langDataTableOverrideBefore() label(xpath,"if(/xlingpaper/styledPaper/publisherStyleSheet and string-length(normalize-space(@textbefore))>0,normalize-space(@textbefore),/xlingpaper/styledPaper/publisherStyleSheet/contentLayout/langDataLayout[@language=current()/@lang]/langDataInTableLayout[string-length(normalize-space(@textbefore))>0],/xlingpaper/styledPaper/publisherStyleSheet/contentLayout/langDataLayout[@language=current()/@lang]/langDataInTableLayout/@textbefore,/xlingpaper/styledPaper/publisherStyleSheet/contentLayout/langDataLayout[1][string-length(@language)=0]/langDataInTableLayout[string-length(normalize-space(@textbefore))>0],/xlingpaper/styledPaper/publisherStyleSheet/contentLayout/langDataLayout[1]/langDataInTableLayout/@textbefore, '')");
+
+@property-value langDataListWordOverrideAfter() label(xpath,"if(/xlingpaper/styledPaper/publisherStyleSheet and string-length(normalize-space(@textafter))>0,normalize-space(@textafter),/xlingpaper/styledPaper/publisherStyleSheet/contentLayout/langDataLayout[@language=current()/@lang]/langDataInListWordLayout[string-length(normalize-space(@textafter))>0],/xlingpaper/styledPaper/publisherStyleSheet/contentLayout/langDataLayout[@language=current()/@lang]/langDataInListWordLayout/@textafter,/xlingpaper/styledPaper/publisherStyleSheet/contentLayout/langDataLayout[1]/langDataInListWordLayout[string-length(normalize-space(@textafter))>0],/xlingpaper/styledPaper/publisherStyleSheet/contentLayout/langDataLayout[1]/langDataInListWordLayout/@textafter, '')");
 
 @property-value langDataExampleOverrideAfter() label(xpath,"if(/xlingpaper/styledPaper/publisherStyleSheet and string-length(normalize-space(@textafter))>0,normalize-space(@textafter),/xlingpaper/styledPaper/publisherStyleSheet/contentLayout/langDataLayout[@language=current()/@lang]/langDataInExampleLayout[string-length(normalize-space(@textafter))>0],/xlingpaper/styledPaper/publisherStyleSheet/contentLayout/langDataLayout[@language=current()/@lang]/langDataInExampleLayout/@textafter,/xlingpaper/styledPaper/publisherStyleSheet/contentLayout/langDataLayout[1][string-length(@language)=0]/langDataInExampleLayout[string-length(normalize-space(@textafter))>0],/xlingpaper/styledPaper/publisherStyleSheet/contentLayout/langDataLayout[1]/langDataInExampleLayout/@textafter, '')");
 
@@ -2827,6 +2831,14 @@ refWork keywords
 	property-group: isCollapsible( yes, 1);
 }
 
+example listWord langData:before
+{
+	content: langDataListWordOverrideBefore();
+}
+example word langData:before
+{
+	content: langDataListWordOverrideBefore();
+}
 example langData:before
 {
 	content: langDataExampleOverrideBefore();
@@ -2872,6 +2884,14 @@ langData
 	font-size: concatenate(xpath("id(@lang)/@font-size"));
 	font-style: concatenate(xpath("id(@lang)/@font-style"));
 	font-weight: concatenate(xpath("id(@lang)/@font-weight")); 
+}
+example listWord langData:after
+{
+	content: langDataListWordOverrideAfter();
+}
+example word langData:after
+{
+	content: langDataListWordOverrideAfter();
 }
 example langData:after
 {
@@ -8271,6 +8291,93 @@ langDataInExampleLayout
 	margin-left:.125in;
 }
 langDataInExampleLayout[textbeforeafterusesfontinfo='no']:after
+{
+	content: label(attribute, textafter)
+	         ;
+}
+
+langDataInListWordLayout[color][textbeforeafterusesfontinfo='no']:before
+{
+	color:black;
+}
+langDataInListWordLayout[color]
+{
+	color:concatenate(attr(color));
+}
+langDataInListWordLayout[color][textbeforeafterusesfontinfo='no']:after
+{
+	color:black;
+}
+langDataInListWordLayout[font-family][textbeforeafterusesfontinfo='no']:before
+{
+	/* no font-family */
+}
+langDataInListWordLayout[font-family]
+{
+	font-family:concatenate(attr(font-family));
+}
+langDataInListWordLayout[font-family][textbeforeafterusesfontinfo='no']:after
+{
+	/* no font-family */
+}
+langDataInListWordLayout[font-size][textbeforeafterusesfontinfo='no']:before
+{
+	font-size:12pt;
+}
+langDataInListWordLayout[font-size]
+{
+	font-size:concatenate(attr(font-size));
+}
+langDataInListWordLayout[font-size][textbeforeafterusesfontinfo='no']:after
+{
+	font-size:12pt;
+}
+langDataInListWordLayout[font-style][textbeforeafterusesfontinfo='no']:before
+{
+	font-style:normal;
+}
+langDataInListWordLayout[font-style]
+{
+	font-style:concatenate(attr(font-style));
+}
+langDataInListWordLayout[font-style][textbeforeafterusesfontinfo='no']:after
+{
+	font-style:normal;
+}
+langDataInListWordLayout[font-weight][textbeforeafterusesfontinfo='no']:before
+{
+	font-weight:normal;
+}
+langDataInListWordLayout[font-weight]
+{
+	font-weight:concatenate(attr(font-weight));
+}
+langDataInListWordLayout[font-weight][textbeforeafterusesfontinfo='no']:after
+{
+	font-weight:normal;
+}
+langDataInListWordLayout[textbeforeafterusesfontinfo='yes']
+{
+	display:block;
+	content: label(attribute, textbefore)
+	         "langData in listWord or word example"
+	         label(attribute, textafter)
+	         ;
+	margin-left:.125in;
+}
+langDataInListWordLayout[textbeforeafterusesfontinfo='no']:before
+{
+	content: label(attribute, textbefore)
+	         ;
+}
+langDataInListWordLayout
+{
+	display:block;
+	content: "langData in listWord or word example"
+	         ;
+	margin-left:.125in;
+}
+langDataInListWordLayout[textbeforeafterusesfontinfo='no']:after
 {
 	content: label(attribute, textafter)
 	         ;

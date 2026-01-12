@@ -3862,6 +3862,16 @@
                     </xsl:otherwise>
                 </xsl:choose>
             </xsl:when>
+            <xsl:when test="name()='langData' and name($closestRelevantAncestor)='listWord' or name()='langData' and name($closestRelevantAncestor)='word'">
+                <xsl:choose>
+                    <xsl:when test="$contentLayoutInfo/langDataLayout/langDataInListWordLayout">
+                        <xsl:text>listWord</xsl:text>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:text>example</xsl:text>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </xsl:when>
             <xsl:when test="name($closestRelevantAncestor)='listWord' or name($closestRelevantAncestor)='word'">
                 <xsl:text>example</xsl:text>
             </xsl:when>
@@ -5098,6 +5108,13 @@
         <xsl:param name="sLangDataContext"/>
         <xsl:param name="langDataLayout"/>
         <xsl:choose>
+            <xsl:when test="$sLangDataContext='listWord'">
+                <xsl:call-template name="OutputFontAttributes">
+                    <xsl:with-param name="language" select="$langDataLayout/langDataInListWordLayout"/>
+                    <xsl:with-param name="originalContext" select="."/>
+                    <xsl:with-param name="bIsOverride" select="'Y'"/>
+                </xsl:call-template>
+            </xsl:when>
             <xsl:when test="$sLangDataContext='example'">
                 <xsl:call-template name="OutputFontAttributes">
                     <xsl:with-param name="language" select="$langDataLayout/langDataInExampleLayout"/>
@@ -5128,6 +5145,16 @@
         <xsl:param name="langDataLayout"/>
         <xsl:param name="sLangDataContext"/>
         <xsl:choose>
+            <xsl:when test="$langDataLayout/langDataInListWordLayout/@textbeforeafterusesfontinfo='yes' and $sLangDataContext='listWord'">
+                <xsl:choose>
+                    <xsl:when test="string-length(normalize-space(@textafter)) &gt; 0">
+                        <xsl:value-of select="normalize-space(@textafter)"/>
+                    </xsl:when>
+                    <xsl:when test="string-length(normalize-space($langDataLayout/langDataInListWordLayout/@textafter)) &gt; 0">
+                        <xsl:value-of select="normalize-space($langDataLayout/langDataInListWordLayout/@textafter)"/>
+                    </xsl:when>
+                </xsl:choose>
+            </xsl:when>
             <xsl:when test="$langDataLayout/langDataInExampleLayout/@textbeforeafterusesfontinfo='yes' and $sLangDataContext='example'">
                 <xsl:choose>
                     <xsl:when test="string-length(normalize-space(@textafter)) &gt; 0">
@@ -5171,6 +5198,16 @@
         <xsl:param name="sLangDataContext"/>
         <xsl:if test="$langDataLayout">
             <xsl:choose>
+                <xsl:when test="$langDataLayout/langDataInListWordLayout/@textbeforeafterusesfontinfo='no' and $sLangDataContext='listWord'">
+                    <xsl:choose>
+                        <xsl:when test="string-length(normalize-space(@textafter)) &gt; 0">
+                            <xsl:value-of select="normalize-space(@textafter)"/>
+                        </xsl:when>
+                        <xsl:when test="string-length(normalize-space($langDataLayout/langDataInListWordLayout/@textafter)) &gt; 0">
+                            <xsl:value-of select="normalize-space($langDataLayout/langDataInListWordLayout/@textafter)"/>
+                        </xsl:when>
+                    </xsl:choose>
+                </xsl:when>
                 <xsl:when test="$langDataLayout/langDataInExampleLayout/@textbeforeafterusesfontinfo='no' and $sLangDataContext='example'">
                     <xsl:choose>
                         <xsl:when test="string-length(normalize-space(@textafter)) &gt; 0">
@@ -5219,6 +5256,16 @@
                 <xsl:with-param name="langDataLayout" select="$langDataLayout"/>
             </xsl:call-template>
             <xsl:choose>
+                <xsl:when test="$langDataLayout/langDataInListWordLayout/@textbeforeafterusesfontinfo='yes' and $sLangDataContext='listWord'">
+                    <xsl:choose>
+                        <xsl:when test="string-length(normalize-space(@textbefore)) &gt; 0">
+                            <xsl:value-of select="normalize-space(@textbefore)"/>
+                        </xsl:when>
+                        <xsl:when test="string-length(normalize-space($langDataLayout/langDataInListWordLayout/@textbefore)) &gt; 0">
+                            <xsl:value-of select="normalize-space($langDataLayout/langDataInListWordLayout/@textbefore)"/>
+                        </xsl:when>
+                    </xsl:choose>
+                </xsl:when>
                 <xsl:when test="$langDataLayout/langDataInExampleLayout/@textbeforeafterusesfontinfo='yes' and $sLangDataContext='example'">
                     <xsl:choose>
                         <xsl:when test="string-length(normalize-space(@textbefore)) &gt; 0">
@@ -5263,6 +5310,16 @@
         <xsl:param name="sLangDataContext"/>
         <xsl:if test="$langDataLayout">
             <xsl:choose>
+                <xsl:when test="$langDataLayout/langDataInListWordLayout/@textbeforeafterusesfontinfo='no' and $sLangDataContext='listWord'">
+                    <xsl:choose>
+                        <xsl:when test="string-length(normalize-space(@textbefore)) &gt; 0">
+                            <xsl:value-of select="normalize-space(@textbefore)"/>
+                        </xsl:when>
+                        <xsl:when test="string-length(normalize-space($langDataLayout/langDataInListWordLayout/@textbefore)) &gt; 0">
+                            <xsl:value-of select="normalize-space($langDataLayout/langDataInListWordLayout/@textbefore)"/>
+                        </xsl:when>
+                    </xsl:choose>
+                </xsl:when>
                 <xsl:when test="$langDataLayout/langDataInExampleLayout/@textbeforeafterusesfontinfo='no' and $sLangDataContext='example'">
                     <xsl:choose>
                         <xsl:when test="string-length(normalize-space(@textbefore)) &gt; 0">

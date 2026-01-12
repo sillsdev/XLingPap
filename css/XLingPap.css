@@ -2907,11 +2907,11 @@ table endnote langData:after
 }
 listWord langData:after
 {
-	content: langDataProseOverrideAfter() " ";
+	content: langDataExampleOverrideAfter() " ";
 }
 word langData:after
 {
-	content: langDataProseOverrideAfter() " ";
+	content: langDataExampleOverrideAfter() " ";
 }
 langData:after
 {

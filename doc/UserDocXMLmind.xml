@@ -34,13 +34,13 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >xlingpaper_support@sil.org</emailAddress
 ><date
->10 November 2025</date
+>19 January 2026</date
 ><version
 contentType="ctVersion5.3"
->2.48.0</version
+>2.48.0\2</version
 ><version
 contentType="ctVersion7Plus"
->3.18.0</version
+>3.18.2</version
 ><contents
 showLevel="4"
 ></contents
@@ -36465,6 +36465,9 @@ type="tElement"
 ></tr
 ><tr
 ><td
+><indexedItem
+term="iSubscript"
+></indexedItem
 >subscript</td
 ><td
 ><object
@@ -36481,6 +36484,28 @@ type="tElement"
 ></tr
 ><tr
 ><td
+><indexedItem
+term="iSubscript"
+></indexedItem
+>subscriptany</td
+><td
+><object
+type="tItalic"
+>none</object
+></td
+><td
+>Make the content of this <object
+type="tElement"
+>object</object
+> element render as a subscript no matter what the content is.  This is for cases where a font (like Charis 7.000) has font features for certain subscript and/or superscript characters; as a result, only these characters come out in subscript or superscript.  Use this attribute to get any characters to come out properly.</td
+><td
+>subscriptany</td
+></tr
+><tr
+><td
+><indexedItem
+term="iSuperscript"
+></indexedItem
 >superscript</td
 ><td
 ><object
@@ -36494,6 +36519,25 @@ type="tElement"
 > element render as a superscript</td
 ><td
 >superscript</td
+></tr
+><tr
+><td
+><indexedItem
+term="iSuperscript"
+></indexedItem
+>superscriptany</td
+><td
+><object
+type="tItalic"
+>none</object
+></td
+><td
+>Make the content of this <object
+type="tElement"
+>object</object
+> element render as a superscript no matter what the content is. This is for cases where a font (like Charis 7.000) has font features for certain superscript characters; as a result, only these characters come out in superscript. Use this attribute to get any characters to come out properly.</td
+><td
+>superscriptany</td
 ></tr
 ><tr
 ><td

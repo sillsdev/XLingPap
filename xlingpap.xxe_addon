@@ -17,7 +17,7 @@ xmlns="http://www.w3.org/1999/xhtml"
 >Andy Black</a
 ></a:author
 ><a:date
->2026-01-12</a:date
+>2026-01-19</a:date
 ><a:abstract
 >A way to author and archive linguistic documents using XML.</a:abstract
 ><a:documentation
@@ -40,11 +40,17 @@ xmlns="http://www.w3.org/1999/xhtml"
 ><ul
 xmlns="http://www.w3.org/1999/xhtml"
 ><li
->3.18.2 12 January 2026<ul
+>3.18.2 19 January 2026<ul
 ><li
 >Add ability to control how a langData element is formatted in a word or listWord element via the langDataInListWordLayout element in a publisher style sheet.</li
 ><li
 >Fix bug: example word/listWord do not correctly show langData text before/after in XXE.</li
+><li
+>For the default way of producing PDF (via XeLaTeX):<ul
+><li
+>Add two new XeLaTeXSpecial attributes: subscriptany and superscriptany.  These are for cases where a font (like Charis 7.000) has font features for certain subscript and/or superscript character; as a result, only these characters come out in subscript or superscript.  Use these new attributes to get any characters to come out properly.</li
+></ul
+></li
 ></ul
 ></li
 ><li

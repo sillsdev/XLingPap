@@ -10867,9 +10867,19 @@
         <xsl:variable name="sRest" select="substring-after($sNewList,' ')"/>
         <xsl:if test="string-length($sFirst) &gt; 0">
             <xsl:choose>
+                <xsl:when test="$sFirst='superscriptany'">
+                    <tex:spec cat="esc"/>
+                    <xsl:text>fakesuperscript</xsl:text>
+                    <tex:spec cat="bg"/>
+                </xsl:when>
                 <xsl:when test="$sFirst='superscript'">
                     <tex:spec cat="esc"/>
                     <xsl:text>textsuperscript</xsl:text>
+                    <tex:spec cat="bg"/>
+                </xsl:when>
+                <xsl:when test="$sFirst='subscriptany'">
+                    <tex:spec cat="esc"/>
+                    <xsl:text>fakesubscript</xsl:text>
                     <tex:spec cat="bg"/>
                 </xsl:when>
                 <xsl:when test="$sFirst='subscript'">
@@ -10905,10 +10915,10 @@
         <xsl:variable name="sRest" select="substring-after($sNewList,' ')"/>
         <xsl:if test="string-length($sFirst) &gt; 0">
             <xsl:choose>
-                <xsl:when test="$sFirst='superscript'">
+                <xsl:when test="$sFirst='superscript' or $sFirst='superscriptany'">
                     <tex:spec cat="eg"/>
                 </xsl:when>
-                <xsl:when test="$sFirst='subscript'">
+                <xsl:when test="$sFirst='subscript' or $sFirst='subscriptany'">
                     <tex:spec cat="eg"/>
                 </xsl:when>
                 <xsl:when test="$sFirst='underline'">

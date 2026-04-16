@@ -57,7 +57,7 @@ jobs:
         copy ..\XLingPap.xxe XLingPap
         copy ..\xlingpap.xxe_addon XLingPap
         copy ..\XLingPap_catalog.xml XLingPap
-        # dir XLingPap
+        dir XLingPap
       shell: cmd
 
     - name: 'Install makensis (choco)'

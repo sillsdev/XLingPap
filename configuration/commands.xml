@@ -379,6 +379,9 @@
     <cfg:command name="SetHtmlTableToClipboardCmd">
         <cfg:class>xlingpaper.xxe.SetHtmlTableToClipboard</cfg:class>
     </cfg:command>
+    <cfg:command name="SetXmlToClipboardCmd">
+        <cfg:class>xlingpaper.xxe.SetXmlToClipboard</cfg:class>
+    </cfg:command>
     <cfg:command name="InsertBracketedConstituentWhenTextSelectedCmd">
         <cfg:class>xlingpaper.xxe.InsertBracketedConstituentWhenTextSelected</cfg:class>
     </cfg:command>

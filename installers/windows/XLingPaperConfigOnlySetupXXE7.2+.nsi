@@ -156,10 +156,10 @@ Please get the full XLingPaper installation package and run it." IDOK
     ;SetOutPath $INSTDIR\XLingPaperConfiguration # for testing on my machine    
     IfFileExists $APPDATA\XMLmind\XMLEditor7 0 +3
     SetOutPath $APPDATA\XMLmind\XMLEditor7\addon
-    File /r  /x .svn ../XLingPaperConfiguration\* 
+    File /r  /x .svn ..\..\XLingPaperConfiguration\* 
     IfFileExists $APPDATA\XMLmind\XMLEditor8 0 +3
     SetOutPath $APPDATA\XMLmind\XMLEditor8\addon
-    File /r  /x .svn ../XLingPaperConfiguration\* 
+    File /r  /x .svn ..\..\XLingPaperConfiguration\* 
 ##    WriteRegStr HKLM "${REGKEY}\Components" Main 1
 SectionEnd
 

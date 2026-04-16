@@ -42,16 +42,16 @@ jobs:
         mkdir XLingPaperConfiguration
         cd XLingPaperConfiguration
         mkdir XLingPap
-        xcopy /f /s /e /y ..\batchfiles XLingPap
-        xcopy /f /s /e /y ..\configuration XLingPap
-        xcopy /f /s /e /y ..\css XLingPap
-        xcopy /f /s /e /y ..\doc XLingPap
-        xcopy /f /s /e /y ..\dtds XLingPap
-        xcopy /f /s /e /y ..\externalPackages XLingPap
-        xcopy /f /s /e /y ..\localizations XLingPap
-        xcopy /f /s /e /y ..\publisherstylesheets XLingPap
-        xcopy /f /s /e /y ..\templates XLingPap
-        xcopy /f /s /e /y ..\transforms XLingPap
+        xcopy /f /s /e /y ..\batchfiles XLingPap\batchfiles
+        xcopy /f /s /e /y ..\configuration XLingPap\configuration
+        xcopy /f /s /e /y ..\css XLingPap\css
+        xcopy /f /s /e /y ..\doc XLingPap\doc
+        xcopy /f /s /e /y ..\dtds XLingPap\dtds
+        xcopy /f /s /e /y ..\externalPackages XLingPap\externalPackages
+        xcopy /f /s /e /y ..\localizations XLingPap\localizations
+        xcopy /f /s /e /y ..\publisherstylesheets XLingPap\publisherstylesheets
+        xcopy /f /s /e /y ..\templates XLingPap\templates
+        xcopy /f /s /e /y ..\transforms XLingPap\transforms
         copy ..\XLingPap.jar XLingPap
         copy ..\XLingPap.sch XLingPap
         copy ..\XLingPap.xxe XLingPap
@@ -67,15 +67,15 @@ jobs:
         NSISINST: C:\Program Files (x86)\NSIS
       shell: cmd
       run: |
-        xcopy /f /s /e /y windows\NSIS_Plugins\Include "%NSISINST%\Include\"
-        xcopy /f /s /e /y windows\NSIS_Plugins\Plugins "%NSISINST%\Plugins\x86-unicode\"
-        "%NSISINST%\makensis" /V4 /DVERSION=${{ env.VERSION }}.0 windows\XLingPaperConfigOnlySetupXXE7.2+.nsi
+        xcopy /f /s /e /y installers\windows\NSIS_Plugins\Include "%NSISINST%\Include\"
+        xcopy /f /s /e /y installers\windows\NSIS_Plugins\Plugins "%NSISINST%\Plugins\x86-unicode\"
+        "%NSISINST%\makensis" /V4 /DVERSION=${{ env.VERSION }}.0 installers\windows\XLingPaperConfigOnlySetupXXE7.2+.nsi
 
     - name: Upload artifact
       uses: actions/upload-artifact@v4
       with:
         name: ConfigOnly
-        path: windows/XLingPaper*UpdateConfigOnlySetup.exe
+        path: installers/windows/XLingPaper*UpdateConfigOnlySetup.exe
         if-no-files-found: error
 
 # old way to sign

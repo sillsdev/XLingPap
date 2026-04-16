@@ -1,0 +1,142 @@
+# This workflow will sign the Windows config-only installer for XLingPaper.
+
+name: XLingPaper Windows Config Installer Sign and Release
+
+on:
+  push:
+    tags:
+      - 'v*'  # Build the app for commits that are tagged starting with 'v' e.g. v1.2.3
+      # to tag a commit, use "git tag v1.2.3"
+      # when you then use "git push origin v1.2.3" this workflow will be invoked
+#    paths:
+#      - '.github/workflows/xlingpaper-windows-build-config-sign-release.yml'
+#      - 'windows/XLingPaperConfigOnlySetupXXE7.2+.nsi'
+
+jobs:
+  create_NSIS_installer:
+    runs-on: windows-latest
+
+    steps:
+    - uses: actions/checkout@v5
+
+    - name: Set VERSION (e.g. 1.0.0) and FULL_VERSION (e.g. 1.0.0-abcdef4)
+      run: |
+          VERSION="${GITHUB_REF#refs/tags/v}"
+          SHORT_SHA=$(git rev-parse --short HEAD)
+          FULL_VERSION="${VERSION}-${SHORT_SHA}"
+          echo "VERSION=${VERSION}" >> $GITHUB_ENV
+          echo "FULL_VERSION=${FULL_VERSION}" >> $GITHUB_ENV
+      shell: bash
+
+    - name: Validate version format
+      run: |
+          echo ${VERSION}
+          if [[ ! "${VERSION}" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+            echo "Error: Version format is incorrect. It should match N.N.N where N is an integer."
+            exit 1
+          fi
+      shell: bash
+
+    - name: 'create XLingPaper Configuration Folder'
+      run: |
+        mkdir XLingPaperConfiguration
+        cd XLingPaperConfiguration
+        mkdir XLingPap
+        xcopy /f /s /e /y ..\batchfiles XLingPap
+        xcopy /f /s /e /y ..\configuration XLingPap
+        xcopy /f /s /e /y ..\css XLingPap
+        xcopy /f /s /e /y ..\doc XLingPap
+        xcopy /f /s /e /y ..\dtds XLingPap
+        xcopy /f /s /e /y ..\externalPackages XLingPap
+        xcopy /f /s /e /y ..\localizations XLingPap
+        xcopy /f /s /e /y ..\publisherstylesheets XLingPap
+        xcopy /f /s /e /y ..\templates XLingPap
+        xcopy /f /s /e /y ..\transforms XLingPap
+        copy ..\XLingPap.jar XLingPap
+        copy ..\XLingPap.sch XLingPap
+        copy ..\XLingPap.xxe XLingPap
+        copy ..\xlingpap.xxe_addon XLingPap
+        copy ..\XLingPap_catalog.xml XLingPap
+        dir XLingPap
+      shell: cmd
+
+    - name: 'Install makensis (choco)'
+      run: choco install nsis
+
+    - env:
+        NSISINST: C:\Program Files (x86)\NSIS
+      shell: cmd
+      run: |
+        xcopy /f /s /e /y windows\NSIS_Plugins\Include "%NSISINST%\Include\"
+        xcopy /f /s /e /y windows\NSIS_Plugins\Plugins "%NSISINST%\Plugins\x86-unicode\"
+        "%NSISINST%\makensis" /V4 /DVERSION=${{ env.VERSION }}.0 windows\XLingPaperConfigOnlySetupXXE7.2+.nsi
+
+    - name: Upload artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: ConfigOnly
+        path: windows/XLingPaper*UpdateConfigOnlySetup.exe
+        if-no-files-found: error
+
+# old way to sign
+#  sign-config-only-installer:
+#    name: Sign Windows XLingPaper config only installer
+#    needs: create_NSIS_installer
+#    uses: sillsdev/codesign/.github/workflows/sign.yml@v2
+#    with:
+#      artifact: ConfigOnly
+#    secrets:
+#      certificate: ${{ secrets.CODESIGN_LSDEVSECTIGOEV }}
+#
+#  create-config-only-release:
+#    name: Create config only Release
+#    needs: sign-config-only-installer
+#    runs-on: windows-latest
+#
+#    steps:
+#      - uses: actions/download-artifact@v4
+#        with:
+#          name: ConfigOnly
+#
+#      - name: Create Config Only Release
+#        uses: softprops/action-gh-release@v2
+#        with:
+#          files: XLingPaper*ConfigOnlySetup.exe
+#          body: |
+#            Release for version ${{ github.ref }}
+#          draft: false
+
+# new way to sign that is not yet usable
+  sign-config-only-installer-release:
+    name: Sign Windows XLingPaper config only Installer and Create Release
+    needs: create_NSIS_installer
+    runs-on: windows-latest
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: ConfigOnly
+      - name: Sign with Trusted Signing
+        uses: sillsdev/codesign/trusted-signing-action@v3
+        with:
+          credentials: ${{ secrets.TRUSTED_SIGNING_CREDENTIALS }}
+          files-folder: .
+          files-folder-filter: XLingPaper*.exe
+          files-folder-recurse: true
+          files-folder-depth: 4
+          description:  'Release for version ${{ needs.build.outputs.version }} from branch ${{ github.ref }}'
+          description-url: 'https://software.sil.org/xlingpaper/'
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ConfigOnlySigned
+          path: XLingPaper*.exe
+          if-no-files-found: error
+      - name: Create Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: XLingPaper*.exe
+          body: |
+            Release for version ${{ github.ref }}
+          draft: true
+          files-folder-filter: XLingPaper*ConfigOnlySetup.exe
+#          path: XLingPaper*ConfigOnlySetup.exe
+#          files: XLingPaper*ConfigOnlySetup.exe

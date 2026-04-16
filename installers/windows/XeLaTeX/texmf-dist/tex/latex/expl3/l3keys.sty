@@ -1,0 +1,496 @@
+%%
+%% This is file `l3keys.sty',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% l3keys.dtx  (with options: `package')
+%% 
+%% 
+%% EXPERIMENTAL CODE
+%% 
+%% Do not distribute this file without also distributing the
+%% source files specified above.
+%% 
+%% Do not distribute a modified version of this file.
+%% 
+%% 
+%% File: l3keys.dtx Copyright (C) 2009-2010 LaTeX3 project
+%%
+%% It may be distributed and/or modified under the conditions of the
+%% LaTeX Project Public License (LPPL), either version 1.3c of this
+%% license or (at your option) any later version.  The latest version
+%% of this license is in the file
+%%
+%%    http://www.latex-project.org/lppl.txt
+%%
+%% This file is part of the ``expl3 bundle'' (The Work in LPPL)
+%% and all files in that bundle must be distributed together.
+%%
+%% The released version of this bundle is available from CTAN.
+%%
+%% -----------------------------------------------------------------------
+%%
+%% The development version of the bundle can be found at
+%%
+%%    http://www.latex-project.org/svnroot/experimental/trunk/
+%%
+%% for those people who are interested.
+%%
+%%%%%%%%%%%
+%% NOTE: %%
+%%%%%%%%%%%
+%%
+%%   Snapshots taken from the repository represent work in progress and may
+%%   not work or may contain conflicting material!  We therefore ask
+%%   people _not_ to put them into distributions, archives, etc. without
+%%   prior consultation with the LaTeX Project Team.
+%%
+%% -----------------------------------------------------------------------
+\RequirePackage{l3names}
+\GetIdInfo$Id: l3keys.dtx 2079 2010-10-27 07:08:41Z joseph $
+  {L3 Experimental key-value support}
+\ProvidesExplPackage
+  {\filename}{\filedate}{\fileversion}{\filedescription}
+\package_check_loaded_expl:
+\tl_const:Nn \c_keys_root_tl { keys~>~ }
+\tl_const:Nn \c_keys_properties_root_tl { keys_properties }
+\tl_const:Nn \c_keys_value_forbidden_tl { forbidden }
+\tl_const:Nn \c_keys_value_required_tl { required }
+\int_new:N \l_keys_choice_int
+\tl_new:N \l_keys_choice_tl
+\tl_new:N \l_keys_choice_code_tl
+\tl_new:N \l_keys_key_tl
+\tl_new:N \l_keys_path_tl
+\tl_new:N \l_keys_property_tl
+\tl_new:N \l_keys_module_tl
+\bool_new:N \l_keys_no_value_bool
+\tl_new:N \l_keys_value_tl
+\cs_new_protected_nopar:Npn \keys_bool_set:Nn #1#2 {
+  \keys_cmd_set:nx { \l_keys_path_tl / true } {
+    \exp_not:c { bool_ #2 set_true:N }
+      \exp_not:N #1
+  }
+  \keys_cmd_set:nx { \l_keys_path_tl / false } {
+    \exp_not:N \use:c
+      { bool_ #2 set_false:N }
+      \exp_not:N #1
+  }
+  \keys_choice_make:
+  \cs_if_exist:NF #1 {
+    \bool_new:N #1
+  }
+  \keys_default_set:n { true }
+}
+\cs_new_protected:Npn \keys_choice_code_store:x #1 {
+  \tl_set:cx { \c_keys_root_tl \l_keys_path_tl .choice_code_tl } {#1}
+}
+\cs_new_protected_nopar:Npn \keys_choice_find:n #1 {
+  \keys_execute_aux:nn { \l_keys_path_tl / \tl_to_str:n {#1} } {
+    \keys_execute_aux:nn { \l_keys_path_tl / unknown } { }
+  }
+}
+\cs_new_protected_nopar:Npn \keys_choice_make: {
+  \keys_cmd_set:nn { \l_keys_path_tl } {
+    \keys_choice_find:n {##1}
+  }
+  \keys_cmd_set:nn { \l_keys_path_tl / unknown } {
+    \msg_kernel_error:nnxx { keys } { choice-unknown }
+      { \l_keys_path_tl } {##1}
+  }
+}
+\cs_new_protected:Npn \keys_choices_generate:n #1 {
+  \keys_choice_make:
+  \int_zero:N \l_keys_choice_int
+  \cs_if_exist:cTF {
+    \c_keys_root_tl \l_keys_path_tl .choice_code_tl
+  } {
+    \tl_set:Nv \l_keys_choice_code_tl {
+      \c_keys_root_tl \l_keys_path_tl .choice_code_tl
+    }
+  }{
+    \msg_kernel_error:nnx { keys } { generate-choices-before-code }
+      { \l_keys_path_tl }
+  }
+  \clist_map_function:nN {#1} \keys_choices_generate_aux:n
+}
+\cs_new_protected_nopar:Npn \keys_choices_generate_aux:n #1 {
+  \keys_cmd_set:nx { \l_keys_path_tl / #1 } {
+    \exp_not:n { \tl_set:Nn \l_keys_choice_tl } {#1}
+    \exp_not:n { \int_set:Nn \l_keys_choice_int }
+      { \int_use:N \l_keys_choice_int }
+    \exp_not:V \l_keys_choice_code_tl
+  }
+  \int_incr:N \l_keys_choice_int
+}
+\cs_new_protected:Npn \keys_cmd_set:nn #1#2 {
+  \keys_cmd_set_aux:n {#1}
+  \cs_generate_from_arg_count:cNnn { \c_keys_root_tl #1 .cmd:n }
+    \cs_set:Npn 1 {#2}
+}
+\cs_new_protected:Npn \keys_cmd_set:nx #1#2 {
+  \keys_cmd_set_aux:n {#1}
+  \cs_generate_from_arg_count:cNnn { \c_keys_root_tl #1 .cmd:n }
+    \cs_set:Npx 1 {#2}
+}
+\cs_new_protected_nopar:Npn \keys_cmd_set_aux:n #1 {
+  \keys_property_undefine:n { #1 .default_tl }
+  \cs_if_free:cT { \c_keys_root_tl #1 .req_tl }
+    { \tl_new:c { \c_keys_root_tl #1 .req_tl } }
+  \tl_clear:c { \c_keys_root_tl #1 .req_tl }
+}
+\cs_new_protected:Npn \keys_default_set:n #1 {
+  \cs_if_free:cT { \c_keys_root_tl \l_keys_path_tl .default_tl }
+    { \tl_new:c { \c_keys_root_tl \l_keys_path_tl .default_tl } }
+  \tl_set:cn { \c_keys_root_tl \l_keys_path_tl .default_tl } {#1}
+}
+\cs_generate_variant:Nn \keys_default_set:n { V }
+\cs_new_protected:Npn \keys_define:nn #1#2 {
+  \tl_set:Nn \l_keys_module_tl {#1}
+  \KV_process_no_space_removal_no_sanitize:NNn
+    \keys_define_elt:n \keys_define_elt:nn {#2}
+}
+\cs_new_protected_nopar:Npn \keys_define_elt:n #1 {
+  \bool_set_true:N \l_keys_no_value_bool
+  \keys_define_elt_aux:nn {#1} { }
+}
+\cs_new_protected:Npn \keys_define_elt:nn #1#2 {
+  \bool_set_false:N \l_keys_no_value_bool
+  \keys_define_elt_aux:nn {#1} {#2}
+}
+\cs_new_protected:Npn \keys_define_elt_aux:nn #1#2 {
+  \keys_property_find:n {#1}
+  \cs_set_eq:Nc \keys_tmp:w
+    { \c_keys_properties_root_tl \l_keys_property_tl }
+  \cs_if_exist:NTF \keys_tmp:w {
+    \keys_define_key:n {#2}
+  }{
+    \msg_kernel_error:nnxx { keys } { property-unknown }
+      { \l_keys_property_tl } { \l_keys_path_tl }
+  }
+}
+\cs_new_protected:Npn \keys_define_key:n #1 {
+  \bool_if:NTF \l_keys_no_value_bool {
+    \int_compare:nTF {
+      \exp_args:Nc \cs_get_arg_count_from_signature:N
+        { \l_keys_property_tl } = \c_zero
+    } {
+      \keys_tmp:w
+    }{
+      \msg_kernel_error:nnxx { key } { property-requires-value }
+        { \l_keys_property_tl } { \l_keys_path_tl }
+    }
+  }{
+    \keys_tmp:w {#1}
+  }
+}
+\cs_new_protected_nopar:Npn \keys_execute: {
+  \keys_execute_aux:nn { \l_keys_path_tl } {
+    \keys_execute_unknown:
+  }
+}
+\cs_new_protected_nopar:Npn \keys_execute_unknown: {
+  \keys_execute_aux:nn { \l_keys_module_tl / unknown } {
+    \msg_kernel_error:nnxx { keys } { key-unknown } { \l_keys_path_tl }
+      { \l_keys_module_tl }
+  }
+}
+\cs_new_protected_nopar:Npn \keys_execute_aux:nn #1#2 {
+  \cs_set_eq:Nc \keys_tmp:w { \c_keys_root_tl #1 .cmd:n }
+  \cs_if_exist:NTF \keys_tmp:w {
+    \exp_args:NV \keys_tmp:w \l_keys_value_tl
+  }{
+    #2
+  }
+}
+\prg_set_conditional:Nnn \keys_if_exist:nn {TF,T,F} {
+  \cs_if_exist:cTF { \c_keys_root_tl #1 / #2 .cmd:n } {
+    \prg_return_true:
+  }{
+    \prg_return_false:
+  }
+}
+\cs_new_nopar:Npn \keys_if_value_requirement:nTF #1 {
+  \tl_if_eq:ccTF { c_keys_value_ #1 _tl } {
+    \c_keys_root_tl \l_keys_path_tl .req_tl
+  }
+}
+\cs_new_protected_nopar:Npn \keys_meta_make:n #1 {
+  \exp_last_unbraced:NNo \keys_cmd_set:nn \l_keys_path_tl
+    \exp_after:wN { \exp_after:wN \keys_set:nn  \exp_after:wN { \l_keys_module_tl } {#1} }
+}
+\cs_new_protected_nopar:Npn \keys_meta_make:x #1 {
+  \keys_cmd_set:nx { \l_keys_path_tl } {
+    \exp_not:N \keys_set:nn { \l_keys_module_tl } {#1}
+  }
+}
+\cs_new_protected_nopar:Npn \keys_property_find:n #1 {
+  \tl_set:Nx \l_keys_path_tl { \l_keys_module_tl / }
+  \tl_if_in:nnTF {#1} {.} {
+    \keys_property_find_aux:n {#1}
+  }{
+    \msg_kernel_error:nnx { keys } { key-no-property } {#1}
+  }
+}
+\cs_new_protected_nopar:Npn \keys_property_find_aux:n #1 {
+  \keys_property_find_aux:w #1 \q_stop
+}
+\cs_new_protected_nopar:Npn \keys_property_find_aux:w #1 . #2 \q_stop {
+  \tl_if_in:nnTF {#2} { . } {
+    \tl_set:Nx \l_keys_path_tl {
+      \l_keys_path_tl \tl_to_str:n {#1} .
+    }
+    \keys_property_find_aux:w #2 \q_stop
+  }{
+    \tl_set:Nx \l_keys_path_tl { \l_keys_path_tl \tl_to_str:n {#1} }
+    \tl_set:Nn \l_keys_property_tl { . #2 }
+  }
+}
+\cs_new_nopar:Npn \keys_property_new:nn #1#2 {
+  \cs_new:cpn { \c_keys_properties_root_tl #1 } {#2}
+}
+\cs_new_protected_nopar:Npn \keys_property_new_arg:nn #1#2 {
+  \cs_new:cpn { \c_keys_properties_root_tl #1 } ##1 {#2}
+}
+\cs_new_protected_nopar:Npn \keys_property_undefine:n #1 {
+  \cs_set_eq:cN { \c_keys_root_tl #1 } \c_undefined
+}
+\cs_new_protected:Npn \keys_set:nn #1#2 {
+  \tl_set:Nn \l_keys_module_tl {#1}
+  \KV_process_space_removal_sanitize:NNn
+    \keys_set_elt:n \keys_set_elt:nn {#2}
+}
+\cs_generate_variant:Nn \keys_set:nn { nV, nv }
+\cs_new_protected_nopar:Npn \keys_set_elt:n #1 {
+  \bool_set_true:N \l_keys_no_value_bool
+  \keys_set_elt_aux:nn {#1} { }
+}
+\cs_new_protected:Npn \keys_set_elt:nn #1#2 {
+  \bool_set_false:N \l_keys_no_value_bool
+  \keys_set_elt_aux:nn {#1} {#2}
+}
+\cs_new_protected:Npn \keys_set_elt_aux:nn #1#2 {
+  \tl_set:Nx \l_keys_key_tl { \tl_to_str:n {#1} }
+  \tl_set:Nx \l_keys_path_tl { \l_keys_module_tl / \l_keys_key_tl }
+  \keys_value_or_default:n {#2}
+  \keys_if_value_requirement:nTF { required } {
+    \bool_if:NTF \l_keys_no_value_bool {
+      \msg_kernel_error:nnx  { keys } { value-required }
+        { \l_keys_path_tl }
+    }{
+      \keys_set_elt_aux:
+    }
+  }{
+    \keys_set_elt_aux:
+  }
+}
+\cs_new_protected_nopar:Npn \keys_set_elt_aux: {
+  \keys_if_value_requirement:nTF { forbidden } {
+    \bool_if:NTF \l_keys_no_value_bool {
+      \keys_execute:
+    }{
+      \msg_kernel_error:nnxx { keys } { value-forbidden }
+        { \l_keys_path_tl } { \tl_use:N \l_keys_value_tl }
+    }
+  }{
+    \keys_execute:
+  }
+}
+\cs_new_nopar:Npn \keys_show:nn #1#2 {
+  \cs_show:c { \c_keys_root_tl #1 / \tl_to_str:n {#2} .cmd:n }
+}
+\cs_new:Npn \keys_tmp:w {}
+\cs_new_protected:Npn \keys_value_or_default:n #1 {
+  \tl_set:Nn \l_keys_value_tl  {#1}
+  \bool_if:NT \l_keys_no_value_bool {
+    \cs_if_exist:cT { \c_keys_root_tl \l_keys_path_tl .default_tl } {
+      \tl_set:Nv \l_keys_value_tl  {
+        \c_keys_root_tl \l_keys_path_tl .default_tl
+      }
+    }
+  }
+}
+\cs_new_protected_nopar:Npn \keys_value_requirement:n #1 {
+  \tl_set_eq:cc { \c_keys_root_tl \l_keys_path_tl .req_tl }
+    { c_keys_value_ #1 _tl }
+}
+\cs_new_protected_nopar:Npn \keys_variable_set:NnNN #1#2#3#4 {
+  \cs_if_exist:NF #1 {
+    \use:c { #2 _new:N } #1
+  }
+  \keys_cmd_set:nx { \l_keys_path_tl } {
+    \exp_not:c { #2 _ #3 set:N #4 } \exp_not:N #1 {##1}
+  }
+}
+\cs_generate_variant:Nn \keys_variable_set:NnNN { c }
+\keys_property_new_arg:nn { .bool_set:N } {
+  \keys_bool_set:Nn #1 { }
+}
+\keys_property_new_arg:nn { .bool_gset:N } {
+  \keys_bool_set:Nn #1 { g }
+}
+\keys_property_new:nn { .choice: } {
+  \keys_choice_make:
+}
+\keys_property_new_arg:nn { .choice_code:n } {
+  \keys_choice_code_store:x { \exp_not:n {#1} }
+}
+\keys_property_new_arg:nn { .choice_code:x } {
+  \keys_choice_code_store:x {#1}
+}
+\keys_property_new_arg:nn { .code:n } {
+  \keys_cmd_set:nn { \l_keys_path_tl } {#1}
+}
+\keys_property_new_arg:nn { .code:x } {
+  \keys_cmd_set:nx { \l_keys_path_tl } {#1}
+}
+\keys_property_new_arg:nn { .default:n } {
+  \keys_default_set:n  {#1}
+}
+\keys_property_new_arg:nn { .default:V } {
+  \keys_default_set:V #1
+}
+\keys_property_new_arg:nn { .dim_set:N } {
+  \keys_variable_set:NnNN #1 { dim } { } n
+}
+\keys_property_new_arg:nn { .dim_set:c } {
+  \keys_variable_set:cnNN {#1} { dim } { } n
+}
+\keys_property_new_arg:nn { .dim_gset:N } {
+  \keys_variable_set:NnNN #1 { dim } g n
+}
+\keys_property_new_arg:nn { .dim_gset:c } {
+  \keys_variable_set:cnNN {#1} { dim } g n
+}
+\keys_property_new_arg:nn { .fp_set:N } {
+  \keys_variable_set:NnNN #1 { fp } { } n
+}
+\keys_property_new_arg:nn { .fp_set:c } {
+  \keys_variable_set:cnNN {#1} { fp } { } n
+}
+\keys_property_new_arg:nn { .fp_gset:N } {
+  \keys_variable_set:NnNN #1 { fp } g n
+}
+\keys_property_new_arg:nn { .fp_gset:c } {
+  \keys_variable_set:cnNN {#1} { fp } g n
+}
+\keys_property_new_arg:nn { .generate_choices:n } {
+  \keys_choices_generate:n {#1}
+}
+\keys_property_new_arg:nn { .int_set:N } {
+  \keys_variable_set:NnNN #1 { int } { } n
+}
+\keys_property_new_arg:nn { .int_set:c } {
+  \keys_variable_set:cnNN {#1} { int } { } n
+}
+\keys_property_new_arg:nn { .int_gset:N } {
+  \keys_variable_set:NnNN #1 { int } g n
+}
+\keys_property_new_arg:nn { .int_gset:c } {
+  \keys_variable_set:cnNN {#1} { int } g n
+}
+\keys_property_new_arg:nn { .meta:n } {
+  \keys_meta_make:n {#1}
+}
+\keys_property_new_arg:nn { .meta:x } {
+  \keys_meta_make:x {#1}
+}
+\keys_property_new_arg:nn { .skip_set:N } {
+  \keys_variable_set:NnNN #1 { skip } { } n
+}
+\keys_property_new_arg:nn { .skip_set:c } {
+  \keys_variable_set:cnNN {#1} { skip } { } n
+}
+\keys_property_new_arg:nn { .skip_gset:N } {
+  \keys_variable_set:NnNN #1 { skip } g n
+}
+\keys_property_new_arg:nn { .skip_gset:c } {
+  \keys_variable_set:cnNN {#1} { skip } g n
+}
+\keys_property_new_arg:nn { .tl_set:N } {
+  \keys_variable_set:NnNN #1 { tl } { } n
+}
+\keys_property_new_arg:nn { .tl_set:c } {
+  \keys_variable_set:cnNN {#1} { tl } { } n
+}
+\keys_property_new_arg:nn { .tl_set_x:N } {
+  \keys_variable_set:NnNN #1 { tl } { } x
+}
+\keys_property_new_arg:nn { .tl_set_x:c } {
+  \keys_variable_set:cnNN {#1} { tl } { } x
+}
+\keys_property_new_arg:nn { .tl_gset:N } {
+  \keys_variable_set:NnNN #1 { tl } g n
+}
+\keys_property_new_arg:nn { .tl_gset:c } {
+  \keys_variable_set:cnNN {#1} { tl } g n
+}
+\keys_property_new_arg:nn { .tl_gset_x:N } {
+  \keys_variable_set:NnNN #1 { tl } g x
+}
+\keys_property_new_arg:nn { .tl_gset_x:c } {
+  \keys_variable_set:cnNN {#1} { tl } g x
+}
+\keys_property_new:nn { .value_forbidden: } {
+  \keys_value_requirement:n { forbidden }
+}
+\keys_property_new:nn { .value_required: } {
+  \keys_value_requirement:n { required }
+}
+\msg_kernel_new:nnnn { keys } { choice-unknown }
+  { Choice~'#2'~unknown~for~key~'#1'. }
+  {
+    The~key~'#1'~takes~a~limited~number~of~values.\\
+    The~input~given,~'#2',~is~not~on~the~list~accepted.
+  }
+\msg_kernel_new:nnnn { keys } { generate-choices-before-code }
+  { No~code~available~to~generate~choices~for~key~'#1'. }
+  {
+    \l_msg_coding_error_text_tl
+    Before~using~.generate_choices:n~the~code~should~be~defined\\%
+    with~.choice_code:n~or~.choice_code:x.
+  }
+\msg_kernel_new:nnnn { keys } { key-no-property }
+  { No~property~given~in~definition~of~key~'#1'. }
+  {
+    \c_msg_coding_error_text_tl
+    Inside~\token_to_str:N \keys_define:nn \c_space_tl each~key~name
+    needs~a~property:  \\
+    ~ ~ #1 .<property> \\
+    LaTeX~did~not~find~a~'.'~to~indicate~the~start~of~a~property.
+  }
+\msg_kernel_new:nnnn { keys } { key-unknown }
+  { The~key~'#1'~is~unknown~and~is~being~ignored. }
+  {
+    The~module~'#2'~does~not~have~a~key~called~#1'.\\
+    Check~that~you~have~spelled~the~key~name~correctly.
+  }
+\msg_kernel_new:nnnn { keys } { property-requires-value }
+  { The~property~'#1'~requires~a~value. }
+  {
+    \l_msg_coding_error_text_tl
+    LaTeX~was~asked~to~set~property~'#2'~for~key~'#1'.\\
+    No~value~was~given~for~the~property,~and~one~is~required.
+  }
+\msg_kernel_new:nnnn { keys } { property-unknown }
+  { The~key~property~'#1'~is~unknown. }
+  {
+    \l_msg_coding_error_text_tl
+    LaTeX~has~been~asked~to~set~the~property~'#1'~for~key~'#2':\\
+    this~property~is~not~defined.
+  }
+\msg_kernel_new:nnnn { keys } { value-forbidden }
+  { The~key~'#1'~does~not~taken~a~value. }
+  {
+    The~key~'#1'~should~be~given~without~a~value.\\
+    LaTeX~will~ignore~the~given~value~'#2'.
+  }
+\msg_kernel_new:nnnn { keys } { value-required }
+  { The~key~'#1'~requires~a~value. }
+  {
+    The~key~'#1'~must~have~a~value.\\
+    No~value~was~present:~the~key~will~be~ignored.
+  }
+%% 
+%%
+%% End of file `l3keys.sty'.

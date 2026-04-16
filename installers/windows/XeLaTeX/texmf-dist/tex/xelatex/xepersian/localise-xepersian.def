@@ -1,0 +1,34 @@
+%%
+%% This is file `localise-xepersian.def',
+
+%% 
+%%   __________________________________
+%%   Copyright © 2008-2010 Vafa Khalighi
+%% 
+%%   License information appended.
+%% 
+%% 
+\ProvidesFile{localise-xepersian.def}[2010/07/25 v0.2 Persian localisation of LaTeX2e]
+\catcode`‌=11
+\newcommand\eqcommand[2][]{\let#1=#2}
+\newcommand\eqenvironment[2][]{\newenvironment{#1}{\begin{#2}}{\end{#2}}}
+\input{commands-ltx.def}
+\input{commands-xepersian.def}
+\input{environments-ltx.def}
+\input{environments-xepersian.def}
+\input{misccommandsenvironments-ltx.def}
+%% 
+%% Copyright © 2008-2010      by Vafa Khalighi     <vafakh84@gmail.com>
+%% 
+%% Distributable under the LaTeX Project Public License,
+%% version 1.3c or higher (your choice). The latest version of
+%% this license is at: http://www.latex-project.org/lppl.txt
+%% 
+%% This work is "maintained" (as per LPPL maintenance status)
+%% by Vafa Khalighi.
+%% 
+%% 
+%% 
+%% 
+%%
+%% End of file `localise-xepersian.def'.

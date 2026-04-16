@@ -1,0 +1,54 @@
+%%
+%% This is file `flowfram-xepersian.def',
+
+%% 
+%%   __________________________________
+%%   Copyright © 2009-2010 Vafa Khalighi
+%% 
+%%   License information appended.
+%% 
+%% 
+\ProvidesFile{flowfram-xepersian.def}[2010/07/25 v0.1 adaptations for flowfram package]
+\def\@outputpage{%
+\begingroup
+  \let\protect\noexpand
+  \@resetactivechars
+  \global\let\@@if@newlist\if@newlist
+  \global\@newlistfalse\@parboxrestore
+  \shipout\vbox{\set@typeset@protect
+    \aftergroup
+    \endgroup
+    \aftergroup
+    \set@typeset@protect
+    \reset@font\normalsize\normalsfcodes
+    \let\label\@gobble
+    \let\index\@gobble
+    \let\glossary\@gobble
+    \baselineskip\z@skip
+    \lineskip\z@skip
+    \lineskiplimit\z@
+    \vskip\topmargin\moveright\@themargin
+    \vbox{%
+      \vskip\headheight
+      \vskip\headsep
+      \box\@outputbox
+    }}%
+  \global\let\if@newlist\@@if@newlist
+  \stepcounter{page}%
+  \setcounter{displayedframe}{0}%
+  \let\firstmark\botmark}
+%% 
+%% Copyright © 2009-2010      by Vafa Khalighi     <vafakh84@gmail.com>
+%% 
+%% Distributable under the LaTeX Project Public License,
+%% version 1.3c or higher (your choice). The latest version of
+%% this license is at: http://www.latex-project.org/lppl.txt
+%% 
+%% This work is "maintained" (as per LPPL maintenance status)
+%% by Vafa Khalighi.
+%% 
+%% 
+%% 
+%% 
+%%
+%% End of file `flowfram-xepersian.def'.

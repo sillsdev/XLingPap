@@ -1,0 +1,334 @@
+%%
+%% This is file `l3expan.sty',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% l3expan.dtx  (with options: `package,trace')
+%% 
+%% 
+%% EXPERIMENTAL CODE
+%% 
+%% Do not distribute this file without also distributing the
+%% source files specified above.
+%% 
+%% Do not distribute a modified version of this file.
+%% 
+%% 
+%% File: l3expan.dtx Copyright (C) 1990-2010 LaTeX3 project
+%%
+%% It may be distributed and/or modified under the conditions of the
+%% LaTeX Project Public License (LPPL), either version 1.3c of this
+%% license or (at your option) any later version.  The latest version
+%% of this license is in the file
+%%
+%%    http://www.latex-project.org/lppl.txt
+%%
+%% This file is part of the ``expl3 bundle'' (The Work in LPPL)
+%% and all files in that bundle must be distributed together.
+%%
+%% The released version of this bundle is available from CTAN.
+%%
+%% -----------------------------------------------------------------------
+%%
+%% The development version of the bundle can be found at
+%%
+%%    http://www.latex-project.org/svnroot/experimental/trunk/
+%%
+%% for those people who are interested.
+%%
+%%%%%%%%%%%
+%% NOTE: %%
+%%%%%%%%%%%
+%%
+%%   Snapshots taken from the repository represent work in progress and may
+%%   not work or may contain conflicting material!  We therefore ask
+%%   people _not_ to put them into distributions, archives, etc. without
+%%   prior consultation with the LaTeX Project Team.
+%%
+%% -----------------------------------------------------------------------
+\RequirePackage{l3names}
+\GetIdInfo$Id: l3expan.dtx 2037 2010-09-20 21:22:45Z joseph $
+       {L3 Experimental Argument Expansion module}
+\ProvidesExplPackage
+  {\filename}{\filedate}{\fileversion}{\filedescription}
+\package_check_loaded_expl:
+\cs_new_nopar:Npn \l_exp_tl {}
+\cs_new:Npn\exp_arg_next:nnn#1#2#3{
+  #2\:::{#3{#1}}
+}
+\cs_new:Npn\exp_arg_next_nobrace:nnn#1#2#3{
+  #2\:::{#3#1}
+}
+\cs_new:Npn\:::#1{#1}
+\cs_new:Npn\::n#1\:::#2#3{
+  #1\:::{#2{#3}}
+}
+\cs_new:Npn\::N#1\:::#2#3{
+  #1\:::{#2#3}
+}
+\cs_new:Npn\::c#1\:::#2#3{
+  \exp_after:wN\exp_arg_next_nobrace:nnn\cs:w #3\cs_end:{#1}{#2}
+}
+\cs_new:Npn\::o#1\:::#2#3{
+  \exp_after:wN\exp_arg_next:nnn\exp_after:wN{#3}{#1}{#2}
+}
+\cs_new:Npn\::f#1\:::#2#3{
+  \exp_after:wN\exp_arg_next:nnn
+  \exp_after:wN{\tex_romannumeral:D -`0 #3}
+  {#1}{#2}
+}
+\cs_new_nopar:Npn \exp_stop_f: {~}
+  \cs_new_protected:Npn \::x #1 \::: #2#3 {
+    \cs_set_nopar:Npx \l_exp_tl {{#3}}
+    \exp_after:wN \exp_arg_next:nnn \l_exp_tl {#1}{#2}
+  }
+\cs_new:Npn \::V#1\:::#2#3{
+  \exp_after:wN\exp_arg_next:nnn
+  \exp_after:wN{
+    \tex_romannumeral:D -`0
+    \exp_eval_register:N #3
+  }
+  {#1}{#2}
+}
+\cs_new:Npn \::v#1\:::#2#3{
+  \exp_after:wN\exp_arg_next:nnn
+  \exp_after:wN{
+    \tex_romannumeral:D -`0
+    \exp_eval_register:c {#3}
+  }
+  {#1}{#2}
+}
+\cs_set_nopar:Npn \exp_eval_register:N #1{
+  \exp_after:wN \if_meaning:w \exp_not:N #1#1
+    \if_meaning:w \tex_relax:D #1
+      \exp_eval_error_msg:w
+    \fi:
+  \else:
+    \exp_after:wN \use_i_ii:nnn
+  \fi:
+  \exp_after:wN \exp_stop_f: \tex_the:D #1
+}
+\cs_set_nopar:Npn \exp_eval_register:c #1{
+  \exp_after:wN\exp_eval_register:N\cs:w #1\cs_end:
+}
+\group_begin:%
+\tex_catcode:D`\!=11\tex_relax:D%
+\tex_catcode:D`\ =11\tex_relax:D%
+\cs_gset:Npn\exp_eval_error_msg:w#1\tex_the:D#2{%
+\fi:\fi:\erroneous variable used!}%
+\group_end:%
+\cs_new:Npn \exp_args:No #1#2{\exp_after:wN#1\exp_after:wN{#2}}
+\cs_new:Npn \exp_args:NNo #1#2#3{\exp_after:wN#1\exp_after:wN#2
+  \exp_after:wN{#3}}
+\cs_new:Npn \exp_args:NNNo #1#2#3#4{\exp_after:wN#1\exp_after:wN#2
+  \exp_after:wN#3\exp_after:wN{#4}}
+\cs_set:Npn \exp_args:Nc #1#2{\exp_after:wN#1\cs:w#2\cs_end:}
+\cs_new:Npn \exp_args:cc #1#2{\cs:w #1\exp_after:wN\cs_end:\cs:w #2\cs_end:}
+\cs_new:Npn \exp_args:NNc #1#2#3{\exp_after:wN#1\exp_after:wN#2
+    \cs:w#3\cs_end:}
+\cs_new:Npn \exp_args:Ncc #1#2#3{\exp_after:wN#1
+    \cs:w#2\exp_after:wN\cs_end:\cs:w#3\cs_end:}
+\cs_new:Npn \exp_args:Nccc #1#2#3#4{\exp_after:wN#1
+    \cs:w#2\exp_after:wN\cs_end:\cs:w#3\exp_after:wN
+      \cs_end:\cs:w #4\cs_end:}
+\cs_new:Npn \exp_args:Nco #1#2#3{\exp_after:wN#1\cs:w#2\exp_after:wN
+     \cs_end:\exp_after:wN{#3}}
+\cs_set_nopar:Npn \exp_args:Nf {\::f\:::}
+\cs_set_nopar:Npn \exp_args:Nv {\::v\:::}
+\cs_set_nopar:Npn \exp_args:NV {\::V\:::}
+\cs_set_protected_nopar:Npn \exp_args:Nx {\::x\:::}
+\cs_set_nopar:Npn \exp_args:NNf {\::N\::f\:::}
+\cs_set_nopar:Npn \exp_args:NNv {\::N\::v\:::}
+\cs_set_nopar:Npn \exp_args:NNV {\::N\::V\:::}
+\cs_set_protected_nopar:Npn \exp_args:NNx {\::N\::x\:::}
+
+\cs_set_protected_nopar:Npn \exp_args:Ncx {\::c\::x\:::}
+\cs_set_nopar:Npn \exp_args:Nfo {\::f\::o\:::}
+\cs_set_nopar:Npn \exp_args:Nff {\::f\::f\:::}
+\cs_set_nopar:Npn \exp_args:Ncf {\::c\::f\:::}
+\cs_set_nopar:Npn \exp_args:Nnf {\::n\::f\:::}
+\cs_set_nopar:Npn \exp_args:Nno {\::n\::o\:::}
+\cs_set_nopar:Npn \exp_args:NnV {\::n\::V\:::}
+\cs_set_protected_nopar:Npn \exp_args:Nnx {\::n\::x\:::}
+
+\cs_set_nopar:Npn \exp_args:Noc {\::o\::c\:::}
+\cs_set_nopar:Npn \exp_args:Noo {\::o\::o\:::}
+\cs_set_protected_nopar:Npn \exp_args:Nox {\::o\::x\:::}
+
+\cs_set_nopar:Npn \exp_args:NVV {\::V\::V\:::}
+
+\cs_set_protected_nopar:Npn \exp_args:Nxo {\::x\::o\:::}
+\cs_set_protected_nopar:Npn \exp_args:Nxx {\::x\::x\:::}
+\cs_set_nopar:Npn \exp_args:NNNV {\::N\::N\::V\:::}
+
+\cs_set_nopar:Npn \exp_args:NNno {\::N\::n\::o\:::}
+\cs_set_protected_nopar:Npn \exp_args:NNnx {\::N\::n\::x\:::}
+\cs_set_nopar:Npn \exp_args:NNoo {\::N\::o\::o\:::}
+\cs_set_protected_nopar:Npn \exp_args:NNox {\::N\::o\::x\:::}
+
+\cs_set_nopar:Npn \exp_args:Nnnc {\::n\::n\::c\:::}
+\cs_set_nopar:Npn \exp_args:Nnno {\::n\::n\::o\:::}
+\cs_set_protected_nopar:Npn \exp_args:Nnnx {\::n\::n\::x\:::}
+\cs_set_protected_nopar:Npn \exp_args:Nnox {\::n\::o\::x\:::}
+
+\cs_set_nopar:Npn \exp_args:NcNc {\::c\::N\::c\:::}
+\cs_set_nopar:Npn \exp_args:NcNo {\::c\::N\::o\:::}
+\cs_set_nopar:Npn \exp_args:Ncco {\::c\::c\::o\:::}
+\cs_set_nopar:Npn \exp_args:Ncco {\::c\::c\::o\:::}
+\cs_set_protected_nopar:Npn \exp_args:Nccx {\::c\::c\::x\:::}
+\cs_set_protected_nopar:Npn \exp_args:Ncnx {\::c\::n\::x\:::}
+
+\cs_set_protected_nopar:Npn \exp_args:Noox {\::o\::o\::x\:::}
+\cs_set_nopar:Npn \exp_args:Nooo {\::o\::o\::o\:::}
+\cs_new:Npn\exp_not:o#1{\exp_not:n\exp_after:wN{#1}}
+\cs_new:Npn\exp_not:f#1{
+  \exp_not:n\exp_after:wN{\tex_romannumeral:D -`0 #1}
+}
+\cs_new:Npn\exp_not:v#1{
+  \exp_not:n\exp_after:wN{\tex_romannumeral:D -`0 \exp_eval_register:c {#1}}
+}
+\cs_new:Npn\exp_not:V#1{
+  \exp_not:n\exp_after:wN{\tex_romannumeral:D -`0 \exp_eval_register:N #1}
+}
+\cs_new:Npn\exp_not:c#1{\exp_after:wN\exp_not:N\cs:w#1\cs_end:}
+\cs_new_protected:Npn \cs_generate_variant:Nn #1 {
+  \chk_if_exist_cs:N #1
+  \cs_split_function:NN #1 \cs_generate_variant_aux:nnNn
+}
+\cs_set:Npn \cs_generate_variant_aux:nnNn #1#2#3#4{
+  \cs_generate_variant_aux:nnw {#1}{#2} #4,?,\q_recursion_stop
+}
+\cs_set:Npn \cs_generate_variant_aux:nnw #1 #2 #3, {
+  \if:w ? #3
+    \exp_after:wN \use_none_delimit_by_q_recursion_stop:w
+  \fi:
+  \cs_if_free:cTF {
+    #1:#3\use:c {use_none:\cs_generate_variant_aux:N #3 ?}#2
+  }
+  {
+    \_cs_generate_variant_aux:ccpx { #1 : #2 }
+    {
+      #1:#3 \use:c{use_none:\cs_generate_variant_aux:N #3 ?}#2
+    }
+    {
+      \exp_not:c { exp_args:N #3} \exp_not:c {#1:#2}
+    }
+    \cs_generate_internal_variant:n {#3}
+  }
+  {
+    \iow_log:x{
+      Variant~\token_to_str:c {
+        #1:#3\use:c {use_none:\cs_generate_variant_aux:N #3 ?}#2
+      }~already~defined;~ not~ changing~ it~on~line~
+      \tex_the:D \tex_inputlineno:D
+    }
+  }
+  \cs_generate_variant_aux:nnw{#1}{#2}
+}
+\cs_set:Npn \cs_generate_variant_aux:N #1{
+  \if:w ?#1 \exp_after:wN\use_none:nn \fi: n \cs_generate_variant_aux:N
+}
+\group_begin:
+  \tex_lccode:D `\Z = `\d \scan_stop:
+  \tex_lccode:D `\? =`\\ \scan_stop:
+  \tex_catcode:D `\P = 12 \scan_stop:
+  \tex_catcode:D `\R = 12 \scan_stop:
+  \tex_catcode:D `\O = 12 \scan_stop:
+  \tex_catcode:D `\T = 12 \scan_stop:
+  \tex_catcode:D `\E = 12 \scan_stop:
+  \tex_catcode:D `\C = 12 \scan_stop:
+  \tex_catcode:D `\Z = 12 \scan_stop:
+\tex_lowercase:D {
+  \group_end:
+  \cs_new_nopar:Npn \_cs_generate_variant_aux:Ncpx #1
+    {
+      \exp_after:wN \_cs_generate_variant_aux:w
+        \tex_meaning:D #1 ? PROTECTEZ \q_stop
+    }
+  \cs_new_nopar:Npn \_cs_generate_variant_aux:ccpx
+    { \exp_args:Nc \_cs_generate_variant_aux:Ncpx}
+  \cs_new:Npn \_cs_generate_variant_aux:w
+    #1 ? PROTECTEZ #2 \q_stop
+    {
+      \exp_after:wN \tex_ifx:D \exp_after:wN
+        \q_no_value \etex_detokenize:D {#1} \q_no_value
+        \exp_after:wN \cs_new_protected_nopar:cpx
+      \tex_else:D
+        \exp_after:wN \cs_new_nopar:cpx
+      \tex_fi:D
+    }
+}
+\cs_new_protected:Npn \cs_generate_internal_variant:n #1 {
+  \cs_if_free:cT { exp_args:N #1 }{
+    \cs_new:cpx { exp_args:N #1 }
+                { \cs_generate_internal_variant_aux:n #1 : }
+  }
+}
+\cs_new:Npn \cs_generate_internal_variant_aux:n #1 {
+  \exp_not:c{::#1}
+  \if_meaning:w #1 :
+    \exp_after:wN \use_none:n
+  \fi:
+  \cs_generate_internal_variant_aux:n
+}
+\cs_new:Npn \exp_arg_last_unbraced:nn #1#2 { #2#1 }
+\cs_new:Npn \::f_unbraced \:::#1#2 {
+  \exp_after:wN \exp_arg_last_unbraced:nn
+  \exp_after:wN { \tex_romannumeral:D -`0 #2 } {#1}
+}
+\cs_new:Npn \::o_unbraced \:::#1#2 {
+  \exp_after:wN \exp_arg_last_unbraced:nn \exp_after:wN {#2 }{#1}
+}
+\cs_new:Npn \::V_unbraced \:::#1#2 {
+  \exp_after:wN \exp_arg_last_unbraced:nn
+  \exp_after:wN { \tex_romannumeral:D -`0 \exp_eval_register:N #2 } {#1}
+}
+\cs_new:Npn \::v_unbraced \:::#1#2 {
+  \exp_after:wN \exp_arg_last_unbraced:nn
+  \exp_after:wN {
+    \tex_romannumeral:D -`0 \exp_eval_register:c {#2}
+  } {#1}
+}
+\cs_new_nopar:Npn \exp_last_unbraced:Nf { \::f_unbraced \::: }
+\cs_new_nopar:Npn \exp_last_unbraced:NV { \::V_unbraced \::: }
+\cs_new_nopar:Npn \exp_last_unbraced:No { \::o_unbraced \::: }
+\cs_new_nopar:Npn \exp_last_unbraced:Nv { \::v_unbraced \::: }
+\cs_new_nopar:Npn \exp_last_unbraced:NcV {
+  \::c \::V_unbraced \:::
+}
+\cs_new_nopar:Npn \exp_last_unbraced:NNV {
+  \::N \::V_unbraced \:::
+}
+\cs_new:Npn \exp_last_unbraced:NNo #1#2#3 {
+  \exp_after:wN #1 \exp_after:wN #2 #3
+}
+\cs_new_nopar:Npn \exp_last_unbraced:NNNV {
+  \::N \::N \::V_unbraced \:::
+}
+\cs_new:Npn \exp_last_unbraced:NNNo #1#2#3#4 {
+  \exp_after:wN #1 \exp_after:wN #2 \exp_after:wN #3 #4
+}
+\cs_generate_variant:Nn \str_if_eq_p:nn { V }
+\cs_generate_variant:Nn \str_if_eq_p:nn { o }
+\cs_generate_variant:Nn \str_if_eq_p:nn { nV }
+\cs_generate_variant:Nn \str_if_eq_p:nn { no }
+\cs_generate_variant:Nn \str_if_eq_p:nn { VV }
+\cs_generate_variant:Nn \str_if_eq:nnT  { V }
+\cs_generate_variant:Nn \str_if_eq:nnT  { o }
+\cs_generate_variant:Nn \str_if_eq:nnT  { nV }
+\cs_generate_variant:Nn \str_if_eq:nnT  { no }
+\cs_generate_variant:Nn \str_if_eq:nnT  { VV }
+\cs_generate_variant:Nn \str_if_eq:nnF  { V }
+\cs_generate_variant:Nn \str_if_eq:nnF  { o }
+\cs_generate_variant:Nn \str_if_eq:nnF  { nV }
+\cs_generate_variant:Nn \str_if_eq:nnF  { no }
+\cs_generate_variant:Nn \str_if_eq:nnF  { VV }
+\cs_generate_variant:Nn \str_if_eq:nnTF { V }
+\cs_generate_variant:Nn \str_if_eq:nnTF { o }
+\cs_generate_variant:Nn \str_if_eq:nnTF { nV }
+\cs_generate_variant:Nn \str_if_eq:nnTF { no }
+\cs_generate_variant:Nn \str_if_eq:nnTF { VV }
+%% 
+%%
+%% End of file `l3expan.sty'.

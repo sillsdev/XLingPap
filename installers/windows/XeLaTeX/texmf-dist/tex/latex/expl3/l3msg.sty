@@ -1,0 +1,458 @@
+%%
+%% This is file `l3msg.sty',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% l3msg.dtx  (with options: `package')
+%% 
+%% 
+%% EXPERIMENTAL CODE
+%% 
+%% Do not distribute this file without also distributing the
+%% source files specified above.
+%% 
+%% Do not distribute a modified version of this file.
+%% 
+%% 
+%% File: l3msg.dtx Copyright (C) 2009 LaTeX3 project
+%%
+%% It may be distributed and/or modified under the conditions of the
+%% LaTeX Project Public License (LPPL), either version 1.3c of this
+%% license or (at your option) any later version.  The latest version
+%% of this license is in the file
+%%
+%%    http://www.latex-project.org/lppl.txt
+%%
+%% This file is part of the ``expl3 bundle'' (The Work in LPPL)
+%% and all files in that bundle must be distributed together.
+%%
+%% The released version of this bundle is available from CTAN.
+%%
+%% -----------------------------------------------------------------------
+%%
+%% The development version of the bundle can be found at
+%%
+%%    http://www.latex-project.org/svnroot/experimental/trunk/
+%%
+%% for those people who are interested.
+%%
+%%%%%%%%%%%
+%% NOTE: %%
+%%%%%%%%%%%
+%%
+%%   Snapshots taken from the repository represent work in progress and may
+%%   not work or may contain conflicting material!  We therefore ask
+%%   people _not_ to put them into distributions, archives, etc. without
+%%   prior consultation with the LaTeX Project Team.
+%%
+%% -----------------------------------------------------------------------
+%%
+\RequirePackage{l3names}
+\GetIdInfo$Id: l3msg.dtx 2052 2010-10-02 16:04:38Z will $
+  {L3 Experimental LaTeX Messages module}
+\ProvidesExplPackage
+  {\filename}{\filedate}{\fileversion}{\filedescription}
+\package_check_loaded_expl:
+\int_set:Nn \tex_errorcontextlines:D { \c_minus_one }
+\tl_const:Nn \c_msg_error_tl   { error }
+\tl_const:Nn \c_msg_warning_tl { warning }
+\tl_const:Nn \c_msg_info_tl    { info }
+\cs_new:Npn \msg_fatal_text:n #1 { Fatal~#1~error }
+\cs_new:Npn \msg_see_documentation_text:n #1
+  { See~the~#1~documentation~for~further~information }
+\tl_const:Nn \c_msg_coding_error_text_tl {
+  This~is~a~coding~error.
+  \msg_two_newlines:
+}
+\tl_const:Nn \c_msg_fatal_text_tl {
+  This~is~a~fatal~error:~LaTeX~will~abort
+}
+\tl_const:Nn \c_msg_help_text_tl {
+  For~immediate~help~type~H~<return>
+}
+\tl_const:Nn \c_msg_kernel_bug_text_tl {
+  This~is~a~LaTeX~bug:~check~coding!
+}
+\tl_const:Nn \c_msg_kernel_bug_more_text_tl {
+  There~is~a~coding~bug~somewhere~around~here. \\
+  This~probably~needs~examining~by~an~expert.
+  \c_msg_return_text_tl
+}
+\tl_const:Nn \c_msg_no_info_text_tl {
+  LaTeX~does~not~know~anything~more~about~this~error,~sorry.
+  \c_msg_return_text_tl
+}
+\tl_const:Nn \c_msg_return_text_tl {
+  \\ \\
+  Try~typing~<return>~to~proceed.
+  \\
+  If~that~doesn't~work,~type~X~<return>~to~quit
+}
+\group_begin:
+\char_make_letter:N \.
+\tl_to_lowercase:n {
+  \group_end:
+  \tl_const:Nn \c_msg_hide_tl................................................
+    {}
+}
+\tl_const:Nn \c_msg_on_line_tl { on~line }
+\tl_const:Nn \c_msg_text_prefix_tl      { msg_text ~>~ }
+\tl_const:Nn \c_msg_more_text_prefix_tl { msg_text_more ~>~ }
+\tl_new:N \l_msg_class_tl
+\tl_new:N \l_msg_current_class_tl
+\tl_new:N \l_msg_current_module_tl
+\clist_new:N \l_msg_names_clist
+\prop_new:N \l_msg_redirect_classes_prop
+\prop_new:N \l_msg_redirect_names_prop
+\clist_new:N \l_msg_redirect_classes_clist
+\tl_new:N \l_msg_tmp_tl
+\cs_new_nopar:Npn \msg_line_number: {
+  \toks_use:N \tex_inputlineno:D
+}
+\cs_new_nopar:Npn \msg_line_context: {
+  \c_msg_on_line_tl
+  \c_space_tl
+  \msg_line_number:
+}
+\cs_new_nopar:Npn \msg_newline:      { ^^J }
+\cs_new_nopar:Npn \msg_two_newlines: { ^^J ^^J }
+\cs_new_protected_nopar:Npn \msg_generic_new:nnn #1 {
+  \chk_if_free_cs:c { \c_msg_text_prefix_tl #1 :xxxx }
+  \msg_generic_set:nnn {#1}
+}
+\cs_new_protected_nopar:Npn \msg_generic_new:nn #1 {
+  \chk_if_free_cs:c { \c_msg_text_prefix_tl #1 :xxxx }
+  \msg_generic_set:nn {#1}
+}
+\cs_new_protected_nopar:Npn \msg_generic_set:nnn #1#2#3 {
+  \msg_generic_set_clist:n {#1}
+  \cs_set:cpn { \c_msg_text_prefix_tl #1 :xxxx } ##1##2##3##4 {#2}
+  \cs_set:cpn { \c_msg_more_text_prefix_tl #1 :xxxx } ##1##2##3##4 {#3}
+}
+\cs_new_protected_nopar:Npn \msg_generic_set:nn #1#2 {
+  \msg_generic_set_clist:n {#1}
+  \cs_set:cpn { \c_msg_text_prefix_tl #1 :xxxx } ##1##2##3##4 {#2}
+  \cs_set_eq:cN { \c_msg_more_text_prefix_tl #1 :xxxx } \c_undefined
+}
+\cs_new_protected_nopar:Npn \msg_generic_set_clist:n #1 {
+  \clist_if_in:NnF \l_msg_names_clist { // #1 / } {
+    \clist_put_right:Nn \l_msg_names_clist { // #1 / }
+  }
+}
+\group_begin:
+  \char_set_lccode:nn {`\&} {`\ } % {
+  \char_set_lccode:w `\} = `\ \scan_stop:
+  \char_set_lccode:w `\& = `\!\scan_stop:
+  \char_make_active:N \&
+  \char_make_letter:N \.
+\tl_to_lowercase:n{
+  \group_end:
+  \cs_new_protected:Npn \msg_direct_interrupt:xxxxx #1#2#3#4#5 {
+    \group_begin:
+      \cs_set_nopar:Npn \\ {\msg_newline:}
+      \cs_set_eq:NN \  \c_space_tl
+      \tl_set:Nx \l_tmpa_tl {#5}
+      \tl_set:Nx \l_tmpb_tl {\c_msg_no_info_text_tl}
+      \msg_direct_interrupt_aux:n {#5}
+      \tex_errhelp:D \l_msg_tmp_tl
+      \cs_set_nopar:Npn \\ {\msg_newline: !~#3}
+      \iow_term:x
+        {\msg_newline: !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!}
+      \cs_set:Npn & {
+        \tex_errmessage:D{
+          \\ #1 \\ \\ #2 \\ \\ #4
+          \tl_if_eq:NNF \l_tmpa_tl \l_tmpb_tl
+            { . \\ \c_msg_help_text_tl }
+          \c_msg_hide_tl................................................
+          }
+        }
+      &
+    \group_end:
+  }
+}
+\cs_new_protected:Npn \msg_direct_interrupt_aux:n #1 {
+  \cs_set_nopar:Npn \\ {\msg_newline: |~}
+  \tl_if_empty:nTF {#1} {
+    \tl_set:Nx \l_msg_tmp_tl { { \c_msg_no_info_text_tl } }
+  }{
+    \tl_set:Nx \l_msg_tmp_tl { {
+      |'''''''''''''''''''''''''''''''''''''''''''''''\\
+      #1^^J
+      |...............................................^^J
+    } }
+  }
+}
+\cs_new_protected:Npn \msg_direct_log:xx #1#2 {
+  \group_begin:
+    \cs_set:Npn \\ { \msg_newline: #2 }
+    \cs_set_eq:NN \ \c_space_tl
+    \iow_log:x { #1 \msg_newline: }
+  \group_end:
+}
+\cs_new_protected:Npn \msg_direct_term:xx #1#2 {
+  \group_begin:
+    \cs_set:Npn \\ { \msg_newline: #2 }
+    \cs_set_eq:NN \ \c_space_tl
+    \iow_term:x { #1 \msg_newline: }
+  \group_end:
+}
+\cs_new_protected_nopar:Npn \msg_new:nnnn #1#2 {
+  \msg_generic_new:nnn { #1 / #2 }
+}
+\cs_new_protected_nopar:Npn \msg_new:nnn #1#2 {
+  \msg_generic_new:nn { #1 / #2 }
+}
+\cs_new_protected_nopar:Npn \msg_set:nnnn #1#2 {
+  \msg_generic_set:nnn { #1 / #2 }
+}
+\cs_new_protected_nopar:Npn \msg_set:nnn #1#2 {
+  \msg_generic_set:nn { #1 / #2 }
+}
+\cs_new_protected_nopar:Npn \msg_class_new:nn #1 {
+  \chk_if_free_cs:c { msg_ #1 :nnxxxx }
+  \prop_new:c { l_msg_redirect_ #1 _prop }
+  \msg_class_set:nn {#1}
+}
+\cs_new_protected_nopar:Npn \msg_class_set:nn #1#2 {
+  \prop_clear:c { l_msg_redirect_ #1 _prop }
+  \cs_set_protected:cpn { msg_ #1 :nnxxxx } ##1##2##3##4##5##6 {
+    \msg_use:nnnnxxxx {#1} {#2} {##1} {##2} {##3} {##4} {##5} {##6}
+  }
+  \cs_set_protected:cpx { msg_ #1 :nnxxx } ##1##2##3##4##5 {
+    \exp_not:c { msg_ #1 :nnxxxx } {##1} {##2} {##3} {##4} {##5} { }
+  }
+  \cs_set_protected:cpx { msg_ #1 :nnxx } ##1##2##3##4 {
+    \exp_not:c { msg_ #1 :nnxxxx } {##1} {##2} {##3} {##4} { } { }
+  }
+  \cs_set_protected:cpx { msg_ #1 :nnx } ##1##2##3 {
+    \exp_not:c { msg_ #1 :nnxxxx } {##1} {##2} {##3} { } { } { }
+  }
+  \cs_set_protected:cpx { msg_ #1 :nn } ##1##2 {
+    \exp_not:c { msg_ #1 :nnxxxx } {##1} {##2} { } { } { } { }
+  }
+}
+\cs_new_protected:Npn \msg_use:nnnnxxxx #1#2#3#4#5#6#7#8 {
+  \cs_set_nopar:Npn \msg_use_code: {
+    \clist_clear:N \l_msg_redirect_classes_clist
+    #2
+  }
+  \cs_set:Npn \msg_use_loop:n ##1 {
+    \clist_if_in:NnTF \l_msg_redirect_classes_clist {#1} {
+      \msg_kernel_error:nn { msg } { redirect-loop } {#1}
+    }{
+      \clist_put_right:Nn \l_msg_redirect_classes_clist {#1}
+      \cs_if_exist:cTF { msg_ ##1 :nnxxxx } {
+        \use:c { msg_ ##1 :nnxxxx } {#3} {#4} {#5} {#6} {#7} {#8}
+      }{
+        \msg_kernel_error:nnx { msg } { message-class-unknown } {##1}
+      }
+    }
+  }
+  \cs_if_exist:cTF { \c_msg_text_prefix_tl #3 / #4 :xxxx } {
+    \msg_use_aux:nnn {#1} {#3} {#4}
+  }{
+    \msg_kernel_error:nnxx { msg } { message-unknown } {#3} {#4}
+  }
+}
+\cs_new_nopar:Npn \msg_use_code: { }
+\cs_new:Npn \msg_use_loop:n #1 { }
+\cs_new_protected_nopar:Npn \msg_use_aux:nnn #1#2#3 {
+  \tl_set:Nn \l_msg_current_class_tl  {#1}
+  \tl_set:Nn \l_msg_current_module_tl {#2}
+  \prop_if_in:NnTF \l_msg_redirect_names_prop { // #2 / #3 / } {
+     \msg_use_loop_check:nn { names } { // #2 / #3 / }
+  }{
+    \msg_use_aux:nn {#1} {#2}
+  }
+}
+\cs_new_protected_nopar:Npn \msg_use_aux:nn #1#2 {
+  \prop_if_in:cnTF { l_msg_redirect_ #1 _prop } {#2} {
+    \msg_use_loop_check:nn {#1} {#2}
+  }{
+    \prop_if_in:cnTF { l_msg_redirect_ #1 _prop } { * } {
+      \msg_use_loop_check:nn {#1} { * }
+    }{
+      \msg_use_code:
+    }
+  }
+}
+\cs_new_protected:Npn \msg_use_loop_check:nn #1#2 {
+  \prop_get:cnN { l_msg_redirect_ #1 _prop } {#2} \l_msg_class_tl
+  \tl_if_eq:NNTF \l_msg_current_class_tl \l_msg_class_tl {
+    \msg_use_code:
+  }{
+    \msg_use_loop:n { \l_msg_class_tl }
+  }
+}
+\msg_class_new:nn { fatal } {
+  \msg_direct_interrupt:xxxxx
+    { \msg_fatal_text:n {#1} : ~ "#2"  }
+    {
+      \use:c { \c_msg_text_prefix_tl #1 / #2 :xxxx } {#3} {#4} {#5} {#6}
+    }
+    {}
+    { \msg_see_documentation_text:n {#1} }
+    { \c_msg_fatal_text_tl }
+  \tex_end:D
+}
+\msg_class_new:nn { error } {
+  \msg_direct_interrupt:xxxxx
+    { #1~ \c_msg_error_tl : ~ "#2" }
+    {
+      \use:c { \c_msg_text_prefix_tl #1 / #2 :xxxx } {#3} {#4} {#5} {#6}
+    }
+    {}
+    { \msg_see_documentation_text:n {#1} }
+    {
+      \cs_if_exist:cTF { \c_msg_more_text_prefix_tl #1 / #2 :xxxx }
+        {
+          \use:c { \c_msg_more_text_prefix_tl #1 / #2 :xxxx }
+            {#3} {#4} {#5} {#6}
+        }
+        { \c_msg_no_info_text_tl }
+    }
+}
+\msg_class_new:nn { warning } {
+  \msg_direct_term:xx {
+    \c_space_tl #1 ~ \c_msg_warning_tl :~
+    \use:c { \c_msg_text_prefix_tl #1 / #2 :xxxx } {#3} {#4} {#5} {#6}
+  }
+  { ( #1 ) \c_space_tl \c_space_tl }
+}
+\msg_class_new:nn { info } {
+  \msg_direct_log:xx {
+    \c_space_tl #1~\c_msg_info_tl :~
+    \use:c { \c_msg_text_prefix_tl #1 / #2 :xxxx } {#3} {#4} {#5} {#6}
+  }
+  { ( #1 ) \c_space_tl \c_space_tl }
+}
+\msg_class_new:nn { log } {
+  \msg_direct_log:xx {
+    \use:c { \c_msg_text_prefix_tl #1 / #2 :xxxx } {#3} {#4} {#5} {#6}
+  }
+  { }
+}
+\msg_class_new:nn { trace } {
+  \msg_direct_log:xx {
+    \use:c { \c_msg_text_prefix_tl #1 / #2 :xxxx } {#3} {#4} {#5} {#6}
+  }
+  { }
+}
+\msg_class_new:nn { none } { }
+\cs_new_protected_nopar:Npn \msg_redirect_class:nn #1#2 {
+  \prop_put:cnn { l_msg_redirect_ #1 _prop } { * } {#2}
+}
+\cs_new_protected_nopar:Npn \msg_redirect_module:nnn #1#2#3 {
+  \prop_put:cnn { l_msg_redirect_ #2 _prop } {#1} {#3}
+}
+\cs_new_protected_nopar:Npn \msg_redirect_name:nnn #1#2#3 {
+  \prop_put:Nnn \l_msg_redirect_names_prop { // #1 / #2 / } {#3}
+}
+\cs_new_protected_nopar:Npn \msg_kernel_new:nnnn #1#2 {
+  \msg_new:nnnn { LaTeX } { #1 / #2 }
+}
+\cs_new_protected_nopar:Npn \msg_kernel_new:nnn #1#2 {
+  \msg_new:nnn { LaTeX } { #1 / #2 }
+}
+\cs_new_protected_nopar:Npn \msg_kernel_set:nnnn #1#2 {
+  \msg_set:nnnn { LaTeX } { #1 / #2 }
+}
+\cs_new_protected_nopar:Npn \msg_kernel_set:nnn #1#2 {
+  \msg_set:nnn { LaTeX } { #1 / #2 }
+}
+\cs_new_protected_nopar:Npn \msg_kernel_classes_new:n #1 {
+  \cs_new_protected:cpx { msg_kernel_ #1 :nnxxx } ##1##2##3##4##5
+  {
+    \exp_not:c { msg_kernel_ #1 :nnxxxx }
+      {##1} {##2} {##3} {##4} {##5} { }
+  }
+  \cs_new_protected:cpx { msg_kernel_ #1 :nnxx } ##1##2##3##4
+  {
+    \exp_not:c { msg_kernel_ #1 :nnxxxx }
+      {##1} {##2} {##3} {##4} { } { }
+  }
+  \cs_new_protected:cpx { msg_kernel_ #1 :nnx } ##1##2##3
+  {
+    \exp_not:c { msg_kernel_ #1 :nnxxxx } {##1} {##2} {##3} { } { } { }
+  }
+  \cs_new_protected:cpx { msg_kernel_ #1 :nn } ##1##2
+  {
+    \exp_not:c { msg_kernel_ #1 :nnxxxx } {##1} {##2} { } { } { } { }
+  }
+}
+\cs_new_protected:Npn \msg_kernel_fatal:nnxxxx #1#2#3#4#5#6 {
+  \msg_direct_interrupt:xxxxx
+    { \msg_fatal_text:n {LaTeX} }
+    {
+      \use:c { \c_msg_text_prefix_tl LaTeX / #1 / #2 :xxxx }
+        {#3} {#4} {#5} {#6}
+    }
+    {}
+    { \msg_see_documentation_text:n {LaTeX3} }
+    { \c_msg_fatal_text_tl }
+  \tex_end:D
+}
+\msg_kernel_classes_new:n { fatal }
+\cs_new_protected:Npn \msg_kernel_error:nnxxxx #1#2#3#4#5#6 {
+  \msg_direct_interrupt:xxxxx
+    { LaTeX~\c_msg_error_tl \c_space_tl "#2" }
+    {
+      \use:c { \c_msg_text_prefix_tl LaTeX / #1 / #2 :xxxx }
+        {#3} {#4} {#5} {#6}
+    }
+    {}
+    { \msg_see_documentation_text:n {LaTeX3} }
+    {
+      \cs_if_exist:cTF
+        { \c_msg_more_text_prefix_tl LaTeX / #1 / #2 :xxxx }
+        {
+          \use:c { \c_msg_more_text_prefix_tl LaTeX / #1 / #2 :xxxx }
+            {#3} {#4} {#5} {#6}
+        }
+        { \c_msg_no_info_text_tl }
+    }
+}
+\msg_kernel_classes_new:n { error }
+\cs_new_protected_nopar:Npn \msg_kernel_warning:nnxxxx #1#2 {
+  \msg_warning:nnxxxx { LaTeX } { #1 / #2 }
+}
+\msg_kernel_classes_new:n { warning }
+\cs_new_protected_nopar:Npn \msg_kernel_info:nnxxxx #1#2 {
+  \msg_info:nnxxxx { LaTeX } { #1 / #2 }
+}
+\msg_kernel_classes_new:n { info }
+\msg_kernel_new:nnnn { msg } { message-unknown }
+  { Unknown~message~'#2'~for~module~'#1'.}
+  {
+    \c_msg_coding_error_text_tl
+    LaTeX~was~asked~to~display~a~message~called~'#2'\\
+    by~the~module~'#1'~module:~this~message~does~not~exist.
+    \c_msg_return_text_tl
+  }
+\msg_kernel_new:nnnn { msg } { message-class-unknown }
+  { Unknown~message~class~'#1'. }
+  {
+    LaTeX~has~been~asked~to~redirect~messages~to~a~class~'#1':\\
+    this~was~never~defined.
+
+    \c_msg_return_text_tl
+  }
+\msg_kernel_new:nnnn { msg } { redirect-loop }
+  { Message~redirection~loop~for~message~class~'#1'. }
+  {
+    LaTeX~has~been~asked~to~redirect~messages~in~an~infinite~loop.\\
+    The~original~message~here~has~been~lost.
+    \c_msg_return_text_tl
+  }
+\cs_set_protected:Npn \msg_kernel_bug:x #1 {
+  \msg_direct_interrupt:xxxxx
+    { \c_msg_kernel_bug_text_tl }
+    { #1 }
+    {}
+    { \msg_see_documentation_text:n {LaTeX3} }
+    { \c_msg_kernel_bug_more_text_tl }
+}
+%% 
+%%
+%% End of file `l3msg.sty'.

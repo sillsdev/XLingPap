@@ -1,0 +1,701 @@
+This is XeTeX, Version 3.14159265-2.6-0.999992 (TeX Live 2020/W32TeX) (INITEX)  24 JUN 2020 12:37
+entering extended mode
+ restricted \write18 enabled.
+ %&-line parsing enabled.
+***cont-en.mkii
+(c:/texlive/2020/texmf-dist/tex/context/base/mkii/cont-en.mkii
+(c:/texlive/2020/texmf-dist/tex/context/base/mkii/context.mkii
+(c:/texlive/2020/texmf-dist/tex/context/base/mkii/syst-ini.mkii)
+(c:/texlive/2020/texmf-dist/tex/context/base/mkii/syst-pln.mkii)
+(c:/texlive/2020/texmf-dist/tex/context/base/mkii/norm-tex.mkii)
+(c:/texlive/2020/texmf-dist/tex/context/base/mkii/norm-etx.mkii)
+(c:/texlive/2020/texmf-dist/tex/context/base/mkii/norm-ptx.mkii)
+(c:/texlive/2020/texmf-dist/tex/context/base/mkii/norm-xtx.mkii)
+(c:/texlive/2020/texmf-dist/tex/context/base/mkii/norm-ctx.mkii)
+(c:/texlive/2020/texmf-dist/tex/context/base/mkii/catc-ini.mkii)
+(c:/texlive/2020/texmf-dist/tex/context/base/mkii/catc-act.mkii)
+(c:/texlive/2020/texmf-dist/tex/context/base/mkii/catc-def.mkii)
+(c:/texlive/2020/texmf-dist/tex/context/base/mkii/catc-ctx.mkii)
+(c:/texlive/2020/texmf-dist/tex/context/base/mkii/catc-sym.mkii)
+(c:/texlive/2020/texmf-dist/tex/context/base/mkii/catc-xml.mkii
+loading: ConTeXt Catcode Regimes / XML
+) (c:/texlive/2020/texmf-dist/tex/context/base/mkii/syst-gen.mkii
+warning: \count \scratchcounter is already defined (\relax it first)
+warning: \count \globalscratchcounter is already defined (\relax it first)
+warning: \dimen \scratchdimen is already defined (\relax it first)
+warning: \dimen \globalscratchdimen is already defined (\relax it first)
+warning: \skip \scratchskip is already defined (\relax it first)
+warning: \skip \globalscratchskip is already defined (\relax it first)
+warning: \muskip \scratchmuskip is already defined (\relax it first)
+warning: \muskip \globalscratchmuskip is already defined (\relax it first)
+warning: \toks \scratchtoks is already defined (\relax it first)
+warning: \toks \globalscratchtoks is already defined (\relax it first)
+warning: \box \scratchbox is already defined (\relax it first)
+warning: \box \globalscratchbox is already defined (\relax it first)
+warning: \dimen \scratchdimenone is already defined (\relax it first)
+warning: \box \scratchboxone is already defined (\relax it first)
+warning: \count \scratchcounterone is already defined (\relax it first)
+warning: \dimen \scratchdimentwo is already defined (\relax it first)
+warning: \box \scratchboxtwo is already defined (\relax it first)
+warning: \count \scratchcountertwo is already defined (\relax it first)
+warning: \toks \emptytoks is already defined (\relax it first)
+loading         : ConTeXt System Macros / General
+) (c:/texlive/2020/texmf-dist/tex/context/base/mkii/syst-ext.mkii
+loading         : ConTeXt System Macros / Extras
+) (c:/texlive/2020/texmf-dist/tex/context/base/mkii/syst-new.mkii)
+(c:/texlive/2020/texmf-dist/tex/context/base/mkii/syst-con.mkii
+loading         : ConTeXt System Macros / Conversions
+) (c:/texlive/2020/texmf-dist/tex/context/base/mkii/thrd-trg.mkii)
+(c:/texlive/2020/texmf-dist/tex/context/base/mkii/syst-fnt.mkii)
+(c:/texlive/2020/texmf-dist/tex/context/base/mkii/syst-str.mkii)
+(c:/texlive/2020/texmf-dist/tex/context/base/mkii/syst-rtp.mkii)
+(c:/texlive/2020/texmf-dist/tex/context/base/mkii/xetx-ini.mkii)
+(c:/texlive/2020/texmf-dist/tex/context/base/mkii/xetx-utf.mkii)
+(c:/texlive/2020/texmf-dist/tex/context/base/mkii/xetx-chr.mkii)
+(c:/texlive/2020/texmf-dist/tex/context/base/mkii/xetx-cls.mkii)
+(c:/texlive/2020/texmf-dist/tex/context/base/mkii/supp-fil.mkii
+loading         : ConTeXt Support Macros / Files
+) (c:/texlive/2020/texmf-dist/tex/context/base/mkii/supp-dir.mkii)
+(c:/texlive/2020/texmf-dist/tex/context/base/mkii/supp-lat.mkii)
+(c:/texlive/2020/texmf-dist/tex/context/base/mkii/mult-ini.mkii
+loading         : ConTeXt Multilingual Macros / Initialization
+) (c:/texlive/2020/texmf-dist/tex/context/base/mkii/mult-fst.mkii)
+(c:/texlive/2020/texmf-dist/tex/context/base/mkii/mult-sys.mkii
+loading         : ConTeXt Multilingual Macros / System
+interface       : defining english interface
+
+interface       : using english messages
+
+) (c:/texlive/2020/texmf-dist/tex/context/base/mkii/mult-def.mkii
+(c:/texlive/2020/texmf-dist/tex/context/base/mkii/mult-en.mkii)
+(c:/texlive/2020/texmf-dist/tex/context/base/mkii/mult-men.mkii))
+(c:/texlive/2020/texmf-dist/tex/context/base/mkii/mult-chk.mkii
+loading         : ConTeXt Multilingual Macros / Checking
+) (c:/texlive/2020/texmf-dist/tex/context/base/mkii/mult-aux.mkii
+loading         : ConTeXt Multilingual Macros / Helpers
+) (c:/texlive/2020/texmf-dist/tex/context/base/mkii/core-var.mkii
+loading         : ConTeXt Core Macros / Variables
+) (c:/texlive/2020/texmf-dist/tex/context/base/mkii/core-env.mkii
+loading         : ConTeXt Core Macros / Environments
+) (c:/texlive/2020/texmf-dist/tex/context/base/mkii/supp-box.mkii
+loading         : ConTeXt Support Macros / Boxes
+) (c:/texlive/2020/texmf-dist/tex/context/base/mkii/supp-mrk.mkii
+loading         : ConTeXt Support Macros / Marks
+) (c:/texlive/2020/texmf-dist/tex/context/base/mkii/supp-vis.mkii
+loading         : ConTeXt Support Macros / Visualization
+) (c:/texlive/2020/texmf-dist/tex/context/base/mkii/supp-fun.mkii
+loading         : ConTeXt Support Macros / Fun Stuff
+) (c:/texlive/2020/texmf-dist/tex/context/base/mkii/supp-spe.mkii
+loading         : ConTeXt Support Macros / Specials
+) (c:/texlive/2020/texmf-dist/tex/context/base/mkii/supp-ran.mkii
+loading         : ConTeXt Support Macros / Random Number Generation
+(c:/texlive/2020/texmf-dist/tex/context/base/mkii/thrd-ran.mkii)
+loading         : using TeX's built in randomizer (overloading macro)
+) (c:/texlive/2020/texmf-dist/tex/context/base/mkii/supp-mps.mkii
+loading         : ConTeXt Support Macros / MetaPost Inclusion
+) (c:/texlive/2020/texmf-dist/tex/context/base/mkii/supp-tpi.mkii
+(c:/texlive/2020/texmf-dist/tex/context/base/mkii/supp-eps.mkii
+loading         : ConTeXt Support Macros / EPS
+)
+loading         : ConTeXt Support Macros / TPIC Conversion
+) (c:/texlive/2020/texmf-dist/tex/context/base/mkii/supp-mat.mkii
+loading         : ConTeXt Support Macros / Math
+) (c:/texlive/2020/texmf-dist/tex/context/base/mkii/supp-ali.mkii)
+(c:/texlive/2020/texmf-dist/tex/context/base/mkii/supp-num.mkii
+loading         : ConTeXt Support Macros / Numbers
+) (c:/texlive/2020/texmf-dist/tex/context/base/mkii/verb-ini.mkii
+loading         : ConTeXt Verbatim Macros / Initialization
+) (c:/texlive/2020/texmf-dist/tex/context/base/mkii/page-ins.mkii
+loading         : ConTeXt Core Macros / Insertions
+) (c:/texlive/2020/texmf-dist/tex/context/base/mkii/core-fil.mkii
+loading         : ConTeXt Core Macros / File Support
+) (c:/texlive/2020/texmf-dist/tex/context/base/mkii/core-con.mkii
+loading         : ConTeXt Core Macros / Conversion
+) (c:/texlive/2020/texmf-dist/tex/context/base/mkii/cont-fil.mkii
+loading         : ConTeXt File Synonyms
+) (c:/texlive/2020/texmf-dist/tex/context/base/mkii/thrd-tab.mkii)
+(c:/texlive/2020/texmf-dist/tex/context/base/mkii/supp-pat.mkii
+loading         : ConTeXt Support Macros / Patterns
+) (c:/texlive/2020/texmf-dist/tex/context/base/mkii/regi-ini.mkii)
+(c:/texlive/2020/texmf-dist/tex/context/base/mkii/regi-syn.mkii
+loading         : ConTeXt Regime Macros / Synonyms
+) (c:/texlive/2020/texmf-dist/tex/context/base/mkii/enco-ini.mkii
+loading         : ConTeXt Encoding Macros / Initialization
+encoding        : coding def is loaded
+(c:/texlive/2020/texmf-dist/tex/context/base/mkii/enco-def.mkii)
+encoding        : coding acc is loaded
+(c:/texlive/2020/texmf-dist/tex/context/base/mkii/enco-acc.mkii)
+encoding        : coding raw is loaded
+(c:/texlive/2020/texmf-dist/tex/context/base/mkii/enco-raw.mkii)
+encoding        : coding com is loaded
+(c:/texlive/2020/texmf-dist/tex/context/base/mkii/enco-com.mkii)
+encoding        : coding cas is loaded
+(c:/texlive/2020/texmf-dist/tex/context/base/mkii/enco-cas.mkii)
+encoding        : coding mis is loaded
+(c:/texlive/2020/texmf-dist/tex/context/base/mkii/enco-mis.mkii))
+(c:/texlive/2020/texmf-dist/tex/context/base/mkii/hand-ini.mkii
+handling        : font handling def is loaded
+(c:/texlive/2020/texmf-dist/tex/context/base/mkii/hand-def.mkii))
+(c:/texlive/2020/texmf-dist/tex/context/base/mkii/lang-ini.mkii
+loading         : ConTeXt Language Macros / Initialization
+) (c:/texlive/2020/texmf-dist/tex/context/base/mkii/lang-spe.mkii
+loading         : ConTeXt Language Macros / Specifics
+) (c:/texlive/2020/texmf-dist/tex/context/base/mkii/lang-lab.mkii)
+(c:/texlive/2020/texmf-dist/tex/context/base/mkii/unic-ini.mkii
+loading         : ConTeXt Unicode Support / Initialization
+warning         : \count \utf@c is already defined (\relax it first)
+unicode         : loading vector 0
+(c:/texlive/2020/texmf-dist/tex/context/base/mkii/unic-000.mkii)
+unicode         : loading vector 1
+(c:/texlive/2020/texmf-dist/tex/context/base/mkii/unic-001.mkii)
+unicode         : loading vector 2
+(c:/texlive/2020/texmf-dist/tex/context/base/mkii/unic-002.mkii)
+unicode         : loading vector 3
+(c:/texlive/2020/texmf-dist/tex/context/base/mkii/unic-003.mkii)
+unicode         : loading vector 4
+(c:/texlive/2020/texmf-dist/tex/context/base/mkii/unic-004.mkii)
+unicode         : loading vector 5
+(c:/texlive/2020/texmf-dist/tex/context/base/mkii/unic-005.mkii)
+unicode         : loading vector 30
+(c:/texlive/2020/texmf-dist/tex/context/base/mkii/unic-030.mkii)
+unicode         : loading vector 31
+(c:/texlive/2020/texmf-dist/tex/context/base/mkii/unic-031.mkii)
+unicode         : loading vector 32
+(c:/texlive/2020/texmf-dist/tex/context/base/mkii/unic-032.mkii)
+unicode         : loading vector 33
+(c:/texlive/2020/texmf-dist/tex/context/base/mkii/unic-033.mkii)
+unicode         : loading vector 34
+(c:/texlive/2020/texmf-dist/tex/context/base/mkii/unic-034.mkii)
+unicode         : loading vector 35
+(c:/texlive/2020/texmf-dist/tex/context/base/mkii/unic-035.mkii)
+unicode         : loading vector 37
+(c:/texlive/2020/texmf-dist/tex/context/base/mkii/unic-037.mkii)
+unicode         : loading vector 39
+(c:/texlive/2020/texmf-dist/tex/context/base/mkii/unic-039.mkii)
+unicode         : loading vector 251
+(c:/texlive/2020/texmf-dist/tex/context/base/mkii/unic-251.mkii)
+unicode         : loading vector cjk
+(c:/texlive/2020/texmf-dist/tex/context/base/mkii/unic-cjk.mkii)
+regime          : regime utf is loaded
+(c:/texlive/2020/texmf-dist/tex/context/base/mkii/regi-utf.mkii))
+(c:/texlive/2020/texmf-dist/tex/context/base/mkii/core-gen.mkii
+loading         : ConTeXt Core Macros / General
+) (c:/texlive/2020/texmf-dist/tex/context/base/mkii/core-uti.mkii
+loading         : ConTeXt Core Macros / Utility File Handling
+) (c:/texlive/2020/texmf-dist/tex/context/base/mkii/core-two.mkii
+loading         : ConTeXt Core Macros / Two Pass Data
+) (c:/texlive/2020/texmf-dist/tex/context/base/mkii/core-stg.mkii)
+(c:/texlive/2020/texmf-dist/tex/context/base/mkii/spec-ini.mkii
+loading         : ConTeXt Special Macros / Initialization
+) (c:/texlive/2020/texmf-dist/tex/context/base/mkii/spec-mis.mkii
+loading         : ConTeXt Special Macros / Miscellaneous Macros
+) (c:/texlive/2020/texmf-dist/tex/context/base/mkii/spec-def.mkii
+loading         : ConTeXt Special Macros / Definitions
+) (c:/texlive/2020/texmf-dist/tex/context/base/mkii/spec-var.mkii
+loading         : ConTeXt Special Macros / Variables
+) (c:/texlive/2020/texmf-dist/tex/context/base/mkii/colo-ini.mkii
+loading         : ConTeXt Color Macros / Initialization
+color           : specification [s=0] at color black becomes black
+color           : system rgb is loaded
+(c:/texlive/2020/texmf-dist/tex/context/base/mkii/colo-rgb.mkii
+color           : specification [s=0] at color black becomes black
+)) (c:/texlive/2020/texmf-dist/tex/context/base/mkii/colo-ext.mkii
+loading         : ConTeXt Color Macros / Extras
+) (c:/texlive/2020/texmf-dist/tex/context/base/mkii/lang-mis.mkii
+loading         : ConTeXt Language Macros / Compounds
+) (c:/texlive/2020/texmf-dist/tex/context/base/mkii/lang-url.mkii)
+(c:/texlive/2020/texmf-dist/tex/context/base/mkii/lang-ger.mkii
+loading         : ConTeXt Language Macros / Germanic Languages
+language        : patterns nl for nl loaded (n=1,e=default,m=default)
+(c:/texlive/2020/texmf-dist/tex/context/patterns/mkii/lang-nl.pat)
+language        : hyphenations nl for nl loaded (n=1,e=default,m=default)
+(c:/texlive/2020/texmf-dist/tex/context/patterns/mkii/lang-nl.hyp)
+language        : patterns us for en loaded (n=2,e=default,m=default)
+(c:/texlive/2020/texmf-dist/tex/context/patterns/mkii/lang-us.pat)
+language        : hyphenations us for en loaded (n=2,e=default,m=default)
+(c:/texlive/2020/texmf-dist/tex/context/patterns/mkii/lang-us.hyp)
+language        : patterns de for de loaded (n=3,e=default,m=default)
+(c:/texlive/2020/texmf-dist/tex/context/patterns/mkii/lang-de.pat)
+language        : hyphenations de for de loaded (n=3,e=default,m=default)
+(c:/texlive/2020/texmf-dist/tex/context/patterns/mkii/lang-de.hyp)
+language        : patterns da for da loaded (n=4,e=default,m=default)
+(c:/texlive/2020/texmf-dist/tex/context/patterns/mkii/lang-da.pat)
+language        : hyphenations da for da loaded (n=4,e=default,m=default)
+(c:/texlive/2020/texmf-dist/tex/context/patterns/mkii/lang-da.hyp)
+language        : patterns sv for sv loaded (n=5,e=default,m=default)
+(c:/texlive/2020/texmf-dist/tex/context/patterns/mkii/lang-sv.pat)
+language        : hyphenations sv for sv loaded (n=5,e=default,m=default)
+(c:/texlive/2020/texmf-dist/tex/context/patterns/mkii/lang-sv.hyp)
+language        : patterns af for af loaded (n=6,e=default,m=default)
+(c:/texlive/2020/texmf-dist/tex/context/patterns/mkii/lang-af.pat)
+language        : hyphenations af for af loaded (n=6,e=default,m=default)
+(c:/texlive/2020/texmf-dist/tex/context/patterns/mkii/lang-af.hyp)
+language        : patterns for nb not loaded
+language        : patterns for nn not loaded
+language        : patterns gb for en-gb loaded (n=7,e=default,m=default)
+(c:/texlive/2020/texmf-dist/tex/context/patterns/mkii/lang-gb.pat)
+language        : hyphenations gb for en-gb loaded (n=7,e=default,m=default)
+(c:/texlive/2020/texmf-dist/tex/context/patterns/mkii/lang-gb.hyp))
+(c:/texlive/2020/texmf-dist/tex/context/base/mkii/lang-ita.mkii
+loading         : ConTeXt Language Macros / Italic Languages
+language        : patterns fr for fr loaded (n=8,e=default,m=default)
+(c:/texlive/2020/texmf-dist/tex/context/patterns/mkii/lang-fr.pat)
+language        : hyphenations fr for fr loaded (n=8,e=default,m=default)
+(c:/texlive/2020/texmf-dist/tex/context/patterns/mkii/lang-fr.hyp)
+language        : patterns es for es loaded (n=9,e=default,m=default)
+(c:/texlive/2020/texmf-dist/tex/context/patterns/mkii/lang-es.pat)
+language        : hyphenations es for es loaded (n=9,e=default,m=default)
+(c:/texlive/2020/texmf-dist/tex/context/patterns/mkii/lang-es.hyp)
+language        : patterns ca for ca loaded (n=10,e=default,m=default)
+(c:/texlive/2020/texmf-dist/tex/context/patterns/mkii/lang-ca.pat)
+language        : hyphenations ca for ca loaded (n=10,e=default,m=default)
+(c:/texlive/2020/texmf-dist/tex/context/patterns/mkii/lang-ca.hyp)
+language        : patterns it for it loaded (n=11,e=default,m=default)
+(c:/texlive/2020/texmf-dist/tex/context/patterns/mkii/lang-it.pat)
+language        : hyphenations it for it loaded (n=11,e=default,m=default)
+(c:/texlive/2020/texmf-dist/tex/context/patterns/mkii/lang-it.hyp)
+language        : patterns la for la loaded (n=12,e=default,m=default)
+(c:/texlive/2020/texmf-dist/tex/context/patterns/mkii/lang-la.pat)
+language        : hyphenations la for la loaded (n=12,e=default,m=default)
+(c:/texlive/2020/texmf-dist/tex/context/patterns/mkii/lang-la.hyp)
+language        : patterns pt for pt loaded (n=13,e=default,m=default)
+(c:/texlive/2020/texmf-dist/tex/context/patterns/mkii/lang-pt.pat)
+language        : hyphenations pt for pt loaded (n=13,e=default,m=default)
+(c:/texlive/2020/texmf-dist/tex/context/patterns/mkii/lang-pt.hyp)
+language        : patterns ro for ro loaded (n=14,e=default,m=default)
+(c:/texlive/2020/texmf-dist/tex/context/patterns/mkii/lang-ro.pat)
+language        : hyphenations ro for ro loaded (n=14,e=default,m=default)
+(c:/texlive/2020/texmf-dist/tex/context/patterns/mkii/lang-ro.hyp))
+(c:/texlive/2020/texmf-dist/tex/context/base/mkii/lang-sla.mkii
+loading         : ConTeXt Language Macros / Slavic Languages
+language        : patterns pl for pl loaded (n=15,e=default,m=default)
+(c:/texlive/2020/texmf-dist/tex/context/patterns/mkii/lang-pl.pat)
+language        : hyphenations pl for pl loaded (n=15,e=default,m=default)
+(c:/texlive/2020/texmf-dist/tex/context/patterns/mkii/lang-pl.hyp)
+language        : patterns cs for cs loaded (n=16,e=default,m=default)
+(c:/texlive/2020/texmf-dist/tex/context/patterns/mkii/lang-cs.pat)
+language        : hyphenations cs for cs loaded (n=16,e=default,m=default)
+(c:/texlive/2020/texmf-dist/tex/context/patterns/mkii/lang-cs.hyp)
+language        : patterns sk for sk loaded (n=17,e=default,m=default)
+(c:/texlive/2020/texmf-dist/tex/context/patterns/mkii/lang-sk.pat)
+language        : hyphenations sk for sk loaded (n=17,e=default,m=default)
+(c:/texlive/2020/texmf-dist/tex/context/patterns/mkii/lang-sk.hyp)
+language        : patterns hr for hr loaded (n=18,e=default,m=default)
+(c:/texlive/2020/texmf-dist/tex/context/patterns/mkii/lang-hr.pat)
+language        : hyphenations hr for hr loaded (n=18,e=default,m=default)
+(c:/texlive/2020/texmf-dist/tex/context/patterns/mkii/lang-hr.hyp)
+language        : patterns sl for sl loaded (n=19,e=default,m=default)
+(c:/texlive/2020/texmf-dist/tex/context/patterns/mkii/lang-sl.pat)
+language        : hyphenations sl for sl loaded (n=19,e=default,m=default)
+(c:/texlive/2020/texmf-dist/tex/context/patterns/mkii/lang-sl.hyp))
+(c:/texlive/2020/texmf-dist/tex/context/base/mkii/lang-alt.mkii
+loading         : ConTeXt Language Macros / Altaic Languages
+language        : patterns tr for tr loaded (n=20,e=default,m=default)
+(c:/texlive/2020/texmf-dist/tex/context/patterns/mkii/lang-tr.pat)
+language        : hyphenations tr for tr loaded (n=20,e=default,m=default)
+(c:/texlive/2020/texmf-dist/tex/context/patterns/mkii/lang-tr.hyp)
+language        : patterns tk for tk loaded (n=21,e=default,m=default)
+(c:/texlive/2020/texmf-dist/tex/context/patterns/mkii/lang-tk.pat)
+language        : hyphenations tk for tk loaded (n=21,e=default,m=default)
+(c:/texlive/2020/texmf-dist/tex/context/patterns/mkii/lang-tk.hyp))
+(c:/texlive/2020/texmf-dist/tex/context/base/mkii/lang-ana.mkii
+loading         : ConTeXt Language Macros / Anatolian Languages
+) (c:/texlive/2020/texmf-dist/tex/context/base/mkii/lang-art.mkii
+loading         : ConTeXt Language Macros / Artificial Languages
+) (c:/texlive/2020/texmf-dist/tex/context/base/mkii/lang-bal.mkii
+loading         : ConTeXt Language Macros / Baltic Languages
+language        : patterns lt for lt loaded (n=22,e=default,m=default)
+(c:/texlive/2020/texmf-dist/tex/context/patterns/mkii/lang-lt.pat)
+language        : hyphenations lt for lt loaded (n=22,e=default,m=default)
+(c:/texlive/2020/texmf-dist/tex/context/patterns/mkii/lang-lt.hyp))
+(c:/texlive/2020/texmf-dist/tex/context/base/mkii/lang-cel.mkii
+loading         : ConTeXt Language Macros / Celtic Languages
+) (c:/texlive/2020/texmf-dist/tex/context/base/mkii/lang-grk.mkii
+loading         : ConTeXt Language Macros / Greek
+language        : no patterns gr for gr (n=23,e=default,m=default) (lang-gr.pat
+,lang-gr.pat)
+language        : no hyphenations gr for gr (n=23,e=default,m=default)
+language        : patterns agr for agr loaded (n=24,e=default,m=default)
+(c:/texlive/2020/texmf-dist/tex/context/patterns/mkii/lang-agr.pat)
+language        : hyphenations agr for agr loaded (n=24,e=default,m=default)
+(c:/texlive/2020/texmf-dist/tex/context/patterns/mkii/lang-agr.hyp))
+(c:/texlive/2020/texmf-dist/tex/context/base/mkii/lang-ind.mkii
+loading         : ConTeXt Language Macros / Indo-Iranian Languages
+) (c:/texlive/2020/texmf-dist/tex/context/base/mkii/lang-ura.mkii
+loading         : ConTeXt Language Macros / Uralic Languages
+language        : patterns fi for fi loaded (n=25,e=default,m=default)
+(c:/texlive/2020/texmf-dist/tex/context/patterns/mkii/lang-fi.pat)
+language        : hyphenations fi for fi loaded (n=25,e=default,m=default)
+(c:/texlive/2020/texmf-dist/tex/context/patterns/mkii/lang-fi.hyp)
+language        : patterns hu for hu loaded (n=26,e=default,m=default)
+(c:/texlive/2020/texmf-dist/tex/context/patterns/mkii/lang-hu.pat)
+language        : hyphenations hu for hu loaded (n=26,e=default,m=default)
+(c:/texlive/2020/texmf-dist/tex/context/patterns/mkii/lang-hu.hyp))
+(c:/texlive/2020/texmf-dist/tex/context/base/mkii/lang-vn.mkii
+loading         : ConTeXt Language Macros / Vietnamese Language
+language        : no patterns vi for vi (n=27,e=default,m=default) (lang-vi.pat
+,lang-vi.pat)
+language        : no hyphenations vi for vi (n=27,e=default,m=default)
+) (c:/texlive/2020/texmf-dist/tex/context/base/mkii/lang-cyr.mkii
+loading         : ConTeXt Language Macros / Cyrillic Languages
+language        : patterns ru for ru loaded (n=28,e=default,m=default)
+(c:/texlive/2020/texmf-dist/tex/context/patterns/mkii/lang-ru.pat)
+language        : hyphenations ru for ru loaded (n=28,e=default,m=default)
+(c:/texlive/2020/texmf-dist/tex/context/patterns/mkii/lang-ru.hyp)
+language        : patterns uk for ua loaded (n=29,e=default,m=default)
+(c:/texlive/2020/texmf-dist/tex/context/patterns/mkii/lang-uk.pat)
+language        : hyphenations uk for ua loaded (n=29,e=default,m=default)
+(c:/texlive/2020/texmf-dist/tex/context/patterns/mkii/lang-uk.hyp))
+(c:/texlive/2020/texmf-dist/tex/context/base/mkii/typo-ini.mkii
+loading         : ConTeXt Typographic Macros / Initialization
+) (c:/texlive/2020/texmf-dist/tex/context/base/mkii/symb-ini.mkii
+loading         : ConTeXt Symbol Libraries / Initialization
+) (c:/texlive/2020/texmf-dist/tex/context/base/mkii/sort-ini.mkii
+loading         : ConTeXt Sorting Macros / Initialization
+) (c:/texlive/2020/texmf-dist/tex/context/base/mkii/spac-gen.mkii
+loading         : ConTeXt Core Macros / Spacing
+) (c:/texlive/2020/texmf-dist/tex/context/base/mkii/spac-grd.mkii
+loading         : ConTeXt Core Macros / Grid Snapping
+) (c:/texlive/2020/texmf-dist/tex/context/base/mkii/strc-mar.mkii
+loading         : ConTeXt Structure Macros / Markings
+) (c:/texlive/2020/texmf-dist/tex/context/base/mkii/anch-pos.mkii
+loading         : ConTeXt Anchoring Macros / Positioning
+) (c:/texlive/2020/texmf-dist/tex/context/base/mkii/buff-ver.mkii
+loading         : ConTeXt Buffer Macros / Verbatim
+) (c:/texlive/2020/texmf-dist/tex/context/base/mkii/buff-ini.mkii
+loading         : ConTeXt Buffer Macros / Buffers
+) (c:/texlive/2020/texmf-dist/tex/context/base/mkii/pack-rul.mkii
+loading         : ConTeXt Packaging Macros / Ruled Content
+) (c:/texlive/2020/texmf-dist/tex/context/base/mkii/trac-vis.mkii
+loading         : ConTeXt Tracking Macros / Visualization
+) (c:/texlive/2020/texmf-dist/tex/context/base/mkii/strc-num.mkii
+loading         : ConTeXt Structure Macros / Numbering
+) (c:/texlive/2020/texmf-dist/tex/context/base/mkii/tabl-com.mkii
+loading         : ConTeXt Table Macros / Common Code
+) (c:/texlive/2020/texmf-dist/tex/context/base/mkii/tabl-pln.mkii
+loading         : ConTeXt Table Macros / Plain Tabular
+) (c:/texlive/2020/texmf-dist/tex/context/base/mkii/tabl-tab.mkii
+loading         : ConTeXt Table Macros / TaBlE Embedding
+) (c:/texlive/2020/texmf-dist/tex/context/base/mkii/tabl-tsp.mkii
+loading         : ConTeXt Table Macros / Splitting
+) (c:/texlive/2020/texmf-dist/tex/context/base/mkii/scrn-nav.mkii
+loading         : ConTeXt Screen Macros / Navigation
+) (c:/texlive/2020/texmf-dist/tex/context/base/mkii/strc-ref.mkii
+loading         : ConTeXt Structure Macros / Cross Referencing
+) (c:/texlive/2020/texmf-dist/tex/context/base/mkii/pack-obj.mkii
+loading         : ConTeXt Packaging Macros / Objects
+) (c:/texlive/2020/texmf-dist/tex/context/base/mkii/strc-lst.mkii
+loading         : ConTeXt Structure Macros / Lists
+) (c:/texlive/2020/texmf-dist/tex/context/base/mkii/strc-itm.mkii
+loading         : ConTeXt Structure Macros / Itemgroups
+) (c:/texlive/2020/texmf-dist/tex/context/base/mkii/strc-des.mkii
+loading         : ConTeXt Structure Macros / Descriptions
+) (c:/texlive/2020/texmf-dist/tex/context/base/mkii/strc-mat.mkii
+loading         : ConTeXt Structure Macros / Math Fundamentals
+warning         : \count \supersubmode is already defined (\relax it first)
+) (c:/texlive/2020/texmf-dist/tex/context/base/mkii/strc-syn.mkii
+loading         : ConTeXt Structure Macros / Synonyms and Sorts
+) (c:/texlive/2020/texmf-dist/tex/context/base/mkii/core-sys.mkii
+loading         : ConTeXt Core Macros / System
+) (c:/texlive/2020/texmf-dist/tex/context/base/mkii/page-ini.mkii
+loading         : ConTeXt Page Macros / Initializations
+) (c:/texlive/2020/texmf-dist/tex/context/base/mkii/page-bck.mkii
+loading         : ConTeXt Page Macros / Backgrounds
+warning         : \dimen \pagedepth is already defined (\relax it first)
+) (c:/texlive/2020/texmf-dist/tex/context/base/mkii/page-not.mkii
+loading         : ConTeXt Page Macros / Footnotes
+) (c:/texlive/2020/texmf-dist/tex/context/base/mkii/page-one.mkii
+loading         : ConTeXt Page Macros / Default Routine
+) (c:/texlive/2020/texmf-dist/tex/context/base/mkii/page-lay.mkii
+loading         : ConTeXt Page Macros / Layout Specification
+) (c:/texlive/2020/texmf-dist/tex/context/base/mkii/page-log.mkii
+loading         : ConTeXt Page Macros / Logos
+) (c:/texlive/2020/texmf-dist/tex/context/base/mkii/page-txt.mkii
+loading         : ConTeXt Page Macros / Texts
+) (c:/texlive/2020/texmf-dist/tex/context/base/mkii/page-sid.mkii
+loading         : ConTeXt Page Macros / Side Floats
+) (c:/texlive/2020/texmf-dist/tex/context/base/mkii/strc-flt.mkii
+loading         : ConTeXt Structure Macros / Float Numbering
+) (c:/texlive/2020/texmf-dist/tex/context/base/mkii/page-mis.mkii
+loading         : ConTeXt Page Macros / Misc Float Things
+layout          : marginblocks active
+) (c:/texlive/2020/texmf-dist/tex/context/base/mkii/page-mul.mkii
+loading         : ConTeXt Page Macros / Simple Multi Column
+) (c:/texlive/2020/texmf-dist/tex/context/base/mkii/page-set.mkii
+loading         : ConTeXt Page Macros / Column Sets
+) (c:/texlive/2020/texmf-dist/tex/context/base/mkii/pack-lyr.mkii
+loading         : ConTeXt Packaging Macros / Layers
+) (c:/texlive/2020/texmf-dist/tex/context/base/mkii/page-mak.mkii
+loading         : ConTeXt Page Macros / MakeUp
+) (c:/texlive/2020/texmf-dist/tex/context/base/mkii/strc-pag.mkii
+loading         : ConTeXt Structure Macros / Numbering
+warning         : \count \pageno is already defined (\relax it first)
+) (c:/texlive/2020/texmf-dist/tex/context/base/mkii/page-lin.mkii
+loading         : ConTeXt Core Macros / Line Numbering
+) (c:/texlive/2020/texmf-dist/tex/context/base/mkii/page-par.mkii
+loading         : ConTeXt Page Macros / Paragraph Numbering
+) (c:/texlive/2020/texmf-dist/tex/context/base/mkii/page-mar.mkii
+loading         : ConTeXt Page Macros / Maginal Things
+) (c:/texlive/2020/texmf-dist/tex/context/base/mkii/core-job.mkii
+loading         : ConTeXt Core Macros / Job Handling
+) (c:/texlive/2020/texmf-dist/tex/context/base/mkii/strc-sec.mkii
+loading         : ConTeXt Structure Macros / Sectioning
+system          : mark part defined [part]
+system          : mark partnumber defined [partnumber]
+system          : mark chapter defined [chapter]
+system          : mark chapternumber defined [chapternumber]
+system          : mark section defined [section]
+system          : mark sectionnumber defined [sectionnumber]
+system          : mark subsection defined [subsection]
+system          : mark subsectionnumber defined [subsectionnumber]
+system          : mark subsubsection defined [subsubsection]
+system          : mark subsubsectionnumber defined [subsubsectionnumber]
+system          : mark subsubsubsection defined [subsubsubsection]
+system          : mark subsubsubsectionnumber defined [subsubsubsectionnumber]
+system          : mark subsubsubsubsection defined [subsubsubsubsection]
+system          : mark subsubsubsubsectionnumber defined [subsubsubsubsectionnu
+mber]
+system          : mark title defined [title]
+system          : mark titlenumber defined [titlenumber]
+system          : mark subject defined [subject]
+system          : mark subjectnumber defined [subjectnumber]
+system          : mark subsubject defined [subsubject]
+system          : mark subsubjectnumber defined [subsubjectnumber]
+system          : mark subsubsubject defined [subsubsubject]
+system          : mark subsubsubjectnumber defined [subsubsubjectnumber]
+system          : mark subsubsubsubject defined [subsubsubsubject]
+system          : mark subsubsubsubjectnumber defined [subsubsubsubjectnumber]
+system          : mark subsubsubsubsubject defined [subsubsubsubsubject]
+system          : mark subsubsubsubsubjectnumber defined [subsubsubsubsubjectnu
+mber]
+) (c:/texlive/2020/texmf-dist/tex/context/base/mkii/strc-swd.mkii
+loading         : ConTeXt Structure Macros / Sectionworlds
+) (c:/texlive/2020/texmf-dist/tex/context/base/mkii/strc-blk.mkii
+loading         : ConTeXt Structure Macros / Blockmoves
+) (c:/texlive/2020/texmf-dist/tex/context/base/mkii/page-imp.mkii
+loading         : ConTeXt Page Macros / Pagebody Building
+) (c:/texlive/2020/texmf-dist/tex/context/base/mkii/tabl-tbl.mkii
+loading         : ConTeXt Table Macros / Tabulation
+) (c:/texlive/2020/texmf-dist/tex/context/base/mkii/scrn-int.mkii
+loading         : ConTeXt Screen Macros / Interaction
+) (c:/texlive/2020/texmf-dist/tex/context/base/mkii/tabl-ntb.mkii
+loading         : ConTeXt Table Macros / Natural Tables
+) (c:/texlive/2020/texmf-dist/tex/context/base/mkii/tabl-nte.mkii
+loading         : ConTeXt Table Module / Natural Tables Extensions
+) (c:/texlive/2020/texmf-dist/tex/context/base/mkii/tabl-ltb.mkii
+loading         : ConTeXt Table Macros / Line Tables
+) (c:/texlive/2020/texmf-dist/tex/context/base/mkii/lang-chi.mkii
+loading         : ConTeXt Language Macros / Chinese
+language        : no patterns cn for cn (n=30,e=default,m=default) (lang-cn.pat
+,lang-cn.pat)
+language        : no hyphenations cn for cn (n=30,e=default,m=default)
+language        : language specific options [default-cn] seamless appended
+) (c:/texlive/2020/texmf-dist/tex/context/base/mkii/lang-jap.mkii
+loading         : ConTeXt Language Macros / Japanese
+language        : no patterns ja for ja (n=31,e=default,m=default) (lang-ja.pat
+,lang-ja.pat)
+language        : no hyphenations ja for ja (n=31,e=default,m=default)
+) (c:/texlive/2020/texmf-dist/tex/context/base/mkii/java-ini.mkii
+loading         : ConTeXt JavaScript Macros / Initialization
+) (c:/texlive/2020/texmf-dist/tex/context/base/mkii/scrn-fld.mkii
+loading         : ConTeXt Screen Macros / Fields
+) (c:/texlive/2020/texmf-dist/tex/context/base/mkii/scrn-hlp.mkii
+loading         : ConTeXt Screen Macros / Help popups
+) (c:/texlive/2020/texmf-dist/tex/context/base/mkii/strc-reg.mkii
+loading         : ConTeXt Structure Macros / Register Management
+Invalid UTF-8 byte or sequence at line 80 replaced by U+FFFD.
+Invalid UTF-8 byte or sequence at line 80 replaced by U+FFFD.
+Invalid UTF-8 byte or sequence at line 80 replaced by U+FFFD.
+Invalid UTF-8 byte or sequence at line 80 replaced by U+FFFD.
+) (c:/texlive/2020/texmf-dist/tex/context/base/mkii/font-ini.mkii
+loading         : ConTeXt Font Macros / Initialization
+loading         : Postponed Plain TeX Font Definitions
+bodyfont        : style mm (mm) defined
+bodyfont        : style rm (rm definedromanserifregular)
+bodyfont        : style ss (ss definedsansserifsanssupport)
+bodyfont        : style tt (tt definedteletypetypemono)
+bodyfont        : style hw (hw definedhandwritten)
+bodyfont        : style cg (cg definedcalligraphic)
+) (c:/texlive/2020/texmf-dist/tex/context/base/mkii/font-xtx.mkii
+loading         : ConTeXt Font Macros / XeTeX Hacks
+) (c:/texlive/2020/texmf-dist/tex/context/base/mkii/font-unk.mkii)
+(c:/texlive/2020/texmf-dist/tex/context/base/mkii/font-uni.mkii
+loading         : ConTeXt Font Macros / Unicode
+) (c:/texlive/2020/texmf-dist/tex/context/base/mkii/font-bfm.mkii
+loading         : ConTeXt Font Macros / Mixed Bold Math Support
+) (c:/texlive/2020/texmf-dist/tex/context/base/mkii/enco-pfr.mkii)
+(c:/texlive/2020/texmf-dist/tex/context/base/mkii/type-ini.mkii
+loading         : ConTeXt Typescript Macros / Initialization
+) (c:/texlive/2020/texmf-dist/tex/context/base/mkii/type-set.mkii)
+(c:/texlive/2020/texmf-dist/tex/context/base/mkii/type-def.mkii)
+(c:/texlive/2020/texmf-dist/tex/context/base/mkii/prop-ini.mkii
+loading         : ConTeXt Property Macros / Initialization
+) (c:/texlive/2020/texmf-dist/tex/context/base/mkii/prop-lay.mkii
+loading         : ConTeXt Property Macros / Layers
+) (c:/texlive/2020/texmf-dist/tex/context/base/mkii/prop-mis.mkii
+loading         : ConTeXt Property Macros / Miscelaneous
+) (c:/texlive/2020/texmf-dist/tex/context/base/mkii/meta-ini.mkii
+loading         : MetaPost Graphics / Initializations
+) (c:/texlive/2020/texmf-dist/tex/context/base/mkii/meta-tex.mkii)
+(c:/texlive/2020/texmf-dist/tex/context/base/mkii/meta-pdf.mkii
+loading         : MetaPost Graphics / MPS to PDF
+warning         : \count \nofMParguments is already defined (\relax it first)
+) (c:/texlive/2020/texmf-dist/tex/context/base/mkii/meta-pag.mkii
+loading         : MetaPost Graphics / Page Data Management
+) (c:/texlive/2020/texmf-dist/tex/context/base/mkii/page-flw.mkii
+loading         : ConTeXt Page Macros / Text Flows
+) (c:/texlive/2020/texmf-dist/tex/context/base/mkii/page-spr.mkii
+loading         : ConTeXt Page Macros / Spreading
+) (c:/texlive/2020/texmf-dist/tex/context/base/mkii/page-plg.mkii
+loading         : ConTeXt Page Macros / Extra Page Building
+) (c:/texlive/2020/texmf-dist/tex/context/base/mkii/page-str.mkii
+loading         : ConTeXt Page Macros / Page Streams
+) (c:/texlive/2020/texmf-dist/tex/context/base/mkii/anch-pgr.mkii
+loading         : ConTeXt Anchoring Macros / Grapics
+) (c:/texlive/2020/texmf-dist/tex/context/base/mkii/anch-bar.mkii
+loading         : ConTeXt Anchoring Macros / Margin Bars
+) (c:/texlive/2020/texmf-dist/tex/context/base/mkii/anch-snc.mkii
+loading         : ConTeXt Anchoring Macros / Synchronization
+) (c:/texlive/2020/texmf-dist/tex/context/base/mkii/math-pln.mkii
+loading         : ConTeXt Math Macros / Plain Helpers
+) (c:/texlive/2020/texmf-dist/tex/context/base/mkii/math-ini.mkii
+loading         : ConTeXt Math Macros / Initializations
+(c:/texlive/2020/texmf-dist/tex/context/base/mkii/math-tex.mkii)
+(c:/texlive/2020/texmf-dist/tex/context/base/mkii/math-ams.mkii)
+(c:/texlive/2020/texmf-dist/tex/context/base/mkii/math-uni.mkii))
+(c:/texlive/2020/texmf-dist/tex/context/base/mkii/math-arr.mkii
+loading         : ConTeXt Math Macros / Arrows
+) (c:/texlive/2020/texmf-dist/tex/context/base/mkii/math-frc.mkii
+loading         : ConTeXt Math Macros / Fractions
+) (c:/texlive/2020/texmf-dist/tex/context/base/mkii/core-fnt.mkii
+loading         : ConTeXt Core Macros / Fonts
+) (c:/texlive/2020/texmf-dist/tex/context/base/mkii/strc-not.mkii
+loading         : ConTeXt Structure Macros / Note Handling
+) (c:/texlive/2020/texmf-dist/tex/context/base/mkii/strc-lnt.mkii
+loading         : ConTeXt Structure Macros / Line Notes
+) (c:/texlive/2020/texmf-dist/tex/context/base/mkii/core-mis.mkii
+loading         : ConTeXt Core Macros / Misc Commands
+) (c:/texlive/2020/texmf-dist/tex/context/base/mkii/grph-trf.mkii
+loading         : ConTeXt Graphic Macros / Transformations
+) (c:/texlive/2020/texmf-dist/tex/context/base/mkii/grph-inc.mkii
+loading         : ConTeXt Graphic Macros / Figure Inclusion
+) (c:/texlive/2020/texmf-dist/tex/context/base/mkii/grph-fig.mkii
+loading         : ConTeXt Graphic Macros / Figure Handling
+) (c:/texlive/2020/texmf-dist/tex/context/base/mkii/core-par.mkii
+loading         : ConTeXt Core Macros / Pararaph Tricks
+) (c:/texlive/2020/texmf-dist/tex/context/base/mkii/pack-box.mkii
+loading         : ConTeXt Packaging Macros / Boxes
+) (c:/texlive/2020/texmf-dist/tex/context/base/mkii/page-app.mkii
+loading         : ConTeXt Page Macros / Applications
+) (c:/texlive/2020/texmf-dist/tex/context/base/mkii/meta-fig.mkii
+loading         : MetaPost Graphics / Stand Alone Graphics
+) (c:/texlive/2020/texmf-dist/tex/context/base/mkii/lang-spa.mkii
+loading         : ConTeXt Language Macros / Spacing
+) (c:/texlive/2020/texmf-dist/tex/context/base/mkii/bibl-tra.mkii
+loading         : ConTeXt Bibliography Support / BibTeX
+publications    : loading formatting style from bibl-apa
+(c:/texlive/2020/texmf-dist/tex/context/bib/mkii/bibl-apa.tex))
+(c:/texlive/2020/texmf-dist/tex/context/base/mkii/xtag-ini.mkii
+loading         : ConTeXt XML Macros / Initialization
+warning         : \toks \everyTEXinputmode is already defined (\relax it first)
+
+warning         : \toks \everyXMLinputmode is already defined (\relax it first)
+
+) (c:/texlive/2020/texmf-dist/tex/context/base/mkii/xtag-ext.mkii
+loading         : ConTeXt XML Macros / Extras
+) (c:/texlive/2020/texmf-dist/tex/context/base/mkii/xtag-exp.mkii
+loading         : ConTeXt XML Macros / Expansion
+) (c:/texlive/2020/texmf-dist/tex/context/base/mkii/xtag-pre.mkii
+loading         : ConTeXt XML Macros / Predefined
+) (c:/texlive/2020/texmf-dist/tex/context/base/mkii/xtag-xsd.mkii)
+(c:/texlive/2020/texmf-dist/tex/context/base/mkii/xtag-rng.mkii)
+(c:/texlive/2020/texmf-dist/tex/context/base/mkii/meta-xml.mkii
+loading         : MetaPost Graphics / XML Hacks
+) (c:/texlive/2020/texmf-dist/tex/context/base/mkii/cont-log.mkii
+loading         : ConTeXt TeX Logos
+) (c:/texlive/2020/texmf-dist/tex/context/base/mkii/core-ctx.mkii
+loading         : ConTeXt Core Macros / Job Control
+) (c:/texlive/2020/texmf-dist/tex/context/base/mkii/core-ini.mkii
+loading         : ConTeXt Core Macros / Additional Initialization
+) (c:/texlive/2020/texmf-dist/tex/context/base/mkii/core-def.mkii
+loading         : ConTeXt Core Macros / Defaults
+symbols         : loading symbolset mis
+(c:/texlive/2020/texmf-dist/tex/context/base/mkii/symb-mis.mkii)
+symbols         : loading symbolset mvs
+(c:/texlive/2020/texmf-dist/tex/context/base/mkii/symb-mvs.mkii)
+symbols         : loading symbolset nav
+(c:/texlive/2020/texmf-dist/tex/context/base/mkii/symb-nav.mkii))
+system          : module res-12 (mkii) loaded
+(c:/texlive/2020/texmf-dist/tex/context/modules/mkii/x-res-12.mkii)
+(c:/texlive/2020/texmf-dist/tex/context/base/mkii/type-siz.mkii)
+(c:/texlive/2020/texmf-dist/tex/context/base/mkii/type-otf.mkii
+(c:/texlive/2020/texmf-dist/tex/context/base/mkii/type-siz.mkii)
+(c:/texlive/2020/texmf-dist/tex/context/base/mkii/type-otf.mkii)
+(c:/texlive/2020/texmf-dist/tex/context/fonts/mkii/type-xtx.mkii)
+(c:/texlive/2020/texmf-dist/tex/context/base/mkii/type-siz.mkii)
+(c:/texlive/2020/texmf-dist/tex/context/base/mkii/type-otf.mkii)
+(c:/texlive/2020/texmf-dist/tex/context/fonts/mkii/type-xtx.mkii)
+(c:/texlive/2020/texmf-dist/tex/context/base/mkii/type-siz.mkii)
+(c:/texlive/2020/texmf-dist/tex/context/base/mkii/type-otf.mkii)
+(c:/texlive/2020/texmf-dist/tex/context/fonts/mkii/type-xtx.mkii)
+(c:/texlive/2020/texmf-dist/tex/context/base/mkii/type-siz.mkii)
+(c:/texlive/2020/texmf-dist/tex/context/base/mkii/type-otf.mkii)
+(c:/texlive/2020/texmf-dist/tex/context/fonts/mkii/type-xtx.mkii)
+(c:/texlive/2020/texmf-dist/tex/context/base/mkii/type-siz.mkii)
+(c:/texlive/2020/texmf-dist/tex/context/base/mkii/type-otf.mkii)
+(c:/texlive/2020/texmf-dist/tex/context/fonts/mkii/type-xtx.mkii)
+(c:/texlive/2020/texmf-dist/tex/context/base/mkii/type-siz.mkii)
+(c:/texlive/2020/texmf-dist/tex/context/base/mkii/type-otf.mkii)
+(c:/texlive/2020/texmf-dist/tex/context/fonts/mkii/type-xtx.mkii)
+(c:/texlive/2020/texmf-dist/tex/context/base/mkii/type-siz.mkii)
+(c:/texlive/2020/texmf-dist/tex/context/base/mkii/type-otf.mkii)
+(c:/texlive/2020/texmf-dist/tex/context/fonts/mkii/type-xtx.mkii)
+(c:/texlive/2020/texmf-dist/tex/context/base/mkii/type-siz.mkii)
+(c:/texlive/2020/texmf-dist/tex/context/base/mkii/type-otf.mkii)
+(c:/texlive/2020/texmf-dist/tex/context/fonts/mkii/type-xtx.mkii))
+
+ConTeXt  ver: 2020.03.10 14:44 MKII  fmt: 2020.6.24  int: english/english
+
+specials        : loading definition file dvi
+(c:/texlive/2020/texmf-dist/tex/context/base/mkii/spec-dvi.mkii)
+specials        : loading definition file ps
+(c:/texlive/2020/texmf-dist/tex/context/base/mkii/spec-ps.mkii)
+specials        : loading definition file tr
+(c:/texlive/2020/texmf-dist/tex/context/base/mkii/spec-tr.mkii) ) )
+Beginning to dump on file cont-en.fmt
+ (preloaded format=cont-en 2020.6.24)
+106611 strings of total length 675168
+502394 memory locations dumped; current usage is 3237&492833
+38723 multiletter control sequences
+\font\nullfont=nullfont
+0 words of font info for 0 preloaded fonts
+489 hyphenation exceptions
+Hyphenation trie of length 205446 has 3327 ops out of 35111
+  138 for language 29
+  119 for language 28
+  185 for language 26
+  31 for language 25
+  78 for language 24
+  77 for language 22
+  7 for language 21
+  12 for language 20
+  71 for language 19
+  19 for language 18
+  248 for language 17
+  63 for language 16
+  194 for language 15
+  58 for language 14
+  7 for language 13
+  25 for language 12
+  37 for language 11
+  21 for language 10
+  183 for language 9
+  89 for language 8
+  224 for language 7
+  137 for language 6
+  127 for language 5
+  60 for language 4
+  475 for language 3
+  377 for language 2
+  265 for language 1
+No pages of output.

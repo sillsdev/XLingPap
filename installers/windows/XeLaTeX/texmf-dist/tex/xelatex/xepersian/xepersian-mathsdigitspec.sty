@@ -1,0 +1,107 @@
+%%
+%% This is file `xepersian-mathsdigitspec.sty',
+
+%% 
+%%   __________________________________
+%%   Copyright © 2008-2010 Vafa Khalighi
+%% 
+%%   License information appended.
+%% 
+%% 
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{xepersian-mathsdigitspec}
+  [2010/07/25 v0.6a Unicode Persian maths digits in XeLaTeX]
+\@zf@mathfalse
+\def\@preamblecmds{}
+\newcommand\not@onlypreamble[1]{{%
+  \def\do##1{\ifx#1##1\else\noexpand\do\noexpand##1\fi}%
+  \xdef\@preamblecmds{\@preamblecmds}}}
+\def\gm@notprerr{ can be used only in preamble (\on@line)}
+\AtBeginDocument{%
+  \def\do#1{\noexpand\do\noexpand#1}%
+  \edef\@preamblecmds{%
+    \def\noexpand\do##1{%
+      \def##1{\noexpand\PackageError{gmutils/LaTeX}%
+        {\noexpand\string##1 \noexpand\gm@notprerr}\noexpand\@eha}}%
+    \@preamblecmds}}
+\def\nocite#1{%
+  \@bsphack{\setbox0=\hbox{\cite{#1}}}\@esphack}
+\newcommand\xepersian@PackageInfo[1]{\PackageInfo{xepersian-mathsdigitspec}{#1}}
+\newcommand\SetMathCode[4]{%
+  \XeTeXmathcode#1="\mathchar@type#2 \csname sym#3\endcsname #4\relax}
+\newcommand\SetMathCharDef[4]{%
+  \XeTeXmathchardef#1="\mathchar@type#2 \csname sym#3\endcsname #4\relax}
+\newcommand\setdigitfont[2][]{%
+  \let\glb@currsize\relax
+  \setkeys*[xepersian-mathsdigitspec]{options}{#1}%
+  \edef\@tempa{\noexpand\zf@fontspec{%
+    \XKV@rm}{#2}}\@tempa
+  \xepersian@PackageInfo{Defining the default Persian maths digits font as '#2'}
+  \DeclareSymbolFont{OPERATORS}   {EU1}{\zf@family} {m}{n}
+  \def\persianmathsdigits{%
+  \SetMathCode{`0}{\mathord}{OPERATORS}{"06F0}
+  \SetMathCode{`1}{\mathord}{OPERATORS}{"06F1}
+  \SetMathCode{`2}{\mathord}{OPERATORS}{"06F2}
+  \SetMathCode{`3}{\mathord}{OPERATORS}{"06F3}
+  \SetMathCode{`4}{\mathord}{OPERATORS}{"06F4}
+  \SetMathCode{`5}{\mathord}{OPERATORS}{"06F5}
+  \SetMathCode{`6}{\mathord}{OPERATORS}{"06F6}
+  \SetMathCode{`7}{\mathord}{OPERATORS}{"06F7}
+  \SetMathCode{`8}{\mathord}{OPERATORS}{"06F8}
+  \SetMathCode{`9}{\mathord}{OPERATORS}{"06F9}
+  \SetMathCode{`\%}{\mathbin}{OPERATORS}{`٪}
+  \SetMathCharDef{\decimalseparator}{\mathpunct}{OPERATORS}{"066B}}
+}
+\ifx\newcommand\undefined\else
+  \newcommand{\ZifferAn}{}
+\fi
+\mathchardef\ziffer@DotOri="013A
+{\ZifferAn
+ \catcode`\.=\active\gdef.{\begingroup\obeyspaces\futurelet\n\ziffer@dcheck}}
+\def\ziffer@dcheck{\ziffer@check\ZifferLeer\ziffer@DotOri}
+\def\ziffer@check#1#2{%
+  \ifx\n1\endgroup#1\else
+    \ifx\n2\endgroup#1\else
+      \ifx\n3\endgroup#1\else
+        \ifx\n4\endgroup#1\else
+          \ifx\n5\endgroup#1\else
+            \ifx\n6\endgroup#1\else
+              \ifx\n7\endgroup#1\else
+                \ifx\n8\endgroup#1\else
+                  \ifx\n9\endgroup#1\else
+                    \ifx\n0\endgroup#1\else
+                      \endgroup#2%
+                    \fi
+                  \fi
+                \fi
+              \fi
+            \fi
+          \fi
+        \fi
+      \fi
+    \fi
+  \fi}
+\mathcode`.="8000\relax
+\def\ZifferLeer{\ifx\decimalseparator\undefied .\else \decimalseparator\fi}
+\def\DefaultMathsDigits{\def\SetMathsDigits{}}
+\def\PersianMathsDigits{\def\SetMathsDigits{\ifx\persianmathsdigits\undefied\else\persianmathsdigits\fi}}
+\def\AutoMathsDigits{\def\SetMathsDigits{\ifx\persianmathsdigits\undefied\else\if@Latin\else\persianmathsdigits\fi\fi}}
+\AutoMathsDigits
+\everymath{\SetMathsDigits}
+\g@addto@macro\document{\everydisplay{\predisplaydirection=0 \SetMathsDigits}
+\@ifpackageloaded{amsmath}{\everydisplay\@xp{\the\everydisplay \@displaytrue}}{}}
+%% 
+%% Copyright © 2008-2010      by Vafa Khalighi     <vafakh84@gmail.com>
+%% 
+%% Distributable under the LaTeX Project Public License,
+%% version 1.3c or higher (your choice). The latest version of
+%% this license is at: http://www.latex-project.org/lppl.txt
+%% 
+%% This work is "maintained" (as per LPPL maintenance status)
+%% by Vafa Khalighi.
+%% 
+%% 
+%% 
+%% 
+%%
+%% End of file `xepersian-mathsdigitspec.sty'.

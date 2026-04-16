@@ -1,0 +1,213 @@
+%%
+%% This is file `l3seq.sty',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% l3seq.dtx  (with options: `package,trace')
+%% 
+%% 
+%% EXPERIMENTAL CODE
+%% 
+%% Do not distribute this file without also distributing the
+%% source files specified above.
+%% 
+%% Do not distribute a modified version of this file.
+%% 
+%% 
+%% File: l3seq.dtx Copyright (C) 1990-2010 LaTeX3 project
+%%
+%% It may be distributed and/or modified under the conditions of the
+%% LaTeX Project Public License (LPPL), either version 1.3c of this
+%% license or (at your option) any later version.  The latest version
+%% of this license is in the file
+%%
+%%    http://www.latex-project.org/lppl.txt
+%%
+%% This file is part of the ``expl3 bundle'' (The Work in LPPL)
+%% and all files in that bundle must be distributed together.
+%%
+%% The released version of this bundle is available from CTAN.
+%%
+%% -----------------------------------------------------------------------
+%%
+%% The development version of the bundle can be found at
+%%
+%%    http://www.latex-project.org/svnroot/experimental/trunk/
+%%
+%% for those people who are interested.
+%%
+%%%%%%%%%%%
+%% NOTE: %%
+%%%%%%%%%%%
+%%
+%%   Snapshots taken from the repository represent work in progress and may
+%%   not work or may contain conflicting material!  We therefore ask
+%%   people _not_ to put them into distributions, archives, etc. without
+%%   prior consultation with the LaTeX Project Team.
+%%
+%% -----------------------------------------------------------------------
+\RequirePackage{l3names}
+\GetIdInfo$Id: l3seq.dtx 1879 2010-03-29 17:48:38Z mittelba $
+          {L3 Experimental sequences and stacks}
+\ProvidesExplPackage
+  {\filename}{\filedate}{\fileversion}{\filedescription}
+\package_check_loaded_expl:
+\cs_new:Npn \seq_elt:w {\ERROR}
+\cs_new:Npn \seq_elt_end: {\ERROR}
+\cs_new_eq:NN \seq_new:N \tl_new:N
+\cs_new_eq:NN \seq_new:c \tl_new:c
+\cs_new_eq:NN \seq_clear:N  \tl_clear:N
+\cs_new_eq:NN \seq_clear:c  \tl_clear:c
+\cs_new_eq:NN \seq_gclear:N \tl_gclear:N
+\cs_new_eq:NN \seq_gclear:c \tl_gclear:c
+\cs_new_eq:NN \seq_clear_new:N  \tl_clear_new:N
+\cs_new_eq:NN \seq_clear_new:c  \tl_clear_new:c
+\cs_new_eq:NN \seq_gclear_new:N \tl_gclear_new:N
+\cs_new_eq:NN \seq_gclear_new:c \tl_gclear_new:c
+\cs_new_eq:NN \seq_set_eq:NN \cs_set_eq:NN
+\cs_new_eq:NN \seq_set_eq:cN \cs_set_eq:cN
+\cs_new_eq:NN \seq_set_eq:Nc \cs_set_eq:Nc
+\cs_new_eq:NN \seq_set_eq:cc \cs_set_eq:cc
+\cs_new_eq:NN \seq_gset_eq:NN \cs_gset_eq:NN
+\cs_new_eq:NN \seq_gset_eq:cN \cs_gset_eq:cN
+\cs_new_eq:NN \seq_gset_eq:Nc \cs_gset_eq:Nc
+\cs_new_eq:NN \seq_gset_eq:cc \cs_gset_eq:cc
+\cs_new_protected_nopar:Npn \seq_concat:NNN #1#2#3 {
+  \tl_set:Nx #1 { \exp_not:V #2 \exp_not:V #3 }
+}
+\cs_generate_variant:Nn \seq_concat:NNN {ccc}
+\cs_new_protected_nopar:Npn \seq_gconcat:NNN #1#2#3 {
+  \tl_gset:Nx #1 { \exp_not:V #2 \exp_not:V #3 }
+}
+\cs_generate_variant:Nn \seq_gconcat:NNN {ccc}
+\prg_new_eq_conditional:NNn \seq_if_empty:N \tl_if_empty:N {p,TF,T,F}
+\prg_new_eq_conditional:NNn \seq_if_empty:c \tl_if_empty:c {p,TF,T,F}
+\cs_new_nopar:Npn \seq_if_empty_err:N #1 {
+  \if_meaning:w #1 \c_empty_tl
+    \tl_clear:N \l_kernel_testa_tl % catch prefixes
+    \msg_kernel_bug:x {Empty~sequence~`\token_to_str:N#1'}
+  \fi:
+}
+\prg_new_protected_conditional:Nnn \seq_if_in:Nn {TF,T,F} {
+  \cs_set:Npn \seq_tmp:w ##1 \seq_elt:w #2 \seq_elt_end: ##2##3 \q_stop {
+    \if_meaning:w \q_no_value ##2
+      \prg_return_false: \else: \prg_return_true: \fi:
+  }
+  \exp_after:wN \seq_tmp:w #1 \seq_elt:w #2 \seq_elt_end: \q_no_value \q_stop
+}
+\cs_generate_variant:Nn \seq_if_in:NnTF { NV, cV, co, c, cx}
+\cs_generate_variant:Nn \seq_if_in:NnT  { NV, cV, co, c, cx}
+\cs_generate_variant:Nn \seq_if_in:NnF  { NV, cV, co, c, cx}
+\cs_new_protected_nopar:Npn \seq_get:NN #1 {
+  \seq_if_empty_err:N #1
+  \exp_after:wN \seq_get_aux:w #1 \q_stop
+}
+\cs_new_protected:Npn \seq_get_aux:w \seq_elt:w #1 \seq_elt_end: #2 \q_stop #3 {
+  \tl_set:Nn #3 {#1}
+}
+\cs_generate_variant:Nn \seq_get:NN {c}
+\cs_new_protected:Npn \seq_pop_aux:nnNN #1#2#3 {
+  \seq_if_empty_err:N #3
+  \exp_after:wN \seq_pop_aux:w #3 \q_stop #1#2#3
+}
+\cs_new_protected:Npn \seq_pop_aux:w
+    \seq_elt:w #1 \seq_elt_end: #2\q_stop #3#4#5#6 {
+  #3 #5 {#2}
+  #4 #6 {#1}
+}
+\cs_new_eq:NN \seq_show:N \tl_show:N
+\cs_new_eq:NN \seq_show:c \tl_show:c
+\cs_new_protected_nopar:Npn \seq_display:N #1 {
+  \iow_term:x { Sequence~\token_to_str:N #1~contains~
+                   the~elements~(without~outer~braces): }
+  \toks_clear:N \l_tmpa_toks
+  \seq_map_inline:Nn #1 {
+    \toks_if_empty:NF  \l_tmpa_toks {
+      \toks_put_right:Nx \l_tmpa_toks {^^J>~}
+    }
+    \toks_put_right:Nx \l_tmpa_toks {
+      \c_space_tl \iow_char:N \{ \exp_not:n {##1} \iow_char:N \}
+    }
+  }
+  \toks_show:N \l_tmpa_toks
+}
+\cs_generate_variant:Nn \seq_display:N {c}
+\cs_new_protected:Npn \seq_put_aux:Nnn #1 {
+  \exp_after:wN \seq_put_aux:w #1 \q_stop #1
+}
+\cs_new_protected:Npn \seq_put_aux:w #1\q_stop #2#3#4 { \tl_set:Nn #2 {#3#1#4} }
+\cs_new_protected:Npn \seq_put_left:Nn #1#2 {
+  \seq_put_aux:Nnn #1 {\seq_elt:w #2\seq_elt_end:} {}
+}
+\cs_generate_variant:Nn \seq_put_left:Nn {NV,No,Nx,c,cV,co}
+\cs_new_protected:Npn \seq_put_right:Nn #1#2{
+        \seq_put_aux:Nnn #1{}{\seq_elt:w #2\seq_elt_end:}}
+\cs_generate_variant:Nn \seq_put_right:Nn {NV,No,Nx,c,cV,co}
+\cs_new_protected:Npn \seq_gput_left:Nn {
+  \pref_global:D
+  \seq_put_left:Nn
+}
+\cs_new_protected:Npn \seq_gput_right:Nn {
+  \pref_global:D
+  \seq_put_right:Nn
+}
+\cs_generate_variant:Nn \seq_gput_left:Nn {NV,No,Nx,c,cV,co}
+\cs_generate_variant:Nn \seq_gput_right:Nn {NV,No,Nx,c,cV,co}
+\cs_new_protected:Npn \seq_map_variable_aux:Nnw #1#2 \seq_elt:w #3 \seq_elt_end: {
+  \tl_set:Nn #1 {#3}
+  \quark_if_nil:NT #1 \seq_map_break:
+  #2
+  \seq_map_variable_aux:Nnw #1{#2}
+}
+\cs_new_protected:Npn \seq_map_variable:NNn #1#2#3 {
+  \tl_set:Nn #2 {\seq_map_variable_aux:Nnw #2{#3}}
+  \exp_after:wN #2 #1 \seq_elt:w \q_nil\seq_elt_end: \q_stop
+}
+\cs_generate_variant:Nn \seq_map_variable:NNn {c}
+\cs_new_eq:NN \seq_map_break: \use_none_delimit_by_q_stop:w
+\cs_new_eq:NN \seq_map_break:n \use_i_delimit_by_q_stop:nw
+\cs_new_protected_nopar:Npn \seq_map_function:NN #1#2 {
+  \cs_set:Npn \seq_elt:w ##1 \seq_elt_end: {#2{##1}}
+  #1 \use_none:n \q_stop
+  \cs_set_eq:NN \seq_elt:w \ERROR
+}
+\cs_generate_variant:Nn \seq_map_function:NN {c}
+\cs_new_protected_nopar:Npn \seq_map_inline:Nn #1#2 {
+  \cs_set:Npn \seq_elt:w ##1 \seq_elt_end: {#2}
+  #1 \use_none:n \q_stop
+  \cs_set_eq:NN \seq_elt:w \ERROR
+}
+\cs_generate_variant:Nn \seq_map_inline:Nn {c}
+\seq_new:N \l_seq_remove_seq
+\cs_new_protected:Npn \seq_remove_duplicates_aux:NN #1#2 {
+  \seq_clear:N \l_seq_remove_seq
+  \seq_map_function:NN #2 \seq_remove_duplicates_aux:n
+  #1 #2 \l_seq_remove_seq
+}
+\cs_new_protected:Npn \seq_remove_duplicates_aux:n #1 {
+  \seq_if_in:NnF \l_seq_remove_seq {#1} {
+    \seq_put_right:Nn \l_seq_remove_seq {#1}
+  }
+}
+\cs_new_protected_nopar:Npn \seq_remove_duplicates:N {
+  \seq_remove_duplicates_aux:NN \seq_set_eq:NN
+}
+\cs_new_protected_nopar:Npn \seq_gremove_duplicates:N {
+  \seq_remove_duplicates_aux:NN \seq_gset_eq:NN
+}
+\cs_new_eq:NN \seq_push:Nn \seq_put_left:Nn
+\cs_new_eq:NN \seq_push:NV \seq_put_left:NV
+\cs_new_eq:NN \seq_push:No \seq_put_left:No
+\cs_new_eq:NN \seq_push:cn \seq_put_left:cn
+\cs_new_protected_nopar:Npn \seq_pop:NN { \seq_pop_aux:nnNN \tl_set:Nn \tl_set:Nn }
+\cs_generate_variant:Nn \seq_pop:NN {c}
+\cs_new_eq:NN  \seq_gpush:Nn \seq_gput_left:Nn
+\cs_new_protected_nopar:Npn \seq_gpop:NN  { \seq_pop_aux:nnNN \tl_gset:Nn \tl_set:Nn }
+\cs_generate_variant:Nn \seq_gpush:Nn {NV,No,c,Nv}
+\cs_generate_variant:Nn  \seq_gpop:NN  {c}
+\cs_new_eq:NN \seq_top:NN \seq_get:NN
+\cs_new_eq:NN \seq_top:cN \seq_get:cN
+%% 
+%%
+%% End of file `l3seq.sty'.

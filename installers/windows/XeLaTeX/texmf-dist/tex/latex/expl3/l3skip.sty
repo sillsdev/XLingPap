@@ -1,0 +1,244 @@
+%%
+%% This is file `l3skip.sty',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% l3skip.dtx  (with options: `package,trace')
+%% 
+%% 
+%% EXPERIMENTAL CODE
+%% 
+%% Do not distribute this file without also distributing the
+%% source files specified above.
+%% 
+%% Do not distribute a modified version of this file.
+%% 
+%% 
+%% File: l3skip.dtx Copyright (C) 2005-2010 Frank Mittelbach, LaTeX3 project
+%%
+%% It may be distributed and/or modified under the conditions of the
+%% LaTeX Project Public License (LPPL), either version 1.3c of this
+%% license or (at your option) any later version.  The latest version
+%% of this license is in the file
+%%
+%%    http://www.latex-project.org/lppl.txt
+%%
+%% This file is part of the ``expl3 bundle'' (The Work in LPPL)
+%% and all files in that bundle must be distributed together.
+%%
+%% The released version of this bundle is available from CTAN.
+%%
+%% -----------------------------------------------------------------------
+%%
+%% The development version of the bundle can be found at
+%%
+%%    http://www.latex-project.org/svnroot/experimental/trunk/
+%%
+%% for those people who are interested.
+%%
+%%%%%%%%%%%
+%% NOTE: %%
+%%%%%%%%%%%
+%%
+%%   Snapshots taken from the repository represent work in progress and may
+%%   not work or may contain conflicting material!  We therefore ask
+%%   people _not_ to put them into distributions, archives, etc. without
+%%   prior consultation with the LaTeX Project Team.
+%%
+%% -----------------------------------------------------------------------
+\RequirePackage{l3names}
+\GetIdInfo$Id: l3skip.dtx 2063 2010-10-03 08:26:49Z mittelba $
+       {L3 Experimental skip registers}
+\ProvidesExplPackage
+  {\filename}{\filedate}{\fileversion}{\filedescription}
+\package_check_loaded_expl:
+\cs_new_protected_nopar:Npn \skip_new:N #1 {
+  \chk_if_free_cs:N #1
+  \newskip #1
+}
+\cs_generate_variant:Nn \skip_new:N {c}
+\cs_new_protected_nopar:Npn \skip_set:Nn #1#2 {
+  #1\skip_eval:n{#2}
+}
+\cs_new_protected_nopar:Npn \skip_gset:Nn {
+ \pref_global:D
+  \skip_set:Nn
+}
+\cs_generate_variant:Nn \skip_set:Nn  {cn}
+\cs_generate_variant:Nn \skip_gset:Nn  {cn}
+\cs_new_protected_nopar:Npn \skip_zero:N #1{
+  #1\c_zero_skip \scan_stop:
+}
+\cs_new_protected_nopar:Npn \skip_gzero:N {
+ \pref_global:D
+  \skip_zero:N
+}
+\cs_generate_variant:Nn \skip_zero:N {c}
+\cs_generate_variant:Nn \skip_gzero:N {c}
+\cs_new_protected_nopar:Npn \skip_add:Nn #1#2 {
+  \tex_advance:D#1 by \skip_eval:n{#2}
+}
+\cs_generate_variant:Nn \skip_add:Nn {cn}
+\cs_new_protected_nopar:Npn \skip_sub:Nn #1#2{
+  \tex_advance:D#1-\skip_eval:n{#2}
+}
+\cs_new_protected_nopar:Npn \skip_gadd:Nn {
+ \pref_global:D
+  \skip_add:Nn
+}
+\cs_generate_variant:Nn \skip_gadd:Nn {cn}
+\cs_new_nopar:Npn \skip_gsub:Nn {
+ \pref_global:D
+  \skip_sub:Nn
+}
+\cs_new_eq:NN  \skip_horizontal:N \tex_hskip:D
+\cs_generate_variant:Nn \skip_horizontal:N {c}
+\cs_new_nopar:Npn \skip_horizontal:n #1 { \skip_horizontal:N \skip_eval:n{#1} }
+\cs_new_eq:NN  \skip_vertical:N \tex_vskip:D
+\cs_generate_variant:Nn \skip_vertical:N {c}
+\cs_new_nopar:Npn \skip_vertical:n #1 { \skip_vertical:N \skip_eval:n{#1} }
+\cs_new_eq:NN \skip_use:N \tex_the:D
+\cs_generate_variant:Nn \skip_use:N {c}
+\cs_new_eq:NN  \skip_show:N \kernel_register_show:N
+\cs_generate_variant:Nn \skip_show:N {c}
+\cs_new_protected_nopar:Npn \skip_eval:n #1 { \etex_glueexpr:D #1 \scan_stop: }
+%%\chk_if_free_cs:N \l_tmpa_skip
+%%\tex_skipdef:D\l_tmpa_skip 255  %currently taken up by \skip@
+\skip_new:N \l_tmpa_skip
+\skip_new:N \l_tmpb_skip
+\skip_new:N \l_tmpc_skip
+\skip_new:N \g_tmpa_skip
+\skip_new:N \g_tmpb_skip
+\cs_set_eq:NN \c_zero_skip \z@
+\cs_set_eq:NN \c_max_skip  \maxdimen
+\prg_new_conditional:Nnn \skip_if_infinite_glue:n {p,TF,T,F} {
+  \bool_if:nTF {
+      \int_compare_p:nNn {\etex_gluestretchorder:D #1 } > \c_zero ||
+      \int_compare_p:nNn {\etex_glueshrinkorder:D  #1 } > \c_zero
+  } {\prg_return_true:} {\prg_return_false:}
+}
+\cs_new_nopar:Npn \skip_split_finite_else_action:nnNN #1#2#3#4{
+  \skip_if_infinite_glue:nTF {#1}
+  {
+    #3 = \c_zero_skip
+    #4 = \c_zero_skip
+    #2
+  }
+  {
+    #3 = \etex_gluestretch:D #1 \scan_stop:
+    #4 = \etex_glueshrink:D  #1 \scan_stop:
+  }
+}
+\cs_new_protected_nopar:Npn \dim_new:N #1 {
+  \chk_if_free_cs:N #1
+  \newdimen #1
+}
+\cs_generate_variant:Nn \dim_new:N {c}
+\cs_new_protected_nopar:Npn \dim_set:Nn #1#2 { #1~ \dim_eval:n{#2} }
+\cs_generate_variant:Nn \dim_set:Nn {cn,Nc}
+\cs_new_protected_nopar:Npn \dim_gset:Nn { \pref_global:D \dim_set:Nn  }
+\cs_generate_variant:Nn \dim_gset:Nn {cn,Nc,cc}
+\cs_new_protected_nopar:Npn \dim_zero:N #1 { #1\c_zero_skip }
+\cs_generate_variant:Nn \dim_zero:N {c}
+\cs_new_protected_nopar:Npn \dim_gzero:N { \pref_global:D \dim_zero:N  }
+\cs_generate_variant:Nn \dim_gzero:N {c}
+\cs_new_protected_nopar:Npn \dim_add:Nn #1#2{
+    \tex_advance:D#1 by \dim_eval:n{#2}\scan_stop:
+}
+\cs_generate_variant:Nn \dim_add:Nn {cn,Nc}
+\cs_new_protected_nopar:Npn \dim_gadd:Nn { \pref_global:D \dim_add:Nn  }
+\cs_generate_variant:Nn \dim_gadd:Nn {cn}
+\cs_new_protected_nopar:Npn \dim_sub:Nn #1#2 { \tex_advance:D#1-#2\scan_stop: }
+\cs_generate_variant:Nn \dim_sub:Nn {cn,Nc}
+\cs_new_protected_nopar:Npn \dim_gsub:Nn { \pref_global:D \dim_sub:Nn  }
+\cs_generate_variant:Nn \dim_gsub:Nn {cn}
+\cs_new_eq:NN \dim_use:N \tex_the:D
+\cs_generate_variant:Nn \dim_use:N {c}
+\cs_new_eq:NN  \dim_show:N \kernel_register_show:N
+\cs_generate_variant:Nn \dim_show:N {c}
+\dim_new:N \l_tmpa_dim
+\dim_new:N \l_tmpb_dim
+\dim_new:N \l_tmpc_dim
+\dim_new:N \l_tmpd_dim
+\dim_new:N \g_tmpa_dim
+\dim_new:N \g_tmpb_dim
+\cs_new_eq:NN \c_zero_dim \c_zero_skip
+\cs_new_eq:NN \c_max_dim  \c_max_skip
+\cs_new_protected_nopar:Npn \dim_eval:n #1 { \etex_dimexpr:D #1 \scan_stop: }
+\cs_new_eq:NN \if_dim:w \tex_ifdim:D
+\cs_set_eq:NN \dim_value:w \tex_number:D
+\cs_set_eq:NN \dim_eval:w \etex_dimexpr:D
+\cs_set_protected:Npn \dim_eval_end: {\tex_relax:D}
+\prg_new_conditional:Nnn \dim_compare:nNn {p,TF,T,F} {
+  \if_dim:w \dim_eval:n {#1} #2 \dim_eval:n {#3}
+    \prg_return_true: \else: \prg_return_false: \fi:
+}
+\prg_new_conditional:Npnn \dim_compare:n #1 {p,TF,T,F} {
+  \exp_after:wN \dim_compare_auxi:w \dim_value:w
+    \dim_eval:w #1 \q_stop
+}
+\cs_new:Npn \dim_compare_auxi:w #1#2 \q_stop {
+  \exp_after:wN \dim_compare_auxii:w \tex_romannumeral:D
+  \if:w #1- \else: -\fi: #1#2 \q_mark #1#2 \q_stop
+}
+\cs_new:Npn \dim_compare_auxii:w #1#2#3\q_mark{
+  \use:c{
+      dim_compare_ #1 \if_meaning:w =#2 = \fi:
+    :w}
+}
+\cs_new:cpn {dim_compare_=:w} #1 = #2 \q_stop {
+  \if_dim:w #1 sp = \dim_eval:w #2 \dim_eval_end:
+    \prg_return_true: \else: \prg_return_false: \fi:
+}
+\cs_new:cpn {dim_compare_==:w} #1 == #2 \q_stop {
+  \if_dim:w #1 sp = \dim_eval:w #2 \dim_eval_end:
+  \prg_return_true: \else: \prg_return_false: \fi:
+}
+\cs_new:cpn {dim_compare_!=:w} #1 != #2 \q_stop {
+  \if_dim:w #1 sp = \dim_eval:w #2 \dim_eval_end:
+  \prg_return_false: \else: \prg_return_true: \fi:
+}
+\cs_new:cpn {dim_compare_<:w} #1 < #2 \q_stop {
+  \if_dim:w #1 sp < \dim_eval:w #2 \dim_eval_end:
+  \prg_return_true: \else: \prg_return_false: \fi:
+}
+\cs_new:cpn {dim_compare_>:w} #1 > #2 \q_stop {
+  \if_dim:w #1 sp > \dim_eval:w #2 \dim_eval_end:
+  \prg_return_true: \else: \prg_return_false: \fi:
+}
+\cs_new:cpn {dim_compare_<=:w} #1 <= #2 \q_stop {
+  \if_dim:w #1 sp > \dim_eval:w #2 \dim_eval_end:
+  \prg_return_false: \else: \prg_return_true: \fi:
+}
+\cs_new:cpn {dim_compare_>=:w} #1 >= #2 \q_stop {
+  \if_dim:w #1 sp < \dim_eval:w #2 \dim_eval_end:
+  \prg_return_false: \else: \prg_return_true: \fi:
+}
+\cs_new_nopar:Npn \dim_while_do:nNnn #1#2#3#4{
+  \dim_compare:nNnT {#1}#2{#3}{#4 \dim_while_do:nNnn {#1}#2{#3}{#4}}
+}
+\cs_new_nopar:Npn \dim_until_do:nNnn #1#2#3#4{
+  \dim_compare:nNnF {#1}#2{#3}{#4 \dim_until_do:nNnn {#1}#2{#3}{#4}}
+}
+\cs_new_nopar:Npn \dim_do_while:nNnn #1#2#3#4{
+  #4 \dim_compare:nNnT {#1}#2{#3}{\dim_do_while:nNnn {#1}#2{#3}{#4}}
+}
+\cs_new_nopar:Npn \dim_do_until:nNnn #1#2#3#4{
+  #4 \dim_compare:nNnF {#1}#2{#3}{\dim_do_until:nNnn {#1}#2{#3}{#4}}
+}
+\cs_new_protected_nopar:Npn \muskip_new:N #1 {
+  \chk_if_free_cs:N #1
+  \newmuskip #1
+}
+\cs_new_protected_nopar:Npn \muskip_set:Nn#1#2{#1\etex_muexpr:D#2\scan_stop:}
+\cs_new_protected_nopar:Npn \muskip_gset:Nn{\pref_global:D\muskip_set:Nn}
+\cs_new_protected_nopar:Npn \muskip_add:Nn#1#2{\tex_advance:D#1\etex_muexpr:D#2\scan_stop:}
+\cs_new_protected_nopar:Npn \muskip_gadd:Nn{\pref_global:D\muskip_add:Nn}
+\cs_new_protected_nopar:Npn \muskip_sub:Nn#1#2{\tex_advance:D#1-\etex_muexpr:D#2\scan_stop:}
+\cs_new_protected_nopar:Npn \muskip_gsub:Nn{\pref_global:D\muskip_sub:Nn}
+\cs_new_eq:NN \muskip_use:N \tex_the:D
+\cs_new_eq:NN \muskip_show:N \kernel_register_show:N
+%% 
+%%
+%% End of file `l3skip.sty'.

@@ -1,0 +1,27 @@
+%%
+%% This is file `algorithmic-xepersian.def',
+%% 
+%%   __________________________________
+%%   Copyright © 2008-2010 Vafa Khalighi
+%% 
+%%   License information appended.
+%% 
+%% 
+\ProvidesFile{algorithmic-xepersian.def}[2010/07/25 v0.2 adaptations for algorithmic package]
+\def\algorithmicrequire{\if@RTL\textbf{ورودی:}\else\textbf{Require:}\fi}
+\def\algorithmicensure{\if@RTL\textbf{خروجی:}\else\textbf{Ensure:}\fi}
+%% 
+%% Copyright © 2008-2010      by Vafa Khalighi     <vafakh84@gmail.com>
+%% 
+%% Distributable under the LaTeX Project Public License,
+%% version 1.3c or higher (your choice). The latest version of
+%% this license is at: http://www.latex-project.org/lppl.txt
+%% 
+%% This work is "maintained" (as per LPPL maintenance status)
+%% by Vafa Khalighi.
+%% 
+%% 
+%% 
+%% 
+%%
+%% End of file `algorithmic-xepersian.def'.

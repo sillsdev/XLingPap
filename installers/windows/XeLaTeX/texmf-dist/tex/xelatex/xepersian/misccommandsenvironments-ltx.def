@@ -1,0 +1,28 @@
+%%
+%% This is file `misccommandsenvironments-ltx.def',
+
+%% 
+%%   __________________________________
+%%   Copyright © 2008-2010 Vafa Khalighi
+%% 
+%%   License information appended.
+%% 
+%% 
+\ProvidesFile{misccommandsenvironments-ltx.def}[2010/07/25 v0.1 Persian localisation of LaTeX2e miscellaneous commands and environments]
+\eqcommand[\نوشتار]{\document}
+\eqcommand[\endنوشتار]{\enddocument}
+%% 
+%% Copyright © 2008-2010      by Vafa Khalighi     <vafakh84@gmail.com>
+%% 
+%% Distributable under the LaTeX Project Public License,
+%% version 1.3c or higher (your choice). The latest version of
+%% this license is at: http://www.latex-project.org/lppl.txt
+%% 
+%% This work is "maintained" (as per LPPL maintenance status)
+%% by Vafa Khalighi.
+%% 
+%% 
+%% 
+%% 
+%%
+%% End of file `misccommandsenvironments-ltx.def'.

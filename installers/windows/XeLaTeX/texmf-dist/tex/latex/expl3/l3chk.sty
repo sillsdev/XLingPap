@@ -1,0 +1,160 @@
+%%
+%% This is file `l3chk.sty',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% l3chk.dtx  (with options: `package,trace')
+%% 
+%% 
+%% EXPERIMENTAL CODE
+%% 
+%% Do not distribute this file without also distributing the
+%% source files specified above.
+%% 
+%% Do not distribute a modified version of this file.
+%% 
+%% 
+%% File: l3chk.dtx Copyright (C) 1990-2006,2009 LaTeX3 project
+%%
+%% It may be distributed and/or modified under the conditions of the
+%% LaTeX Project Public License (LPPL), either version 1.3c of this
+%% license or (at your option) any later version.  The latest version
+%% of this license is in the file
+%%
+%%    http://www.latex-project.org/lppl.txt
+%%
+%% This file is part of the ``expl3 bundle'' (The Work in LPPL)
+%% and all files in that bundle must be distributed together.
+%%
+%% The released version of this bundle is available from CTAN.
+%%
+%% -----------------------------------------------------------------------
+%%
+%% The development version of the bundle can be found at
+%%
+%%    http://www.latex-project.org/svnroot/experimental/trunk/
+%%
+%% for those people who are interested.
+%%
+%%%%%%%%%%%
+%% NOTE: %%
+%%%%%%%%%%%
+%%
+%%   Snapshots taken from the repository represent work in progress and may
+%%   not work or may contain conflicting material!  We therefore ask
+%%   people _not_ to put them into distributions, archives, etc. without
+%%   prior consultation with the LaTeX Project Team.
+%%
+%% -----------------------------------------------------------------------
+%%
+\RequirePackage{l3names}
+\GetIdInfo$Id: l3chk.dtx 1362 2009-05-28 20:19:21Z joseph $
+          {L3 Experimental check module}
+\ProvidesExplPackage
+  {\filename}{\filedate}{\fileversion}{\filedescription}
+\package_check_loaded_expl:
+\cs_new_nopar:Npn \chk_local:N #1{
+  \exp_after:wN \chk_local_aux:w \token_to_str:N#1\q_stop}
+
+\cs_new_nopar:Npn \chk_local_aux:w #1#2#3\q_stop{
+   \if_num:w\tex_uccode:D`#2=`G\scan_stop:
+       \msg_kernel_bug:x {Local~mismatch:~local~function~called~with~
+                     global~variable:^^J\text_put_four_sp: #1#2#3~
+                     on~line~\tex_the:D\tex_inputlineno:D}
+   \else:
+     \if_num:w\tex_uccode:D`#2=`L\scan_stop:
+     \else:
+       \msg_kernel_bug:x {Variable~mismatch:~function~not~called~with~
+                     proper~variable:^^J\text_put_four_sp: #1#2#3~
+                     on~line~\tex_the:D\tex_inputlineno:D}\fi:
+   \fi:}
+\tex_newlinechar:D=`\^^J
+\cs_new_nopar:Npn \chk_global:N #1{\exp_after:wN
+                           \chk_global_aux:w \token_to_str:N#1\q_stop}
+\cs_new_nopar:Npn \chk_global_aux:w #1#2#3\q_stop{
+   \if_num:w\tex_uccode:D`#2=`L\scan_stop:
+       \msg_kernel_bug:x {Global~mismatch:~global~function~called~with~
+                   local~variable:~#1#2#3~
+                   on~line~\tex_the:D\tex_inputlineno:D}
+   \else:
+     \if_num:w\tex_uccode:D`#2=`G\scan_stop:
+     \else:
+       \msg_kernel_bug:x {Variable~mismatch:~function~not~called~with~
+                     proper~variable:~#1#2#3~
+                     on~line~\tex_the:D\tex_inputlineno:D}\fi:\fi:}
+\cs_new_nopar:Npn \pref_global_chk: {
+    \cs_gset_nopar:Npn \chk_local_or_pref_global:N ##1{
+          \chk_global:N ##1
+          \cs_gset_eq:NN \chk_local_or_pref_global:N \chk_local:N}
+    \pref_global:D}
+\cs_new_eq:NN \chk_local_or_pref_global:N \chk_local:N
+\cs_new_nopar:Npn \chk_var_or_const:N #1{\exp_after:wN
+     \chk_var_or_const_aux:w \token_to_str:N#1\q_stop }
+\cs_new_nopar:Npn \chk_var_or_const_aux:w #1#2#3\q_stop {
+    \if_num:w\tex_uccode:D`#2=`L\scan_stop:
+    \else:
+      \if_num:w\tex_uccode:D`#2=`G\scan_stop:
+      \else:
+        \if_num:w\tex_uccode:D`#2=`C\scan_stop:
+        \else:
+          \if_charcode:w#2q\scan_stop:
+          \else:
+           \msg_kernel_bug:x {Variable~mismatch:~function~not~called~with~
+                       proper~variable:^^J\text_put_four_sp: #1#2#3~
+                       on~line~\tex_the:D\tex_inputlineno:D}\fi:\fi:\fi:
+    \fi:}
+\cs_new_nopar:Npn\donotcheck{
+  \cs_set_eq:NN \chk_global:N \use_none:n
+  \cs_set_eq:NN \chk_local:N \use_none:n
+  \cs_set_eq:NN \chk_local_or_pref_global:N \use_none:n
+  \cs_set_eq:NN \pref_global_chk: \pref_global:D
+  \cs_set_eq:NN \chk_if_free_cs:N \use_none:n
+  \cs_set_eq:NN \chk_exist_cs:N \use_none:n
+  \cs_set_eq:NN \chk_var_or_const:N \use_none:n
+  \cs_set_eq:NN \cs_record_name:N \use_none:n
+  \cs_set_eq:NN \cs_record_name:c \use_none:n
+  \cs_set_eq:NN \cs_record_meaning:N \use_none:n
+  \cs_set_eq:NN \register_record_name:N \use_none:n
+}
+\cs_new_nopar:Npn\absolutelytracingall{
+  \pref_global:D\g_trace_commands_status\c_two
+  \pref_global:D\g_trace_statistics_status\c_two
+  \pref_global:D\g_trace_pages_status\c_one
+  \pref_global:D\g_trace_output_status\c_one
+  \pref_global:D\g_trace_chars_status\c_one
+  \pref_global:D\g_trace_macros_status\c_two
+  \pref_global:D\g_trace_paragraphs_status\c_one
+  \pref_global:D\g_trace_restores_status\c_one
+  \pref_global:D\g_trace_box_breadth_int\c_ten_thousand
+  \pref_global:D\g_trace_box_depth_int\c_ten_thousand
+  \pref_global:D\g_trace_online_status\c_one
+  \tex_errorstopmode:D}
+\cs_new_nopar:Npn\tracingoff{
+  \pref_global:D\g_trace_online_status\c_zero
+  \pref_global:D\g_trace_commands_status\c_zero
+  \pref_global:D\g_trace_statistics_status\c_zero
+  \pref_global:D\g_trace_pages_status\c_zero
+  \pref_global:D\g_trace_output_status\c_zero
+  \pref_global:D\g_trace_chars_status\c_zero
+  \pref_global:D\g_trace_macros_status\c_zero
+  \pref_global:D\g_trace_paragraphs_status\c_zero
+  \pref_global:D\g_trace_restores_status\c_zero
+  \pref_global:D\g_trace_box_breadth_int\c_zero
+  \pref_global:D\g_trace_box_depth_int\c_zero
+}
+\cs_new_nopar:Npn\traceon#1{
+  \clist_map_inline:nn {#1}{
+    \cs_if_free:cF{g_trace_ ##1 _status}
+    {\int_gincr:c{g_trace_ ##1 _status}}
+  }
+}
+\cs_new_nopar:Npn\traceoff#1{
+  \clist_map_inline:nn {#1}{
+    \cs_if_free:cF{g_trace_ ##1 _status}
+    {\int_gdecr:c{g_trace_ ##1 _status}}
+  }
+}
+%% 
+%%
+%% End of file `l3chk.sty'.

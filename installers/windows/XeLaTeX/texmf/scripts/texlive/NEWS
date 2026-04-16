@@ -1,0 +1,55 @@
+(This file public domain.  Originally written by Norbert Preining and
+Karl Berry, 2010.)
+
+<p><b>tlmgr revision NEXT (released DDmon10):</b><br>
+<li>actually make usage of persistent connections in tlmgr possible
+
+<p><b>tlmgr revision 20243 (released 1nov10):</b><br>
+<li>try (again) not to load the remote tlpdb if tlmgr update is called
+    without arguments.
+<li>fix bugs in autobackup/backupdir handling; unify error messages;
+    on clean, also remove package backups for packages no longer present
+    in tlpdb.
+<li>support keyword searching as provided by the beta CTAN characterizations
+    at <a href="http://az.ctan.org/">http://az.ctan.org/</a> (no Internet
+    access needed for the search, though).  tlmgr documentation 
+    has details. Support is also present in tlmgrgui.
+
+<p><b>tlmgr revision 19923 (released 28sep10):</b><br>
+<li>undo change for not loading remote db, needs more work.
+
+<p><b>tlmgr revision 19896 (released 27sep10):</b><br>
+<li>add <tt>-R</tt> to the <tt>LESS</tt> environment variable, and unset
+    LESSOPEN and LESSPIPE, before calling pod2usage.
+<li>don't load the remote db if tlmgr update is called without arguments.
+
+<p><b>tlmgr revision 19414 (TeX Live 2010 release version):</b><br>
+
+<li>implement download selection mode in the file
+    <tt>TEXMFCONFIG/tlmgr/config</tt>,
+    option <tt>persistent-downloads</tt>, with value 0 or 1.
+<li>remove support for old GUI (<tt>tlmgr gui-old</tt>).
+
+tlmgr rev 17811 (2010-04-25)
+
+  * tlmgr restore --all: restoring the latest, using all available backups.
+  * GUI: add support for restore action.
+  * do not auto-install packages contained in forcibly removed collections.
+  * GUI: add support for the three command line options: --no-auto-install,
+    --no-auto-remove (under Menu->Options), and --reinstall-forcibly-removed
+    (just below the "Update all installed" button).
+  * GUI: provide access to the manual (tlmgr help) in the Help menu
+  * GUI: provide simple and expert modes (Options->Expert options)
+
+tlmgr rev 17611 (2010-03-30)
+
+  * Support automatic installation of new collections (when they are 
+    included in the selected scheme). 
+
+tlmgr rev 17455 (2010-03-19)
+
+  * persistent HTTP connections enabled by default 
+    (use --no-persistent-downloads to turn off)
+  * package update algorithm changed to avoid incorrect
+    "forcibly removed" inferences. Should be invisible.
+  * report of the number of pending updates in tlmgr gui. 

@@ -1,0 +1,68 @@
+%%
+%% This is file `environments-ltx.def',
+
+%% 
+%%   __________________________________
+%%   Copyright © 2008-2010 Vafa Khalighi
+%% 
+%%   License information appended.
+%% 
+%% 
+\ProvidesFile{environments-ltx.def}[2010/07/25 v0.1 Persian localisation of LaTeX2e environments]
+\eqenvironment[چکیده]{abstract}
+\eqenvironment[پیوست]{appendix}
+\eqenvironment[آرایه]{array}
+\eqenvironment[وسط]{center}
+\eqenvironment[توضیح]{description}
+\eqenvironment[شماره‌بندی]{enumerate}
+\eqenvironment[شکل]{figure}
+\eqenvironment[شکل*]{figure*}
+\eqenvironment[محتویات‌پرونده]{filecontents}
+\eqenvironment[محتویات‌پرونده*]{filecontents*}
+\eqenvironment[چپ‌چین]{flushleft}
+\eqenvironment[راست‌چین]{flushright}
+\eqenvironment[بنددار]{itemize}
+\eqenvironment[نامه]{letter}
+\eqenvironment[لیست]{list}
+\eqenvironment[جدول‌دراز]{longtable}
+\eqenvironment[کادررچ]{lrbox}
+\eqenvironment[ریاضی]{math}
+\eqenvironment[ماتریس]{matrix}
+\eqenvironment[صفحه‌کوچک]{minipage}
+\eqenvironment[چندستونی‌ها]{multicols}
+\eqenvironment[چندخطی]{multline}
+\eqenvironment[یادداشت]{note}
+\eqenvironment[انباشتن]{overlay}
+\eqenvironment[تصویر]{picture}
+\eqenvironment[اقتباس]{quotation}
+\eqenvironment[نقل]{quote}
+\eqenvironment[اسلاید]{slide}
+\eqenvironment[پارنامرتب]{sloppypar}
+\eqenvironment[شکافتن]{split}
+\eqenvironment[زیرآرایه]{subarray}
+\eqenvironment[جدول‌بندی]{tabbing}
+\eqenvironment[لوح]{table}
+\eqenvironment[لوح*]{table*}
+\eqenvironment[جدول]{tabular}
+\eqenvironment[جدول*]{tabular*}
+\eqenvironment[محتوای‌کتاب‌نامه]{thebibliography}
+\eqenvironment[محتوای‌نمایه]{theindex}
+\eqenvironment[صفحه‌عنوان]{titlepage}
+\eqenvironment[کلمه‌به‌کلمه]{verbatim}
+\eqenvironment[کلمه‌به‌کلمه*]{verbatim*}
+\eqenvironment[شعر]{verse}
+%% 
+%% Copyright © 2008-2010      by Vafa Khalighi     <vafakh84@gmail.com>
+%% 
+%% Distributable under the LaTeX Project Public License,
+%% version 1.3c or higher (your choice). The latest version of
+%% this license is at: http://www.latex-project.org/lppl.txt
+%% 
+%% This work is "maintained" (as per LPPL maintenance status)
+%% by Vafa Khalighi.
+%% 
+%% 
+%% 
+%% 
+%%
+%% End of file `environments-ltx.def'.

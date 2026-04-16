@@ -1,0 +1,45 @@
+harvardkyoto.map 0.91c (beta)
+(based on velthuis-sanskrit.map by Zdenek Wagner)
+
+XeTeX input map for Unicode Devanagari (0900-097F) typesetting according to the Harvard/Kyoto convention. To be processed with teckit_compile (http://scripts.sil.org/TECkit).
+
+source/harvardkyoto.map: http://github.com/danstender/harvardkyoto
+bin/harvardkyoto.tec: http://www.ctan.org/tex-archive/macros/xetex/generic/harvardkyoto
+
+Input coding:
+
+A = ā, I = ī, U= ū, R = ṛ, RR = ṝ, L = ḷ
+G = ṅ, J = ñ,
+T = ṭ, D = ḍ, N = ṇ
+z = ś, S = ṣ,
+M = Anusvara, H = Visarga, , = Virama, ' = Avagraha
+
+.l = ऴ, .m = Anunasika
+- = Anudatta (Rv) , ! = Svarita (Rv)
+om = ॐ
+
+q = क़, x = ख़, .g = ग़, .z = ज़, f = फ़, .r = ड़, .R = ढ़
+
+Usage like:
+
+	\documentclass{article}
+
+	\usepackage{fontspec}
+	\setmainfont[Script=Devanagari,Mapping=harvardkyoto]{foo}
+
+	\begin{document}
+
+	dharmakSetre kurukSetre samavetA yuyutsavaH |
+	mAmakAH pANDavAzcaiva kimakurvata saMjaya ||
+
+	a-gnimI!.le pu-rohi!taM ya-jJasya! de-vamR-tvijaM! |
+	hotA!raM ratna-dhA!tamaM ||
+
+	tumase itanI cau.rI nadI pAr karate nahIM banegA |
+
+	\end{document}
+
+Enjoy!
+
+Daniel Stender (daniel@danielstender.com) 2008-10
+http://www.danielstender.com/granthinam

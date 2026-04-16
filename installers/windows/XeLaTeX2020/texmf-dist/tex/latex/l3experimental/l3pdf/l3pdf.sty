@@ -1,0 +1,111 @@
+%%
+%% This is file `l3pdf.sty',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% l3pdf.dtx  (with options: `package')
+%% 
+%% Copyright (C) 2019,2020 The LaTeX3 Project
+%% 
+%% It may be distributed and/or modified under the conditions of
+%% the LaTeX Project Public License (LPPL), either version 1.3c of
+%% this license or (at your option) any later version.  The latest
+%% version of this license is in the file:
+%% 
+%%    http://www.latex-project.org/lppl.txt
+%% 
+%% This file is part of the "l3pdf bundle" (The Work in LPPL)
+%% and all files in that bundle must be distributed together.
+%% 
+%% File: l3pdf.dtx
+\RequirePackage{expl3}
+\ProvidesExplPackage{l3pdf}{2020-06-18}{}
+  {L3 Experimental core PDF support}
+\scan_new:N \s__pdf_stop
+\bool_new:N \g__pdf_init_bool
+\cs_if_exist:NT \documentclass
+  {
+    \AtBeginDocument
+      { \bool_gset_true:N \g__pdf_init_bool }
+  }
+\cs_new_protected:Npn \pdf_uncompress:
+  {
+    \bool_if:NF \g__pdf_init_bool
+      {
+        \__pdf_backend_compresslevel:n { 0 }
+        \__pdf_backend_compress_objects:n { \c_false_bool }
+      }
+  }
+\cs_new_protected:Npn \pdf_object_new:nn #1#2
+  { \__pdf_backend_object_new:nn {#1} {#2} }
+\prg_new_conditional:Npnn \pdf_object_if_exist:n #1 { p , T , F , TF }
+  {
+    \int_if_exist:cTF { c__pdf_backend_object_ \tl_to_str:n {#1} _int }
+     { \prg_return_true: }
+     { \prg_return_false:}
+  }
+\cs_new_protected:Npn \pdf_object_write:nn #1#2
+  { \__pdf_backend_object_write:nn {#1} {#2} }
+\cs_generate_variant:Nn \pdf_object_write:nn { nx }
+\cs_new:Npn \pdf_object_ref:n #1 { \__pdf_backend_object_ref:n {#1} }
+\cs_new_protected:Npn \pdf_object_now:nn #1#2
+  { \__pdf_backend_object_now:nn {#1} {#2} }
+\cs_generate_variant:Nn \pdf_object_now:nn { nx }
+\cs_new:Npn \pdf_object_last: { \__pdf_backend_object_last: }
+\prg_new_conditional:Npnn \pdf_version_compare:Nn #1#2 { p , T , F , TF }
+  { \use:c { __pdf_version_compare_ #1 :w } #2 . . \s__pdf_stop }
+\cs_new:cpn { __pdf_version_compare_=:w } #1 . #2 . #3 \s__pdf_stop
+ {
+   \bool_lazy_and:nnTF
+    { \int_compare_p:nNn \__pdf_backend_version_major: = {#1} }
+    { \int_compare_p:nNn \__pdf_backend_version_minor: = {#2} }
+    { \prg_return_true: }
+    { \prg_return_false: }
+ }
+\cs_new:cpn { __pdf_version_compare_<:w } #1 . #2 . #3 \s__pdf_stop
+ {
+   \bool_lazy_or:nnTF
+    { \int_compare_p:nNn \__pdf_backend_version_major: < {#1} }
+    {
+      \bool_lazy_and_p:nn
+        { \int_compare_p:nNn \__pdf_backend_version_major: = {#1} }
+        { \int_compare_p:nNn \__pdf_backend_version_minor: < {#2} }
+    }
+    { \prg_return_true: }
+    { \prg_return_false: }
+ }
+\cs_new:cpn { __pdf_version_compare_>:w } #1 . #2 . #3 \s__pdf_stop
+ {
+   \bool_lazy_or:nnTF
+    { \int_compare_p:nNn \__pdf_backend_version_major: > {#1} }
+    {
+      \bool_lazy_and_p:nn
+        { \int_compare_p:nNn \__pdf_backend_version_major: = {#1} }
+        { \int_compare_p:nNn \__pdf_backend_version_minor: > {#2} }
+    }
+    { \prg_return_true: }
+    { \prg_return_false: }
+ }
+\cs_new_protected:Npn \pdf_version_gset:n #1
+  { \__pdf_version_gset:w  #1 . . \s__pdf_stop }
+\cs_new_protected:Npn \pdf_version_min_gset:n #1
+  {
+    \pdf_version_compare:NnT < {#1}
+      { \__pdf_version_gset:w  #1 . . \s__pdf_stop }
+  }
+\cs_new_protected:Npn \__pdf_version_gset:w  #1 . #2 . #3\s__pdf_stop
+  {
+    \bool_if:NF \g__pdf_init_bool
+      {
+        \__pdf_backend_version_major_gset:n {#1}
+        \__pdf_backend_version_minor_gset:n {#2}
+      }
+  }
+\cs_new:Npn \pdf_version:
+  { \__pdf_backend_version_major: . \__pdf_backend_version_minor: }
+\cs_new:Npn \pdf_version_major: { \__pdf_backend_version_major: }
+\cs_new:Npn \pdf_version_minor: { \__pdf_backend_version_minor: }
+%% 
+%%
+%% End of file `l3pdf.sty'.

@@ -1,0 +1,698 @@
+This is XeTeX, Version 3.1415926-2.2-0.9997.4 (Web2C 2010) (INITEX)  15 NOV 2010 12:33
+entering extended mode
+ restricted \write18 enabled.
+ %&-line parsing enabled.
+***cont-en.ini
+(c:/texlive/2010/texmf-dist/tex/context/config/cont-en.ini
+(c:/texlive/2010/texmf-dist/tex/context/base/cont-en.tex
+(c:/texlive/2010/texmf-dist/tex/context/base/context.tex
+(c:/texlive/2010/texmf-dist/tex/context/base/context.mkii
+(c:/texlive/2010/texmf-dist/tex/context/base/syst-ini.tex)
+(c:/texlive/2010/texmf-dist/tex/context/base/syst-pln.tex)
+(c:/texlive/2010/texmf-dist/tex/context/base/norm-tex.tex)
+(c:/texlive/2010/texmf-dist/tex/context/base/norm-etx.tex)
+(c:/texlive/2010/texmf-dist/tex/context/base/norm-ptx.tex)
+(c:/texlive/2010/texmf-dist/tex/context/base/norm-xtx.tex)
+(c:/texlive/2010/texmf-dist/tex/context/base/norm-ctx.tex)
+(c:/texlive/2010/texmf-dist/tex/context/base/catc-ini.mkii)
+(c:/texlive/2010/texmf-dist/tex/context/base/catc-act.tex)
+(c:/texlive/2010/texmf-dist/tex/context/base/catc-def.tex)
+(c:/texlive/2010/texmf-dist/tex/context/base/catc-ctx.tex)
+(c:/texlive/2010/texmf-dist/tex/context/base/catc-sym.tex)
+(c:/texlive/2010/texmf-dist/tex/context/base/syst-gen.mkii
+warning: \count \scratchcounter is already defined (\relax it first)
+warning: \count \globalscratchcounter is already defined (\relax it first)
+warning: \dimen \scratchdimen is already defined (\relax it first)
+warning: \dimen \globalscratchdimen is already defined (\relax it first)
+warning: \skip \scratchskip is already defined (\relax it first)
+warning: \skip \globalscratchskip is already defined (\relax it first)
+warning: \muskip \scratchmuskip is already defined (\relax it first)
+warning: \muskip \globalscratchmuskip is already defined (\relax it first)
+warning: \toks \scratchtoks is already defined (\relax it first)
+warning: \toks \globalscratchtoks is already defined (\relax it first)
+warning: \box \scratchbox is already defined (\relax it first)
+warning: \box \globalscratchbox is already defined (\relax it first)
+warning: \dimen \scratchdimenone is already defined (\relax it first)
+warning: \box \scratchboxone is already defined (\relax it first)
+warning: \count \scratchcounterone is already defined (\relax it first)
+warning: \dimen \scratchdimentwo is already defined (\relax it first)
+warning: \box \scratchboxtwo is already defined (\relax it first)
+warning: \count \scratchcountertwo is already defined (\relax it first)
+warning: \toks \emptytoks is already defined (\relax it first)
+loading         : ConTeXt System Macros / General
+) (c:/texlive/2010/texmf-dist/tex/context/base/syst-ext.mkii
+loading         : ConTeXt System Macros / Extras
+) (c:/texlive/2010/texmf-dist/tex/context/base/syst-new.mkii)
+(c:/texlive/2010/texmf-dist/tex/context/base/syst-con.mkii
+loading         : ConTeXt System Macros / Conversions
+) (c:/texlive/2010/texmf-dist/tex/context/base/syst-ltx.tex)
+(c:/texlive/2010/texmf-dist/tex/context/base/thrd-trg.mkii)
+(c:/texlive/2010/texmf-dist/tex/context/base/syst-fnt.mkii)
+(c:/texlive/2010/texmf-dist/tex/context/base/syst-str.mkii)
+(c:/texlive/2010/texmf-dist/tex/context/base/syst-rtp.mkii)
+(c:/texlive/2010/texmf-dist/tex/context/base/xetx-ini.mkii)
+(c:/texlive/2010/texmf-dist/tex/context/base/xetx-utf.mkii)
+(c:/texlive/2010/texmf-dist/tex/context/base/xetx-chr.mkii)
+(c:/texlive/2010/texmf-dist/tex/context/base/xetx-cls.mkii)
+(c:/texlive/2010/texmf-dist/tex/context/base/supp-fil.mkii
+loading         : ConTeXt Support Macros / Files
+) (c:/texlive/2010/texmf-dist/tex/context/base/supp-dir.mkii)
+(c:/texlive/2010/texmf-dist/tex/context/base/mult-ini.mkii
+loading         : ConTeXt Multilingual Macros / Initialization
+) (c:/texlive/2010/texmf-dist/tex/context/base/mult-fst.tex)
+(c:/texlive/2010/texmf-dist/tex/context/base/mult-sys.tex
+loading         : ConTeXt Multilingual Macros / System
+interface       : defining english interface
+
+interface       : using english messages
+
+) (c:/texlive/2010/texmf-dist/tex/context/base/mult-def.tex
+(c:/texlive/2010/texmf-dist/tex/context/base/mult-en.tex)
+(c:/texlive/2010/texmf-dist/tex/context/base/mult-men.tex))
+(c:/texlive/2010/texmf-dist/tex/context/base/mult-chk.mkii
+loading         : ConTeXt Multilingual Macros / Checking
+) (c:/texlive/2010/texmf-dist/tex/context/base/core-var.mkii
+loading         : ConTeXt Core Macros / Variables
+) (c:/texlive/2010/texmf-dist/tex/context/base/core-env.mkii
+loading         : ConTeXt Core Macros / Environments
+) (c:/texlive/2010/texmf-dist/tex/context/base/supp-box.tex
+loading         : ConTeXt Support Macros / Boxes
+) (c:/texlive/2010/texmf-dist/tex/context/base/supp-mrk.mkii
+loading         : ConTeXt Support Macros / Marks
+) (c:/texlive/2010/texmf-dist/tex/context/base/supp-vis.tex
+loading         : ConTeXt Support Macros / Visualization
+) (c:/texlive/2010/texmf-dist/tex/context/base/supp-fun.tex
+loading         : ConTeXt Support Macros / Fun Stuff
+) (c:/texlive/2010/texmf-dist/tex/context/base/supp-spe.mkii
+loading         : ConTeXt Support Macros / Specials
+) (c:/texlive/2010/texmf-dist/tex/context/base/supp-ran.mkii
+loading         : ConTeXt Support Macros / Random Number Generation
+(c:/texlive/2010/texmf-dist/tex/context/base/thrd-ran.mkii))
+(c:/texlive/2010/texmf-dist/tex/context/base/supp-mps.mkii
+loading         : ConTeXt Support Macros / MetaPost Inclusion
+) (c:/texlive/2010/texmf-dist/tex/context/base/supp-tpi.mkii
+(c:/texlive/2010/texmf-dist/tex/context/base/supp-eps.mkii
+loading         : ConTeXt Support Macros / EPS
+)
+loading         : ConTeXt Support Macros / TPIC Conversion
+) (c:/texlive/2010/texmf-dist/tex/context/base/supp-mat.mkii
+loading         : ConTeXt Support Macros / Math
+) (c:/texlive/2010/texmf-dist/tex/context/base/supp-ali.tex)
+(c:/texlive/2010/texmf-dist/tex/context/base/supp-num.tex
+loading         : ConTeXt Support Macros / Numbers
+) (c:/texlive/2010/texmf-dist/tex/context/base/verb-ini.mkii
+loading         : ConTeXt Verbatim Macros / Initialization
+) (c:/texlive/2010/texmf-dist/tex/context/base/page-ins.mkii
+loading         : ConTeXt Core Macros / Insertions
+) (c:/texlive/2010/texmf-dist/tex/context/base/core-fil.mkii
+loading         : ConTeXt Core Macros / File Support
+) (c:/texlive/2010/texmf-dist/tex/context/base/core-con.mkii
+loading         : ConTeXt Core Macros / Conversion
+) (c:/texlive/2010/texmf-dist/tex/context/base/cont-fil.tex
+loading         : ConTeXt File Synonyms
+) (c:/texlive/2010/texmf-dist/tex/context/base/thrd-tab.tex)
+(c:/texlive/2010/texmf-dist/tex/context/base/supp-pat.mkii
+loading         : ConTeXt Support Macros / Patterns
+) (c:/texlive/2010/texmf-dist/tex/context/base/regi-ini.mkii)
+(c:/texlive/2010/texmf-dist/tex/context/base/regi-syn.tex
+loading         : ConTeXt Regime Macros / Synonyms
+) (c:/texlive/2010/texmf-dist/tex/context/base/enco-ini.mkii
+loading         : ConTeXt Encoding Macros / Initialization
+encoding        : coding def is loaded
+(c:/texlive/2010/texmf-dist/tex/context/base/enco-def.mkii)
+encoding        : coding acc is loaded
+(c:/texlive/2010/texmf-dist/tex/context/base/enco-acc.mkii)
+encoding        : coding raw is loaded
+(c:/texlive/2010/texmf-dist/tex/context/base/enco-raw.mkii)
+encoding        : coding com is loaded
+(c:/texlive/2010/texmf-dist/tex/context/base/enco-com.mkii)
+encoding        : coding cas is loaded
+(c:/texlive/2010/texmf-dist/tex/context/base/enco-cas.mkii)
+encoding        : coding mis is loaded
+(c:/texlive/2010/texmf-dist/tex/context/base/enco-mis.mkii))
+(c:/texlive/2010/texmf-dist/tex/context/base/hand-ini.mkii
+handling        : font handling def is loaded
+(c:/texlive/2010/texmf-dist/tex/context/base/hand-def.mkii))
+(c:/texlive/2010/texmf-dist/tex/context/base/lang-ini.mkii
+loading         : ConTeXt Language Macros / Initialization
+) (c:/texlive/2010/texmf-dist/tex/context/base/lang-spe.mkii
+loading         : ConTeXt Language Macros / Specifics
+) (c:/texlive/2010/texmf-dist/tex/context/base/lang-lab.mkii)
+(c:/texlive/2010/texmf-dist/tex/context/base/unic-ini.mkii
+loading         : ConTeXt Unicode Support / Initialization
+warning         : \count \utf@c is already defined (\relax it first)
+unicode         : loading vector 0
+(c:/texlive/2010/texmf-dist/tex/context/base/unic-000.mkii)
+unicode         : loading vector 1
+(c:/texlive/2010/texmf-dist/tex/context/base/unic-001.mkii)
+unicode         : loading vector 2
+(c:/texlive/2010/texmf-dist/tex/context/base/unic-002.mkii)
+unicode         : loading vector 3
+(c:/texlive/2010/texmf-dist/tex/context/base/unic-003.mkii)
+unicode         : loading vector 4
+(c:/texlive/2010/texmf-dist/tex/context/base/unic-004.mkii)
+unicode         : loading vector 5
+(c:/texlive/2010/texmf-dist/tex/context/base/unic-005.mkii)
+unicode         : loading vector 30
+(c:/texlive/2010/texmf-dist/tex/context/base/unic-030.mkii)
+unicode         : loading vector 31
+(c:/texlive/2010/texmf-dist/tex/context/base/unic-031.mkii)
+unicode         : loading vector 32
+(c:/texlive/2010/texmf-dist/tex/context/base/unic-032.mkii)
+unicode         : loading vector 33
+(c:/texlive/2010/texmf-dist/tex/context/base/unic-033.mkii)
+unicode         : loading vector 34
+(c:/texlive/2010/texmf-dist/tex/context/base/unic-034.mkii)
+unicode         : loading vector 35
+(c:/texlive/2010/texmf-dist/tex/context/base/unic-035.mkii)
+unicode         : loading vector 37
+(c:/texlive/2010/texmf-dist/tex/context/base/unic-037.mkii)
+unicode         : loading vector 39
+(c:/texlive/2010/texmf-dist/tex/context/base/unic-039.mkii)
+unicode         : loading vector 251
+(c:/texlive/2010/texmf-dist/tex/context/base/unic-251.mkii)
+unicode         : loading vector cjk
+(c:/texlive/2010/texmf-dist/tex/context/base/unic-cjk.mkii)
+regime          : regime utf is loaded
+(c:/texlive/2010/texmf-dist/tex/context/base/regi-utf.mkii))
+(c:/texlive/2010/texmf-dist/tex/context/base/core-gen.mkii
+loading         : ConTeXt Core Macros / General
+) (c:/texlive/2010/texmf-dist/tex/context/base/core-uti.mkii
+loading         : ConTeXt Core Macros / Utility File Handling
+) (c:/texlive/2010/texmf-dist/tex/context/base/core-two.mkii
+loading         : ConTeXt Core Macros / Two Pass Data
+) (c:/texlive/2010/texmf-dist/tex/context/base/core-stg.mkii)
+(c:/texlive/2010/texmf-dist/tex/context/base/spec-ini.mkii
+loading         : ConTeXt Special Macros / Initialization
+) (c:/texlive/2010/texmf-dist/tex/context/base/spec-mis.mkii
+loading         : ConTeXt Special Macros / Miscellaneous Macros
+) (c:/texlive/2010/texmf-dist/tex/context/base/spec-def.mkii
+loading         : ConTeXt Special Macros / Definitions
+) (c:/texlive/2010/texmf-dist/tex/context/base/spec-var.mkii
+loading         : ConTeXt Special Macros / Variables
+) (c:/texlive/2010/texmf-dist/tex/context/base/colo-ini.mkii
+loading         : ConTeXt Color Macros / Initialization
+color           : specification [s=0] at color black becomes black
+color           : system rgb is loaded
+(c:/texlive/2010/texmf-dist/tex/context/base/colo-rgb.tex
+color           : specification [s=0] at color black becomes black
+)) (c:/texlive/2010/texmf-dist/tex/context/base/colo-ext.mkii
+loading         : ConTeXt Color Macros / Extras
+) (c:/texlive/2010/texmf-dist/tex/context/base/lang-mis.mkii
+loading         : ConTeXt Language Macros / Compounds
+) (c:/texlive/2010/texmf-dist/tex/context/base/lang-url.mkii)
+(c:/texlive/2010/texmf-dist/tex/context/base/lang-ger.tex
+loading         : ConTeXt Language Macros / Germanic Languages
+language        : patterns nl for nl loaded (n=1,e=default,m=default)
+(c:/texlive/2010/texmf-dist/tex/context/patterns/lang-nl.pat)
+language        : hyphenations nl for nl loaded (n=1,e=default,m=default)
+(c:/texlive/2010/texmf-dist/tex/context/patterns/lang-nl.hyp)
+language        : patterns us for en loaded (n=2,e=default,m=default)
+(c:/texlive/2010/texmf-dist/tex/context/patterns/lang-us.pat)
+language        : hyphenations us for en loaded (n=2,e=default,m=default)
+(c:/texlive/2010/texmf-dist/tex/context/patterns/lang-us.hyp)
+language        : patterns de for de loaded (n=3,e=default,m=default)
+(c:/texlive/2010/texmf-dist/tex/context/patterns/lang-de.pat)
+language        : hyphenations de for de loaded (n=3,e=default,m=default)
+(c:/texlive/2010/texmf-dist/tex/context/patterns/lang-de.hyp)
+language        : patterns da for da loaded (n=4,e=default,m=default)
+(c:/texlive/2010/texmf-dist/tex/context/patterns/lang-da.pat)
+language        : hyphenations da for da loaded (n=4,e=default,m=default)
+(c:/texlive/2010/texmf-dist/tex/context/patterns/lang-da.hyp)
+language        : patterns sv for sv loaded (n=5,e=default,m=default)
+(c:/texlive/2010/texmf-dist/tex/context/patterns/lang-sv.pat)
+language        : hyphenations sv for sv loaded (n=5,e=default,m=default)
+(c:/texlive/2010/texmf-dist/tex/context/patterns/lang-sv.hyp)
+language        : patterns for nb not loaded
+language        : patterns for nn not loaded
+language        : patterns gb for en-gb loaded (n=6,e=default,m=default)
+(c:/texlive/2010/texmf-dist/tex/context/patterns/lang-gb.pat)
+language        : hyphenations gb for en-gb loaded (n=6,e=default,m=default)
+(c:/texlive/2010/texmf-dist/tex/context/patterns/lang-gb.hyp))
+(c:/texlive/2010/texmf-dist/tex/context/base/lang-ita.tex
+loading         : ConTeXt Language Macros / Italic Languages
+language        : patterns fr for fr loaded (n=7,e=default,m=default)
+(c:/texlive/2010/texmf-dist/tex/context/patterns/lang-fr.pat)
+language        : hyphenations fr for fr loaded (n=7,e=default,m=default)
+(c:/texlive/2010/texmf-dist/tex/context/patterns/lang-fr.hyp)
+language        : patterns es for es loaded (n=8,e=default,m=default)
+(c:/texlive/2010/texmf-dist/tex/context/patterns/lang-es.pat)
+language        : hyphenations es for es loaded (n=8,e=default,m=default)
+(c:/texlive/2010/texmf-dist/tex/context/patterns/lang-es.hyp)
+language        : patterns ca for ca loaded (n=9,e=default,m=default)
+(c:/texlive/2010/texmf-dist/tex/context/patterns/lang-ca.pat)
+language        : hyphenations ca for ca loaded (n=9,e=default,m=default)
+(c:/texlive/2010/texmf-dist/tex/context/patterns/lang-ca.hyp)
+language        : patterns it for it loaded (n=10,e=default,m=default)
+(c:/texlive/2010/texmf-dist/tex/context/patterns/lang-it.pat)
+language        : hyphenations it for it loaded (n=10,e=default,m=default)
+(c:/texlive/2010/texmf-dist/tex/context/patterns/lang-it.hyp)
+language        : patterns la for la loaded (n=11,e=default,m=default)
+(c:/texlive/2010/texmf-dist/tex/context/patterns/lang-la.pat)
+language        : hyphenations la for la loaded (n=11,e=default,m=default)
+(c:/texlive/2010/texmf-dist/tex/context/patterns/lang-la.hyp)
+language        : patterns pt for pt loaded (n=12,e=default,m=default)
+(c:/texlive/2010/texmf-dist/tex/context/patterns/lang-pt.pat)
+language        : hyphenations pt for pt loaded (n=12,e=default,m=default)
+(c:/texlive/2010/texmf-dist/tex/context/patterns/lang-pt.hyp)
+language        : patterns ro for ro loaded (n=13,e=default,m=default)
+(c:/texlive/2010/texmf-dist/tex/context/patterns/lang-ro.pat)
+language        : hyphenations ro for ro loaded (n=13,e=default,m=default)
+(c:/texlive/2010/texmf-dist/tex/context/patterns/lang-ro.hyp))
+(c:/texlive/2010/texmf-dist/tex/context/base/lang-sla.tex
+loading         : ConTeXt Language Macros / Slavic Languages
+language        : patterns pl for pl loaded (n=14,e=default,m=default)
+(c:/texlive/2010/texmf-dist/tex/context/patterns/lang-pl.pat)
+language        : hyphenations pl for pl loaded (n=14,e=default,m=default)
+(c:/texlive/2010/texmf-dist/tex/context/patterns/lang-pl.hyp)
+language        : patterns cs for cs loaded (n=15,e=default,m=default)
+(c:/texlive/2010/texmf-dist/tex/context/patterns/lang-cs.pat)
+language        : hyphenations cs for cs loaded (n=15,e=default,m=default)
+(c:/texlive/2010/texmf-dist/tex/context/patterns/lang-cs.hyp)
+language        : patterns sk for sk loaded (n=16,e=default,m=default)
+(c:/texlive/2010/texmf-dist/tex/context/patterns/lang-sk.pat)
+language        : hyphenations sk for sk loaded (n=16,e=default,m=default)
+(c:/texlive/2010/texmf-dist/tex/context/patterns/lang-sk.hyp)
+language        : patterns hr for hr loaded (n=17,e=default,m=default)
+(c:/texlive/2010/texmf-dist/tex/context/patterns/lang-hr.pat)
+language        : hyphenations hr for hr loaded (n=17,e=default,m=default)
+(c:/texlive/2010/texmf-dist/tex/context/patterns/lang-hr.hyp)
+language        : patterns sl for sl loaded (n=18,e=default,m=default)
+(c:/texlive/2010/texmf-dist/tex/context/patterns/lang-sl.pat)
+language        : hyphenations sl for sl loaded (n=18,e=default,m=default)
+(c:/texlive/2010/texmf-dist/tex/context/patterns/lang-sl.hyp)
+(c:/texlive/2010/texmf-dist/tex/context/base/lang-sla.mkii))
+(c:/texlive/2010/texmf-dist/tex/context/base/lang-alt.tex
+loading         : ConTeXt Language Macros / Altaic Languages
+language        : patterns tr for tr loaded (n=19,e=default,m=default)
+(c:/texlive/2010/texmf-dist/tex/context/patterns/lang-tr.pat)
+language        : hyphenations tr for tr loaded (n=19,e=default,m=default)
+(c:/texlive/2010/texmf-dist/tex/context/patterns/lang-tr.hyp)
+language        : patterns tk for tk loaded (n=20,e=default,m=default)
+(c:/texlive/2010/texmf-dist/tex/context/patterns/lang-tk.pat)
+language        : hyphenations tk for tk loaded (n=20,e=default,m=default)
+(c:/texlive/2010/texmf-dist/tex/context/patterns/lang-tk.hyp))
+(c:/texlive/2010/texmf-dist/tex/context/base/lang-ana.tex
+loading         : ConTeXt Language Macros / Anatolian Languages
+) (c:/texlive/2010/texmf-dist/tex/context/base/lang-art.tex
+loading         : ConTeXt Language Macros / Artificial Languages
+) (c:/texlive/2010/texmf-dist/tex/context/base/lang-bal.tex
+loading         : ConTeXt Language Macros / Baltic Languages
+language        : patterns lt for lt loaded (n=21,e=default,m=default)
+(c:/texlive/2010/texmf-dist/tex/context/patterns/lang-lt.pat)
+language        : hyphenations lt for lt loaded (n=21,e=default,m=default)
+(c:/texlive/2010/texmf-dist/tex/context/patterns/lang-lt.hyp))
+(c:/texlive/2010/texmf-dist/tex/context/base/lang-cel.tex
+loading         : ConTeXt Language Macros / Celtic Languages
+) (c:/texlive/2010/texmf-dist/tex/context/base/lang-grk.tex
+loading         : ConTeXt Language Macros / Greek
+language        : no patterns gr for gr (n=22,e=default,m=default) (lang-gr.pat
+,lang-gr.pat)
+language        : no hyphenations gr for gr (n=22,e=default,m=default)
+language        : patterns agr for agr loaded (n=23,e=default,m=default)
+(c:/texlive/2010/texmf-dist/tex/context/patterns/lang-agr.pat)
+language        : hyphenations agr for agr loaded (n=23,e=default,m=default)
+(c:/texlive/2010/texmf-dist/tex/context/patterns/lang-agr.hyp))
+(c:/texlive/2010/texmf-dist/tex/context/base/lang-ind.tex
+loading         : ConTeXt Language Macros / Indo-Iranian Languages
+) (c:/texlive/2010/texmf-dist/tex/context/base/lang-ura.tex
+loading         : ConTeXt Language Macros / Uralic Languages
+language        : patterns fi for fi loaded (n=24,e=default,m=default)
+(c:/texlive/2010/texmf-dist/tex/context/patterns/lang-fi.pat)
+language        : hyphenations fi for fi loaded (n=24,e=default,m=default)
+(c:/texlive/2010/texmf-dist/tex/context/patterns/lang-fi.hyp)
+language        : patterns hu for hu loaded (n=25,e=default,m=default)
+(c:/texlive/2010/texmf-dist/tex/context/patterns/lang-hu.pat)
+language        : hyphenations hu for hu loaded (n=25,e=default,m=default)
+(c:/texlive/2010/texmf-dist/tex/context/patterns/lang-hu.hyp))
+(c:/texlive/2010/texmf-dist/tex/context/base/lang-vn.tex
+loading         : ConTeXt Language Macros / Vietnamese Language
+language        : no patterns vi for vi (n=26,e=default,m=default) (lang-vi.pat
+,lang-vi.pat)
+language        : no hyphenations vi for vi (n=26,e=default,m=default)
+) (c:/texlive/2010/texmf-dist/tex/context/base/lang-cyr.tex
+loading         : ConTeXt Language Macros / Cyrillic Languages
+language        : patterns ru for ru loaded (n=27,e=default,m=default)
+(c:/texlive/2010/texmf-dist/tex/context/patterns/lang-ru.pat)
+language        : hyphenations ru for ru loaded (n=27,e=default,m=default)
+(c:/texlive/2010/texmf-dist/tex/context/patterns/lang-ru.hyp)
+language        : patterns uk for ua loaded (n=28,e=default,m=default)
+(c:/texlive/2010/texmf-dist/tex/context/patterns/lang-uk.pat)
+language        : hyphenations uk for ua loaded (n=28,e=default,m=default)
+(c:/texlive/2010/texmf-dist/tex/context/patterns/lang-uk.hyp))
+(c:/texlive/2010/texmf-dist/tex/context/base/typo-ini.mkii
+loading         : ConTeXt Typographic Macros / Initialization
+) (c:/texlive/2010/texmf-dist/tex/context/base/symb-ini.mkii
+loading         : ConTeXt Symbol Libraries / Initialization
+) (c:/texlive/2010/texmf-dist/tex/context/base/sort-ini.mkii
+loading         : ConTeXt Sorting Macros / Initialization
+) (c:/texlive/2010/texmf-dist/tex/context/base/spac-gen.mkii
+loading         : ConTeXt Core Macros / Spacing
+) (c:/texlive/2010/texmf-dist/tex/context/base/spac-grd.mkii
+loading         : ConTeXt Core Macros / Grid Snapping
+) (c:/texlive/2010/texmf-dist/tex/context/base/strc-mar.mkii
+loading         : ConTeXt Structure Macros / Markings
+) (c:/texlive/2010/texmf-dist/tex/context/base/anch-pos.mkii
+loading         : ConTeXt Anchoring Macros / Positioning
+) (c:/texlive/2010/texmf-dist/tex/context/base/buff-ver.mkii
+loading         : ConTeXt Buffer Macros / Verbatim
+) (c:/texlive/2010/texmf-dist/tex/context/base/buff-ini.mkii
+loading         : ConTeXt Buffer Macros / Buffers
+) (c:/texlive/2010/texmf-dist/tex/context/base/pack-rul.mkii
+loading         : ConTeXt Packaging Macros / Ruled Content
+) (c:/texlive/2010/texmf-dist/tex/context/base/trac-vis.mkii
+loading         : ConTeXt Tracking Macros / Visualization
+) (c:/texlive/2010/texmf-dist/tex/context/base/strc-num.mkii
+loading         : ConTeXt Structure Macros / Numbering
+) (c:/texlive/2010/texmf-dist/tex/context/base/tabl-com.mkii
+loading         : ConTeXt Table Macros / Common Code
+) (c:/texlive/2010/texmf-dist/tex/context/base/tabl-pln.mkii
+loading         : ConTeXt Table Macros / Plain Tabular
+) (c:/texlive/2010/texmf-dist/tex/context/base/tabl-tab.mkii
+loading         : ConTeXt Table Macros / TaBlE Embedding
+) (c:/texlive/2010/texmf-dist/tex/context/base/tabl-tsp.mkii
+loading         : ConTeXt Table Macros / Splitting
+) (c:/texlive/2010/texmf-dist/tex/context/base/scrn-nav.mkii
+loading         : ConTeXt Screen Macros / Navigation
+) (c:/texlive/2010/texmf-dist/tex/context/base/strc-ref.mkii
+loading         : ConTeXt Structure Macros / Cross Referencing
+) (c:/texlive/2010/texmf-dist/tex/context/base/pack-obj.mkii
+loading         : ConTeXt Packaging Macros / Objects
+) (c:/texlive/2010/texmf-dist/tex/context/base/strc-lst.mkii
+loading         : ConTeXt Structure Macros / Lists
+) (c:/texlive/2010/texmf-dist/tex/context/base/strc-itm.mkii
+loading         : ConTeXt Structure Macros / Itemgroups
+) (c:/texlive/2010/texmf-dist/tex/context/base/strc-des.mkii
+loading         : ConTeXt Structure Macros / Descriptions
+) (c:/texlive/2010/texmf-dist/tex/context/base/strc-mat.mkii
+loading         : ConTeXt Structure Macros / Math Fundamentals
+warning         : \count \supersubmode is already defined (\relax it first)
+) (c:/texlive/2010/texmf-dist/tex/context/base/strc-syn.mkii
+loading         : ConTeXt Structure Macros / Synonyms and Sorts
+) (c:/texlive/2010/texmf-dist/tex/context/base/core-sys.mkii
+loading         : ConTeXt Core Macros / System
+) (c:/texlive/2010/texmf-dist/tex/context/base/page-ini.mkii
+loading         : ConTeXt Page Macros / Initializations
+) (c:/texlive/2010/texmf-dist/tex/context/base/page-bck.mkii
+loading         : ConTeXt Page Macros / Backgrounds
+warning         : \dimen \pagedepth is already defined (\relax it first)
+) (c:/texlive/2010/texmf-dist/tex/context/base/page-not.mkii
+loading         : ConTeXt Page Macros / Footnotes
+) (c:/texlive/2010/texmf-dist/tex/context/base/page-one.mkii
+loading         : ConTeXt Page Macros / Default Routine
+) (c:/texlive/2010/texmf-dist/tex/context/base/page-lay.mkii
+loading         : ConTeXt Page Macros / Layout Specification
+) (c:/texlive/2010/texmf-dist/tex/context/base/page-log.mkii
+loading         : ConTeXt Page Macros / Logos
+) (c:/texlive/2010/texmf-dist/tex/context/base/page-txt.mkii
+loading         : ConTeXt Page Macros / Texts
+) (c:/texlive/2010/texmf-dist/tex/context/base/page-sid.mkii
+loading         : ConTeXt Page Macros / Side Floats
+) (c:/texlive/2010/texmf-dist/tex/context/base/strc-flt.mkii
+loading         : ConTeXt Structure Macros / Float Numbering
+) (c:/texlive/2010/texmf-dist/tex/context/base/page-mis.mkii
+loading         : ConTeXt Page Macros / Misc Float Things
+layout          : marginblocks active
+) (c:/texlive/2010/texmf-dist/tex/context/base/page-mul.mkii
+loading         : ConTeXt Page Macros / Simple Multi Column
+) (c:/texlive/2010/texmf-dist/tex/context/base/page-set.mkii
+loading         : ConTeXt Page Macros / Column Sets
+) (c:/texlive/2010/texmf-dist/tex/context/base/pack-lyr.mkii
+loading         : ConTeXt Packaging Macros / Layers
+) (c:/texlive/2010/texmf-dist/tex/context/base/page-mak.mkii
+loading         : ConTeXt Page Macros / MakeUp
+) (c:/texlive/2010/texmf-dist/tex/context/base/strc-pag.mkii
+loading         : ConTeXt Structure Macros / Numbering
+warning         : \count \pageno is already defined (\relax it first)
+) (c:/texlive/2010/texmf-dist/tex/context/base/page-lin.mkii
+loading         : ConTeXt Core Macros / Line Numbering
+) (c:/texlive/2010/texmf-dist/tex/context/base/page-par.mkii
+loading         : ConTeXt Page Macros / Paragraph Numbering
+) (c:/texlive/2010/texmf-dist/tex/context/base/page-mar.mkii
+loading         : ConTeXt Page Macros / Maginal Things
+) (c:/texlive/2010/texmf-dist/tex/context/base/core-job.mkii
+loading         : ConTeXt Core Macros / Job Handling
+) (c:/texlive/2010/texmf-dist/tex/context/base/strc-sec.mkii
+loading         : ConTeXt Structure Macros / Sectioning
+system          : mark part defined [part]
+system          : mark partnumber defined [partnumber]
+system          : mark chapter defined [chapter]
+system          : mark chapternumber defined [chapternumber]
+system          : mark section defined [section]
+system          : mark sectionnumber defined [sectionnumber]
+system          : mark subsection defined [subsection]
+system          : mark subsectionnumber defined [subsectionnumber]
+system          : mark subsubsection defined [subsubsection]
+system          : mark subsubsectionnumber defined [subsubsectionnumber]
+system          : mark subsubsubsection defined [subsubsubsection]
+system          : mark subsubsubsectionnumber defined [subsubsubsectionnumber]
+system          : mark subsubsubsubsection defined [subsubsubsubsection]
+system          : mark subsubsubsubsectionnumber defined [subsubsubsubsectionnu
+mber]
+system          : mark title defined [title]
+system          : mark titlenumber defined [titlenumber]
+system          : mark subject defined [subject]
+system          : mark subjectnumber defined [subjectnumber]
+system          : mark subsubject defined [subsubject]
+system          : mark subsubjectnumber defined [subsubjectnumber]
+system          : mark subsubsubject defined [subsubsubject]
+system          : mark subsubsubjectnumber defined [subsubsubjectnumber]
+system          : mark subsubsubsubject defined [subsubsubsubject]
+system          : mark subsubsubsubjectnumber defined [subsubsubsubjectnumber]
+system          : mark subsubsubsubsubject defined [subsubsubsubsubject]
+system          : mark subsubsubsubsubjectnumber defined [subsubsubsubsubjectnu
+mber]
+) (c:/texlive/2010/texmf-dist/tex/context/base/strc-swd.mkii
+loading         : ConTeXt Structure Macros / Sectionworlds
+) (c:/texlive/2010/texmf-dist/tex/context/base/strc-blk.mkii
+loading         : ConTeXt Structure Macros / Blockmoves
+) (c:/texlive/2010/texmf-dist/tex/context/base/page-imp.mkii
+loading         : ConTeXt Page Macros / Pagebody Building
+) (c:/texlive/2010/texmf-dist/tex/context/base/tabl-tbl.mkii
+loading         : ConTeXt Table Macros / Tabulation
+) (c:/texlive/2010/texmf-dist/tex/context/base/scrn-int.mkii
+loading         : ConTeXt Screen Macros / Interaction
+) (c:/texlive/2010/texmf-dist/tex/context/base/tabl-ntb.mkii
+loading         : ConTeXt Table Macros / Natural Tables
+) (c:/texlive/2010/texmf-dist/tex/context/base/tabl-nte.mkii
+loading         : ConTeXt Table Module / Natural Tables Extensions
+) (c:/texlive/2010/texmf-dist/tex/context/base/tabl-ltb.mkii
+loading         : ConTeXt Table Macros / Line Tables
+) (c:/texlive/2010/texmf-dist/tex/context/base/lang-chi.mkii
+loading         : ConTeXt Language Macros / Chinese
+language        : no patterns cn for cn (n=29,e=default,m=default) (lang-cn.pat
+,lang-cn.pat)
+language        : no hyphenations cn for cn (n=29,e=default,m=default)
+language        : language specific options [default-cn] seamless appended
+) (c:/texlive/2010/texmf-dist/tex/context/base/lang-jap.mkii
+loading         : ConTeXt Language Macros / Japanese
+language        : no patterns ja for ja (n=30,e=default,m=default) (lang-ja.pat
+,lang-ja.pat)
+language        : no hyphenations ja for ja (n=30,e=default,m=default)
+) (c:/texlive/2010/texmf-dist/tex/context/base/java-ini.mkii
+loading         : ConTeXt JavaScript Macros / Initialization
+) (c:/texlive/2010/texmf-dist/tex/context/base/scrn-fld.mkii
+loading         : ConTeXt Screen Macros / Fields
+) (c:/texlive/2010/texmf-dist/tex/context/base/scrn-hlp.mkii
+loading         : ConTeXt Screen Macros / Help popups
+) (c:/texlive/2010/texmf-dist/tex/context/base/strc-reg.mkii
+loading         : ConTeXt Structure Macros / Register Management
+Invalid UTF-8 byte or sequence at line 80 replaced by U+FFFD.
+Invalid UTF-8 byte or sequence at line 80 replaced by U+FFFD.
+Invalid UTF-8 byte or sequence at line 80 replaced by U+FFFD.
+Invalid UTF-8 byte or sequence at line 80 replaced by U+FFFD.
+) (c:/texlive/2010/texmf-dist/tex/context/base/font-ini.mkii
+loading         : ConTeXt Font Macros / Initialization
+loading         : Postponed Plain TeX Font Definitions
+bodyfont        : style mm (mm) defined
+bodyfont        : style rm (rm definedromanserifregular)
+bodyfont        : style ss (ss definedsansserifsanssupport)
+bodyfont        : style tt (tt definedteletypetypemono)
+bodyfont        : style hw (hw definedhandwritten)
+bodyfont        : style cg (cg definedcalligraphic)
+) (c:/texlive/2010/texmf-dist/tex/context/base/font-xtx.mkii
+loading         : ConTeXt Font Macros / XeTeX Hacks
+) (c:/texlive/2010/texmf-dist/tex/context/base/font-unk.mkii)
+(c:/texlive/2010/texmf-dist/tex/context/base/font-uni.mkii
+loading         : ConTeXt Font Macros / Unicode
+) (c:/texlive/2010/texmf-dist/tex/context/base/font-bfm.mkii
+loading         : ConTeXt Font Macros / Mixed Bold Math Support
+) (c:/texlive/2010/texmf-dist/tex/context/base/enco-pfr.mkii)
+(c:/texlive/2010/texmf-dist/tex/context/base/type-ini.mkii
+loading         : ConTeXt Typescript Macros / Initialization
+) (c:/texlive/2010/texmf-dist/tex/context/base/type-set.mkii)
+(c:/texlive/2010/texmf-dist/tex/context/base/prop-ini.mkii
+loading         : ConTeXt Property Macros / Initialization
+) (c:/texlive/2010/texmf-dist/tex/context/base/prop-lay.mkii
+loading         : ConTeXt Property Macros / Layers
+) (c:/texlive/2010/texmf-dist/tex/context/base/prop-mis.mkii
+loading         : ConTeXt Property Macros / Miscelaneous
+) (c:/texlive/2010/texmf-dist/tex/context/base/meta-ini.mkii
+loading         : MetaPost Graphics / Initializations
+) (c:/texlive/2010/texmf-dist/tex/context/base/meta-tex.mkii)
+(c:/texlive/2010/texmf-dist/tex/context/base/meta-pdf.mkii
+loading         : MetaPost Graphics / MPS to PDF
+warning         : \count \nofMParguments is already defined (\relax it first)
+) (c:/texlive/2010/texmf-dist/tex/context/base/meta-pag.mkii
+loading         : MetaPost Graphics / Page Data Management
+) (c:/texlive/2010/texmf-dist/tex/context/base/page-flw.mkii
+loading         : ConTeXt Page Macros / Text Flows
+) (c:/texlive/2010/texmf-dist/tex/context/base/page-spr.mkii
+loading         : ConTeXt Page Macros / Spreading
+) (c:/texlive/2010/texmf-dist/tex/context/base/page-plg.mkii
+loading         : ConTeXt Page Macros / Extra Page Building
+) (c:/texlive/2010/texmf-dist/tex/context/base/page-str.mkii
+loading         : ConTeXt Page Macros / Page Streams
+) (c:/texlive/2010/texmf-dist/tex/context/base/anch-pgr.mkii
+loading         : ConTeXt Anchoring Macros / Grapics
+) (c:/texlive/2010/texmf-dist/tex/context/base/anch-bar.mkii
+loading         : ConTeXt Anchoring Macros / Margin Bars
+) (c:/texlive/2010/texmf-dist/tex/context/base/anch-snc.mkii
+loading         : ConTeXt Anchoring Macros / Synchronization
+) (c:/texlive/2010/texmf-dist/tex/context/base/math-pln.mkii
+loading         : ConTeXt Math Macros / Plain Helpers
+) (c:/texlive/2010/texmf-dist/tex/context/base/math-ini.mkii
+loading         : ConTeXt Math Macros / Initializations
+(c:/texlive/2010/texmf-dist/tex/context/base/math-tex.mkii)
+(c:/texlive/2010/texmf-dist/tex/context/base/math-ams.mkii)
+(c:/texlive/2010/texmf-dist/tex/context/base/math-uni.mkii))
+(c:/texlive/2010/texmf-dist/tex/context/base/math-arr.mkii
+loading         : ConTeXt Math Macros / Arrows
+) (c:/texlive/2010/texmf-dist/tex/context/base/math-frc.mkii
+loading         : ConTeXt Math Macros / Fractions
+) (c:/texlive/2010/texmf-dist/tex/context/base/core-fnt.mkii
+loading         : ConTeXt Core Macros / Fonts
+) (c:/texlive/2010/texmf-dist/tex/context/base/strc-not.mkii
+loading         : ConTeXt Structure Macros / Note Handling
+) (c:/texlive/2010/texmf-dist/tex/context/base/strc-lnt.mkii
+loading         : ConTeXt Structure Macros / Line Notes
+) (c:/texlive/2010/texmf-dist/tex/context/base/core-mis.mkii
+loading         : ConTeXt Core Macros / Misc Commands
+) (c:/texlive/2010/texmf-dist/tex/context/base/grph-trf.mkii
+loading         : ConTeXt Graphic Macros / Transformations
+) (c:/texlive/2010/texmf-dist/tex/context/base/grph-inc.mkii
+loading         : ConTeXt Graphic Macros / Figure Inclusion
+) (c:/texlive/2010/texmf-dist/tex/context/base/grph-fig.mkii
+loading         : ConTeXt Graphic Macros / Figure Handling
+) (c:/texlive/2010/texmf-dist/tex/context/base/core-par.mkii
+loading         : ConTeXt Core Macros / Pararaph Tricks
+) (c:/texlive/2010/texmf-dist/tex/context/base/pack-box.mkii
+loading         : ConTeXt Packaging Macros / Boxes
+) (c:/texlive/2010/texmf-dist/tex/context/base/page-app.mkii
+loading         : ConTeXt Page Macros / Applications
+) (c:/texlive/2010/texmf-dist/tex/context/base/meta-fig.mkii
+loading         : MetaPost Graphics / Stand Alone Graphics
+) (c:/texlive/2010/texmf-dist/tex/context/base/lang-spa.tex
+loading         : ConTeXt Language Macros / Spacing
+) (c:/texlive/2010/texmf-dist/tex/context/base/bibl-tra.mkii
+loading         : ConTeXt Bibliography Support / BibTeX
+publications    : loading formatting style from bibl-apa
+(c:/texlive/2010/texmf-dist/tex/context/bib/bibl-apa.tex))
+(c:/texlive/2010/texmf-dist/tex/context/base/xtag-ini.tex
+loading         : ConTeXt XML Macros / Initialization
+) (c:/texlive/2010/texmf-dist/tex/context/base/xtag-ext.tex
+loading         : ConTeXt XML Macros / Extras
+) (c:/texlive/2010/texmf-dist/tex/context/base/xtag-exp.tex
+loading         : ConTeXt XML Macros / Expansion
+) (c:/texlive/2010/texmf-dist/tex/context/base/xtag-pre.tex
+loading         : ConTeXt XML Macros / Predefined
+) (c:/texlive/2010/texmf-dist/tex/context/base/xtag-xsd.tex)
+(c:/texlive/2010/texmf-dist/tex/context/base/xtag-rng.tex)
+(c:/texlive/2010/texmf-dist/tex/context/base/meta-xml.tex
+loading         : MetaPost Graphics / XML Hacks
+) (c:/texlive/2010/texmf-dist/tex/context/base/cont-log.tex
+loading         : ConTeXt TeX Logos
+) (c:/texlive/2010/texmf-dist/tex/context/base/core-ctx.mkii
+loading         : ConTeXt Core Macros / Job Control
+) (c:/texlive/2010/texmf-dist/tex/context/base/core-ini.mkii
+loading         : ConTeXt Core Macros / Additional Initialization
+) (c:/texlive/2010/texmf-dist/tex/context/base/core-def.mkii
+loading         : ConTeXt Core Macros / Defaults
+symbols         : loading symbolset mis
+(c:/texlive/2010/texmf-dist/tex/context/base/symb-mis.tex)
+symbols         : loading symbolset mvs
+(c:/texlive/2010/texmf-dist/tex/context/base/symb-mvs.tex)
+symbols         : loading symbolset nav
+(c:/texlive/2010/texmf-dist/tex/context/base/symb-nav.tex))
+system          : module res-12 loaded
+(c:/texlive/2010/texmf-dist/tex/context/base/x-res-12.tex)))
+(c:/texlive/2010/texmf-dist/tex/context/base/type-def.mkii)
+(c:/texlive/2010/texmf-dist/tex/context/base/type-siz.mkii)
+(c:/texlive/2010/texmf-dist/tex/context/base/type-otf.mkii
+(c:/texlive/2010/texmf-dist/tex/context/base/type-def.mkii)
+(c:/texlive/2010/texmf-dist/tex/context/base/type-siz.mkii)
+(c:/texlive/2010/texmf-dist/tex/context/base/type-otf.mkii)
+(c:/texlive/2010/texmf-dist/tex/context/base/type-xtx.mkii)
+(c:/texlive/2010/texmf-dist/tex/context/base/type-def.mkii)
+(c:/texlive/2010/texmf-dist/tex/context/base/type-siz.mkii)
+(c:/texlive/2010/texmf-dist/tex/context/base/type-otf.mkii)
+(c:/texlive/2010/texmf-dist/tex/context/base/type-xtx.mkii)
+(c:/texlive/2010/texmf-dist/tex/context/base/type-def.mkii)
+(c:/texlive/2010/texmf-dist/tex/context/base/type-siz.mkii)
+(c:/texlive/2010/texmf-dist/tex/context/base/type-otf.mkii)
+(c:/texlive/2010/texmf-dist/tex/context/base/type-xtx.mkii)
+(c:/texlive/2010/texmf-dist/tex/context/base/type-def.mkii)
+(c:/texlive/2010/texmf-dist/tex/context/base/type-siz.mkii)
+(c:/texlive/2010/texmf-dist/tex/context/base/type-otf.mkii)
+(c:/texlive/2010/texmf-dist/tex/context/base/type-xtx.mkii)
+(c:/texlive/2010/texmf-dist/tex/context/base/type-def.mkii)
+(c:/texlive/2010/texmf-dist/tex/context/base/type-siz.mkii)
+(c:/texlive/2010/texmf-dist/tex/context/base/type-otf.mkii)
+(c:/texlive/2010/texmf-dist/tex/context/base/type-xtx.mkii)
+(c:/texlive/2010/texmf-dist/tex/context/base/type-def.mkii)
+(c:/texlive/2010/texmf-dist/tex/context/base/type-siz.mkii)
+(c:/texlive/2010/texmf-dist/tex/context/base/type-otf.mkii)
+(c:/texlive/2010/texmf-dist/tex/context/base/type-xtx.mkii)
+(c:/texlive/2010/texmf-dist/tex/context/base/type-def.mkii)
+(c:/texlive/2010/texmf-dist/tex/context/base/type-siz.mkii)
+(c:/texlive/2010/texmf-dist/tex/context/base/type-otf.mkii)
+(c:/texlive/2010/texmf-dist/tex/context/base/type-xtx.mkii)
+(c:/texlive/2010/texmf-dist/tex/context/base/type-def.mkii)
+(c:/texlive/2010/texmf-dist/tex/context/base/type-siz.mkii)
+(c:/texlive/2010/texmf-dist/tex/context/base/type-otf.mkii)
+(c:/texlive/2010/texmf-dist/tex/context/base/type-xtx.mkii))
+
+ConTeXt  ver: 2010.05.24 13:05 MKII  fmt: 2010.11.15  int: english/english
+
+specials        : loading definition file dvi
+(c:/texlive/2010/texmf-dist/tex/context/base/spec-dvi.mkii)
+specials        : loading definition file ps
+(c:/texlive/2010/texmf-dist/tex/context/base/spec-ps.mkii)
+specials        : loading definition file tr
+(c:/texlive/2010/texmf-dist/tex/context/base/spec-tr.mkii) ) )
+Beginning to dump on file cont-en.fmt
+ (format=cont-en 2010.11.15)
+105960 strings of total length 663930
+494809 memory locations dumped; current usage is 2751&485636
+38273 multiletter control sequences
+\font\nullfont=nullfont
+0 words of font info for 0 preloaded fonts
+304 hyphenation exceptions
+Hyphenation trie of length 175028 has 3045 ops out of 35111
+  126 for language 28
+  114 for language 27
+  185 for language 25
+  31 for language 24
+  77 for language 23
+  77 for language 21
+  5 for language 20
+  12 for language 19
+  71 for language 18
+  19 for language 17
+  248 for language 16
+  63 for language 15
+  194 for language 14
+  58 for language 13
+  6 for language 12
+  25 for language 11
+  34 for language 10
+  21 for language 9
+  165 for language 8
+  87 for language 7
+  224 for language 6
+  127 for language 5
+  60 for language 4
+  374 for language 3
+  377 for language 2
+  265 for language 1
+No pages of output.

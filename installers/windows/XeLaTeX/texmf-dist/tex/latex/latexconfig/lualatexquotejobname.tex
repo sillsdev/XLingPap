@@ -1,0 +1,16 @@
+% $Id: lualatexquotejobname.tex 18968 2010-06-14 11:22:59Z mpg $
+% Manuel Pegourie-Gonnard, originally written 2010. WTFPL v2.
+%
+% Quote \jobname if it contains spaces, similarly to what pdfTeX does.
+%
+\everyjob\expandafter{\the\everyjob
+  \begingroup
+  \def\testsp#1 #2\relax{%
+    \ifx\relax#2\relax
+      \let\fixjobname\empty
+    \else
+      \edef\fixjobname{\def\noexpand\jobname{"\jobname"}}%
+    \fi}%
+  \edef\dotest{\noexpand\testsp\jobname\space\relax}\dotest
+  \expandafter\endgroup\fixjobname}
+\endinput

@@ -1,0 +1,289 @@
+%%
+%% This is file `l3io.sty',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% l3io.dtx  (with options: `package,trace')
+%% 
+%% 
+%% EXPERIMENTAL CODE
+%% 
+%% Do not distribute this file without also distributing the
+%% source files specified above.
+%% 
+%% Do not distribute a modified version of this file.
+%% 
+%% 
+%% File: l3io.dtx Copyright (C) 1990-2010 LaTeX3 project
+%%
+%% It may be distributed and/or modified under the conditions of the
+%% LaTeX Project Public License (LPPL), either version 1.3c of this
+%% license or (at your option) any later version.  The latest version
+%% of this license is in the file
+%%
+%%    http://www.latex-project.org/lppl.txt
+%%
+%% This file is part of the ``expl3 bundle'' (The Work in LPPL)
+%% and all files in that bundle must be distributed together.
+%%
+%% The released version of this bundle is available from CTAN.
+%%
+%% -----------------------------------------------------------------------
+%%
+%% The development version of the bundle can be found at
+%%
+%%    http://www.latex-project.org/svnroot/experimental/trunk/
+%%
+%% for those people who are interested.
+%%
+%%%%%%%%%%%
+%% NOTE: %%
+%%%%%%%%%%%
+%%
+%%   Snapshots taken from the repository represent work in progress and may
+%%   not work or may contain conflicting material!  We therefore ask
+%%   people _not_ to put them into distributions, archives, etc. without
+%%   prior consultation with the LaTeX Project Team.
+%%
+%% -----------------------------------------------------------------------
+\RequirePackage{l3names}
+\GetIdInfo$Id: l3io.dtx 2063 2010-10-03 08:26:49Z mittelba $
+          {L3 Experimental i/o module}
+\ProvidesExplPackage
+  {\filename}{\filedate}{\fileversion}{\filedescription}
+\package_check_loaded_expl:
+\cs_new_eq:NN \c_iow_term_stream \c_sixteen
+\cs_new_eq:NN \c_ior_term_stream \c_sixteen
+\cs_new_eq:NN \c_iow_log_stream  \c_minus_one
+\cs_new_eq:NN \c_ior_log_stream  \c_minus_one
+\tl_const:Nn \c_iow_streams_tl
+  {
+    \c_zero
+    \c_one
+    \c_two
+    \c_three
+    \c_four
+    \c_five
+    \c_six
+    \c_seven
+    \c_eight
+    \c_nine
+    \c_ten
+    \c_eleven
+    \c_twelve
+    \c_thirteen
+    \c_fourteen
+    \c_fifteen
+  }
+\cs_new_eq:NN \c_ior_streams_tl \c_iow_streams_tl
+\prop_new:N \g_iow_streams_prop
+\prop_new:N \g_ior_streams_prop
+\prop_put:Nnn \g_iow_streams_prop { 0 } { LaTeX2e~reserved }
+\prop_put:Nnn \g_iow_streams_prop { 1 } { LaTeX2e~reserved }
+\prop_put:Nnn \g_iow_streams_prop { 2 } { LaTeX2e~reserved }
+\prop_put:Nnn \g_ior_streams_prop { 0 } { LaTeX2e~reserved }
+\int_new:N \l_iow_stream_int
+\cs_new_eq:NN \l_ior_stream_int \l_iow_stream_int
+\cs_set_eq:NN \iow_raw_new:N \newwrite
+\cs_set_eq:NN \ior_raw_new:N \newread
+\cs_generate_variant:Nn \iow_raw_new:N { c }
+\cs_generate_variant:Nn \ior_raw_new:N { c }
+\cs_new_protected_nopar:Npn \iow_new:N #1 {
+  \cs_new_eq:NN #1 \c_iow_log_stream
+}
+\cs_generate_variant:Nn \iow_new:N { c }
+\cs_new_protected_nopar:Npn \ior_new:N #1 {
+  \cs_new_eq:NN #1 \c_ior_log_stream
+}
+\cs_generate_variant:Nn \ior_new:N { c }
+\cs_new_protected_nopar:Npn \iow_open:Nn #1#2 {
+  \iow_close:N #1
+  \int_set:Nn \l_iow_stream_int { \c_sixteen }
+  \tl_map_function:NN \c_iow_streams_tl \iow_alloc_write:n
+  \int_compare:nTF { \l_iow_stream_int = \c_sixteen }
+    { \msg_kernel_error:nn { iow } { streams-exhausted } }
+    {
+      \iow_stream_alloc:N #1
+      \prop_gput:NVn \g_iow_streams_prop \l_iow_stream_int {#2}
+      \tex_immediate:D \tex_openout:D #1#2 \scan_stop:
+    }
+}
+\cs_generate_variant:Nn \iow_open:Nn { c }
+\cs_new_protected_nopar:Npn \ior_open:Nn #1#2 {
+  \ior_close:N #1
+  \int_set:Nn \l_ior_stream_int { \c_sixteen }
+  \tl_map_function:NN \c_ior_streams_tl \ior_alloc_read:n
+  \int_compare:nTF { \l_ior_stream_int = \c_sixteen }
+    { \msg_kernel_error:nn { ior } { streams-exhausted } }
+    {
+      \ior_stream_alloc:N  #1
+      \prop_gput:NVn \g_ior_streams_prop \l_ior_stream_int {#2}
+      \tex_openin:D #1#2 \scan_stop:
+    }
+}
+\cs_generate_variant:Nn \ior_open:Nn { c }
+\cs_new_protected_nopar:Npn \iow_alloc_write:n #1 {
+  \prop_if_in:NnF \g_iow_streams_prop {#1}
+    {
+      \int_set:Nn \l_iow_stream_int {#1}
+      \tl_map_break:
+    }
+}
+\cs_new_protected_nopar:Npn \ior_alloc_read:n #1 {
+  \prop_if_in:NnF \g_iow_streams_prop {#1}
+    {
+      \int_set:Nn \l_ior_stream_int {#1}
+      \tl_map_break:
+    }
+}
+\cs_new_protected_nopar:Npn \iow_stream_alloc:N #1 {
+  \cs_if_exist:cTF { g_iow_ \int_use:N \l_iow_stream_int _stream }
+    { \cs_gset_eq:Nc #1 { g_iow_ \int_use:N \l_iow_stream_int _stream } }
+    {
+      \iow_stream_alloc_aux:
+      \int_compare:nT { \l_iow_stream_int = \c_sixteen }
+        {
+          \iow_raw_new:N \g_iow_tmp_stream
+          \int_set:Nn \l_iow_stream_int { \g_iow_tmp_stream }
+          \cs_gset_eq:cN
+            { g_iow_ \int_use:N \l_iow_stream_int _stream }
+            \g_iow_tmp_stream
+        }
+      \cs_gset_eq:Nc #1 { g_iow_ \int_use:N \l_iow_stream_int _stream }
+    }
+}
+\cs_new_protected_nopar:Npn \iow_stream_alloc_aux: {
+  \int_incr:N \l_iow_stream_int
+  \int_compare:nT
+    { \l_iow_stream_int < \c_sixteen }
+    {
+       \cs_if_exist:cTF { g_iow_ \int_use:N \l_iow_stream_int _stream }
+         {
+           \prop_if_in:NVT \g_iow_streams_prop \l_iow_stream_int
+             { \iow_stream_alloc_aux: }
+         }
+         { \iow_stream_alloc_aux: }
+    }
+}
+\cs_new_protected_nopar:Npn \ior_stream_alloc:N #1 {
+  \cs_if_exist:cTF { g_ior_ \int_use:N \l_ior_stream_int _stream }
+    { \cs_gset_eq:Nc #1 { g_ior_ \int_use:N \l_ior_stream_int _stream } }
+    {
+      \ior_stream_alloc_aux:
+      \int_compare:nT { \l_ior_stream_int = \c_sixteen }
+        {
+          \ior_raw_new:N \g_ior_tmp_stream
+          \int_set:Nn \l_ior_stream_int { \g_ior_tmp_stream }
+          \cs_gset_eq:cN
+            { g_ior_ \int_use:N \l_iow_stream_int _stream }
+            \g_ior_tmp_stream
+        }
+      \cs_gset_eq:Nc #1 { g_ior_ \int_use:N \l_ior_stream_int _stream }
+    }
+}
+\cs_new_protected_nopar:Npn \ior_stream_alloc_aux: {
+  \int_incr:N \l_ior_stream_int
+  \int_compare:nT
+    { \l_ior_stream_int < \c_sixteen }
+    {
+       \cs_if_exist:cTF { g_ior_ \int_use:N \l_ior_stream_int _stream }
+         {
+           \prop_if_in:NVT \g_ior_streams_prop \l_ior_stream_int
+             { \ior_stream_alloc_aux: }
+         }
+         { \ior_stream_alloc_aux: }
+    }
+}
+\cs_new_protected_nopar:Npn \iow_close:N #1 {
+  \cs_if_exist:NT #1
+    {
+      \int_compare:nF { #1 = \c_minus_one }
+        {
+          \tex_immediate:D \tex_closeout:D #1
+          \prop_gdel:NV \g_iow_streams_prop #1
+          \cs_gundefine:N #1
+        }
+    }
+}
+\cs_generate_variant:Nn \iow_close:N { c }
+\cs_new_protected_nopar:Npn \ior_close:N #1 {
+  \cs_if_exist:NT #1
+    {
+      \int_compare:nF { #1 = \c_minus_one }
+        {
+          \tex_closein:D #1
+          \prop_gdel:NV \g_ior_streams_prop #1
+          \cs_gundefine:N #1
+        }
+    }
+}
+\cs_generate_variant:Nn \ior_close:N { c }
+\cs_new_protected_nopar:Npn \iow_open_streams: {
+  \prop_display:N \g_iow_streams_prop
+}
+\cs_new_protected_nopar:Npn \ior_open_streams: {
+  \prop_display:N \g_ior_streams_prop
+}
+\msg_kernel_new:nnnn { iow } { streams-exhausted }
+  {Output streams exhausted}
+  {%
+    TeX can only open up to 16 output streams at one time.\\%
+    All 16 are currently in use, and something wanted to open
+    another one.%
+  }
+\msg_kernel_new:nnnn { ior } { streams-exhausted }
+  {Input streams exhausted}
+  {%
+    TeX can only open up to 16 input streams at one time.\\%
+    All 16 are currently in use, and something wanted to open
+    another one.%
+  }
+\cs_new_protected_nopar:Npn \iow_now:Nx { \tex_immediate:D \iow_shipout_x:Nn }
+\cs_new_protected_nopar:Npn \iow_now:Nn #1#2 {
+  \iow_now:Nx #1 { \exp_not:n {#2} }
+}
+\cs_set_protected_nopar:Npn \iow_log:x  { \iow_now:Nx \c_iow_log_stream  }
+\cs_new_protected_nopar:Npn \iow_log:n  { \iow_now:Nn \c_iow_log_stream  }
+\cs_set_protected_nopar:Npn \iow_term:x { \iow_now:Nx \c_iow_term_stream }
+\cs_new_protected_nopar:Npn \iow_term:n { \iow_now:Nn \c_iow_term_stream }
+\cs_new_protected_nopar:Npn \iow_now_when_avail:Nn #1 {
+  \cs_if_free:NTF #1 { \use_none:n } { \iow_now:Nn #1 }
+}
+\cs_generate_variant:Nn \iow_now_when_avail:Nn { c }
+\cs_new_protected_nopar:Npn \iow_now_when_avail:Nx #1 {
+  \cs_if_free:NTF #1 { \use_none:n } { \iow_now:Nx #1 }
+}
+\cs_generate_variant:Nn \iow_now_when_avail:Nx { c }
+\cs_new_protected_nopar:Npn \iow_now_buffer_safe:Nn {
+  \iow_now_buffer_safe_aux:w \iow_now:Nx
+}
+\cs_new_protected_nopar:Npn \iow_now_buffer_safe:Nx {
+  \iow_now_buffer_safe_aux:w \iow_now:Nn
+}
+\cs_new_protected_nopar:Npn \iow_now_buffer_safe_aux:w #1#2#3 {
+  \group_begin: \tex_newlinechar:D`\ #1#2 {#3} \group_end:
+}
+\cs_set_eq:NN \iow_shipout_x:Nn \tex_write:D
+\cs_generate_variant:Nn \iow_shipout_x:Nn  {Nx }
+\cs_new_protected_nopar:Npn \iow_shipout:Nn #1#2 {
+  \iow_shipout_x:Nn #1 { \exp_not:n {#2} }
+}
+\cs_generate_variant:Nn \iow_shipout:Nn { Nx }
+\cs_new_nopar:Npn \iow_newline: { ^^J }
+\cs_new:Npn \iow_char:N #1 { \cs_to_str:N #1 }
+\cs_new_eq:NN \if_eof:w \tex_ifeof:D
+\prg_new_conditional:Nnn \ior_if_eof:N { p , TF , T , F } {
+  \cs_if_exist:NTF #1
+    { \tex_ifeof:D #1 \prg_return_true: \else: \prg_return_false: \fi: }
+    { \prg_return_true: }
+}
+\cs_new_protected_nopar:Npn \ior_to:NN #1#2 {
+  \tex_read:D #1 to #2
+}
+\cs_new_protected_nopar:Npn \ior_gto:NN {
+  \pref_global:D \ior_to:NN
+}
+%% 
+%%
+%% End of file `l3io.sty'.

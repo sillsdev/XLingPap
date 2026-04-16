@@ -1,0 +1,110 @@
+%%
+%% This is file `l3xref.sty',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% l3xref.dtx  (with options: `package')
+%% 
+%% 
+%% EXPERIMENTAL CODE
+%% 
+%% Do not distribute this file without also distributing the
+%% source files specified above.
+%% 
+%% Do not distribute a modified version of this file.
+%% 
+%% 
+%% File: l3xref.dtx Copyright (C) 2006,2009 LaTeX3 project
+%%
+%% It may be distributed and/or modified under the conditions of the
+%% LaTeX Project Public License (LPPL), either version 1.3c of this
+%% license or (at your option) any later version.  The latest version
+%% of this license is in the file
+%%
+%%    http://www.latex-project.org/lppl.txt
+%%
+%% This file is part of the ``expl3 bundle'' (The Work in LPPL)
+%% and all files in that bundle must be distributed together.
+%%
+%% The released version of this bundle is available from CTAN.
+%%
+%% -----------------------------------------------------------------------
+%%
+%% The development version of the bundle can be found at
+%%
+%%    http://www.latex-project.org/svnroot/experimental/trunk/
+%%
+%% for those people who are interested.
+%%
+%%%%%%%%%%%
+%% NOTE: %%
+%%%%%%%%%%%
+%%
+%%   Snapshots taken from the repository represent work in progress and may
+%%   not work or may contain conflicting material!  We therefore ask
+%%   people _not_ to put them into distributions, archives, etc. without
+%%   prior consultation with the LaTeX Project Team.
+%%
+%% -----------------------------------------------------------------------
+\RequirePackage{l3names}
+\GetIdInfo$Id: l3xref.dtx 1786 2010-02-09 12:52:45Z joseph $
+       {L3 Experimental cross referencing}
+\ProvidesExplPackage
+  {\filename}{\filedate}{\fileversion}{\filedescription}
+\package_check_loaded_expl:
+\prop_new:N \g_xref_all_curr_immediate_fields_prop
+\prop_new:N \g_xref_all_curr_deferred_fields_prop
+\cs_new_nopar:Npn \xref_new:nn {\xref_new_aux:nnn{immediate}}
+\cs_new_nopar:Npn \xref_deferred_new:nn {\xref_new_aux:nnn{deferred}}
+\cs_new_nopar:Npn \xref_new_aux:nnn #1#2#3{
+  \prop_gput:ccx {g_xref_all_curr_ #1 _fields_prop}
+  { xref_ #2 _key }
+  { \exp_not:c {l_xref_curr_#2_tl }}
+  \cs_set_protected_nopar:cpn { xref_#2_key }{}
+  \tl_new:cn{l_xref_curr_#2_tl}{#3}
+  \toks_set:Nx \l_tmpa_toks {
+    \exp_not:n { \cs_set_nopar:cpn {xref_get_value_#2_aux:w} ##1 }
+    \exp_not:N \q_prop
+    \exp_not:c { xref_#2_key }
+    \exp_not:N \q_prop
+  }
+  \toks_use:N \l_tmpa_toks ##2 ##3\q_nil {##2}
+}
+\cs_new_nopar:Npn \xref_get_value:nn #1#2 {
+  \cs_if_exist:cTF{g_xref_#2_prop}
+  {
+    \exp_args:NcNc \exp_after:wN {xref_get_value_#1_aux:w}
+    \toks_use:N {g_xref_#2_prop}
+    \q_nil
+  }
+  {??}
+}
+\cs_set_nopar:Npn \exp_after:cc #1#2 {
+  \exp_after:wN \exp_after:wN
+  \cs:w #1\exp_after:wN\cs_end: \cs:w #2\cs_end:
+}
+\cs_set_protected:Npn \q_prop {\q_prop}
+\cs_new_protected_nopar:Npn \xref_define_label:nn {
+  \group_begin:
+    \char_set_catcode:nn {`\ }\c_ten
+    \xref_define_label_aux:nn
+}
+\cs_new_nopar:Npn \xref_define_label_aux:nn #1#2 {
+    \cs_if_free:cTF{g_xref_#1_prop}
+    {\prop_new:c{g_xref_#1_prop}}{\WARNING}
+    \toks_gset:cn{g_xref_#1_prop}{#2}
+  \group_end:
+}
+\cs_set_nopar:Npn \xref_set_label:n #1{
+  \cs_set_nopar:Npx \xref_tmp:w{\toks_use:N\g_xref_all_curr_immediate_fields_prop}
+  \exp_args:NNx\iow_shipout_x:Nn \xref_write{
+    \xref_define_label:nn {#1} {
+      \xref_tmp:w
+      \toks_use:N \g_xref_all_curr_deferred_fields_prop
+    }
+  }
+}
+%% 
+%%
+%% End of file `l3xref.sty'.

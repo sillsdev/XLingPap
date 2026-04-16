@@ -1,0 +1,193 @@
+%%
+%% This is file `ldcsetup.sty',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% ldcsetup.dtx  (with options: `package')
+%% 
+%% (C) Copyright The LaTeX3 Project and any individual authors
+%% listed elsewhere in this file.
+%% 
+%% This is a generated file.
+%% 
+%% This file was generated from file(s) of the xbase bundle.
+%% ---------------------------------------------------------
+%% 
+%% This file may only be distributed together with a copy of this bundle.
+%% You may however distribute the bundle without such generated files.
+%% 
+%% ======================================================================
+%% 
+%% File: ldcsetup.dtx (C) Copyright 1999 Frank Mittelbach, Chris Rowley, David Carlisle
+%%                    (C) Copyright 2004-2009 Frank Mittelbach, LaTeX3 Project
+%%
+%% It may be distributed and/or modified under the conditions of the
+%% LaTeX Project Public License (LPPL), either version 1.3c of this
+%% license or (at your option) any later version.  The latest version
+%% of this license is in the file
+%%
+%%    http://www.latex-project.org/lppl.txt
+%%
+%% This file is part of the ``xbase bundle'' (The Work in LPPL)
+%% and all files in that bundle must be distributed together.
+%%
+%% The released version of this bundle is available from CTAN.
+%%
+%% -----------------------------------------------------------------------
+%%
+%% The development version of the bundle can be found at
+%%
+%%    http://www.latex-project.org/svnroot/experimental/trunk/
+%%
+%% for those people who are interested.
+%%
+%%%%%%%%%%%
+%% NOTE: %%
+%%%%%%%%%%%
+%%
+%%   Snapshots taken from the repository represent work in progress and may
+%%   not work or may contain conflicting material!  We therefore ask
+%%   people _not_ to put them into distributions, archives, etc. without
+%%   prior consultation with the LaTeX Project Team.
+%%
+%% -----------------------------------------------------------------------
+%%
+\RequirePackage{expl3}
+\GetIdInfo$Id: ldcsetup.dtx 1628 2009-10-25 09:54:34Z mittelba $
+       {coding conventions and stuff}
+\ProvidesExplPackage
+  {\filename}{\filedate}{\fileversion}{\filedescription}
+\RequirePackage{keyval}
+\RequirePackage{expl3}
+\ExplSyntaxOff
+%% Puts an ignored space at the end of the line, so `|\ |' does the right
+\def\IgnoreWhiteSpace{%
+  \edef\@tempa{%
+  \catcode`\noexpand\~=\the\catcode`\~\relax
+  \catcode`\noexpand\ =\the\catcode`\ \relax
+  \catcode`\noexpand\^^I=\the\catcode`\^^I\relax
+  \catcode`\noexpand\@=\the\catcode`\@\relax
+  \endlinechar=\the\endlinechar\relax
+  }%
+  \ifx\@currname\@empty
+    \expandafter\AtBeginDocument\expandafter{\@tempa}%
+  \else
+    \expandafter\AtEndOfPackage\expandafter{\@tempa}%
+  \fi
+  \catcode`\~=10\relax
+  \catcode`\ =9\relax
+  \catcode`\^^I=9\relax
+  \makeatletter
+  \endlinechar=` %
+  \relax
+}
+\def\InternalSyntaxOn{%
+  \edef\@tempa{%
+  \catcode`\noexpand\~=\the\catcode`\~\relax
+  \catcode`\noexpand\ =\the\catcode`\ \relax
+  \catcode`\noexpand\^^I=\the\catcode`\^^I\relax
+  \catcode`\noexpand\@=\the\catcode`\@\relax
+  \catcode`\noexpand\:=\the\catcode`\:\relax
+  \catcode`\noexpand\_=\the\catcode`\_\relax
+  \endlinechar=\the\endlinechar\relax
+  \endlinechar=13\relax
+  }%
+%%% ????
+  \ifx\InternalSyntaxOff\relax
+    \expandafter\def\expandafter\InternalSyntaxOff\expandafter
+      {\@tempa\let\InternalSyntaxOff\relax}%
+  \fi
+  \ifx\@currname\@empty
+    \expandafter\AtBeginDocument\expandafter{\@tempa}%
+  \else
+    \expandafter\AtEndOfPackage\expandafter{\@tempa}%
+  \fi
+  \catcode`\~=10\relax
+  \catcode`\ =9\relax
+  \catcode`\^^I=9\relax
+  \makeatletter
+  \catcode`\_=11\relax
+  \catcode`\:=11\relax
+  \endlinechar=` %
+  \relax
+}
+\let\InternalSyntaxOff\relax
+\ExplSyntaxOn
+\cs_set_nopar:Npn \define@key#1#2{%
+  \@ifnextchar[
+     {\KV@def{#1}{\string#2}}
+     {\@namedef{KV@#1@\string#2}####1}}
+\cs_set_nopar:Npn \setkeys#1#2{%
+  \cs_set_nopar:Npn \KV@prefix{KV@#1@\expandafter\string}%
+  \KV@do#2,\relax,}
+\newtoks\KV@toks
+\cs_set_nopar:Npn \KV@@sp@c#1\@nil#2\relax#3{\KV@toks{#1}\cs_set_nopar:Npx #3{\the\KV@toks}}
+\cs_set_nopar:Npn \KV@equal{=}
+\cs_set_nopar:Npn \KV@split#1=#2=#3\relax{%
+  \KV@@sp@def\@tempa{#1}%
+  \cs_set_nopar:Npn \@tempd{#3}%
+  \ifx\@tempa\@empty\else
+    \expandafter\cs_set_eq:NN \expandafter\@tempc
+      \csname\KV@prefix\@tempa\endcsname
+    \ifx\@tempc\relax
+      \KV@error{\@tempa\space \expandafter\@gobbletwo\string\@undefined}\@eha
+    \else
+      \ifx\@tempd\@empty
+        \KV@default
+      \else
+        \KV@@sp@def\@tempb{#2}%
+        \ifx\@tempd\KV@equal
+          \expandafter\@tempc\expandafter{\@tempb}\relax
+        \else
+          \KV@error{Extra~=~ sign~ after~ `#1'}\KV@erry
+        \fi
+      \fi
+    \fi
+  \fi}
+\cs_set_nopar:Npn \KV@erry{\expandafter\KV@errx\meaning\@tempd\relax ignored\MessageBreak
+             missing~comma~in~`\expandafter\strip@prefix\meaning\@tempb'~?}
+\cs_set_nopar:Npn \KV@errx#1>#2==\relax{%
+ `#2' }
+\cs_set_nopar:Npn \KV@default{%
+  \expandafter\cs_set_eq:NN \expandafter\@tempb
+    \csname\KV@prefix\@tempa @default\endcsname
+  \ifx\@tempb\relax
+    \KV@error{No value specified for \@tempa}\@eha
+  \else
+    \@tempb\relax
+  \fi}
+\cs_set_nopar:Npn \KV@error#1#2{\PackageError{keyval}{#1}{#2}}
+\cs_set_nopar:Npn \KV@parse#1{
+  \begingroup
+\cs_set_nopar:Npn \KV@@sp@c##1\@nil##2\relax##3{\addto@hook##3{{##1}}}
+\cs_set_nopar:Npn \KV@split##1=##2=##3\relax{%
+  \cs_set_nopar:Npn \@tempd{##3}%
+  \expandafter\ifx\expandafter=\@firstofone##1=\else
+      \ifx\@tempd\@empty
+        \addto@hook\KV@toks\KV@default@elt
+        \KV@@sp@def\KV@toks{##1}%
+      \else
+        \ifx\@tempd\KV@equal
+          \addto@hook\KV@toks\KV@elt
+          \KV@@sp@def\KV@toks{##1}%
+          \KV@@sp@def\KV@toks{##2}%
+        \else
+          \KV@err{Extra `=' after `##1'}\@ehd
+        \fi
+    \fi
+  \fi}
+  \KV@toks{}
+   \KV@do#1,\relax,
+  \expandafter
+  \endgroup
+  \the\KV@toks}
+\cs_set_eq:NN \SetInternalCounter \calc_int_set:Nn
+\cs_set_eq:NN \GSetInternalCounter\calc_int_gset:Nn
+\cs_set_nopar:Npn \UndeclareRobustCommand#1{%
+  \cs_gundefine:N #1
+  \exp_args:Nc \cs_gundefine:N {\cs_to_str:N #1~}
+}
+\endinput
+%%
+%% End of file `ldcsetup.sty'.

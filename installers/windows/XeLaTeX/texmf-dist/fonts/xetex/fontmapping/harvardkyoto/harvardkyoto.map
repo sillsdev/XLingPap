@@ -1,0 +1,249 @@
+LHSName "harvardkyoto"
+RHSName "Unicode"
+LHSDescription "Harvard/Kyoto input method for Unicode Devanagari"
+Version "0.91c"
+Contact "daniel@danielstender.com"
+
+Define dot U+002E
+
+Define a U+0061
+Define A U+0041
+Define i U+0069
+Define I U+0049
+Define u U+0075
+Define U U+0055
+Define R U+0052
+Define L U+004C
+
+Define e U+0065
+Define o U+006F
+
+Define k U+006B
+Define h U+0068
+Define g U+0067
+Define G U+0047
+
+Define c U+0063
+Define j U+006A
+Define J U+004A
+
+Define T U+0054
+Define D U+0044
+Define N U+004E
+
+Define t U+0074
+Define d U+0064
+Define n U+006E
+
+Define p U+0070
+Define b U+0062
+Define m U+006D
+
+Define y U+0079
+Define r U+0072
+Define l U+006C
+Define v U+0076
+
+Define z U+007A
+Define S U+0053
+Define s U+0073
+
+Define q U+0071
+Define f U+0066
+Define x U+0078
+
+Define vstroke	U+0951
+Define hstroke  U+0952
+
+Define asvara	U+0905
+Define Asvara	U+0906
+Define isvara	U+0907
+Define Isvara	U+0908
+Define usvara	U+0909
+Define Usvara	U+090A
+Define rvoc	U+090B
+Define Rvoc	U+0960
+Define lvoc	U+090C
+Define esvara	U+090F
+Define aisvara	U+0910
+Define osvara	U+0913
+Define ausvara	U+0914
+
+Define Amatra	U+093E
+Define imatra	U+093F
+Define Imatra	U+0940
+Define umatra	U+0941
+Define Umatra	U+0942
+Define rmatra	U+0943
+Define Rmatra	U+0944
+Define lmatra	U+0962
+Define ematra	U+0947
+Define aimatra	U+0948
+Define omatra	U+094B
+Define aumatra	U+094C
+
+Define ka	U+0915
+Define kha	U+0916
+Define ga	U+0917
+Define gha	U+0918
+Define Ga	U+0919
+Define ca	U+091A
+Define cha	U+091B
+Define ja	U+091C
+Define jha	U+091D
+Define Ja	U+091E
+Define Ta	U+091F
+Define Tha	U+0920
+Define Da	U+0921
+Define Dha	U+0922
+Define Na	U+0923
+Define ta	U+0924
+Define tha	U+0925
+Define da	U+0926
+Define dha	U+0927
+Define na	U+0928
+Define pa	U+092A
+Define pha	U+092B
+Define ba	U+092C
+Define bha	U+092D
+Define ma	U+092E
+Define ya	U+092F
+Define ra	U+0930
+Define la	U+0932
+Define va	U+0935
+Define za	U+0936
+Define Sa	U+0937
+Define sa	U+0938
+Define ha	U+0939
+
+Define anusvara	U+0902
+Define visarga	U+0903
+
+Define danda	U+0964
+Define ddanda	U+0965
+Define virama	U+094D
+Define avagraha	U+093D
+
+Define om	U+0950
+ 
+Define rla	U+0933
+Define anunasika U+0901
+
+Define anudatta U+002D
+Define svarita	U+0021
+
+Define hka	U+0958
+Define hkha	U+0959
+Define hga	U+095A
+Define hja	U+095B
+Define hra	U+095C
+Define hrha	U+095D
+Define hpha	U+095E
+
+pass(Unicode)
+
+a > asvara
+A > Asvara
+i > isvara
+I > Isvara
+u > usvara
+U > Usvara
+R > rvoc
+R R > Rvoc
+L > lvoc
+
+e > esvara
+a i > aisvara
+o > osvara
+a u > ausvara
+
+k > ka
+k h > kha
+g > ga
+g h > gha
+G > Ga
+c > ca
+c h > cha
+j > ja
+j h > jha
+J > Ja
+T > Ta
+T h > Tha
+D > Da
+D h > Dha
+N > Na
+t > ta
+t h > tha
+d > da
+d h > dha
+n > na
+p > pa
+p h > pha
+b > ba
+b h > bha
+m > ma
+y > ya
+r > ra
+l > la
+v > va
+z > za
+S > Sa
+s > sa
+h > ha
+
+q > hka
+x > hkha
+dot g > hga
+dot z > hja
+f > hpha
+dot r > hra
+dot R > hrha
+
+svarita > vstroke
+anudatta > hstroke
+
+dot l > rla
+dot m > anunasika
+
+o m > om
+
+U+004D > anusvara
+U+0048 > visarga
+U+0027 > avagraha
+U+002C > virama
+
+U+007C > danda
+U+007C U+007C > ddanda
+
+U+0030	> U+0966
+U+0031	> U+0967
+U+0032	> U+0968
+U+0033	> U+0969
+U+0034	> U+096A
+U+0035	> U+096B
+U+0036	> U+096C
+U+0037	> U+096D
+U+0038	> U+096E
+U+0039	> U+096F
+
+pass(Unicode)
+
+UniClass [vyanjana] = (ka .. ha rla hka .. hpha)
+UniClass [svara] = (Asvara isvara Isvara usvara Usvara rvoc Rvoc lvoc esvara aisvara osvara ausvara)
+UniClass [matra] = (Amatra imatra Imatra umatra Umatra rmatra Rmatra lmatra ematra aimatra omatra aumatra)
+[vyanjana] [svara] > [vyanjana] [matra]
+
+pass(Unicode)
+
+UniClass [vyanjana] = (ka .. ha)
+[vyanjana]=v1 [vyanjana]=v2 > @v1 virama @v2
+
+pass(Unicode)
+
+UniClass [vyanjana] = (ka .. ha)
+[vyanjana]=v1 [vyanjana]=v2 > @v1 virama @v2
+
+pass(Unicode)
+
+Uniclass [vyanjana] = (ka .. ha rla hka .. hpha)
+[vyanjana] asvara > [vyanjana]

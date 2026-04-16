@@ -1,0 +1,120 @@
+This is XeTeX, Version 3.14159265-2.6-0.999992 (TeX Live 2020/W32TeX) (INITEX)  24 JUN 2020 12:37
+entering extended mode
+ restricted \write18 enabled.
+ %&-line parsing enabled.
+**csplain.ini
+(c:/texlive/2020/texmf-dist/tex/csplain/base/csplain.ini
+(c:/texlive/2020/texmf-dist/tex/csplain/base/csfonts.tex)
+(c:/texlive/2020/texmf-dist/tex/plain/base/plain.tex
+Preloading the plain format: codes, registers,
+\maxdimen=\dimen10
+\hideskip=\skip10
+\centering=\skip11
+\p@=\dimen11
+\z@=\dimen12
+\z@skip=\skip12
+\voidb@x=\box10
+ parameters,
+\smallskipamount=\skip13
+\medskipamount=\skip14
+\bigskipamount=\skip15
+\normalbaselineskip=\skip16
+\normallineskip=\skip17
+\normallineskiplimit=\dimen13
+\jot=\dimen14
+\interdisplaylinepenalty=\count23
+\interfootnotelinepenalty=\count24
+ fonts, more fonts,
+\itfam=\fam4
+\slfam=\fam5
+\bffam=\fam6
+\ttfam=\fam7
+
+macros,
+\strutbox=\box11
+\mscount=\count25
+\tabs=\box12
+\tabsyet=\box13
+\tabsdone=\box14
+ math definitions,
+\rootbox=\box15
+\p@renwd=\dimen15
+ output routines,
+\headline=\toks10
+\footline=\toks11
+\footins=\insert254
+\topins=\insert253
+ hyphenation
+(c:/texlive/2020/texmf-dist/tex/generic/hyphen/hyphen.tex))
+(c:/texlive/2020/texmf-dist/tex/csplain/base/csfontsm.tex)
+(c:/texlive/2020/texmf-dist/tex/csplain/base/etex-mac.tex
+\marks@count=\count26
+)
+(c:/texlive/2020/texmf-dist/tex/csplain/base/hyphen.lan
+(c:/texlive/2020/texmf-dist/tex/csplain/base/il2code.tex
+Font encoding set to ISO-8859-2.)
+\numpatterns=\count27
+
+eTeX's \savinghyphcodes detected - \lccode settings per pattern are saved.
+Loading US English hyphenation patterns in ASCII encoding, \enPatt=0 (en).
+(c:/texlive/2020/texmf-dist/tex/csplain/base/hyphen.ex
+Enhyphex.tex English exception words.)
+Loading UK English hyphenation patterns in ASCII encoding, \engbPatt=101 (engb)
+. (c:/texlive/2020/texmf-dist/tex/generic/hyph-utf8/patterns/tex/hyph-en-gb.tex
+) Loading Italian hyphenation patterns in ASCII encoding, \itPatt=102 (it).
+(c:/texlive/2020/texmf-dist/tex/generic/hyph-utf8/patterns/tex/hyph-it.tex)
+Loading Czech hyphenation patterns in ISO-8859-2 encoding, \csILtwo=5 (cs).
+(c:/texlive/2020/texmf-dist/tex/csplain/base/czhyphen.tex)
+(c:/texlive/2020/texmf-dist/tex/csplain/base/czhyphen.ex)
+Loading Slovak hyphenation patterns in ISO-8859-2 encoding, \skILtwo=6 (sk).
+(c:/texlive/2020/texmf-dist/tex/csplain/base/skhyphen.tex)
+(c:/texlive/2020/texmf-dist/tex/csplain/base/skhyphen.ex)
+(c:/texlive/2020/texmf-dist/tex/csplain/base/uni-lcuc.tex
+Setting lccodes and uccodes for Unicode characters.)
+Loading Czech hyphenation patterns in Unicode encoding, \csUnicode=115 (cs).
+(c:/texlive/2020/texmf-dist/tex/generic/hyph-utf8/patterns/tex/hyph-cs.tex)
+Loading Slovak hyphenation patterns in Unicode encoding, \skUnicode=116 (sk).
+(c:/texlive/2020/texmf-dist/tex/generic/hyph-utf8/patterns/tex/hyph-sk.tex)
+7 patterns preloaded: \enPatt =0 \engbPatt =101 \itPatt =102 \csILtwo =5 \skILt
+wo =6 \csUnicode =115 \skUnicode =116 
+Defaults: \language=0, \cmaccents, \nonfrenchspacing, ISO-8859-2 font encoding)
+(c:/texlive/2020/texmf-dist/tex/csplain/base/plaina4.tex
+\hsize=159.2 mm \vsize=239.2 mm)
+\XeTeXallocatorG=\count28
+
+(c:/texlive/2020/texmf-dist/tex/csplain/base/ucode.tex
+Font encoding set to Unicode.) )
+Beginning to dump on file pdfcsplain.fmt
+ (preloaded format=pdfcsplain 2020.6.24)
+67963 strings of total length 39054
+8439 memory locations dumped; current usage is 113&7717
+1362 multiletter control sequences
+\font\nullfont=nullfont
+\font\tenrm=csr10
+\font\sevenrm=csr7
+\font\fiverm=csr5
+\font\teni=cmmi10
+\font\seveni=cmmi7
+\font\fivei=cmmi5
+\font\tensy=cmsy10
+\font\sevensy=cmsy7
+\font\fivesy=cmsy5
+\font\tenex=cmex10
+\font\tenbf=csbx10
+\font\sevenbf=csbx7
+\font\fivebf=csbx5
+\font\tentt=cstt10
+\font\tensl=cssl10
+\font\tenit=csti10
+\font\tenbi=csbxti10
+7624 words of font info for 17 preloaded fonts
+45 hyphenation exceptions
+Hyphenation trie of length 30115 has 1064 ops out of 35111
+  248 for language 116
+  63 for language 115
+  37 for language 102
+  224 for language 101
+  248 for language 6
+  63 for language 5
+  181 for language 0
+No pages of output.

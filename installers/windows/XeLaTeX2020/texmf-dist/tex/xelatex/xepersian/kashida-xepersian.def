@@ -1,0 +1,97 @@
+%%
+%% This is file `kashida-xepersian.def',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% xepersian.dtx  (with options: `table,kashida-xepersian.def')
+%% 
+%%   __________________________________________________
+%%   Copyright (c) 2008--2020  Vafa Khalighi
+%%   Copyright (c) 2018--2020 bidi-tex GitHub Organization
+%% 
+%%   It may be distributed and/or modified under the LaTeX Project Public License,
+%%   version 1.3c or higher (your choice). The latest version of
+%%   this license is at: http://www.latex-project.org/lppl.txt
+%% 
+%%   This work is “author-maintained” (as per LPPL maintenance status)
+%%   by Vafa Khalighi.
+%% 
+%% 
+%% \CheckSum{10882}
+%% \CharacterTable
+%%  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
+%%   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
+%%   Digits        \0\1\2\3\4\5\6\7\8\9
+%%   Exclamation   \!     Double quote  \"     Hash (number) \#
+%%   Dollar        \$     Percent       \%     Ampersand     \&
+%%   Acute accent  \'     Left paren    \(     Right paren   \)
+%%   Asterisk      \*     Plus          \+     Comma         \,
+%%   Minus         \-     Point         \.     Solidus       \/
+%%   Colon         \:     Semicolon     \;     Less than     \<
+%%   Equals        \=     Greater than  \>     Question mark \?
+%%   Commercial at \@     Left bracket  \[     Backslash     \\
+%%   Right bracket \]     Circumflex    \^     Underscore    \_
+%%   Grave accent  \`     Left brace    \{     Vertical bar  \|
+%%   Right brace   \}     Tilde         \~}
+%%
+\ProvidesFile{kashida-xepersian.def}[2020/05/16 v0.8 implementation of Kashida for xepersian package]
+\chardef\xepersian@zwj="200D % zero-width joiner
+\chardef\xepersian@lrm="200E % left to right mark
+\chardef\xepersian@kashidachar="0640 % kashida
+
+\chardef\xepersian@D=10 % dual-joiner class
+\chardef\xepersian@L=11 % lam
+\chardef\xepersian@R=12 % right-joiner
+\chardef\xepersian@A=13 % alef
+\chardef\xepersian@V=4096 % vowel or other combining mark (to be ignored)
+\newif\if@Kashida@on
+\def\xepersian@kashida{%
+  \if@Kashida@on
+    \xepersian@zwj
+    \xepersian@lrm
+    \nobreak
+    \leaders\hrule height \XeTeXglyphbounds\tw@
+    \the\XeTeXcharglyph\xepersian@kashidachar
+    depth \XeTeXglyphbounds\f@ur
+    \the\XeTeXcharglyph\xepersian@kashidachar
+    \hskip0pt plus 0.5em
+    \xepersian@zwj
+  \fi
+}
+
+\def\setclass#1#2{\def\theclass{#1}\def\charlist{#2}%
+  \expandafter\dosetclass\charlist,\end}
+\def\dosetclass#1,#2\end{%
+  \def\test{#1}\def\charlist{#2}%
+  \ifx\test\empty\let\next\finishsetclass
+  \else \XeTeXcharclass "\test = \theclass
+     \let\next\dosetclass \fi
+  \expandafter\next\charlist,,\end}
+\def\finishsetclass#1,,\end{}
+
+\setclass \xepersian@A {0622,0623,0625,0627}
+\setclass \xepersian@R {0624,0629,062F,0630,0631,0632,0648,0698}
+\setclass \xepersian@D {0626,0628,062A,062B,062C,062D,062E}
+\setclass \xepersian@D {0633,0634,0635,0636,0637,0638,0639,063A}
+\setclass \xepersian@D {0640,0641,0642,0643,0645,0646,0647,0649,064A}
+\setclass \xepersian@D {067E,0686,06A9,06AF,06CC}
+\setclass \xepersian@L {0644}
+\setclass \xepersian@V {064B,064C,064D,064E,064F,0650,0651,0652}
+
+\XeTeXinterchartoks \xepersian@D \xepersian@D = {\xepersian@kashida}
+\XeTeXinterchartoks \xepersian@L \xepersian@D = {\xepersian@kashida}
+\XeTeXinterchartoks \xepersian@D \xepersian@L = {\xepersian@kashida}
+\XeTeXinterchartoks \xepersian@L \xepersian@L = {\xepersian@kashida}
+\XeTeXinterchartoks \xepersian@D \xepersian@R = {\xepersian@kashida}
+\XeTeXinterchartoks \xepersian@D \xepersian@A = {\xepersian@kashida}
+\XeTeXinterchartoks \xepersian@L \xepersian@R = {\xepersian@kashida}
+\XeTeXinterchartoks \xepersian@L \xepersian@A = {}
+
+\newcommand{\KashidaOn}{\@Kashida@ontrue}
+\newcommand{\KashidaOff}{\@Kashida@onfalse}
+
+\KashidaOn
+\endinput
+%%
+%% End of file `kashida-xepersian.def'.

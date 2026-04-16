@@ -1,0 +1,86 @@
+% -----------------------------------------------------------------
+% File:       booktabs.ins
+% Author:     Simon Fear
+% Maintainer: Danie Els (dnjels@sun.ac.za)
+%
+% This file is part of the booktabs package for publication
+% quality tables for LaTeX
+%
+%       Copyright (C) 1995--2005 Simon Fear
+%
+% This program is free software; you can redistribute it and/or
+% modify it under the terms of the GNU General Public License as
+% published by the Free Software Foundation; either version 2 of
+% the License, or (at your option) any later version.
+%
+% This program is distributed in the hope that it will be useful,
+% but WITHOUT ANY WARRANTY; without even the implied warranty of
+% MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+% GNU General Public License for more details.
+%
+% You should have received a copy of the GNU General Public
+% License along with this program; if not, write to the Free
+% Software Foundation, Inc., 59 Temple Place, Suite 330, Boston,
+% MA 02111-1307 USA
+%
+% -----------------------------------------------------------------
+% This file will generate fast loadable files and documentation
+% driver files from the doc files in this package when run through
+% LaTeX or TeX.
+%
+% The file README' contains a list of all the files as well
+% directions for installation of this package.
+% -----------------------------------------------------------------
+
+\def\batchfile{booktabs.ins}
+\def\filedate{2005/03/16}
+\input docstrip.tex
+\keepsilent
+
+\preamble
+
+-----------------------------------------------------------------
+Author:     Simon Fear
+Maintainer: Danie Els (dnjels@sun.ac.za)
+
+This file is part of the booktabs package for publication
+quality tables for LaTeX
+
+      Copyright (C) 1995--2005 Simon Fear
+
+This program is free software; you can redistribute it and/or
+modify it under the terms of the GNU General Public License as
+published by the Free Software Foundation; either version 2 of
+the License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public
+License along with this program; if not, write to the Free
+Software Foundation, Inc., 59 Temple Place, Suite 330, Boston,
+MA 02111-1307 USA
+-----------------------------------------------------------------
+\endpreamble
+
+\generate{%
+    \askforoverwritefalse
+    \file{booktabs.sty}{\from{booktabs.dtx}{package}}%
+}
+
+{\obeyspaces%
+\Msg{**********************************************************}%
+\Msg{*                                                        *}%
+\Msg{* To finish the installation you have to move the        *}%
+\Msg{* following file into a directory searched by TeX:       *}%
+\Msg{*                                                        *}%
+\Msg{*    booktabs.sty                                        *}%
+\Msg{*                                                        *}%
+\Msg{* To produce the documentation run the file booktabs.dtx *}%
+\Msg{* through LaTeX.                                         *}%
+\Msg{*                                                        *}%
+\Msg{* Happy TeXing!                                          *}%
+\Msg{**********************************************************}}
+\endbatchfile

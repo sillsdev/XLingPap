@@ -1,0 +1,376 @@
+%%
+%% This is file `xhead.sty',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% xhead.dtx  (with options: `package,trace')
+%% 
+%% (C) Copyright The LaTeX3 Project and any individual authors
+%% listed elsewhere in this file.
+%% 
+%% This is a generated file.
+%% 
+%% This file was generated from file(s) of the xhead bundle.
+%% -----------------------------------------------------------
+%% 
+%% This file may only be distributed together with a copy of this bundle.
+%% You may however distribute the bundle without such generated files.
+%% 
+%% ======================================================================
+%% 
+%% File xhead.dtx (C) Copyright 2010 Frank Mittelbach, LaTeX3 Project
+%%
+%% It may be distributed and/or modified under the conditions of the
+%% LaTeX Project Public License (LPPL), either version 1.3c of this
+%% license or (at your option) any later version.  The latest version
+%% of this license is in the file
+%%
+%%    http://www.latex-project.org/lppl.txt
+%%
+%% This file is part of the ``xhead bundle'' (The Work in LPPL)
+%% and all files in that bundle must be distributed together.
+%%
+%% The released version of this bundle is available from CTAN.
+%%
+%% -----------------------------------------------------------------------
+%%
+%% The development version of the bundle can be found at
+%%
+%%    http://www.latex-project.org/svnroot/experimental/trunk/
+%%
+%% for those people who are interested.
+%%
+%%%%%%%%%%%
+%% NOTE: %%
+%%%%%%%%%%%
+%%
+%%   Snapshots taken from the repository represent work in progress and may
+%%   not work or may contain conflicting material!  We therefore ask
+%%   people _not_ to put them into distributions, archives, etc. without
+%%   prior consultation with the LaTeX Project Team.
+%%
+%% -----------------------------------------------------------------------
+%%
+\RequirePackage{expl3}
+\GetIdInfo$Id: xhead.dtx 1914 2010-05-21 16:18:46Z schoepf $
+          {Templates heading commands}
+\RequirePackage{expl3,xtemplate}
+\GetIdInfo$Id: xhead.dtx 1914 2010-05-21 16:18:46Z schoepf $
+  {heading module}
+\ProvidesExplPackage
+  {\filename}{\filedate}{\fileversion}{\filedescription}
+\DeclareObjectType {heading} {7}
+\cs_new:Npn \xhead_generate_toc:NNNNN #1#2#3#4#5 {
+   \typeout{xhead_generate_toc:NNNNN=#1:#2:#3:#4:#5}
+   \bool_if:nT
+    { #2 || ! #1 }
+    {
+     \group_begin:
+      \cs_set_eq:NN \@mkboth \use_none:nn
+      \cs_set_eq:NN \markboth \use_none:nn
+      \cs_set_eq:NN \markright \use_none:n
+      \addcontentsline{toc}{#3}
+         {
+          \tl_if_empty:NF #4
+              { \protect\numberline{ #4 } }
+          #5
+         }
+    \group_end:
+   }
+}
+\cs_generate_variant:Nn \xhead_generate_toc:NNNNN {NNNNo}
+\cs_new:Npn \xhead_generate_mark:NNNNN #1#2#3#4#5 {
+   \typeout{xhead_generate_mark:NNNNN=#1:#2:#3:#4:#5}
+   \bool_if:nT
+    { #2 || ! #1 }
+    {
+     \group_begin:
+       \cs_set_eq:NN \@mkboth \use_none:nn
+       \use:c {#3 mark} {#5}
+     \group_end:
+    }
+}
+\cs_generate_variant:Nn \xhead_generate_mark:NNNNN {NNNNo}
+\cs_new:Npn \xhead_generate_toc_and_mark:NNNNNNN #1#2#3#4#5#6#7 {
+     \xhead_generate_toc:NNNNo
+          #1 #2 #4 #5 #6
+     \xhead_generate_mark:NNNNo
+          #1 #3 #4 #5 #7
+}
+
+\cs_new:Npn \xhead_update_prepare_number:N #1 {
+   \bool_if:nTF
+     { #1 || \intexpr_compare_p:n { \l_xhead_level_int > \c@secnumdepth } }
+     { \tl_clear:N \l_xhead_number_tl }
+     {
+       \refstepcounter \l_xhead_name_tl
+       \tl_set:Nx \l_xhead_number_tl { \use:c {the \l_xhead_name_tl} }
+     }
+}
+\cs_new:Npn \xhead_set_after_indention:N  #1 {
+   \bool_if:NTF #1 \@afterindenttrue \@afterindentfalse
+}
+\cs_new:Npn \xhead_set_titles:nnn #1#2#3 {
+   \IfNoValueTF{#1}
+         { \tl_set:Nn \l_xhead_toc_title_tl {#3} }
+         { \tl_if_empty:nTF {#1}
+                { \tl_set:Nn \l_xhead_toc_title_tl {#3} }
+                { \tl_set:Nn \l_xhead_toc_title_tl {#1} }
+         }
+   \IfNoValueTF{#2}
+         { \tl_set_eq:NN \l_xhead_mark_title_tl \l_xhead_toc_title_tl }
+         { \tl_if_empty:nTF {#2}
+                { \tl_set:Nn \l_xhead_mark_title_tl {#3} }
+                { \tl_set:Nn \l_xhead_mark_title_tl {#2} }
+         }
+}
+\dim_new:N  \l_xhead_indent_dim
+\skip_new:N \l_xhead_above_skip
+\skip_new:N \l_xhead_below_skip
+\int_new:N  \l_xhead_level_int
+\int_new:N  \l_xhead_break_penalty_int
+\tl_new:N   \l_xhead_name_tl
+\tl_new:N   \l_xhead_number_tl
+\tl_new:N   \l_xhead_toc_title_tl
+\tl_new:N   \l_xhead_mark_title_tl
+\bool_new:N \l_xhead_indent_after_bool
+
+\cs_new:Npn \xhead_title_decl: {}
+
+\cs_new:Npn \xhead_number_format:n #1 {}
+
+\cs_new:Npn \xhead_default_number_format:n #1 { #1 \quad}
+\DeclareTemplateInterface {heading} {2e-vertical} {7}
+  {
+    name         : tokenlist    = ???   ,
+    level        : integer      = 0     ,
+    break-penalty: integer      = -300  ,
+    indent       : length       = 0pt   ,
+    above-skip   : skip         = 0pt   ,
+    below-skip   : skip         = 0pt   ,
+    title-decl   : function {0} =       ,
+    number-format: function {1} = \xhead_default_number_format:n {#1}  ,
+    indent-after : boolean      = false ,
+  }
+\DeclareTemplateCode {heading} {2e-vertical} {7}
+  {
+    name          = \l_xhead_name_tl           ,
+    level         = \l_xhead_level_int         ,
+    break-penalty = \l_xhead_break_penalty_int ,
+    indent        = \l_xhead_indent_dim        ,
+    above-skip    = \l_xhead_above_skip        ,
+    below-skip    = \l_xhead_below_skip        ,
+    title-decl    = \xhead_title_decl:         ,
+    number-format = \xhead_number_format:n     ,
+    indent-after  = \l_xhead_indent_after_bool ,
+  }
+  {
+   \AssignTemplateKeys
+   \bool_if:NF #1
+    {
+      \IfNoValueTF{#2}
+         { \tl_set:Nn \l_xhead_toc_title_tl {#6} }
+         { \tl_set:Nn \l_xhead_toc_title_tl {#2} }
+      \tl_set_eq:NN \l_xhead_mark_title_tl \l_xhead_toc_title_tl
+    }
+   \xhead_update_prepare_number:N #1
+   \xhead_set_after_indention:N \l_xhead_indent_after_bool
+   \if@noskipsec \leavevmode \fi
+   \par
+   \if@nobreak
+     \everypar{}
+   \else:
+     \addpenalty \l_xhead_break_penalty_int
+     \addvspace  \l_xhead_above_skip
+   \fi:
+   \group_begin:
+     \xhead_title_decl:
+       {
+        \@hangfrom{\hskip \l_xhead_indent_dim \scan_stop:
+                   \tl_if_empty:NF \l_xhead_number_tl
+                      { \xhead_number_format:n \l_xhead_number_tl }
+                  }
+        \interlinepenalty \@M #6\@@par
+       }
+   \group_end:
+   \xhead_generate_toc_and_mark:NNNNNNN
+          #1 \BooleanFalse \BooleanFalse     % no forcing in 2e
+          \l_xhead_name_tl
+          \l_xhead_number_tl
+          \l_xhead_toc_title_tl
+          \l_xhead_mark_title_tl
+   \par \nobreak
+   \vspace \l_xhead_below_skip
+   \@afterheading
+   \ignorespaces
+ }
+\DeclareTemplateInterface {heading} {3a-vertical} {7}
+  {
+    name                : tokenlist                = ???   ,
+    level               : integer                  = 0     ,
+    break-penalty       : integer                  = -300  ,
+    indent              : length                   = 0pt   ,
+    above-skip          : skip                     = 0pt   ,
+    below-skip          : skip                     = 0pt   ,
+    format              : tokenlist                = indent-by-number   ,
+    parshape            : instance {parshape}      = plain  ,
+    justification       : instance {justification} = flush-left ,
+    font                : tokenlist                =       ,
+    number-format       : function {1}             = \xhead_default_number_format:n {#1}  ,
+    indent-after        : boolean                  = false ,
+  }
+
+\tl_new:N \l_xhead_title_format_tl
+\tl_new:N \l_xhead_title_font_tl
+
+\cs_new:Npn \xhead_title_parshape:      {}
+\cs_new:Npn \xhead_title_justification: {}
+
+\DeclareTemplateCode {heading} {3a-vertical} {7}
+  {
+    name                = \l_xhead_name_tl            ,
+    level               = \l_xhead_level_int          ,
+    break-penalty       = \l_xhead_break_penalty_int  ,
+    indent              = \l_xhead_indent_dim         ,
+    above-skip          = \l_xhead_above_skip         ,
+    below-skip          = \l_xhead_below_skip         ,
+    format              = \l_xhead_title_format_tl    ,
+    parshape            = \xhead_title_parshape:      ,
+    justification       = \xhead_title_justification: ,
+    font                = \l_xhead_title_font_tl      ,
+    number-format       = \xhead_number_format:n      ,
+    indent-after        = \l_xhead_indent_after_bool  ,
+  }
+  {
+   \AssignTemplateKeys
+   \xhead_set_titles:nnn {#2} {#4} {#6}
+   \xhead_update_prepare_number:N #1
+   \xhead_set_after_indention:N \l_xhead_indent_after_bool
+   \if@noskipsec \leavevmode \fi
+   \par
+   \if@nobreak
+     \everypar{}
+   \else:
+     \addpenalty \l_xhead_break_penalty_int
+     \addvspace  \l_xhead_above_skip
+   \fi:
+   \xhead_use_title_format:nn \l_xhead_title_format_tl  {#6}
+
+   \xhead_generate_toc_and_mark:NNNNNNN
+          #1 #3 #5
+          \l_xhead_name_tl
+          \l_xhead_number_tl
+          \l_xhead_toc_title_tl
+          \l_xhead_mark_title_tl
+   \par \nobreak
+   \vspace \l_xhead_below_skip
+   \@afterheading
+   \ignorespaces
+ }
+\cs_new:Npn \xhead_use_title_format:nn #1 {
+  \cs_if_exist:cTF {xhead_format_ #1:n}
+     { \use:c{xhead_format_ #1:n} }
+     { \ERROR xhead format not defined }
+}
+\cs_new:cpn {xhead_format_indent-by-number:n} #1 {
+   \group_begin:
+      \l_xhead_title_font_tl
+      \hbox_set:Nn \l_tmpa_box
+                   {
+                     \tl_if_empty:NF \l_xhead_number_tl
+                         { \xhead_number_format:n \l_xhead_number_tl }
+                   }
+
+      \UseInstance{measure}{fullwidth}
+                  {\l_xhead_indent_dim + \box_wd:N \l_tmpa_box }
+
+      \xhead_title_parshape:
+      \xhead_title_justification:
+      \interlinepenalty \@M
+
+      \noindent \hbox_overlap_left:n { \box_use:N \l_tmpa_box }
+       #1\@@par
+   \group_end:
+}
+\cs_new:cpn {xhead_format_number-above-text:n} #1 {
+   \group_begin:
+      \l_xhead_title_font_tl
+      \xhead_title_parshape:
+      \xhead_title_justification:
+      \interlinepenalty \@M
+
+      \tl_if_empty:NF \l_xhead_number_tl
+          {
+            \xhead_number_format:n \l_xhead_number_tl
+          }
+
+       #1\@@par
+   \group_end:
+}
+
+\input{xtextblock.sty}
+
+\DeclareTemplateInterface {heading} {3b-vertical} {7}
+  {
+    name                : tokenlist                = ???   ,
+    level               : integer                  = 0     ,
+    break-penalty       : integer                  = -300  ,
+    indent              : length                   = 0pt   ,
+    above-skip          : skip                     = 0pt   ,
+    below-skip          : skip                     = 0pt   ,
+    title-format        : instance {textblock-2}   = heading  ,
+    number-format       : function {1}             = \xhead_default_number_format:n {#1}  ,
+    indent-after        : boolean                  = false ,
+  }
+
+\cs_new:Npn \xhead_title_format:nn #1#2 {}
+
+\DeclareTemplateCode {heading} {3b-vertical} {7}
+  {
+    name                = \l_xhead_name_tl            ,
+    level               = \l_xhead_level_int          ,
+    break-penalty       = \l_xhead_break_penalty_int  ,
+    indent              = \l_xhead_indent_dim         ,
+    above-skip          = \l_xhead_above_skip         ,
+    below-skip          = \l_xhead_below_skip         ,
+    title-format        = \xhead_title_format:nn      ,
+    number-format       = \xhead_number_format:n      ,
+    indent-after        = \l_xhead_indent_after_bool  ,
+  }
+  {
+   \AssignTemplateKeys
+
+   \xhead_set_titles:nnn {#2} {#4} {#6}
+
+   \xhead_update_prepare_number:N #1
+
+   \xhead_set_after_indention:N \l_xhead_indent_after_bool
+
+   \if@noskipsec \leavevmode \fi
+   \par
+   \if@nobreak
+     \everypar{}
+   \else:
+     \addpenalty \l_xhead_break_penalty_int
+     \addvspace  \l_xhead_above_skip
+   \fi:
+
+   \xhead_title_format:nn \l_xhead_number_tl {#6}
+
+   \xhead_generate_toc_and_mark:NNNNNNN
+          #1 #3 #5
+          \l_xhead_name_tl
+          \l_xhead_number_tl
+          \l_xhead_toc_title_tl
+          \l_xhead_mark_title_tl
+
+   \par \nobreak
+   \vspace \l_xhead_below_skip
+   \@afterheading
+   \ignorespaces
+ }
+
+\endinput
+%%
+%% End of file `xhead.sty'.

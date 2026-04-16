@@ -1,0 +1,541 @@
+% \iffalse
+%<*internal>
+\begingroup
+%</internal>
+%<*batchfile>
+\input docstrip.tex
+\keepsilent
+\preamble
+  ____________________________
+  The XLTXTRA package         
+  (C) 2006-2010 Will Robertson
+  License information appended
+
+\endpreamble
+\postamble
+
+Copyright (C) 2006-2010 by Will Robertson <wspr81@gmail.com>
+
+Distributable under the LaTeX Project Public License,
+version 1.3c or higher (your choice). The latest version of
+this license is at: http://www.latex-project.org/lppl.txt
+
+This work is "maintained" (as per LPPL maintenance status) 
+by Will Robertson.
+
+This work consists of the file  xltxtra.dtx
+          and the derived files xltxtra.sty,
+                                xltxtra.ins, and
+                                xltxtra.pdf.
+
+\endpostamble
+\askforoverwritefalse
+\generate{\file{xltxtra.sty}{\from{xltxtra.dtx}{package}}}
+%</batchfile>
+%<batchfile>\endbatchfile
+%<*internal>
+\generate{\file{xltxtra.ins}{\from{xltxtra.dtx}{batchfile}}}
+\nopreamble\nopostamble
+\generate{\file{dtx-style.sty}{\from{xltxtra.dtx}{dtx-style}}}
+\def\tmpa{plain}
+\ifx\tmpa\fmtname\endgroup\expandafter\bye\fi
+\endgroup
+%</internal>
+%
+%<*driver>
+\documentclass{ltxdoc}
+\EnableCrossrefs
+\CodelineIndex
+\RecordChanges
+%\OnlyDescription
+\usepackage{dtx-style}
+\begin{document}
+  \DocInput{xltxtra.dtx}
+\end{document}
+%</driver>
+%
+% \fi
+%
+% \errorcontextlines=999
+% \makeatletter
+%
+% \GetFileInfo{xltxtra.sty}
+%
+% \title{The \pkg{xltxtra} package}
+% \author{Will Robertson}
+% \date{\filedate \qquad \fileversion}
+%
+% \maketitle
+%
+% \tableofcontents
+%
+% \section{Introduction}
+%
+% This document describes the \pkg{xltxtra} package. 
+% It implements some odds-and-ends features and
+% improved functionality for broken or sub-standard \LaTeX\ methods when using the
+% \XeTeX\ format.
+%
+% \subsection{Usage}
+% Easy: |\usepackage{xltxtra}|. This package automatically loads the following packages: \pkg{fixltx2e}, \pkg{metalogo}, \pkg{xunicode}, \pkg{fontspec}.
+%
+% There are some package options to disable various functionality that could clash with other things:
+% \begin{description}[font=\ttfamily]
+% \item[no-sscript] Swaps the definitions of \cmd\textsubscript\ and \cmd\textsuperscript\ with their respective starred versions, as described in \secref{sscript}.
+% \item[no-logos] Disables the redefinition of \cmd\TeX, etc. described in \secref{logos}, but \emph{does} still define the \cmd\XeTeX\ and \cmd\XeLaTeX\ logo commands.
+% \end{description}
+%
+% \section{Features}
+%
+% \subsection{\cmd\textsuperscript\ and \cmd\textsubscript}
+% \seclabel{sscript}
+%
+% These two macros have been redefined to take advantage, if possible, of actual superior or inferior glyphs in the main document font. This is very important for high-quality typesetting — compare this first example to the third; yes, they are the same font.
+% \begin{quotation}\color{niceblue}
+%	\fontspec{Skia}
+%	  |\textsuperscript     | \textsuperscript{abcdefghijklmnopqrstuvwxyz1234567890}\par
+%	  |\textsubscript       | \textsubscript{abcdefghijklmnopqrstuvwxyz1234567890}
+% \end{quotation}
+% But will fall back on `faked' ones if they don't exist: 
+% (this is {\fontspec{Didot} Didot})
+% \begin{quotation}\color{niceblue}
+%	\fontspec{Didot}
+%	  |\textsuperscript     | \textsuperscript{abcdefghijklmnopqrstuvwxyz1234567890}\par
+%	  |\textsubscript       | \textsubscript{abcdefghijklmnopqrstuvwxyz1234567890}
+% \end{quotation}
+% The original definitions are available in starred verions of the commands:
+% \begin{quotation}\color{niceblue}
+%	\fontspec{Skia}
+%	  |\textsuperscript*    | \textsuperscript*{abcdefghijklmnopqrstuvwxyz1234567890}\par
+%	  |\textsubscript*      | \textsubscript*{abcdefghijklmnopqrstuvwxyz1234567890}
+% \end{quotation}
+% But beware fonts lacking the full repertoire: (this is Adobe Jenson Pro)
+% \begin{quotation}\color{niceblue}
+%	\fontspec{Adobe Jenson Pro}
+%	  |\textsuperscript     | \makebox[0pt][l]{\textsuperscript{abcdefghijklmnopqrstuvwxyz1234567890}}\par
+%	  |\textsubscript       | \makebox[0pt][l]{\textsubscript{abcdefghijklmnopqrstuvwxyz1234567890}}
+% \end{quotation}
+%
+% The \pkgopt{no-sscript} will swap the definitions of the starred and non-starred versions of the commands described above if the new definitions are undesirable.
+%
+% The macros
+% \cmd\realsubscript, 
+% \cmd\realsuperscript, 
+% \cmd\fakesubscript, and 
+% \cmd\fakesuperscript\
+% may be used to access the `new' and `old' functionalities regardless of the \pkgopt{no-sscript}.
+%
+% This functionality is achieved through loading the \pkg{realscripts}
+% package.
+%
+%
+%
+% \subsection{Logos}
+% \seclabel{logos}
+%
+% This part of the package essentially exists to define the \cmd\XeTeX\ and \cmd\XeLaTeX\ logos,
+% which need to be tuned according to the font that is used. Originally I had some hard-coded
+% definitions in here, but Andrew Moschou’s |metalogo| package now provides a much more
+% flexible and useful interface to a variety of \TeX-related logos.
+%
+% Here are some examples. The default:
+% \begingroup
+% \setlogokern{Xe}{default}
+% \setlogokern{eL}{default}
+% \setlogokern{La}{default}
+% \setlogokern{aT}{default}
+% \setlogokern{Te}{default}
+% \setlogokern{eX}{default}
+% \setlogokern{eT}{default}
+% \setlogokern{X2}{default}
+% \setlogodrop{default}
+% \setLaTeXa{default}
+% \setLaTeXee{default}
+% \begin{example}
+%   \TeX\ \XeTeX\ \LaTeX\ \XeLaTeX
+% \end{example}
+% \noindent Notice that it's a bit tight when not using Computer Modern, for which the logos were designed:
+% \begin{example}
+%   \usefont{OT1}{cmr}{m}{n}
+%   \TeX\ \XeTeX\ \LaTeX\ \XeLaTeX
+% \end{example}
+% \endgroup
+%
+% These logos, ideally, should be hand-tuned for each font that they're used in. Please refer to the |metalogo| documentation for more information.
+%
+% The \pkgopt{no-logos} will not redefine \cmd\TeX\ or \cmd\LaTeX\ but will still define \cmd\XeTeX\ and \cmd\XeLaTeX.
+% 
+%
+% \subsection{Vulgar fractions}
+% The \cmd\vfrac\ command for setting `vulgar' fractions based on AAT or OpenType font features. Not really recommended for many purposes, depending on your text, but it's a good example of how to program such things using \pkg{fontspec}.
+% \begin{example}
+%   \fontspec{Skia}
+%   AAT: \vfrac{123}{456}\\
+%   \fontspec{Warnock Pro}
+%   ICU: \vfrac{123}{456}
+% \end{example}
+% \noindent (This can also be achieved in regular \LaTeX\ with either the \pkg{nicefrac} or \pkg{xfrac} package.)
+%
+% Only use it when you know it will work; no warnings are given if the font doesn't support the necessary features.
+%
+% \subsection{Named glyphs}
+% Along the way somewhere, \XeTeX\ added support for selecting glyphs from a TrueType-based OpenType font based on their internal glyph name. Jonathan Kew posted the following definition as a nice interface to it.
+% \begin{example}
+%   \fontspec{Charis SIL}
+%   \namedglyph{yen}
+%   \namedglyph{smile}
+% \end{example}
+%
+% \subsection{The \cmd\showhyphens\ command}
+% The default definition doesn't work in \XeTeX. 
+% A new version, written by Jonathan Kew, is included in this package that \emph{does} work. Minor differences with the original: the showing of hyphens in the console output will be marked with explanatory text. Also, multiple words, separated by commas, will end up in separate instances of `showing hyphens'.
+% \showhyphens{discomedusoid, discommodiousness}
+%
+% \newpage
+% \part{The \textsf{xltxtra} package}
+%\iffalse
+%<*package>
+%\fi
+% This is the package implementation.
+%
+%    \begin{macrocode}
+\ProvidesPackage{xltxtra}
+  [2010/09/20 v0.5e Improvements for the "XeLaTeX" format]
+%    \end{macrocode}
+%
+% \paragraph{Not for Lua\TeX}
+%    \begin{macrocode}
+\RequirePackage{ifluatex}
+\ifluatex
+  \PackageWarningNoLine {xltxtra} {^^J
+    XLTXTRA IS TO BE USED ONLY UNDER XETEX.
+    LOAD FONTSPEC DIRECTLY, INSTEAD.^^J
+    ABORTING LOADING%
+  }
+  \RequirePackage{fontspec}[2010/05/14 v2.0]
+  \expandafter \endinput
+\fi
+%    \end{macrocode}
+%
+% \paragraph{Required packages}
+%    \begin{macrocode}
+\RequirePackage{ifxetex}
+\RequireXeTeX
+\RequirePackage{fontspec}[2010/05/14 v2.0]
+\RequirePackage{realscripts}
+%    \end{macrocode}
+%
+% \paragraph{Option processing}
+%    \begin{macrocode}
+\newif\if@xxt@nosscript@
+\newif\if@xxt@nologos@
+\DeclareOption{no-sscript}{\@xxt@nosscript@true}
+\DeclareOption{no-logos}{\@xxt@nologos@true}
+\ProcessOptions*
+%    \end{macrocode}
+%
+%
+% \section{Logos}
+% \DescribeMacro{\XeTeX}
+% \DescribeMacro{\XeLaTeX}
+% The \TeX-related logos people insist upon using need to be tuned
+% on a per-font  basis. This package calls upon Andrew Moschou's package
+% |metalogo| for this purpose. To tune the logos to each font,
+% use the commands \cmd\setlogokern, \cmd\setlogodrop, etc.\ Refer to
+% |mathspec|’s documentation for further details.
+%
+% \begin{example}
+%   \setlogokern{Xe}{-0.061em}
+%   \setlogokern{eL}{-0.057em}
+%   \setlogokern{La}{-0.265em}
+%   \setlogokern{aT}{-0.0585em}
+%   \setlogokern{Te}{-0.0575em}
+%   \setlogokern{eX}{-0.072em}
+%   \setlogokern{eT}{-0.056em}
+%   \setlogokern{X2}{0.1667em}
+%   \setlogodrop{0.153em}
+%   \setLaTeXa{\scshape a}
+%   \setLaTeXee{\mbox{\fontspec{Times}\itshape ε}}
+%   \TeX\ \XeTeX\ \LaTeX\ \XeLaTeX\ \LaTeXe
+% \end{example}
+%
+%    \begin{macrocode}
+\RequirePackage{metalogo}
+%    \end{macrocode}
+%
+% The \pkgopt{no-logos} might be in effect, in which case \cmd\TeX, \cmd\LaTeX\ and
+% \cmd\LaTeXe\ should keep their original definitions (which were saved by |metalogo|).
+%
+%    \begin{macrocode}
+\if@xxt@nologos@
+  \let\TeX\original@TeX
+  \let\LaTeX\original@LaTeX
+  \let\LaTeXe\original@LaTeXe
+\fi
+%    \end{macrocode}
+% 
+% \begin{macro}{\TeX@logo@spacing}
+% This macro is now deprecated. It is recommended to use the commands
+% from |metalogo|.
+%
+%    \begin{macrocode}
+\newcommand*\TeX@logo@spacing[6]{%
+  \PackageWarning{xltxtra}{%
+    Use of \protect\TeX@logo@spacing\space is deprecated,\MessageBreak
+    recommend to use commands from package `metalogo' instead}
+  \setlogokern{Te}{#1}%
+  \setlogokern{eT}{#1}%
+  \setlogokern{eX}{#2}%
+  \setlogokern{Xe}{#2}%
+  \setlogodrop{#3}%
+  \setlogokern{La}{#4}%
+  \setlogokern{aT}{#5}%  
+  \setlogokern{eL}{#6}}
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \section{Subscript and superscript}
+%
+% \begin{macro}{\textsubscript}
+% \begin{macro}{\textsubscript*}
+% \begin{macro}{\textsuperscript}
+% \begin{macro}{\textsuperscript*}
+% These commands are either defined to create fake or real sub-/super-scripts if they are starred or not, respectively. This swaps if the \pkgopt{no-sscript} is in effect.
+% Text subscripts:
+%    \begin{macrocode}
+\if@xxt@nosscript@
+  \DeclareRobustCommand*\textsubscript{%
+    \@ifstar{\realsubscript}{\fakesubscript}}
+  \DeclareRobustCommand*\textsuperscript{%
+    \@ifstar{\realsuperscript}{\fakesuperscript}}
+\fi
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+%
+% \section{Assorted commands}
+%
+% \begin{macro}{\vfrac}
+% \darg{Numerator}
+% \darg{Denominator}
+% No error checking is done to ensure that the font actually has the neceessary features.
+% Requires the \pkg{xunicode} package for \cmd\textfractionsolidus.
+%    \begin{macrocode}
+\ExplSyntaxOn
+\newcommand*\vfrac[2]{
+  \fontspec_if_fontspec_font:TF
+  {
+    \fontspec_if_opentype:TF
+    {
+      {\addfontfeature{VerticalPosition=Numerator}#1}
+       \textfractionsolidus
+      {\addfontfeature{VerticalPosition=Denominator}#2}
+    }
+    {
+      {\addfontfeature{VerticalPosition=Superior}#1}
+       \textfractionsolidus
+      {\addfontfeature{VerticalPosition=Inferior}#2}
+    }
+  }
+  {
+    \PackageError {xltxtra}
+      { \string\vfrac\space~can~only~be~used~with~fontspec~fonts }
+      { Nothing~more~to~tell. }
+  }
+}
+\ExplSyntaxOff
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\namedglyph}
+% \darg{Name of the font glyph to be typeset}
+%    \begin{macrocode}
+\newcommand\namedglyph[1]{%
+  \@tempcnta=\XeTeXglyphindex "#1"\relax
+  \ifnum\@tempcnta>0 
+    \XeTeXglyph\@tempcnta 
+  \else 
+    \xxt@namedglyph@fallback{#1}%
+  \fi}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\xxt@namedglyph@fallback}
+% Redefine this macro to change how glyph names that aren't found get typeset.
+%    \begin{macrocode}
+\newcommand\xxt@namedglyph@fallback[1]{[#1]}
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \begin{macro}{\showhyphens}
+% This macro is entirely due to Jonathan Kew. 
+% I wish I knew how to write these sorts of things.
+%    \begin{macrocode}
+\newbox\xxt@tempbox
+\def\showhyphens#1{%
+  \typeout{^^J*********************** 
+           \string\showhyphens: 
+           ***********************}%
+  \@for\@ii:=#1\do{\xxt@showhyphens{\@ii}}%
+  \typeout{^^J***********************%
+           ***************%
+           ***********************^^J}}
+\def\xxt@showhyphens#1{%
+   \setbox\@tempboxa=\vbox{%
+     \hsize1sp \hbadness10000 \hfuzz\maxdimen
+     \everypar={} \leftskip\z@ \rightskip\leftskip 
+     \pretolerance\m@ne \noindent \hskip\z@ #1\par
+     \global\setbox\xxt@tempbox=\hbox{}\xxt@sh@cat}%
+   \setbox\@tempboxa=\hbox to \maxdimen{\unhbox\xxt@tempbox}}
+\def\xxt@sh@cat{\unskip\unpenalty
+   \setbox\@tempboxa=\lastbox 
+   \unless\ifvoid\@tempboxa 
+     \global\setbox\xxt@tempbox=\hbox{%
+       \unhbox\@tempboxa
+       \unskip\unskip
+       \unhbox\xxt@tempbox}%
+     \expandafter\xxt@sh@cat
+   \fi}
+%    \end{macrocode}
+% \end{macro}
+%
+%
+%\iffalse
+%</package>
+%\fi
+%
+% \Finale
+%
+%\iffalse
+%<*dtx-style>
+%    \begin{macrocode}
+\ProvidesPackage{dtx-style}
+
+\def\@dotsep{1000}
+\setcounter{tocdepth}{2}
+
+\setcounter{IndexColumns}{2}
+\renewenvironment{theglossary}
+  {\small\list{}{}
+     \item\relax
+     \glossary@prologue\GlossaryParms 
+     \let\item\@idxitem \ignorespaces 
+     \def\pfill{\hspace*{\fill}}}
+  {\endlist}
+
+\usepackage{array,booktabs,calc,color,enumitem,fancyvrb,graphicx,ifthen,longtable,refstyle,varioref,xltxtra}
+\usepackage[rm]{titlesec}
+\setmainfont[Mapping=tex-text]{TeX Gyre Pagella}
+\setsansfont[Scale=MatchLowercase,Mapping=tex-text]{Verdana}
+\setmonofont[Scale=MatchLowercase]{Consolas}
+
+\linespread{1.05}      % A bit more space between lines
+\frenchspacing         % Remove ugly extra space after punctuation
+
+\setlogokern{Xe}{-0.061em}
+\setlogokern{eL}{-0.057em}
+\setlogokern{La}{-0.28em}
+\setlogokern{aT}{-0.10em}
+\setlogokern{Te}{-0.0575em}
+\setlogokern{eX}{-0.072em}
+\setlogokern{eT}{-0.056em}
+\setlogokern{X2}{0.1667em}
+\setlogodrop{0.153em}
+\setLaTeXa{\scshape a}
+\setLaTeXee{\mbox{\fontspec{Times}\itshape ε}}
+\def\eTeX{{\fontspec{Times}\textit{ε}{}}-\TeX} % The eTeX logo is not (yet) covered by metalogo
+
+\definecolor{niceblue}{rgb}{0.2,0.4,0.6}
+\def\theCodelineNo{\textcolor{niceblue}{\sffamily\tiny\arabic{CodelineNo}}}
+
+\newenvironment{example}
+  {\VerbatimEnvironment
+   \begin{trivlist}\item[]
+   \begin{minipage}{\linewidth}
+   \par\noindent\hrulefill\par
+   \begin{VerbatimOut}[gobble=4]{\examplefilename}}
+  {\end{VerbatimOut}\relax
+   \begingroup
+     \color{niceblue}
+     \typesetexample
+   \endgroup\par\noindent\hrulefill\par
+   \end{minipage}\end{trivlist}}
+
+\let\examplesize\normalsize
+\let\auxwidth\relax
+
+\newlength\examplewidth\newlength\verbatimwidth
+\newlength\exoutdent   \newlength\exverbgap
+\setlength\exverbgap{0em}
+\setlength\exoutdent{-0\textwidth}
+\newsavebox\verbatimbox
+\edef\examplefilename{xltxtra.example}
+
+\newcommand\typesetexample{\relax
+   \begin{lrbox}{\verbatimbox}\relax
+     \BVerbatimInput[fontsize=\small]{\examplefilename}\relax
+   \end{lrbox}
+   \begin{list}{}{\setlength\itemindent{0pt}
+                  \setlength\leftmargin\exoutdent
+                  \setlength\rightmargin{0pt}}\item
+   \ifx\auxwidth\relax
+     \setlength\verbatimwidth{\wd\verbatimbox}\relax
+   \else
+     \setlength\verbatimwidth{\auxwidth}\relax
+   \fi
+   \begin{minipage}[c]{\textwidth-\exoutdent-\verbatimwidth-\exverbgap}
+     \catcode`\%=14\centering\examplesize\input\examplefilename\relax
+   \end{minipage}\hfill
+   \begin{minipage}[c]{\verbatimwidth}
+     \usebox\verbatimbox
+   \end{minipage}
+   \end{list}
+   \global\let\examplesize\normalsize}
+
+\newcommand*\setexsize[1]{\let\examplesize#1}
+\newcommand*\setverbwidth[1]{\def\auxwidth{#1}}
+
+\newcommand*\name[1]{{#1}}
+\newcommand*\pkg[1]{\texttt{#1}}
+\newcommand*\pkgopt[1]{\texttt{[#1]} package option}
+
+\newcommand*\acro[1]{\textsc{\MakeLowercase{#1}}}
+
+\newcommand*\note[1]{\unskip\footnote{#1}}
+
+\let\latin\textit
+\def\eg{\latin{e.g.}}
+\def\Eg{\latin{E.g.}}
+\def\ie{\latin{i.e.}}
+\def\etc{\@ifnextchar.{\latin{etc}}{\latin{etc.}\@}}
+
+\newcounter{argument}
+\g@addto@macro\endmacro{\setcounter{argument}{0}}
+\newcommand*\darg[1]{%
+  \stepcounter{argument}%
+  \noindent{\ttfamily\#\theargument}:~#1\par\nobreak}
+\newcommand*\doarg[1]{%
+  \stepcounter{argument}%
+  \noindent{\ttfamily\makebox[0pt][r]{[}\#\theargument]}:~#1\par\nobreak}
+
+\newcommand\unichar[2]{\textsc{\MakeLowercase{u+#1: #2}}}
+
+%    \end{macrocode}
+%</dtx-style>
+%\fi
+%
+% \typeout{*************************************************************}
+% \typeout{*}
+% \typeout{* To finish the installation you have to move the following}
+% \typeout{* file into a directory searched by XeTeX:}
+% \typeout{*}
+% \typeout{* \space\space\space xltxtra.sty}
+% \typeout{*}
+% \typeout{*************************************************************}
+%
+\endinput
+

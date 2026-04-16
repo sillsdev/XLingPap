@@ -1,0 +1,1242 @@
+%%
+%% This is file `xtemplate.sty',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% xtemplate.dtx  (with options: `package')
+%% 
+%% (C) Copyright The LaTeX3 Project and any individual authors
+%% listed elsewhere in this file.
+%% 
+%% This is a generated file.
+%% 
+%% This file was generated from file(s) of the xbase bundle.
+%% ---------------------------------------------------------
+%% 
+%% This file may only be distributed together with a copy of this bundle.
+%% You may however distribute the bundle without such generated files.
+%% 
+%% ======================================================================
+%% 
+%% File: xtemplate.dtx (C) Copyright 1999-2001 David Carlisle, Frank Mittelbach
+%%                     (C) Copyright 2004-2010 Frank Mittelbach, LaTeX3 Project
+%%
+%% It may be distributed and/or modified under the conditions of the
+%% LaTeX Project Public License (LPPL), either version 1.3c of this
+%% license or (at your option) any later version.  The latest version
+%% of this license is in the file
+%%
+%%    http://www.latex-project.org/lppl.txt
+%%1
+%% This file is part of the ``xbase bundle'' (The Work in LPPL)
+%% and all files in that bundle must be distributed together.
+%%
+%% The released version of this bundle is available from CTAN.
+%%
+%% -----------------------------------------------------------------------
+%%
+%% The development version of the bundle can be found at
+%%
+%%    http://www.latex-project.org/svnroot/experimental/trunk/
+%%
+%% for those people who are interested.
+%%
+%%%%%%%%%%%
+%% NOTE: %%
+%%%%%%%%%%%
+%%
+%%   Snapshots taken from the repository represent work in progress and may
+%%   not work or may contain conflicting material!  We therefore ask
+%%   people _not_ to put them into distributions, archives, etc. without
+%%   prior consultation with the LaTeX Project Team.
+%%
+%% -----------------------------------------------------------------------
+%%
+\RequirePackage{l3names}
+\GetIdInfo$Id: xtemplate.dtx 2063 2010-10-03 08:26:49Z mittelba $
+  {Prototype document functions}
+
+
+\ProvidesExplPackage
+  {\filename}{\filedate}{\fileversion}{\filedescription}
+\RequirePackage{expl3}
+\tl_const:Nn \c_xtemplate_code_root_tl      { xtemplate_code >  }
+\tl_new:Nn \c_xtemplate_defaults_root_tl  { xtemplate_defaults >  }
+\tl_new:Nn \c_xtemplate_instances_root_tl { xtemplate_instances >  }
+\tl_new:Nn \c_xtemplate_keytypes_root_tl  { xtemplate_keytypes >  }
+\tl_new:Nn \c_xtemplate_restrict_root_tl  { xtemplate_restrict >  }
+\tl_new:Nn \c_xtemplate_values_root_tl    { xtemplate_values >  }
+\tl_new:Nn \c_xtemplate_vars_root_tl      { xtemplate_vars >  }
+\tl_new:Nn \c_xtemplate_key_order_tl { key~order }
+\clist_new:N \c_xtemplate_keytypes_arg_clist
+\clist_put_right:Nn  \c_xtemplate_keytypes_arg_clist { choice }
+\clist_put_right:Nn  \c_xtemplate_keytypes_arg_clist { function }
+\clist_put_right:Nn  \c_xtemplate_keytypes_arg_clist { instance }
+\prop_new:N \g_xtemplate_object_type_prop
+\tl_new:N \l_xtemplate_assignments_tl
+\tl_new:N \l_xtemplate_collection_tl
+\prop_new:N \l_xtemplate_collections_prop
+\tl_new:N \l_xtemplate_default_tl
+\bool_new:N \l_xtemplate_error_bool
+\bool_new:N \l_xtemplate_global_bool
+\bool_new:N \l_xtemplate_restrict_bool
+\clist_new:N \l_xtemplate_restrict_clist
+\tl_new:N \l_xtemplate_key_name_tl
+\tl_new:N \l_xtemplate_keytype_tl
+\tl_new:N \l_xtemplate_keytype_arg_tl
+\tl_new:N \l_xtemplate_value_tl
+\tl_new:N \l_xtemplate_var_tl
+\seq_new:N \l_xtemplate_key_seq
+\prop_new:N \l_xtemplate_keytypes_prop
+\prop_new:N \l_xtemplate_values_prop
+\prop_new:N \l_xtemplate_vars_prop
+\clist_new:N \l_xtemplate_tmp_clist
+\dim_new:N \l_xtemplate_tmp_dim
+\int_new:N \l_xtemplate_tmp_int
+\skip_new:N \l_xtemplate_tmp_skip
+\tl_new:N \l_xtemplate_tmp_tl
+\cs_new:Npn \xtemplate_execute_if_arg_agree:nnT #1#2#3 {
+  \prop_get:NnN \g_xtemplate_object_type_prop {#1} \l_xtemplate_tmp_tl
+  \int_compare:nTF { #2 = \l_xtemplate_tmp_tl }
+     {#3}
+     {
+       \msg_kernel_error:nnxxx { xtemplate }
+         { argument-number-mismatch } {#1} { \l_xtemplate_tmp_tl } {#2}
+     }
+}
+\cs_new:Npn \xtemplate_execute_if_code_exist:nnT #1#2#3 {
+  \cs_if_exist:cTF { \c_xtemplate_code_root_tl #1 / #2 :w }
+    {#3}
+    {
+      \msg_kernel_error:nnxx { xtemplate } { no-template-code }
+        {#1} {#2}
+    }
+}
+\cs_new:Npn \xtemplate_execute_if_keytype_exist:nT #1#2 {
+  \cs_if_exist:cTF { xtemplate_store_value_ #1 :n }
+    {#2}
+    { \msg_kernel_error:nnx { xtemplate } { unknown-keytype } {#1} }
+}
+\cs_generate_variant:Nn \xtemplate_execute_if_keytype_exist:nT { V }
+\cs_new:Npn \xtemplate_execute_if_type_exist:nT #1#2 {
+  \prop_if_in:NnTF \g_xtemplate_object_type_prop {#1}
+    {#2}
+    { \msg_kernel_error:nnx { xtemplate } { unknown-object-type } {#1} }
+}
+\cs_new:Npn \xtemplate_if_keys_exist:nnT #1#2#3 {
+  \cs_if_exist:cTF
+    { g_ \c_xtemplate_keytypes_root_tl #1 / #2 _prop }
+    {#3}
+    {
+      \msg_kernel_error:nnxx { xtemplate } { unknown-template }
+        {#1} {#2}
+    }
+}
+\prg_set_conditional:Nnn \xtemplate_if_key_value:n { T } {
+  \str_if_eq:noTF { \KeyValue } { \tl_head:w #1 \q_stop } {
+    \prg_return_true:
+  }{
+    \prg_return_false:
+  }
+}
+\cs_generate_variant:Nn \xtemplate_if_key_value:nT { V }
+\prg_new_conditional:Nnn \xtemplate_if_eval_now:n { TF } {
+  \str_if_eq:noTF { \EvaluateNow } { \tl_head:w #1 \q_stop } {
+    \prg_return_true:
+  }{
+    \prg_return_false:
+  }
+}
+\prg_new_conditional:Nnn \xtemplate_if_instance_exist:nnn { T, F, TF } {
+  \cs_if_exist:cTF { \c_xtemplate_instances_root_tl #1 / #2 / #3 :w } {
+    \prg_return_true:
+  }{
+    \prg_return_false:
+  }
+}
+\prg_new_conditional:Nnn \xtemplate_if_use_template:n { TF } {
+  \str_if_eq:noTF { \UseTemplate } { \tl_head:w #1 \q_stop } {
+    \prg_return_true:
+  }{
+    \prg_return_false:
+  }
+}
+\cs_new:Npn \xtemplate_store_defaults:n #1 {
+  \cs_if_free:cT { g_ \c_xtemplate_defaults_root_tl #1 _prop } {
+    \prop_new:c { g_ \c_xtemplate_defaults_root_tl #1 _prop }
+  }
+  \prop_gset_eq:cN { g_ \c_xtemplate_defaults_root_tl #1 _prop }
+    \l_xtemplate_values_prop
+}
+\cs_new:Npn \xtemplate_store_keytypes:n #1 {
+  \cs_if_free:cTF { g_ \c_xtemplate_keytypes_root_tl #1 _prop } {
+    \msg_kernel_info:nnx { xtemplate } { define-template-interface }
+      {#1}
+    \prop_new:c { g_ \c_xtemplate_keytypes_root_tl #1 _prop }
+  }
+  {
+    \msg_kernel_warning:nnx { xtemplate }
+      { redefine-template-interface } {#1}
+  }
+  \prop_gset_eq:cN { g_ \c_xtemplate_keytypes_root_tl #1 _prop }
+    \l_xtemplate_keytypes_prop
+}
+\cs_new:Npn \xtemplate_store_values:n #1 {
+  \cs_if_free:cT { l_ \c_xtemplate_values_root_tl #1 _prop } {
+    \prop_new:c { l_ \c_xtemplate_values_root_tl #1 _prop }
+  }
+  \prop_set_eq:cN { l_ \c_xtemplate_values_root_tl #1 _prop }
+    \l_xtemplate_values_prop
+}
+\cs_new:Npn \xtemplate_store_restrictions:n #1 {
+  \cs_if_free:cT { g_ \c_xtemplate_restrict_root_tl #1 _clist } {
+    \clist_new:c { g_ \c_xtemplate_restrict_root_tl #1 _clist }
+  }
+  \clist_gset_eq:cN { g_ \c_xtemplate_restrict_root_tl #1 _clist }
+    \l_xtemplate_restrict_clist
+}
+\cs_new:Npn \xtemplate_store_vars:n #1 {
+  \cs_if_free:cTF { g_ \c_xtemplate_vars_root_tl #1 _prop } {
+    \msg_kernel_info:nnx { xtemplate } { define-template-code } {#1}
+    \prop_new:c { g_ \c_xtemplate_vars_root_tl #1 _prop }
+  }
+  {
+    \msg_kernel_warning:nnx { xtemplate } { redefine-template-code }
+      {#1}
+  }
+  \prop_gset_eq:cN { g_ \c_xtemplate_vars_root_tl #1 _prop }
+    \l_xtemplate_vars_prop
+}
+\cs_new:Npn \xtemplate_recover_defaults:n #1 {
+  \prop_set_eq:Nc \l_xtemplate_values_prop
+    { g_ \c_xtemplate_defaults_root_tl #1 _prop }
+}
+\cs_new:Npn \xtemplate_recover_keytypes:n #1 {
+  \prop_set_eq:Nc \l_xtemplate_keytypes_prop
+    { g_ \c_xtemplate_keytypes_root_tl #1 _prop }
+}
+\cs_new:Npn \xtemplate_recover_restrictions:n #1 {
+  \cs_if_free:cT { g_ \c_xtemplate_restrict_root_tl #1 _clist } {
+    \clist_new:c { g_ \c_xtemplate_restrict_root_tl #1 _clist }
+  }
+  \clist_set_eq:Nc \l_xtemplate_restrict_clist
+    { g_ \c_xtemplate_restrict_root_tl #1 _clist }
+}
+\cs_new:Npn \xtemplate_recover_values:n #1 {
+  \prop_set_eq:Nc \l_xtemplate_values_prop
+    { l_ \c_xtemplate_values_root_tl #1 _prop }
+}
+\cs_new:Npn \xtemplate_recover_vars:n #1 {
+  \prop_set_eq:Nc \l_xtemplate_vars_prop
+    { g_ \c_xtemplate_vars_root_tl #1 _prop }
+}
+\cs_new:Npn \xtemplate_declare_object_type:nn #1#2 {
+  \int_set:Nn \l_xtemplate_tmp_int {#2}
+  \bool_if:nTF {
+    \int_compare_p:n { #2 > \c_nine } ||
+    \int_compare_p:n { #2 < \c_zero }
+  } {
+    \msg_kernel_error:nnxx { xtemplate } { bad-number-of-arguments }
+      {#1} { \exp_not:V \l_xtemplate_tmp_int }
+  }{
+    \prop_if_in:NnTF \g_xtemplate_object_type_prop {#1}
+      {
+        \msg_kernel_warning:nnxx { xtemplate } { redefine-object-type }
+          {#1} {#2}
+      }
+      {
+        \msg_kernel_info:nnxx { xtemplate } { define-object-type }
+          {#1} {#2}
+      }
+    \prop_gput:NnV \g_xtemplate_object_type_prop {#1}
+      \l_xtemplate_tmp_int
+  }
+}
+\cs_new:Npn \xtemplate_declare_template_keys:nnnn #1#2#3#4 {
+  \xtemplate_execute_if_type_exist:nT {#1}
+    {
+     \xtemplate_execute_if_arg_agree:nnT {#1} {#3}
+      {
+       \prop_clear:N \l_xtemplate_values_prop
+       \prop_clear:N \l_xtemplate_keytypes_prop
+       \seq_clear:N \l_xtemplate_key_seq
+       \KV_process_space_removal_sanitize:NNn
+         \xtemplate_parse_keys_elt:n \xtemplate_parse_keys_elt:nn {#4}
+       \prop_put:NVV \l_xtemplate_keytypes_prop \c_xtemplate_key_order_tl
+ \l_xtemplate_key_seq
+       \xtemplate_store_defaults:n { #1 / #2 }
+       \xtemplate_store_keytypes:n { #1 / #2 }
+      }
+    }
+}
+\cs_new:Npn \xtemplate_parse_keys_elt:n #1 {
+  \xtemplate_split_keytype:n {#1}
+  \bool_if:NF \l_xtemplate_error_bool
+    {
+      \xtemplate_execute_if_keytype_exist:VT \l_xtemplate_keytype_tl
+        {
+          \clist_map_function:nN { choice , function , instance }
+            \xtemplate_parse_keys_elt_aux:n
+          \bool_if:NF \l_xtemplate_error_bool
+            {
+              \seq_if_in:NVTF \l_xtemplate_key_seq
+                \l_xtemplate_key_name_tl
+                {
+                  \msg_kernel_error:nnx { xtemplate }
+                    { duplicate-key-interface }
+                    { \l_xtemplate_key_name_tl }
+                }
+                { \xtemplate_parse_keys_elt_aux: }
+            }
+        }
+    }
+}
+\cs_new_nopar:Npn \xtemplate_parse_keys_elt_aux:n #1 {
+  \str_if_eq:VnT \l_xtemplate_keytype_tl {#1} {
+    \tl_if_empty:NT \l_xtemplate_keytype_arg_tl {
+      \msg_kernel_error:nnx { xtemplate }
+        { keytype-requires-argument } {#1}
+      \bool_set_true:N \l_xtemplate_error_bool
+      \clist_map_break:
+    }
+  }
+}
+\cs_new_nopar:Npn \xtemplate_parse_keys_elt_aux: {
+  \tl_set:Nx \l_xtemplate_tmp_tl {
+    \l_xtemplate_keytype_tl
+    \l_xtemplate_keytype_arg_tl
+  }
+  \prop_put:NVV \l_xtemplate_keytypes_prop \l_xtemplate_key_name_tl
+    \l_xtemplate_tmp_tl
+  \seq_put_right:NV \l_xtemplate_key_seq \l_xtemplate_key_name_tl
+  \str_if_eq:VnT \l_xtemplate_keytype_tl { choice } {
+    \clist_if_in:NnT \l_xtemplate_keytype_arg_tl { unknown } {
+      \msg_kernel_error:nn { xtemplate } { choice-unknown-reserved }
+    }
+  }
+}
+\cs_new:Npn \xtemplate_parse_keys_elt:nn #1#2 {
+  \xtemplate_parse_keys_elt:n {#1}
+  \str_if_eq:VnTF \l_xtemplate_keytype_tl { choice } {
+    \xtemplate_store_value_choice_name:n {#2}
+  }{
+    \use:c { xtemplate_store_value_ \l_xtemplate_keytype_tl :n } {#2}
+  }
+}
+\group_begin:
+\char_set_lccode:nn { `\@ } { `\: }
+\char_make_other:N \@
+\tl_to_lowercase:n {
+  \group_end:
+  \cs_new:Npn \xtemplate_split_keytype:n #1 {
+    \bool_set_false:N \l_xtemplate_error_bool
+    \tl_set:Nn \l_xtemplate_tmp_tl {#1}
+    \tl_remove_all_in:Nn \l_xtemplate_tmp_tl { ~ }
+    \tl_replace_all_in:Nnn \l_xtemplate_tmp_tl { : } { @ }
+    \tl_if_in:VnTF \l_xtemplate_tmp_tl { @ } {
+      \exp_after:wN \xtemplate_split_keytype_aux:w \l_xtemplate_tmp_tl
+        \q_stop
+    }{
+      \bool_set_true:N \l_xtemplate_error_bool
+      \msg_kernel_error:nnx { xtemplate } { no-keytype } {#1}
+    }
+  }
+  \cs_new:Npn \xtemplate_split_keytype_aux:w #1 @ #2 \q_stop {
+    \tl_if_empty:nT {#1} {
+      \msg_kernel_error:nnx { xtemplate } { empty-key-name } { @ #2 }
+    }
+    \tl_set:Nx \l_xtemplate_key_name_tl { \tl_to_str:n {#1} }
+    \xtemplate_split_keytype_arg:n {#2}
+  }
+}
+\cs_new:Npn \xtemplate_split_keytype_arg:n #1 {
+  \tl_set:Nn \l_xtemplate_keytype_tl {#1}
+  \tl_clear:N \l_xtemplate_keytype_arg_tl
+  \cs_set_nopar:Npn \xtemplate_split_keytype_arg_aux:n ##1 {
+    \tl_if_in:nnT {#1} {##1} {
+      \cs_set:Npn \xtemplate_split_keytype_arg_aux:w
+        ####1 ##1 ####2 \q_stop {
+          \tl_if_empty:nT {####1} {
+            \tl_set:Nn \l_xtemplate_keytype_tl {##1}
+            \tl_set:Nn \l_xtemplate_keytype_arg_tl {####2}
+            \clist_map_break:
+        }
+      }
+      \xtemplate_split_keytype_arg_aux:w #1 \q_stop
+    }
+  }
+  \clist_map_function:NN \c_xtemplate_keytypes_arg_clist
+    \xtemplate_split_keytype_arg_aux:n
+}
+\cs_generate_variant:Nn \xtemplate_split_keytype_arg:n { V }
+\cs_new_nopar:Npn \xtemplate_split_keytype_arg_aux:n #1 { }
+\cs_new_nopar:Npn \xtemplate_split_keytype_arg_aux:w #1 \q_stop { }
+\cs_new:Npn \xtemplate_store_value_boolean:n #1 {
+  \xtemplate_if_eval_now:nTF {#1} {
+    \bool_if:cTF { c_ #1 _bool } {
+      \prop_put:NVn \l_xtemplate_values_prop \l_xtemplate_key_name_tl
+        { true }
+    }{
+      \prop_put:NVn \l_xtemplate_values_prop \l_xtemplate_key_name_tl
+        { false }
+    }
+  }{
+    \prop_put:NVn \l_xtemplate_values_prop \l_xtemplate_key_name_tl {#1}
+  }
+}
+\cs_new:Npn \xtemplate_store_value_choice:n #1 {
+  \tl_set:Nx \l_xtemplate_tmp_tl
+    { \l_xtemplate_key_name_tl \c_space_tl #1 }
+  \prop_if_in:NVTF \l_xtemplate_vars_prop \l_xtemplate_tmp_tl {
+    \xtemplate_store_value_choice_aux:V \l_xtemplate_tmp_tl
+  }{
+    \tl_set:Nx \l_xtemplate_tmp_tl
+      { \l_xtemplate_key_name_tl \c_space_tl unknown }
+    \prop_if_in:NVTF \l_xtemplate_vars_prop \l_xtemplate_tmp_tl {
+      \xtemplate_store_value_choice_aux:V \l_xtemplate_tmp_tl
+    }{
+      \prop_get:NVN \l_xtemplate_keytypes_prop \l_xtemplate_key_name_tl
+        \l_xtemplate_tmp_tl
+      \xtemplate_split_keytype_arg:V \l_xtemplate_tmp_tl
+      \msg_kernel_error:nnxxx { xtemplate } { unknown-choice }
+        {#1}
+        { \l_xtemplate_key_name_tl }
+        { \l_xtemplate_keytype_arg_tl }
+      \prop_gdel:NV \l_xtemplate_values_prop \l_xtemplate_key_name_tl
+    }
+  }
+}
+\cs_generate_variant:Nn \xtemplate_store_value_choice:n { V }
+\cs_new:Npn \xtemplate_store_value_choice_aux:n #1 {
+  \prop_get:NnN \l_xtemplate_vars_prop {#1} \l_xtemplate_tmp_tl
+  \prop_put:NVV \l_xtemplate_values_prop \l_xtemplate_key_name_tl
+    \l_xtemplate_tmp_tl
+}
+\cs_generate_variant:Nn \xtemplate_store_value_choice_aux:n { V }
+\cs_new:Npn \xtemplate_store_value_choice_name:n #1 {
+  \tl_set:Nx \l_xtemplate_tmp_tl
+    { \l_xtemplate_key_name_tl \c_space_tl default }
+  \prop_put:NVn \l_xtemplate_values_prop \l_xtemplate_tmp_tl {#1}
+}
+\cs_new:Npn \xtemplate_store_value_code:n #1 {
+  \prop_put:NVn \l_xtemplate_values_prop \l_xtemplate_key_name_tl {#1}
+}
+\cs_new:Npn \xtemplate_store_value_commalist:n #1 {
+  \prop_put:NVn \l_xtemplate_values_prop \l_xtemplate_key_name_tl {#1}
+}
+\cs_new:Npn \xtemplate_store_value_function:n #1 {
+  \prop_put:NVn \l_xtemplate_values_prop \l_xtemplate_key_name_tl {#1}
+}
+\cs_new:Npn \xtemplate_store_value_instance:n #1 {
+  \prop_put:NVn \l_xtemplate_values_prop \l_xtemplate_key_name_tl {#1}
+}
+\cs_new:Npn \xtemplate_store_value_tokenlist:n #1 {
+  \prop_put:NVn \l_xtemplate_values_prop \l_xtemplate_key_name_tl {#1}
+}
+\cs_new:Npn \xtemplate_store_value_integer:n #1 {
+  \xtemplate_if_eval_now:nTF {#1} {
+    \int_set:Nn \l_xtemplate_tmp_int {#1}
+    \prop_put:NVV \l_xtemplate_values_prop \l_xtemplate_key_name_tl
+      \l_xtemplate_tmp_int
+  }{
+    \prop_put:NVn \l_xtemplate_values_prop \l_xtemplate_key_name_tl {#1}
+  }
+}
+\cs_new:Npn \xtemplate_store_value_length:n #1 {
+  \xtemplate_if_eval_now:nTF {#1} {
+    \dim_set:Nn \l_xtemplate_tmp_dim {#1}
+    \prop_put:NVV \l_xtemplate_values_prop \l_xtemplate_key_name_tl
+      \l_xtemplate_tmp_dim
+  }{
+    \prop_put:NVn \l_xtemplate_values_prop \l_xtemplate_key_name_tl {#1}
+  }
+}
+\cs_new:Npn \xtemplate_store_value_skip:n #1 {
+  \xtemplate_if_eval_now:nTF {#1} {
+    \skip_set:Nn \l_xtemplate_tmp_skip {#1}
+    \prop_put:NVV \l_xtemplate_values_prop \l_xtemplate_key_name_tl
+      \l_xtemplate_tmp_skip
+  }{
+    \prop_put:NVn \l_xtemplate_values_prop \l_xtemplate_key_name_tl {#1}
+  }
+}
+\cs_new:Npn \xtemplate_declare_template_code:nnnnn #1#2#3#4#5 {
+  \xtemplate_execute_if_type_exist:nT {#1}
+    {
+      \xtemplate_execute_if_arg_agree:nnT {#1}{#3}
+       {
+        \xtemplate_if_keys_exist:nnT {#1} {#2}
+          {
+            \xtemplate_store_key_implementation:nnn {#1} {#2} {#4}
+            \cs_generate_from_arg_count:cNnn
+              { \c_xtemplate_code_root_tl #1 / #2 :w } \cs_gset:Npn
+              {#3} {#5}
+          }
+       }
+    }
+}
+\cs_set:Npn \xtemplate_store_key_implementation:nnn #1#2#3 {
+  \xtemplate_recover_defaults:n { #1 / #2 }
+  \xtemplate_recover_keytypes:n { #1 / #2 }
+  \prop_clear:N \l_xtemplate_vars_prop
+  \KV_process_space_removal_sanitize:NNn
+    \xtemplate_parse_vars_elt:n \xtemplate_parse_vars_elt:nn {#3}
+  \xtemplate_store_defaults:n { #1 / #2 }
+  \xtemplate_store_vars:n { #1 / #2 }
+  \clist_clear:N \l_xtemplate_restrict_clist
+  \xtemplate_store_restrictions:n { #1 / #2 }
+  \prop_del:NV \l_xtemplate_keytypes_prop \c_xtemplate_key_order_tl
+  \prop_if_empty:NF \l_xtemplate_keytypes_prop {
+    \prop_map_inline:Nn \l_xtemplate_keytypes_prop {
+      \msg_kernel_error:nnxxx { xtemplate } { key-not-implemented }
+        {##1} {#2} {#1}
+    }
+  }
+}
+\cs_new:Npn \xtemplate_parse_vars_elt:n #1 {
+  \msg_kernel_error:nnx { xtemplate } { key-no-variable } {#1}
+}
+\cs_new:Npn \xtemplate_parse_vars_elt:nn #1#2 {
+  \tl_set:Nx \l_xtemplate_key_name_tl { \tl_to_str:n {#1} }
+  \tl_replace_all_in:Nnn \l_xtemplate_key_name_tl { ~ } { }
+  \prop_if_in:NVTF \l_xtemplate_keytypes_prop \l_xtemplate_key_name_tl {
+    \prop_get:NVN \l_xtemplate_keytypes_prop \l_xtemplate_key_name_tl
+      \l_xtemplate_keytype_tl
+    \xtemplate_split_keytype_arg:V \l_xtemplate_keytype_tl
+    \xtemplate_parse_vars_elt_aux:n {#2}
+    \prop_del:NV \l_xtemplate_keytypes_prop \l_xtemplate_key_name_tl
+  }{
+    \msg_kernel_error:nnx { xtemplate } { unknown-key } {#1}
+  }
+}
+\cs_new:Npn \xtemplate_parse_vars_elt_aux:n #1 {
+  \str_if_eq:VnTF \l_xtemplate_keytype_tl { choice }
+    { \xtemplate_implement_choices:n {#1} }
+    {
+      \str_if_eq:VnTF \l_xtemplate_keytype_tl { code }
+        {
+          \prop_put:NVn \l_xtemplate_vars_prop
+            \l_xtemplate_key_name_tl {#1}
+        }
+        {
+          \str_if_eq:noTF {#1} { \tl_head:w #1 \q_stop }
+            {
+              \cs_if_exist:NTF #1
+                {
+                  \prop_put:NVn \l_xtemplate_vars_prop
+                    \l_xtemplate_key_name_tl {#1}
+                }
+                {
+                  \msg_kernel_error:nnx { xtemplate }
+                    { undeclared-variable }
+                    { \exp_not:N #1 }
+                }
+            }
+            {
+              \tl_if_in:nnTF {#1} { global }
+                { \xtemplate_parse_vars_elt_aux:w #1 \q_stop }
+                {
+                  \msg_kernel_error:nnx { xtemplate } { bad-variable }
+                    { \exp_not:n {#1} }
+                }
+            }
+        }
+    }
+}
+\cs_new:Npn \xtemplate_parse_vars_elt_aux:w #1 global #2 \q_stop {
+  \tl_if_empty:nTF {#1}
+    {
+      \str_if_eq:noTF {#2} { \tl_head:w #2 \q_stop }
+        {
+          \cs_if_exist:NTF #2
+            {
+              \prop_put:NVn \l_xtemplate_vars_prop
+                \l_xtemplate_key_name_tl { #1 global #2 }
+            }
+            {
+              \msg_kernel_error:nnx { xtemplate }
+                { undeclared-variable }
+                { \exp_not:N #2 }
+            }
+        }
+        {
+          \msg_kernel_error:nnx { xtemplate } { bad-variable }
+            { \exp_not:n { #1 global #2 } }
+        }
+    }
+    {
+        \msg_kernel_error:nnx { xtemplate } { bad-variable }
+          { \exp_not:n { #1 global #2 } }
+    }
+}
+\cs_new:Npn \xtemplate_implement_choices:n #1 {
+  \clist_set_eq:NN \l_xtemplate_tmp_clist \l_xtemplate_keytype_arg_tl
+  \prop_put:NVn \l_xtemplate_vars_prop \l_xtemplate_key_name_tl { }
+  \KV_process_space_removal_sanitize:NNn
+    \xtemplate_implement_choice_elt:n \xtemplate_implement_choice_elt:nn
+    {#1}
+  \tl_set:Nx \l_xtemplate_tmp_tl
+    { \l_xtemplate_key_name_tl \c_space_tl default }
+  \prop_if_in:NVT \l_xtemplate_values_prop \l_xtemplate_tmp_tl {
+    \prop_get:NVN \l_xtemplate_values_prop \l_xtemplate_tmp_tl
+      \l_xtemplate_tmp_tl
+    \xtemplate_store_value_choice:V \l_xtemplate_tmp_tl
+  }
+  \clist_if_empty:NF \l_xtemplate_tmp_clist {
+    \clist_map_inline:Nn \l_xtemplate_tmp_clist
+      {
+        \msg_kernel_error:nnx { xtemplate } { choice-not-implemented }
+          {##1}
+      }
+  }
+}
+\cs_new:Npn \xtemplate_implement_choice_elt:n #1 {
+  \clist_if_empty:NTF \l_xtemplate_tmp_clist {
+    \str_if_eq:nnF {#1} { unknown } {
+      \prop_get:NVN \l_xtemplate_keytypes_prop \l_xtemplate_key_name_tl
+        \l_xtemplate_tmp_tl
+      \xtemplate_split_keytype_arg:V \l_xtemplate_tmp_tl
+      \msg_kernel_error:nnxxx { xtemplate } { unknown-choice }
+        {#1}
+        { \l_xtemplate_key_name_tl }
+        { \l_xtemplate_keytype_arg_tl }
+    }
+  }{
+    \clist_if_in:NnTF \l_xtemplate_tmp_clist {#1} {
+      \clist_remove_element:Nn \l_xtemplate_tmp_clist {#1}
+    }{
+      \prop_get:NVN \l_xtemplate_keytypes_prop \l_xtemplate_key_name_tl
+        \l_xtemplate_tmp_tl
+      \xtemplate_split_keytype_arg:V \l_xtemplate_tmp_tl
+      \msg_kernel_error:nnxxx { xtemplate } { unknown-choice }
+        {#1}
+        { \l_xtemplate_key_name_tl }
+        { \l_xtemplate_keytype_arg_tl }
+    }
+  }
+}
+\cs_new:Npn \xtemplate_implement_choice_elt:nn #1#2 {
+  \xtemplate_implement_choice_elt:n {#1}
+  \tl_set:Nx \l_xtemplate_tmp_tl
+    { \l_xtemplate_key_name_tl \c_space_tl #1 }
+  \prop_put:NVn \l_xtemplate_vars_prop \l_xtemplate_tmp_tl {#2}
+}
+\cs_new:Npn \xtemplate_declare_restricted:nnnn #1#2#3#4 {
+  \xtemplate_if_keys_exist:nnT {#1} {#2}
+    {
+      \xtemplate_set_template_eq:nn { #1 / #3 } { #1 / #2 }
+      \bool_set_true:N \l_xtemplate_restrict_bool
+      \xtemplate_edit_defaults_aux:nnn {#1} {#3} {#4}
+    }
+}
+\cs_new:Npn \xtemplate_edit_defaults:nnn {
+  \bool_set_false:N \l_xtemplate_restrict_bool
+  \xtemplate_edit_defaults_aux:nnn
+}
+\cs_new:Npn \xtemplate_edit_defaults_aux:nnn #1#2#3 {
+  \xtemplate_if_keys_exist:nnT {#1} {#2}
+    {
+      \xtemplate_recover_defaults:n { #1 / #2 }
+      \xtemplate_recover_restrictions:n { #1 / #2 }
+      \xtemplate_parse_values:nn { #1 / #2 } {#3}
+      \xtemplate_store_defaults:n { #1 / #2 }
+      \xtemplate_store_restrictions:n { #1 / #2 }
+    }
+}
+\cs_new:Npn \xtemplate_parse_values:nn #1#2 {
+  \xtemplate_recover_keytypes:n {#1}
+  \clist_clear:N \l_xtemplate_restrict_clist
+  \KV_process_space_removal_sanitize:NNn
+    \xtemplate_parse_values_elt:n \xtemplate_parse_values_elt:nn {#2}
+}
+\cs_new:Npn \xtemplate_parse_values_elt:n #1 {
+  \bool_set_true:N \l_xtemplate_error_bool
+  \msg_kernel_error:nnx { xtemplate } { key-no-value } {#1}
+}
+\cs_new:Npn \xtemplate_parse_values_elt:nn #1#2 {
+  \tl_set:Nx \l_xtemplate_key_name_tl { \tl_to_str:n {#1} }
+  \tl_replace_all_in:Nnn \l_xtemplate_key_name_tl { ~ } { }
+  \prop_if_in:NVTF \l_xtemplate_keytypes_prop \l_xtemplate_key_name_tl {
+    \bool_if:NTF \l_xtemplate_restrict_bool {
+      \clist_if_in:NVF \l_xtemplate_restrict_clist
+        \l_xtemplate_key_name_tl {
+        \xtemplate_parse_values_elt_aux:Vn \l_xtemplate_key_name_tl {#2}
+      }
+    }{
+      \xtemplate_parse_values_elt_aux:Vn \l_xtemplate_key_name_tl {#2}
+    }
+  }{
+    \msg_kernel_error:nnx { xtemplate } { unknown-key }
+      { \l_xtemplate_key_name_tl }
+  }
+}
+\cs_new:Npn \xtemplate_parse_values_elt_aux:nn #1#2 {
+  \clist_put_right:Nn \l_xtemplate_restrict_clist  {#1}
+  \prop_get:NnN \l_xtemplate_keytypes_prop {#1} \l_xtemplate_tmp_tl
+  \xtemplate_split_keytype_arg:V \l_xtemplate_tmp_tl
+  \use:c { xtemplate_store_value_ \l_xtemplate_keytype_tl :n } {#2}
+}
+\cs_generate_variant:Nn \xtemplate_parse_values_elt_aux:nn { Vn }
+\cs_new:Npn \xtemplate_set_template_eq:nn #1#2 {
+  \xtemplate_recover_defaults:n {#2}
+  \xtemplate_store_defaults:n {#1}
+  \xtemplate_recover_keytypes:n {#2}
+  \xtemplate_store_keytypes:n {#1}
+  \xtemplate_recover_vars:n {#2}
+  \xtemplate_store_vars:n {#1}
+  \cs_gset_eq:cc { \c_xtemplate_code_root_tl #1 :w }
+    { \c_xtemplate_code_root_tl #2 :w }
+}
+\cs_new:Npn \xtemplate_declare_instance:nnnnn #1#2#3#4#5 {
+  \xtemplate_execute_if_code_exist:nnT {#1} {#2}
+    {
+      \xtemplate_recover_defaults:n { #1 / #2 }
+      \xtemplate_recover_vars:n { #1 / #2 }
+      \xtemplate_declare_instance_aux:nnnnn {#1} {#2} {#3} {#4} {#5}
+    }
+}
+\cs_new:Npn \xtemplate_declare_instance_aux:nnnnn #1#2#3#4#5 {
+  \bool_set_false:N \l_xtemplate_error_bool
+  \xtemplate_parse_values:nn { #1 / #2 } {#5}
+  \bool_if:NF \l_xtemplate_error_bool {
+    \prop_put:Nnn \l_xtemplate_values_prop { from~template } {#2}
+    \xtemplate_store_values:n { #1 / #3 / #4 }
+    \xtemplate_convert_to_assignments:
+    \cs_set:cpx { \c_xtemplate_instances_root_tl #1 / #3 / #4 :w } {
+      \exp_not:N \xtemplate_assignments_push:n {
+        \exp_not:V \l_xtemplate_assignments_tl
+      }
+      \exp_not:c { \c_xtemplate_code_root_tl #1 / #2 :w }
+    }
+    \xtemplate_if_instance_exist:nnnF {#1} { } {#4} {
+      \cs_set_eq:cc
+        { \c_xtemplate_instances_root_tl #1 /    / #4 :w }
+        { \c_xtemplate_instances_root_tl #1 / #3 / #4 :w }
+    }
+  }
+}
+\cs_new:Npn \xtemplate_edit_instance:nnnn #1#2#3 {
+  \xtemplate_if_instance_exist:nnnTF {#1} {#2} {#3}
+    {
+      \xtemplate_recover_values:n { #1 / #2 / #3 }
+      \prop_get:NnN \l_xtemplate_values_prop { from~template }
+        \l_xtemplate_tmp_tl
+      \xtemplate_edit_instance_aux:nVnnn {#1} \l_xtemplate_tmp_tl
+        {#2} {#3}
+    }
+    {
+      \msg_kernel_error:nnxx { xtemplate } { unknown-instance }
+        {#1} {#3}
+    }
+}
+\cs_new:Npn \xtemplate_edit_instance_aux:nnnnn #1#2 {
+  \xtemplate_recover_vars:n { #1 / #2 }
+  \xtemplate_declare_instance_aux:nnnnn {#1} {#2}
+}
+\cs_generate_variant:Nn \xtemplate_edit_instance_aux:nnnnn { nV }
+\cs_new_nopar:Npn \xtemplate_convert_to_assignments: {
+  \tl_clear:N \l_xtemplate_assignments_tl
+  \prop_get:NVN \l_xtemplate_keytypes_prop \c_xtemplate_key_order_tl
+    \l_xtemplate_key_seq
+  \seq_map_function:NN \l_xtemplate_key_seq
+    \xtemplate_convert_to_assignments_aux:n
+}
+\cs_new:Npn \xtemplate_convert_to_assignments_aux:n #1 {
+  \prop_get:NnN \l_xtemplate_keytypes_prop {#1} \l_xtemplate_tmp_tl
+  \xtemplate_convert_to_assignments_aux:nV {#1} \l_xtemplate_tmp_tl
+}
+\cs_new:Npn \xtemplate_convert_to_assignments_aux:nn #1#2 {
+  \prop_if_in:NnT \l_xtemplate_values_prop {#1} {
+    \prop_if_in:NnTF \l_xtemplate_vars_prop {#1} {
+      \prop_get:NnN \l_xtemplate_values_prop {#1} \l_xtemplate_value_tl
+      \prop_get:NnN \l_xtemplate_vars_prop {#1} \l_xtemplate_var_tl
+      \xtemplate_split_keytype_arg:n {#2}
+      \str_if_eq:VnF \l_xtemplate_keytype_tl { choice } {
+        \str_if_eq:VnF \l_xtemplate_keytype_tl { code } {
+          \xtemplate_find_global:
+        }
+      }
+      \use:c { xtemplate_assign_ \l_xtemplate_keytype_tl : }
+    }{
+      \msg_kernel_error:nnx { xtemplate } { unknown-attribute } {#1}
+    }
+  }
+}
+\cs_generate_variant:Nn \xtemplate_convert_to_assignments_aux:nn { nV }
+\cs_new_nopar:Npn \xtemplate_find_global: {
+  \bool_set_false:N \l_xtemplate_global_bool
+  \tl_if_in:VnT \l_xtemplate_var_tl { global } {
+    \exp_after:wN \xtemplate_find_global_aux:w \l_xtemplate_var_tl \q_stop
+  }
+}
+\cs_new:Npn \xtemplate_find_global_aux:w  #1 global #2 \q_stop {
+  \tl_set:Nn \l_xtemplate_var_tl {#2}
+  \bool_set_true:N \l_xtemplate_global_bool
+}
+\cs_new:Npn \xtemplate_use_template:nnn #1#2#3 {
+  \xtemplate_recover_defaults:n { #1 / #2 }
+  \xtemplate_recover_vars:n { #1 / #2 }
+  \xtemplate_parse_values:nn { #1 / #2 } {#3}
+  \xtemplate_convert_to_assignments:
+  \use:c { \c_xtemplate_code_root_tl #1 / #2 :w  }
+}
+\cs_new_nopar:Npn \xtemplate_assign_boolean: {
+  \bool_if:NTF \l_xtemplate_global_bool {
+    \xtemplate_assign_boolean_aux:n { bool_gset }
+  }{
+    \xtemplate_assign_boolean_aux:n { bool_set }
+  }
+}
+\cs_new_nopar:Npn \xtemplate_assign_boolean_aux:n #1 {
+  \xtemplate_if_key_value:VT \l_xtemplate_value_tl {
+    \xtemplate_key_to_value:
+  }
+  \tl_put_left:Nx \l_xtemplate_assignments_tl {
+    \exp_not:c { #1 _ \l_xtemplate_value_tl :N }
+    \exp_not:V \l_xtemplate_var_tl
+  }
+}
+\cs_new_nopar:Npn \xtemplate_assign_choice: {
+  \tl_put_left:NV \l_xtemplate_assignments_tl \l_xtemplate_value_tl
+}
+\cs_new_nopar:Npn \xtemplate_assign_code: {
+  \tl_put_left:Nx \l_xtemplate_assignments_tl {
+    \exp_not:N \cs_set:Npn \exp_not:N \xtemplate_assign_code:n
+      \exp_not:n {##1}
+        { \exp_not:V \l_xtemplate_var_tl }
+    \exp_not:N \xtemplate_assign_code:n
+      { \exp_not:V \l_xtemplate_value_tl }
+  }
+}
+\cs_new:Npn \xtemplate_assign_code:n #1 { }
+\cs_new_nopar:Npn \xtemplate_assign_function: {
+  \bool_if:NTF \l_xtemplate_global_bool {
+    \xtemplate_assign_function_aux:N \cs_gset:Npn
+  }{
+    \xtemplate_assign_function_aux:N \cs_set:Npn
+  }
+}
+\cs_new_nopar:Npn \xtemplate_assign_function_aux:N #1 {
+  \tl_put_left:Nx \l_xtemplate_assignments_tl {
+    \exp_not:N \cs_generate_from_arg_count:NNnn
+      \exp_not:V \l_xtemplate_var_tl
+      \exp_not:N #1
+      { \exp_not:V \l_xtemplate_keytype_arg_tl }
+      { \exp_not:V \l_xtemplate_value_tl }
+  }
+}
+\cs_new_nopar:Npn \xtemplate_assign_instance: {
+  \bool_if:NTF \l_xtemplate_global_bool {
+    \xtemplate_assign_instance_aux:N \cs_gset:Npn
+  }{
+    \xtemplate_assign_instance_aux:N \cs_set:Npn
+  }
+}
+\cs_new_nopar:Npn \xtemplate_assign_instance_aux:N #1 {
+  \tl_put_left:Nx \l_xtemplate_assignments_tl {
+    \exp_not:N #1 \exp_not:V \l_xtemplate_var_tl {
+      \exp_not:N \xtemplate_use_instance:nn
+        { \exp_not:V \l_xtemplate_keytype_arg_tl }
+        { \exp_not:V \l_xtemplate_value_tl }
+    }
+  }
+}
+\cs_new_nopar:Npn \xtemplate_assign_integer: {
+  \bool_if:NTF \l_xtemplate_global_bool {
+    \xtemplate_assign_variable:N \int_gset:Nn
+  }{
+    \xtemplate_assign_variable:N \int_set:Nn
+  }
+}
+\cs_new_nopar:Npn \xtemplate_assign_length: {
+  \bool_if:NTF \l_xtemplate_global_bool {
+    \xtemplate_assign_variable:N \dim_gset:Nn
+  }{
+    \xtemplate_assign_variable:N \dim_set:Nn
+  }
+}
+\cs_new_nopar:Npn \xtemplate_assign_skip: {
+  \bool_if:NTF \l_xtemplate_global_bool {
+    \xtemplate_assign_variable:N \skip_gset:Nn
+  }{
+    \xtemplate_assign_variable:N \skip_set:Nn
+  }
+}
+\cs_new_nopar:Npn \xtemplate_assign_tokenlist: {
+  \bool_if:NTF \l_xtemplate_global_bool {
+    \xtemplate_assign_tokenlist_aux:N \tl_gset:Nn
+  }{
+    \xtemplate_assign_tokenlist_aux:N \tl_set:Nn
+  }
+}
+\cs_new_eq:NN \xtemplate_assign_commalist:
+  \xtemplate_assign_tokenlist:
+\cs_new_nopar:Npn \xtemplate_assign_tokenlist_aux:N #1 {
+  \tl_put_left:Nx \l_xtemplate_assignments_tl {
+    \exp_not:N #1 \exp_not:V \l_xtemplate_var_tl
+      { \exp_not:V \l_xtemplate_value_tl }
+  }
+}
+\cs_new_nopar:Npn \xtemplate_assign_variable:N #1 {
+  \xtemplate_if_key_value:VT \l_xtemplate_value_tl {
+    \xtemplate_key_to_value:
+  }
+  \tl_put_left:Nx \l_xtemplate_assignments_tl {
+    \exp_not:N #1 \exp_not:V \l_xtemplate_var_tl
+       { \exp_not:V \l_xtemplate_value_tl }
+  }
+}
+\cs_new_nopar:Npn \xtemplate_key_to_value: {
+  \exp_after:wN \xtemplate_key_to_value_aux:w \l_xtemplate_value_tl
+}
+\cs_new:Npn \xtemplate_key_to_value_aux:w \KeyValue #1 {
+  \tl_set:Nx \l_xtemplate_tmp_tl { \tl_to_str:n {#1} }
+  \tl_replace_all_in:Nnn \l_xtemplate_key_name_tl { ~ } { }
+  \prop_if_in:NVTF \l_xtemplate_vars_prop \l_xtemplate_tmp_tl {
+    \prop_get:NVN \l_xtemplate_vars_prop \l_xtemplate_tmp_tl
+       \l_xtemplate_value_tl
+  }{
+    \msg_kernel_error:nnx { xtemplate } { unknown-attribute }
+      { \l_xtemplate_tmp_tl }
+  }
+}
+\cs_new:Npn \xtemplate_use_instance:nn #1#2 {
+  \xtemplate_if_use_template:nTF {#2} {
+    \xtemplate_use_instance_aux:nNnnn {#1} #2
+  }{
+    \xtemplate_use_instance_aux:nn {#1} {#2}
+  }
+}
+\cs_new:Npn \xtemplate_use_instance_aux:nNnnn #1#2#3#4#5 {
+  \str_if_eq:nnTF {#1} {#3} {
+    \xtemplate_use_template:nnn {#3} {#4} {#5}
+  }{
+    \msg_kernel_error:nnxx { xtemplate } { type-mismatch } {#1} {#3}
+  }
+}
+\cs_new:Npn \xtemplate_use_instance_aux:nn #1#2 {
+  \xtemplate_get_collection:n {#1}
+  \xtemplate_if_instance_exist:nnnTF
+    {#1} { \l_xtemplate_collection_tl } {#2} {
+    \use:c {
+      \c_xtemplate_instances_root_tl #1 / \l_xtemplate_collection_tl /#2
+      :w
+    }
+  }{
+    \xtemplate_if_instance_exist:nnnTF {#1} { } {#2} {
+      \use:c { \c_xtemplate_instances_root_tl #1 / / #2 :w }
+    }{
+      \msg_kernel_error:nnxx { xtemplate } { unknown-instance }
+        {#1} {#2}
+    }
+  }
+}
+\cs_new:Npn \xtemplate_use_collection:nn #1#2 {
+  \prop_put:Nnn \l_xtemplate_collections_prop {#1} {#2}
+}
+\cs_new:Npn \xtemplate_get_collection:n #1 {
+  \prop_if_in:NnTF \l_xtemplate_collections_prop {#1} {
+    \prop_get:NnN \l_xtemplate_collections_prop {#1}
+      \l_xtemplate_collection_tl
+  }{
+    \tl_clear:N \l_xtemplate_collection_tl
+  }
+}
+\cs_new_nopar:Npn \xtemplate_assignments_pop: {
+  \tl_use:N \l_xtemplate_assignments_tl
+}
+\cs_new:Npn \xtemplate_assignments_push:n #1 {
+  \tl_set:Nn \l_xtemplate_assignments_tl {#1}
+}
+\cs_new:Npn \xtemplate_show_code:nn #1#2 {
+  \xtemplate_execute_if_code_exist:nnT {#1} {#2}
+    { \cs_show:c { \c_xtemplate_code_root_tl #1 / #2 :w } }
+}
+\cs_new:Npn \xtemplate_show_defaults:nn #1#2 {
+  \xtemplate_if_keys_exist:nnT {#1} {#2}
+    {
+      \xtemplate_recover_defaults:n { #1 / #2 }
+      \prop_display:N \l_xtemplate_values_prop
+    }
+}
+\cs_new:Npn \xtemplate_show_keytypes:nn #1#2 {
+  \xtemplate_if_keys_exist:nnT {#1} {#2}
+    {
+      \xtemplate_recover_keytypes:n { #1 / #2 }
+      \prop_display:N \l_xtemplate_keytypes_prop
+    }
+}
+\cs_new:Npn \xtemplate_show_values:nnn #1#2#3 {
+  \xtemplate_if_instance_exist:nnnTF {#1} {#2} {#3}
+    {
+      \xtemplate_recover_values:n { #1 / #2 / #3 }
+      \prop_display:N \l_xtemplate_values_prop
+    }
+    {
+      \msg_kernel_error:nnxx { xtemplate } { unknown-instance }
+        {#1} {#2}
+    }
+}
+\cs_new:Npn \xtemplate_show_vars:nn #1#2 {
+  \xtemplate_execute_if_code_exist:nnT {#1} {#2}
+    {
+      \xtemplate_recover_vars:n { #1 / #2 }
+      \prop_display:N \l_xtemplate_vars_prop
+    }
+}
+\msg_kernel_new:nnnn { xtemplate } { argument-number-mismatch }
+  { Object~type~'#1'~takes~'#2'~not~'#3'~argument(s). }
+  {
+    Objects~of~type~'#1'~require~'#2'~arguments.\\
+    You~have~tried~to~make~a~template~for~'#1'\\
+    with~'#3'~arguments,~which~is~not~possible:\\
+    the~number~of~arguments~must~agree.%
+  }
+\msg_kernel_new:nnnn { xtemplate } { bad-number-of-arguments }
+  {
+    Impossible~number~of~arguments~declared~for \\
+    object~type~'#1'.
+  }
+  {
+    An~object~may~accept~between~0~and~9~arguments.\\
+    You~asked~to~use~#2~arguments:~this~is~not~supported.
+  }
+\msg_kernel_new:nnnn { xtemplate } { bad-variable }
+  { Incorrect~variable~description~\msg_line_context:. }
+  {
+    The~argument~'#1'\\
+    is~not~of~the~form~'<variable>'~or~'global~<variable>'.\\
+    It~must~be~given~in~one~of~these~formats~to~be~used~in~a~template.
+  }
+\msg_kernel_new:nnnn { xtemplate } { choice-not-implemented }
+  { The~choice~'#1'~has~no~implementation~\msg_line_context:. }
+  {
+    Each~choice~listed~in~the~interface~for~a~template~must\\
+    have~an~implementation.\\
+    I~did~not~find~an~implementation~for~'#1'.
+  }
+\msg_kernel_new:nnnn { xtemplate } { choice-unknown-reserved }
+  { The~choice~'unknown'~cannot~be~given~for~a~template~key.}
+  {
+    The~'unknown'~choice~is~automatically~checked~by~template~when \\
+    a~choice~key~is~given~with~an~unknown~value.~It~should~not~be \\
+    included~in~the~list~of~named~choices~for~a~key,~and~is~always \\
+    given~last~in~the~implementation~of~choices.
+  }
+\msg_kernel_new:nnnn { xtemplate } { duplicate-key-interface }
+  { Key~'#1'~appears~twice~in~interface~definition~\msg_line_context:. }
+  {
+    Each~key~can~only~have~one~interface~declared~in~a~template.\\
+    I~found~two~interfaces~for~'#1':~probably~a~typing~error.
+  }
+\msg_kernel_new:nnnn { xtemplate } { empty-key-name }
+  { No~key~name~found~in~'#1'~\msg_line_context:. }
+  {
+    A~template~key~name~and~type~is~given~in~the~form:\\
+    \c_space_tl <name>~:~<type> \\
+    Parsing~your~input~I~found~a~:'~but~nothing~before~it!
+  }
+\msg_kernel_new:nnnn { xtemplate } { key-no-value }
+  { The~key~'#1'~has~no~value~\msg_line_context:.}
+  {
+    When~creating~an~instance~of~a~template\\
+    every~key~listed~must~include~a~value:
+    \c_space_tl \c_space_tl <key>~=~<value>
+  }
+\msg_kernel_new:nnnn { xtemplate } { key-no-variable }
+  { The~key~'#1'~requires~implementation~details~\msg_line_context:. }
+  {
+    When~creating~template~code~using~\DeclareTemplateCode,\\
+    each~key~name~must~have~an~associated~implementation.\\
+    This~should~be~given~after~a~'='~sign:~I~did~not~find~one.
+  }
+\msg_kernel_new:nnnn { xtemplate } { key-not-implemented }
+  { Key~'#1'~has~no~implementation~\msg_line_context:. }
+  {
+    The~definition~of~key~implementations~for~template~'#2'\\
+    of~object~type~'#3'~does not~include~any~details~for~key~'#1'.\\
+    The~key~was~declared~in~the~interface~definition,\\
+    and~so~an~implementation~is~required.
+  }
+\msg_kernel_new:nnnn { xtemplate } { keytype-requires-argument }
+  { The~keytype~'#1'~requires~an~argument~\msg_line_context:. }
+  {
+    You~should~have~put:\\
+    \c_space_tl \c_space_tl <key-name>~:~#1~
+      \token_to_str:N {~<argument>~\token_to_str:N } \\
+    but~I~did~not~find~an~<argument>.
+  }
+\msg_kernel_new:nnnn { xtemplate } { no-keytype }
+  { The~key~'#1'~is missing~a~keytype~\msg_line_context:. }
+  {%
+    You~should~have~put:\\
+    \c_space_tl \c_space_tl #1~:~<keytype>\\
+    but~I~did~not~find~a~<keytype>.
+  }
+\msg_kernel_new:nnnn { xtemplate } { no-template-code }
+  {
+    The~template~'#2'~of~type~'#1'~is~unknown\\
+    or~has~no~implementation.
+  }
+  {
+    You~need~to~declare~a~template~with~\DeclareTemplateInterface \\
+    and~its~code~with~\DeclareTemplateCode prior~to~using~it.
+  }
+\msg_kernel_new:nnnn { xtemplate } { type-mismatch }
+  { Object~types~'#1'~and~'#2'~do~not~agree. }
+  {
+    You~are~trying~to~use~a~template~directly~with~\UseInstance \\
+    (or~a~similar~function),~but~the~object~types~do~not~match.
+  }
+\msg_kernel_new:nnnn { xtemplate } { undeclared-variable }
+  { The~variable~#1~has~not~been~declared. }
+  {
+    Before~declaring~an~instance,~all~of~the~required~variables\\
+    used~in~template~keys~must~be~created.
+  }
+\msg_kernel_new:nnnn { xtemplate } { unknown-attribute }
+  { The~template~attribute~'#1'~is~unknown. }
+  {
+    There~is~a~definition~in~the~current~template~reading\\
+    \token_to_str:N \KeyValue
+    \token_to_str:N {~#1~\token_to_str:N }\\
+    but~there~is~no~key~called~'#1'.
+  }
+\msg_kernel_new:nnnn { xtemplate } { unknown-choice }
+  { The~choice~'#1'~was~not~declared~for~key~'#2'~\msg_line_context:. }
+  {
+    The~key~'#2'~takes~a~fixed~number~of~choices:\\
+    \clist_map_function:NN #3 \xtemplate_unknown_choice_aux:n
+    and~this~list~does~not~include~'#1'.
+  }
+\cs_new:Npn \xtemplate_unknown_choice_aux:n #1 { -~ #1 ;\\}
+\msg_kernel_new:nnnn { xtemplate } { unknown-keytype }
+  { The~keytype~'#1'~is~unknown~\msg_line_context:. }
+  {
+    Valid~keytypes~are:\\
+    -~boolean;\\
+    -~choice;\\
+    -~code;\\
+    -~commalist;\\
+    -~function;\\
+    -~instance;\\
+    -~integer;\\
+    -~length;\\
+    -~skip;\\
+    -~tokenlist.
+  }
+\msg_kernel_new:nnnn { xtemplate } { unknown-object-type }
+  { The~object~type~'#1'~is~unknown~\msg_line_context:. }
+  {
+    An~object~type~needs~to~be~declared~with~
+    \DeclareObjectType prior~to~using~it.
+  }
+\msg_kernel_new:nnnn { xtemplate } { unknown-instance }
+  { The~instance~'#2'~of~type~'#1'~is~unknown. }
+  {
+    You~have~asked~to~use~an~instance~'#2',\\
+    but~this~has~not~been~created.
+  }
+\msg_kernel_new:nnnn { xtemplate } { unknown-key }
+  { Unknown~template~key~'#1'~\msg_line_context:. }
+  {
+    The~key~'#1'~was~not~declared~in~the~interface\\
+    for~the~current~template.\\
+    Probably~you~have~misspelled~the~key~name.
+  }
+\msg_kernel_new:nnnn { xtemplate } { unknown-template }
+  { The~template~'#2'~of~type~'#1'~is~unknown~\msg_line_context:. }
+  {
+    No~interface~has~been~declared~for~a~template\\
+    '#2'~of~object~type~'#1'.
+  }
+\msg_kernel_new:nnn { xtemplate } { define-template-code }
+  {Defining~template~code~for~'#1'~\msg_line_context:.}
+\msg_kernel_new:nnn { xtemplate } { define-template-interface }
+  {Defining~template~interface~for~'#1'~\msg_line_context:.}
+\msg_kernel_new:nnn { xtemplate } { define-object-type }
+  {Defining~object~type~'#1'~with~#2~argument(s)~\msg_line_context:.}
+\msg_kernel_new:nnn { xtemplate } { redefine-template-code }
+  {Redefining~template~code~for~'#1'~\msg_line_context:.}
+\msg_kernel_new:nnn { xtemplate } { redefine-template-interface }
+  {Redefining~template~interface~for~'#1'~\msg_line_context:.}
+\msg_kernel_new:nnn { xtemplate } { redefine-object-type }
+  {Redefining~object~type~'#1'~with~#2~argument(s)~\msg_line_context:.}
+\cs_new_protected_nopar:Npn \DeclareObjectType #1#2 {
+  \xtemplate_declare_object_type:nn {#1} {#2}
+}
+\cs_new_protected:Npn \DeclareTemplateInterface #1#2#3#4 {
+  \xtemplate_declare_template_keys:nnnn {#1} {#2} {#3} {#4}
+}
+\cs_new_protected:Npn \DeclareTemplateCode #1#2#3#4#5 {
+  \xtemplate_declare_template_code:nnnnn {#1} {#2} {#3} {#4} {#5}
+}
+\cs_new_protected:Npn \DeclareRestrictedTemplate #1#2#3#4 {
+  \xtemplate_declare_restricted:nnnn {#1} {#2} {#3} {#4}
+}
+\cs_new_protected:Npn \DeclareInstance #1#2#3#4 {
+  \xtemplate_declare_instance:nnnnn {#1} {#3} { } {#2} {#4}
+}
+\cs_new_protected:Npn \DeclareCollectionInstance #1#2#3#4#5 {
+  \xtemplate_declare_instance:nnnnn {#2} {#4} {#1} {#3} {#5}
+}
+\cs_new_protected:Npn \EditTemplateDefaults #1#2#3 {
+  \xtemplate_edit_defaults:nnn {#1} {#2} {#3}
+}
+\cs_new_protected:Npn \EditInstance #1#2#3 {
+  \xtemplate_edit_instance:nnnn {#1} { } {#2} {#3}
+}
+\cs_new_protected:Npn \EditCollectionInstance #1#2#3#4 {
+  \xtemplate_edit_instance:nnnn {#2} {#1} {#3} {#4}
+}
+\cs_new_protected_nopar:Npn \UseTemplate #1#2#3 {
+  \xtemplate_use_template:nnn {#1} {#2} {#3}
+}
+\cs_new_protected_nopar:Npn \UseInstance #1#2 {
+  \xtemplate_use_instance:nn {#1} {#2}
+}
+\cs_new_protected_nopar:Npn \UseCollection #1#2 {
+  \xtemplate_use_collection:nn {#1} {#2}
+}
+\cs_new_protected_nopar:Npn \ShowTemplateCode #1#2 {
+  \xtemplate_show_code:nn {#1} {#2}
+}
+\cs_new_protected_nopar:Npn \ShowTemplateDefaults #1#2 {
+  \xtemplate_show_defaults:nn {#1} {#2}
+}
+\cs_new_protected_nopar:Npn \ShowTemplateKeytypes #1#2 {
+  \xtemplate_show_keytypes:nn {#1} {#2}
+}
+\cs_new_protected_nopar:Npn \ShowTemplateVariables #1#2 {
+  \xtemplate_show_vars:nn {#1} {#2}
+}
+\cs_new_protected_nopar:Npn \ShowInstanceValues #1#2 {
+  \xtemplate_show_values:nnn {#1} { } {#2}
+}
+\cs_new_protected_nopar:Npn \ShowCollectionInstanceValues #1#2#3 {
+  \xtemplate_show_values:nnn {#1} {#2} {#3}
+}
+\cs_new_nopar:Npn \IfInstanceExistTF #1#2 {
+  \xtemplate_if_instance_exist:nnnTF {#1} { } {#2}
+}
+\cs_new_nopar:Npn \IfInstanceExistT #1#2  {
+  \xtemplate_if_instance_exist:nnnT {#1} { } {#2}
+}
+\cs_new_nopar:Npn \IfInstanceExistF #1#2  {
+  \xtemplate_if_instance_exist:nnnF {#1} { } {#2}
+}
+\cs_new_protected:Npn \EvaluateNow #1 {#1}
+\cs_new_protected:Npn \KeyValue #1 {#1}
+\cs_new_protected_nopar:Npn \AssignTemplateKeys {
+  \xtemplate_assignments_pop:
+}
+\cs_new_nopar:Npn \TP_split_finite_skip_value:nnNN #1#2{
+  \skip_split_finite_else_action:nnNN {#1} {
+    \PackageError{xtemplate}{Value~ for~ key~ #2~ contains~ `fil(ll)'}
+    {Only~ finite~ minus~ or~ plus~ parts~ are~ allowed~ for~ this~ key.}
+  }
+}
+\endinput
+%%
+%% End of file `xtemplate.sty'.

@@ -1,0 +1,729 @@
+%%
+%% This is file `l3basics.sty',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% l3basics.dtx  (with options: `package,trace')
+%% 
+%% 
+%% EXPERIMENTAL CODE
+%% 
+%% Do not distribute this file without also distributing the
+%% source files specified above.
+%% 
+%% Do not distribute a modified version of this file.
+%% 
+%% 
+%% File: l3basics.dtx Copyright (C) 1990-2008,2010 LaTeX3 project
+%%
+%% It may be distributed and/or modified under the conditions of the
+%% LaTeX Project Public License (LPPL), either version 1.3c of this
+%% license or (at your option) any later version.  The latest version
+%% of this license is in the file
+%%
+%%    http://www.latex-project.org/lppl.txt
+%%
+%% This file is part of the ``expl3 bundle'' (The Work in LPPL)
+%% and all files in that bundle must be distributed together.
+%%
+%% The released version of this bundle is available from CTAN.
+%%
+%% -----------------------------------------------------------------------
+%%
+%% The development version of the bundle can be found at
+%%
+%%    http://www.latex-project.org/svnroot/experimental/trunk/
+%%
+%% for those people who are interested.
+%%
+%%%%%%%%%%%
+%% NOTE: %%
+%%%%%%%%%%%
+%%
+%%   Snapshots taken from the repository represent work in progress and may
+%%   not work or may contain conflicting material!  We therefore ask
+%%   people _not_ to put them into distributions, archives, etc. without
+%%   prior consultation with the LaTeX Project Team.
+%%
+%% -----------------------------------------------------------------------
+\RequirePackage{l3names}
+\GetIdInfo$Id: l3basics.dtx 2063 2010-10-03 08:26:49Z mittelba $
+       {L3 Experimental basic definitions}
+\ProvidesExplPackage
+  {\filename}{\filedate}{\fileversion}{\filedescription}
+\package_check_loaded_expl:
+\tex_let:D \cs_set_eq:NwN            \tex_let:D
+\cs_set_eq:NwN   \if_true:           \tex_iftrue:D
+\cs_set_eq:NwN   \if_false:          \tex_iffalse:D
+\cs_set_eq:NwN   \or:                \tex_or:D
+\cs_set_eq:NwN   \else:              \tex_else:D
+\cs_set_eq:NwN   \fi:                \tex_fi:D
+\cs_set_eq:NwN   \reverse_if:N       \etex_unless:D
+\cs_set_eq:NwN   \if:w               \tex_if:D
+\cs_set_eq:NwN   \if_bool:N          \tex_ifodd:D
+\cs_set_eq:NwN   \if_predicate:w     \tex_ifodd:D
+\cs_set_eq:NwN   \if_charcode:w      \tex_if:D
+\cs_set_eq:NwN   \if_catcode:w       \tex_ifcat:D
+\cs_set_eq:NwN   \if_meaning:w       \tex_ifx:D
+\cs_set_eq:NwN   \if_mode_math:       \tex_ifmmode:D
+\cs_set_eq:NwN   \if_mode_horizontal: \tex_ifhmode:D
+\cs_set_eq:NwN   \if_mode_vertical:   \tex_ifvmode:D
+\cs_set_eq:NwN   \if_mode_inner:      \tex_ifinner:D
+\cs_set_eq:NwN   \if_cs_exist:N      \etex_ifdefined:D
+\cs_set_eq:NwN   \if_cs_exist:w      \etex_ifcsname:D
+\cs_set_eq:NwN   \exp_after:wN       \tex_expandafter:D
+\cs_set_eq:NwN   \exp_not:N          \tex_noexpand:D
+\cs_set_eq:NwN   \exp_not:n          \etex_unexpanded:D
+\cs_set_eq:NwN   \iow_shipout_x:Nn    \tex_write:D
+\cs_set_eq:NwN   \token_to_meaning:N \tex_meaning:D
+\cs_set_eq:NwN   \token_to_str:N     \tex_string:D
+\cs_set_eq:NwN   \cs:w               \tex_csname:D
+\cs_set_eq:NwN   \cs_end:            \tex_endcsname:D
+\cs_set_eq:NwN   \cs_meaning:N       \tex_meaning:D
+\tex_def:D \cs_meaning:c {\exp_args:Nc\cs_meaning:N}
+\cs_set_eq:NwN   \cs_show:N          \tex_show:D
+\tex_def:D \cs_show:c {\exp_args:Nc\cs_show:N}
+\tex_def:D \token_to_str:c {\exp_args:Nc\token_to_str:N}
+\cs_set_eq:NwN   \scan_stop:         \tex_relax:D
+\cs_set_eq:NwN   \group_begin:       \tex_begingroup:D
+\cs_set_eq:NwN   \group_end:         \tex_endgroup:D
+\cs_set_eq:NwN \group_execute_after:N \tex_aftergroup:D
+\cs_set_eq:NwN   \pref_global:D      \tex_global:D
+\cs_set_eq:NwN   \pref_long:D        \tex_long:D
+\cs_set_eq:NwN   \pref_protected:D   \etex_protected:D
+\cs_set_eq:NwN   \cs_set_nopar:Npn            \tex_def:D
+\cs_set_eq:NwN   \cs_set_nopar:Npx            \tex_edef:D
+\pref_protected:D \cs_set_nopar:Npn \cs_set:Npn {
+  \pref_long:D \cs_set_nopar:Npn
+}
+\pref_protected:D \cs_set_nopar:Npn \cs_set:Npx {
+  \pref_long:D \cs_set_nopar:Npx
+}
+\pref_protected:D \cs_set_nopar:Npn \cs_set_protected_nopar:Npn {
+  \pref_protected:D \cs_set_nopar:Npn
+}
+\pref_protected:D \cs_set_nopar:Npn \cs_set_protected_nopar:Npx {
+  \pref_protected:D \cs_set_nopar:Npx
+}
+\cs_set_protected_nopar:Npn \cs_set_protected:Npn {
+  \pref_protected:D \pref_long:D \cs_set_nopar:Npn
+}
+\cs_set_protected_nopar:Npn \cs_set_protected:Npx {
+  \pref_protected:D \pref_long:D \cs_set_nopar:Npx
+}
+\cs_set_eq:NwN   \cs_gset_nopar:Npn           \tex_gdef:D
+\cs_set_eq:NwN   \cs_gset_nopar:Npx           \tex_xdef:D
+\cs_set_protected_nopar:Npn \cs_gset:Npn {
+  \pref_long:D \cs_gset_nopar:Npn
+}
+\cs_set_protected_nopar:Npn \cs_gset:Npx {
+  \pref_long:D \cs_gset_nopar:Npx
+}
+\cs_set_protected_nopar:Npn \cs_gset_protected_nopar:Npn {
+  \pref_protected:D \cs_gset_nopar:Npn
+}
+\cs_set_protected_nopar:Npn \cs_gset_protected_nopar:Npx {
+  \pref_protected:D \cs_gset_nopar:Npx
+}
+\cs_set_protected_nopar:Npn \cs_gset_protected:Npn {
+  \pref_protected:D \pref_long:D \cs_gset_nopar:Npn
+}
+\cs_set_protected_nopar:Npn \cs_gset_protected:Npx {
+  \pref_protected:D \pref_long:D \cs_gset_nopar:Npx
+}
+\cs_set:Npn \use:c #1 { \cs:w#1\cs_end: }
+\cs_set_protected:Npn \use:x #1 {
+  \group_begin:
+    \cs_set:Npx \cs_tmp: {#1}
+    \exp_after:wN
+  \group_end:
+  \cs_tmp:
+}
+\cs_set:Npn \use:n   #1    {#1}
+\cs_set:Npn \use:nn   #1#2     {#1#2}
+\cs_set:Npn \use:nnn  #1#2#3   {#1#2#3}
+\cs_set:Npn \use:nnnn #1#2#3#4 {#1#2#3#4}
+\cs_set:Npn \use_i:nn  #1#2 {#1}
+\cs_set:Npn \use_ii:nn #1#2 {#2}
+\cs_set:Npn \use_i:nnn    #1#2#3{#1}
+\cs_set:Npn \use_ii:nnn   #1#2#3{#2}
+\cs_set:Npn \use_iii:nnn  #1#2#3{#3}
+\cs_set:Npn \use_i:nnnn   #1#2#3#4{#1}
+\cs_set:Npn \use_ii:nnnn  #1#2#3#4{#2}
+\cs_set:Npn \use_iii:nnnn #1#2#3#4{#3}
+\cs_set:Npn \use_iv:nnnn  #1#2#3#4{#4}
+\cs_set:Npn \use_i_ii:nnn #1#2#3{#1#2}
+\cs_set:Npn \use_none_delimit_by_q_nil:w #1\q_nil{}
+\cs_set:Npn \use_none_delimit_by_q_stop:w #1\q_stop{}
+\cs_set:Npn \use_none_delimit_by_q_recursion_stop:w #1 \q_recursion_stop {}
+\cs_set:Npn \use_i_delimit_by_q_nil:nw #1#2\q_nil{#1}
+\cs_set:Npn \use_i_delimit_by_q_stop:nw #1#2\q_stop{#1}
+\cs_set:Npn \use_i_delimit_by_q_recursion_stop:nw #1#2 \q_recursion_stop {#1}
+\cs_set:Npn \use_i_after_fi:nw #1\fi:{\fi: #1}
+\cs_set:Npn \use_i_after_else:nw #1\else:#2\fi:{\fi: #1}
+\cs_set:Npn \use_i_after_or:nw #1\or: #2\fi: {\fi:#1}
+\cs_set:Npn \use_i_after_orelse:nw #1 #2#3\fi: {\fi:#1}
+\cs_set:Npn \use_none:n #1{}
+\cs_set:Npn \use_none:nn #1#2{}
+\cs_set:Npn \use_none:nnn #1#2#3{}
+\cs_set:Npn \use_none:nnnn #1#2#3#4{}
+\cs_set:Npn \use_none:nnnnn #1#2#3#4#5{}
+\cs_set:Npn \use_none:nnnnnn #1#2#3#4#5#6{}
+\cs_set:Npn \use_none:nnnnnnn #1#2#3#4#5#6#7{}
+\cs_set:Npn \use_none:nnnnnnnn #1#2#3#4#5#6#7#8{}
+\cs_set:Npn \use_none:nnnnnnnnn #1#2#3#4#5#6#7#8#9{}
+\cs_set:Npn \exp_args:Nc #1#2{\exp_after:wN#1\cs:w#2\cs_end:}
+\cs_set:Npn \prg_return_true: { \exp_after:wN\if_true:\tex_romannumeral:D }
+\cs_set:Npn \prg_return_false: {\exp_after:wN\if_false:\tex_romannumeral:D }
+\cs_set_protected:Npn \prg_set_conditional:Npnn #1{
+  \prg_get_parm_aux:nw{
+    \cs_split_function:NN #1 \prg_generate_conditional_aux:nnNNnnnn
+    \cs_set:Npn {parm}
+  }
+}
+\cs_set_protected:Npn \prg_new_conditional:Npnn #1{
+  \prg_get_parm_aux:nw{
+    \cs_split_function:NN #1 \prg_generate_conditional_aux:nnNNnnnn
+    \cs_new:Npn {parm}
+  }
+}
+\cs_set_protected:Npn \prg_set_protected_conditional:Npnn #1{
+  \prg_get_parm_aux:nw{
+    \cs_split_function:NN #1 \prg_generate_conditional_aux:nnNNnnnn
+    \cs_set_protected:Npn {parm}
+  }
+}
+\cs_set_protected:Npn \prg_new_protected_conditional:Npnn #1{
+  \prg_get_parm_aux:nw{
+    \cs_split_function:NN #1 \prg_generate_conditional_aux:nnNNnnnn
+    \cs_new_protected:Npn {parm}
+  }
+}
+\cs_set_protected:Npn \prg_set_conditional:Nnn #1{
+  \exp_args:Nnf \prg_get_count_aux:nn{
+    \cs_split_function:NN #1 \prg_generate_conditional_aux:nnNNnnnn
+    \cs_set:Npn {count}
+  }{\cs_get_arg_count_from_signature:N #1}
+}
+\cs_set_protected:Npn \prg_new_conditional:Nnn #1{
+  \exp_args:Nnf \prg_get_count_aux:nn{
+    \cs_split_function:NN #1 \prg_generate_conditional_aux:nnNNnnnn
+    \cs_new:Npn {count}
+  }{\cs_get_arg_count_from_signature:N #1}
+}
+
+\cs_set_protected:Npn \prg_set_protected_conditional:Nnn #1{
+  \exp_args:Nnf \prg_get_count_aux:nn{
+    \cs_split_function:NN #1 \prg_generate_conditional_aux:nnNNnnnn
+    \cs_set_protected:Npn {count}
+  }{\cs_get_arg_count_from_signature:N #1}
+}
+
+\cs_set_protected:Npn \prg_new_protected_conditional:Nnn #1{
+  \exp_args:Nnf \prg_get_count_aux:nn{
+    \cs_split_function:NN #1 \prg_generate_conditional_aux:nnNNnnnn
+    \cs_new_protected:Npn {count}
+  }{\cs_get_arg_count_from_signature:N #1}
+}
+\cs_set_protected:Npn \prg_set_eq_conditional:NNn #1#2#3 {
+  \prg_set_eq_conditional_aux:NNNn \cs_set_eq:cc #1#2 {#3}
+}
+\cs_set_protected:Npn \prg_new_eq_conditional:NNn #1#2#3 {
+  \prg_set_eq_conditional_aux:NNNn \cs_new_eq:cc #1#2 {#3}
+}
+\cs_set:Npn \prg_get_count_aux:nn #1#2 {#1{#2}}
+\cs_set:Npn \prg_get_parm_aux:nw #1#2#{#1{#2}}
+\cs_set:Npn \prg_generate_conditional_aux:nnNNnnnn #1#2#3#4#5#6#7#8{
+  \prg_generate_conditional_aux:nnw{#5}{
+    #4{#1}{#2}{#6}{#8}
+  }#7,?, \q_recursion_stop
+}
+\cs_set:Npn \prg_generate_conditional_aux:nnw #1#2#3,{
+  \if:w ?#3
+    \exp_after:wN \use_none_delimit_by_q_recursion_stop:w
+  \fi:
+  \use:c{prg_generate_#3_form_#1:Nnnnn} #2
+  \prg_generate_conditional_aux:nnw{#1}{#2}
+}
+\cs_set:Npn \prg_generate_p_form_parm:Nnnnn #1#2#3#4#5{
+  \exp_args:Nc #1 {#2_p:#3}#4{#5 \c_zero
+    \exp_after:wN\c_true_bool\else:\exp_after:wN\c_false_bool\fi:
+  }
+}
+\cs_set:Npn \prg_generate_TF_form_parm:Nnnnn #1#2#3#4#5{
+  \exp_args:Nc#1 {#2:#3TF}#4{#5 \c_zero
+    \exp_after:wN \use_i:nn \else: \exp_after:wN \use_ii:nn \fi:
+  }
+}
+\cs_set:Npn \prg_generate_T_form_parm:Nnnnn #1#2#3#4#5{
+  \exp_args:Nc#1 {#2:#3T}#4{#5 \c_zero
+    \else:\exp_after:wN\use_none:nn\fi:\use:n
+  }
+}
+\cs_set:Npn \prg_generate_F_form_parm:Nnnnn #1#2#3#4#5{
+  \exp_args:Nc#1 {#2:#3F}#4{#5 \c_zero
+    \exp_after:wN\use_none:nn\fi:\use:n
+  }
+}
+\cs_set:Npn \prg_generate_p_form_count:Nnnnn #1#2#3#4#5{
+  \cs_generate_from_arg_count:cNnn {#2_p:#3} #1 {#4}{#5 \c_zero
+    \exp_after:wN\c_true_bool\else:\exp_after:wN\c_false_bool\fi:
+  }
+}
+\cs_set:Npn \prg_generate_TF_form_count:Nnnnn #1#2#3#4#5{
+  \cs_generate_from_arg_count:cNnn {#2:#3TF} #1 {#4}{#5 \c_zero
+    \exp_after:wN\use_i:nn\else:\exp_after:wN\use_ii:nn\fi:
+  }
+}
+\cs_set:Npn \prg_generate_T_form_count:Nnnnn #1#2#3#4#5{
+  \cs_generate_from_arg_count:cNnn {#2:#3T} #1 {#4}{#5 \c_zero
+        \else:\exp_after:wN\use_none:nn\fi:\use:n
+  }
+}
+\cs_set:Npn \prg_generate_F_form_count:Nnnnn #1#2#3#4#5{
+  \cs_generate_from_arg_count:cNnn {#2:#3F} #1 {#4}{#5 \c_zero
+    \exp_after:wN\use_none:nn\fi:\use:n
+  }
+}
+\cs_set:Npn \prg_set_eq_conditional_aux:NNNn #1#2#3#4 {
+  \prg_set_eq_conditional_aux:NNNw #1#2#3#4,?,\q_recursion_stop
+}
+\cs_set:Npn \prg_set_eq_conditional_aux:NNNw #1#2#3#4, {
+  \if:w ? #4 \scan_stop:
+    \exp_after:wN \use_none_delimit_by_q_recursion_stop:w
+  \fi:
+  #1 {
+    \exp_args:NNc \cs_split_function:NN #2 {prg_conditional_form_#4:nnn}
+  }{
+    \exp_args:NNc \cs_split_function:NN #3 {prg_conditional_form_#4:nnn}
+  }
+  \prg_set_eq_conditional_aux:NNNw #1{#2}{#3}
+}
+\cs_set:Npn \prg_conditional_form_p:nnn  #1#2#3 {#1_p:#2}
+\cs_set:Npn \prg_conditional_form_TF:nnn #1#2#3 {#1:#2TF}
+\cs_set:Npn \prg_conditional_form_T:nnn  #1#2#3 {#1:#2T}
+\cs_set:Npn \prg_conditional_form_F:nnn  #1#2#3 {#1:#2F}
+\tex_chardef:D \c_true_bool = 1~
+\tex_chardef:D \c_false_bool = 0~
+\cs_set_nopar:Npn \cs_to_str:N {
+  \if:w \exp_after:wN \cs_str_aux:w\token_to_str:N \a ax\q_stop
+  \else:
+    \exp_after:wN \exp_after:wN\exp_after:wN \use_ii:nn
+  \fi:
+  \exp_after:wN \use_none:n \token_to_str:N
+}
+\cs_set:Npn \cs_str_aux:w #1#2#3#4\q_stop{#2#3}
+\group_begin:
+  \tex_lccode:D  `\@ = `\: \scan_stop:
+  \tex_catcode:D `\@ = 12~
+\tex_lowercase:D {
+  \group_end:
+\cs_set:Npn \cs_split_function:NN #1#2{
+  \exp_after:wN \cs_split_function_aux:w
+    \tex_romannumeral:D -`\q \cs_to_str:N #1 @a \q_stop #2
+}
+\cs_set:Npn \cs_split_function_aux:w #1@#2#3\q_stop#4{
+  \if_meaning:w a#2
+    \exp_after:wN \use_i:nn
+  \else:
+    \exp_after:wN\use_ii:nn
+  \fi:
+  {#4{#1}{}\c_false_bool}
+  {\cs_split_function_auxii:w#2#3\q_stop #4{#1}}
+}
+\cs_set:Npn \cs_split_function_auxii:w #1@a\q_stop#2#3{
+  #2{#3}{#1}\c_true_bool
+}
+}
+\cs_set:Npn \cs_get_function_name:N #1 {
+  \cs_split_function:NN #1\use_i:nnn
+}
+\cs_set:Npn \cs_get_function_signature:N #1 {
+  \cs_split_function:NN #1\use_ii:nnn
+}
+\prg_set_conditional:Npnn \cs_if_exist:N #1 {p,TF,T,F}{
+  \if_meaning:w #1\tex_relax:D
+    \prg_return_false:
+  \else:
+    \if_cs_exist:N #1
+      \prg_return_true:
+    \else:
+      \prg_return_false:
+    \fi:
+  \fi:
+}
+\prg_set_conditional:Npnn \cs_if_exist:c #1 {p,TF,T,F}{
+  \if_cs_exist:w #1 \cs_end:
+    \exp_after:wN \use_i:nn
+  \else:
+    \exp_after:wN \use_ii:nn
+  \fi:
+  {
+    \exp_after:wN \if_meaning:w \cs:w #1\cs_end: \tex_relax:D
+      \prg_return_false:
+    \else:
+      \prg_return_true:
+    \fi:
+  }
+  \prg_return_false:
+}
+\cs_set:Npn \cs_if_do_not_use_p:N #1{
+  \cs_split_function:NN #1 \cs_if_do_not_use_aux:nnN
+}
+\cs_set:Npn \cs_if_do_not_use_aux:nnN #1#2#3{
+  \str_if_eq_p:nn { D } {#2}
+}
+\prg_set_conditional:Npnn \cs_if_free:N #1{p,TF,T,F}{
+  \tex_ifnum:D \cs_if_exist_p:N #1 =\c_zero
+    \exp_after:wN \use_i:nn
+  \else:
+    \exp_after:wN \use_ii:nn
+  \fi:
+  {
+    \tex_ifnum:D \cs_if_do_not_use_p:N #1 =\c_zero
+      \prg_return_true:
+    \else:
+      \prg_return_false:
+    \fi:
+  }
+  \prg_return_false:
+}
+\cs_set_nopar:Npn \cs_if_free_p:c{\exp_args:Nc\cs_if_free_p:N}
+\cs_set_nopar:Npn \cs_if_free:cTF{\exp_args:Nc\cs_if_free:NTF}
+\cs_set_nopar:Npn \cs_if_free:cT{\exp_args:Nc\cs_if_free:NT}
+\cs_set_nopar:Npn \cs_if_free:cF{\exp_args:Nc\cs_if_free:NF}
+\cs_set_eq:NwN \c_minus_one\m@ne
+\tex_chardef:D \c_sixteen = 16~
+\tex_chardef:D \c_zero = 0~
+\cs_set_protected_nopar:Npn \iow_log:x {
+  \tex_immediate:D \iow_shipout_x:Nn \c_minus_one
+}
+\cs_set_protected_nopar:Npn \iow_term:x {
+  \tex_immediate:D \iow_shipout_x:Nn \c_sixteen
+}
+\cs_set_protected_nopar:Npn \msg_kernel_bug:x #1 {
+  \iow_term:x { This~is~a~LaTeX~bug:~check~coding! }
+  \tex_errmessage:D {#1}
+}
+\cs_set:Npn \cs_record_meaning:N #1{}
+\cs_set_protected_nopar:Npn \chk_if_free_cs:N #1{
+  \cs_if_free:NF #1
+  {
+    \msg_kernel_bug:x {Command~name~`\token_to_str:N #1'~already~defined!~
+                      Current~meaning: \\ \c_space_tl \c_space_tl \token_to_meaning:N #1
+                    }
+  }
+  \cs_record_meaning:N#1
+  \iow_log:x{Defining~\token_to_str:N #1~on~
+                line~\tex_the:D \tex_inputlineno:D}
+}
+\cs_set_protected_nopar:Npn \chk_if_free_cs:c {
+  \exp_args:Nc \chk_if_free_cs:N
+}
+\tex_ifodd:D \@l@expl@log@functions@bool \else
+  \cs_set_protected_nopar:Npn \chk_if_free_cs:N #1 {
+    \cs_if_free:NF #1
+      {
+        \msg_kernel_bug:x
+          {
+            Command~name~`\token_to_str:N #1'~already~defined!~
+            Current~meaning: \\ \c_space_tl \c_space_tl \token_to_meaning:N #1
+          }
+      }
+  }
+\fi
+\cs_set_protected_nopar:Npn \chk_if_exist_cs:N #1 {
+  \cs_if_exist:NF #1
+  {
+    \msg_kernel_bug:x {Command~ `\token_to_str:N #1'~
+                     not~ yet~ defined!}
+  }
+}
+\cs_set_protected_nopar:Npn \chk_if_exist_cs:c {
+  \exp_args:Nc \chk_if_exist_cs:N
+}
+\prg_set_conditional:Npnn \str_if_eq:nn #1#2 { p , T , F , TF } {
+  \tex_ifnum:D \pdf_strcmp:D
+    { \etex_unexpanded:D {#1} } { \etex_unexpanded:D {#2} }
+    = \c_zero
+   \prg_return_true: \else: \prg_return_false: \fi:
+}
+\prg_set_conditional:Npnn \str_if_eq:xx #1#2 { p , T , F , TF } {
+  \tex_ifnum:D \pdf_strcmp:D {#1} {#2} = \c_zero
+  \prg_return_true: \else: \prg_return_false: \fi:
+}
+\prg_set_conditional:Npnn \cs_if_eq_name:NN #1#2{p}{
+  \str_if_eq_p:nn {#1} {#2}
+}
+\cs_set:Npn \cs_tmp:w #1#2 {
+  \cs_set_protected_nopar:Npn #1 ##1
+    {
+       \chk_if_free_cs:N ##1
+       #2 ##1
+    }
+}
+\cs_tmp:w \cs_new_nopar:Npn           \cs_gset_nopar:Npn
+\cs_tmp:w \cs_new_nopar:Npx           \cs_gset_nopar:Npx
+\cs_tmp:w \cs_new:Npn                 \cs_gset:Npn
+\cs_tmp:w \cs_new:Npx                 \cs_gset:Npx
+\cs_tmp:w \cs_new_protected_nopar:Npn \cs_gset_protected_nopar:Npn
+\cs_tmp:w \cs_new_protected_nopar:Npx \cs_gset_protected_nopar:Npx
+\cs_tmp:w \cs_new_protected:Npn       \cs_gset_protected:Npn
+\cs_tmp:w \cs_new_protected:Npx       \cs_gset_protected:Npx
+\cs_set:Npn \cs_tmp:w #1#2{
+  \cs_new_protected_nopar:Npn #1 { \exp_args:Nc #2 }
+}
+\cs_tmp:w  \cs_set_nopar:cpn  \cs_set_nopar:Npn
+\cs_tmp:w \cs_set_nopar:cpx  \cs_set_nopar:Npx
+\cs_tmp:w \cs_gset_nopar:cpn  \cs_gset_nopar:Npn
+\cs_tmp:w \cs_gset_nopar:cpx  \cs_gset_nopar:Npx
+\cs_tmp:w  \cs_new_nopar:cpn        \cs_new_nopar:Npn
+\cs_tmp:w  \cs_new_nopar:cpx        \cs_new_nopar:Npx
+\cs_tmp:w \cs_set:cpn  \cs_set:Npn
+\cs_tmp:w \cs_set:cpx  \cs_set:Npx
+\cs_tmp:w \cs_gset:cpn  \cs_gset:Npn
+\cs_tmp:w \cs_gset:cpx  \cs_gset:Npx
+\cs_tmp:w \cs_new:cpn   \cs_new:Npn
+\cs_tmp:w \cs_new:cpx  \cs_new:Npx
+\cs_tmp:w \cs_set_protected_nopar:cpn \cs_set_protected_nopar:Npn
+\cs_tmp:w \cs_set_protected_nopar:cpx  \cs_set_protected_nopar:Npx
+\cs_tmp:w \cs_gset_protected_nopar:cpn  \cs_gset_protected_nopar:Npn
+\cs_tmp:w \cs_gset_protected_nopar:cpx  \cs_gset_protected_nopar:Npx
+\cs_tmp:w \cs_new_protected_nopar:cpn   \cs_new_protected_nopar:Npn
+\cs_tmp:w \cs_new_protected_nopar:cpx  \cs_new_protected_nopar:Npx
+\cs_tmp:w \cs_set_protected:cpn \cs_set_protected:Npn
+\cs_tmp:w \cs_set_protected:cpx \cs_set_protected:Npx
+\cs_tmp:w \cs_gset_protected:cpn  \cs_gset_protected:Npn
+\cs_tmp:w \cs_gset_protected:cpx  \cs_gset_protected:Npx
+\cs_tmp:w \cs_new_protected:cpn  \cs_new_protected:Npn
+\cs_tmp:w \cs_new_protected:cpx  \cs_new_protected:Npx
+\cs_set_eq:NwN           \cs_gnew_nopar:Npn            \cs_new_nopar:Npn
+\cs_set_eq:NwN                 \cs_gnew:Npn                  \cs_new:Npn
+\cs_set_eq:NwN \cs_gnew_protected_nopar:Npn  \cs_new_protected_nopar:Npn
+\cs_set_eq:NwN       \cs_gnew_protected:Npn        \cs_new_protected:Npn
+\cs_set_eq:NwN           \cs_gnew_nopar:Npx            \cs_new_nopar:Npx
+\cs_set_eq:NwN                 \cs_gnew:Npx                  \cs_new:Npx
+\cs_set_eq:NwN \cs_gnew_protected_nopar:Npx  \cs_new_protected_nopar:Npx
+\cs_set_eq:NwN       \cs_gnew_protected:Npx        \cs_new_protected:Npx
+\cs_set_eq:NwN           \cs_gnew_nopar:cpn            \cs_new_nopar:cpn
+\cs_set_eq:NwN                 \cs_gnew:cpn                  \cs_new:cpn
+\cs_set_eq:NwN \cs_gnew_protected_nopar:cpn  \cs_new_protected_nopar:cpn
+\cs_set_eq:NwN       \cs_gnew_protected:cpn        \cs_new_protected:cpn
+\cs_set_eq:NwN           \cs_gnew_nopar:cpx            \cs_new_nopar:cpx
+\cs_set_eq:NwN                 \cs_gnew:cpx                  \cs_new:cpx
+\cs_set_eq:NwN \cs_gnew_protected_nopar:cpx  \cs_new_protected_nopar:cpx
+\cs_set_eq:NwN       \cs_gnew_protected:cpx        \cs_new_protected:cpx
+\cs_set_nopar:cpn{use_0_parameter:}{}
+\cs_set_nopar:cpn{use_1_parameter:}{{##1}}
+\cs_set_nopar:cpn{use_2_parameter:}{{##1}{##2}}
+\cs_set_nopar:cpn{use_3_parameter:}{{##1}{##2}{##3}}
+\cs_set_nopar:cpn{use_4_parameter:}{{##1}{##2}{##3}{##4}}
+\cs_set_nopar:cpn{use_5_parameter:}{{##1}{##2}{##3}{##4}{##5}}
+\cs_set_nopar:cpn{use_6_parameter:}{{##1}{##2}{##3}{##4}{##5}{##6}}
+\cs_set_nopar:cpn{use_7_parameter:}{{##1}{##2}{##3}{##4}{##5}{##6}{##7}}
+\cs_set_nopar:cpn{use_8_parameter:}{
+  {##1}{##2}{##3}{##4}{##5}{##6}{##7}{##8}}
+\cs_set_nopar:cpn{use_9_parameter:}{
+  {##1}{##2}{##3}{##4}{##5}{##6}{##7}{##8}{##9}}
+\cs_set_protected:Npn \cs_set_eq:NN #1 { \cs_set_eq:NwN #1=~ }
+\cs_set_protected_nopar:Npn \cs_set_eq:cN { \exp_args:Nc \cs_set_eq:NN }
+\cs_set_protected_nopar:Npn \cs_set_eq:Nc { \exp_args:NNc \cs_set_eq:NN }
+\cs_set_protected_nopar:Npn \cs_set_eq:cc { \exp_args:Ncc \cs_set_eq:NN }
+\cs_new_protected:Npn \cs_new_eq:NN #1 {
+  \chk_if_free_cs:N #1
+  \pref_global:D \cs_set_eq:NN #1
+}
+\cs_new_protected_nopar:Npn \cs_new_eq:cN { \exp_args:Nc  \cs_new_eq:NN }
+\cs_new_protected_nopar:Npn \cs_new_eq:Nc { \exp_args:NNc \cs_new_eq:NN }
+\cs_new_protected_nopar:Npn \cs_new_eq:cc { \exp_args:Ncc \cs_new_eq:NN }
+\cs_new_protected:Npn \cs_gset_eq:NN { \pref_global:D  \cs_set_eq:NN }
+\cs_new_protected_nopar:Npn \cs_gset_eq:Nc { \exp_args:NNc  \cs_gset_eq:NN }
+\cs_new_protected_nopar:Npn \cs_gset_eq:cN { \exp_args:Nc   \cs_gset_eq:NN }
+\cs_new_protected_nopar:Npn \cs_gset_eq:cc { \exp_args:Ncc  \cs_gset_eq:NN }
+\cs_set_eq:NN   \cs_gnew_eq:NN   \cs_new_eq:NN
+\cs_set_eq:NN   \cs_gnew_eq:cN   \cs_new_eq:cN
+\cs_set_eq:NN   \cs_gnew_eq:Nc   \cs_new_eq:Nc
+\cs_set_eq:NN   \cs_gnew_eq:cc   \cs_new_eq:cc
+\cs_new_protected_nopar:Npn \cs_undefine:N  #1 {
+  \cs_set_eq:NN #1    \c_undefined:D
+}
+\cs_new_protected_nopar:Npn \cs_undefine:c  #1 {
+  \cs_set_eq:cN {#1}  \c_undefined:D
+}
+\cs_new_protected_nopar:Npn \cs_gundefine:N #1 {
+  \cs_gset_eq:NN #1   \c_undefined:D
+}
+\cs_new_protected_nopar:Npn \cs_gundefine:c #1 {
+  \cs_gset_eq:cN {#1} \c_undefined:D
+}
+\cs_new_nopar:Npn \kernel_register_show:N #1 {
+  \cs_if_exist:NTF #1
+   {
+    \tex_showthe:D #1
+   }
+   {
+    \msg_kernel_bug:x {Register~ `\token_to_str:N #1'~ is~ not~ defined.}
+   }
+}
+\cs_new_nopar:Npn \kernel_register_show:c { \exp_args:Nc \int_show:N }
+\cs_if_exist:NTF \xetex_version:D
+  { \cs_new_eq:NN \c_xetex_is_engine_bool \c_true_bool  }
+  { \cs_new_eq:NN \c_xetex_is_engine_bool \c_false_bool }
+\prg_new_conditional:Npnn \xetex_if_engine: {TF,T,F} {
+  \if_bool:N \c_xetex_is_engine_bool
+    \prg_return_true: \else: \prg_return_false: \fi:
+}
+\cs_if_exist:NTF \luatex_directlua:D
+  { \cs_new_eq:NN \c_luatex_is_engine_bool \c_true_bool  }
+  { \cs_new_eq:NN \c_luatex_is_engine_bool \c_false_bool }
+\prg_set_conditional:Npnn \xetex_if_engine: {TF,T,F}{
+  \if_bool:N \c_xetex_is_engine_bool \prg_return_true:
+  \else: \prg_return_false: \fi:
+}
+\prg_set_conditional:Npnn \luatex_if_engine: {TF,T,F}{
+  \if_bool:N \c_luatex_is_engine_bool \prg_return_true:
+  \else: \prg_return_false: \fi:
+}
+\cs_new_nopar:Npn \prg_do_nothing: {}
+\cs_set:Npn \cs_get_arg_count_from_signature:N #1{
+  \cs_split_function:NN #1 \cs_get_arg_count_from_signature_aux:nnN
+}
+\cs_set:Npn \cs_get_arg_count_from_signature_aux:nnN #1#2#3{
+  \if_predicate:w #3 % \bool_if:NTF here
+    \exp_after:wN \use_i:nn
+  \else:
+    \exp_after:wN\use_ii:nn
+  \fi:
+  {
+    \exp_after:wN \cs_get_arg_count_from_signature_auxii:w
+      \use_none:nnnnnnnnn  #2 9876543210\q_stop
+  }
+  {-1}
+}
+\cs_set:Npn \cs_get_arg_count_from_signature_auxii:w #1#2\q_stop{#1}
+\cs_set_nopar:Npn \cs_get_arg_count_from_signature:c {
+  \exp_args:Nc \cs_get_arg_count_from_signature:N
+}
+\cs_set:Npn \cs_generate_from_arg_count:NNnn #1#2#3#4{
+  \tex_ifcase:D \etex_numexpr:D #3\tex_relax:D
+    \use_i_after_orelse:nw{#2#1}
+  \or:
+    \use_i_after_orelse:nw{#2#1 ##1}
+  \or:
+    \use_i_after_orelse:nw{#2#1 ##1##2}
+  \or:
+    \use_i_after_orelse:nw{#2#1 ##1##2##3}
+  \or:
+    \use_i_after_orelse:nw{#2#1 ##1##2##3##4}
+  \or:
+    \use_i_after_orelse:nw{#2#1 ##1##2##3##4##5}
+  \or:
+    \use_i_after_orelse:nw{#2#1 ##1##2##3##4##5##6}
+  \or:
+    \use_i_after_orelse:nw{#2#1 ##1##2##3##4##5##6##7}
+  \or:
+    \use_i_after_orelse:nw{#2#1 ##1##2##3##4##5##6##7##8}
+  \or:
+    \use_i_after_orelse:nw{#2#1 ##1##2##3##4##5##6##7##8##9}
+  \else:
+    \use_i_after_fi:nw{
+      \cs_generate_from_arg_count_error_msg:Nn#1{#3}
+      \use_none:n % to remove replacement text
+    }
+  \fi:
+  {#4}
+}
+\cs_set_nopar:Npn \cs_generate_from_arg_count:cNnn {
+  \exp_args:Nc \cs_generate_from_arg_count:NNnn
+}
+\cs_set:Npn \cs_generate_from_arg_count_error_msg:Nn #1#2 {
+  \msg_kernel_bug:x {
+    You're~ trying~ to~ define~ the~ command~ `\token_to_str:N #1'~
+    with~ \use:n{\tex_the:D\etex_numexpr:D #2\tex_relax:D} ~
+    arguments~ but~ I~ only~ allow~ 0-9~arguments.~Perhaps~you~
+    forgot~to~use~a~colon~in~the~function~name?~
+    I~ can~ probably~ not~ help~ you~ here
+  }
+}
+\cs_set:Npn \cs_tmp:w #1#2#3{
+  \cs_set_protected:cpx {cs_#1:#2}##1##2{
+    \exp_not:N \cs_generate_from_arg_count:NNnn ##1
+    \exp_after:wN \exp_not:N \cs:w cs_#1:#3 \cs_end:
+      {\exp_not:N\cs_get_arg_count_from_signature:N ##1}{##2}
+  }
+}
+\cs_tmp:w {set}{Nn}{Npn}
+\cs_tmp:w {set}{Nx}{Npx}
+\cs_tmp:w {set_nopar}{Nn}{Npn}
+\cs_tmp:w {set_nopar}{Nx}{Npx}
+\cs_tmp:w {set_protected}{Nn}{Npn}
+\cs_tmp:w {set_protected}{Nx}{Npx}
+\cs_tmp:w {set_protected_nopar}{Nn}{Npn}
+\cs_tmp:w {set_protected_nopar}{Nx}{Npx}
+\cs_tmp:w {gset}{Nn}{Npn}
+\cs_tmp:w {gset}{Nx}{Npx}
+\cs_tmp:w {gset_nopar}{Nn}{Npn}
+\cs_tmp:w {gset_nopar}{Nx}{Npx}
+\cs_tmp:w {gset_protected}{Nn}{Npn}
+\cs_tmp:w {gset_protected}{Nx}{Npx}
+\cs_tmp:w {gset_protected_nopar}{Nn}{Npn}
+\cs_tmp:w {gset_protected_nopar}{Nx}{Npx}
+\cs_tmp:w {new}{Nn}{Npn}
+\cs_tmp:w {new}{Nx}{Npx}
+\cs_tmp:w {new_nopar}{Nn}{Npn}
+\cs_tmp:w {new_nopar}{Nx}{Npx}
+\cs_tmp:w {new_protected}{Nn}{Npn}
+\cs_tmp:w {new_protected}{Nx}{Npx}
+\cs_tmp:w {new_protected_nopar}{Nn}{Npn}
+\cs_tmp:w {new_protected_nopar}{Nx}{Npx}
+\cs_set:Npn \cs_tmp:w #1#2#3{
+  \cs_set_protected:cpx {cs_#1:#2}##1##2{
+    \exp_not:N\cs_generate_from_arg_count:cNnn {##1}
+    \exp_after:wN \exp_not:N \cs:w cs_#1:#3 \cs_end:
+      {\exp_not:N\cs_get_arg_count_from_signature:c {##1}}{##2}
+  }
+}
+\cs_tmp:w {set}{cn}{Npn}
+\cs_tmp:w {set}{cx}{Npx}
+\cs_tmp:w {set_nopar}{cn}{Npn}
+\cs_tmp:w {set_nopar}{cx}{Npx}
+\cs_tmp:w {set_protected}{cn}{Npn}
+\cs_tmp:w {set_protected}{cx}{Npx}
+\cs_tmp:w {set_protected_nopar}{cn}{Npn}
+\cs_tmp:w {set_protected_nopar}{cx}{Npx}
+\cs_tmp:w {gset}{cn}{Npn}
+\cs_tmp:w {gset}{cx}{Npx}
+\cs_tmp:w {gset_nopar}{cn}{Npn}
+\cs_tmp:w {gset_nopar}{cx}{Npx}
+\cs_tmp:w {gset_protected}{cn}{Npn}
+\cs_tmp:w {gset_protected}{cx}{Npx}
+\cs_tmp:w {gset_protected_nopar}{cn}{Npn}
+\cs_tmp:w {gset_protected_nopar}{cx}{Npx}
+\cs_tmp:w {new}{cn}{Npn}
+\cs_tmp:w {new}{cx}{Npx}
+\cs_tmp:w {new_nopar}{cn}{Npn}
+\cs_tmp:w {new_nopar}{cx}{Npx}
+\cs_tmp:w {new_protected}{cn}{Npn}
+\cs_tmp:w {new_protected}{cx}{Npx}
+\cs_tmp:w {new_protected_nopar}{cn}{Npn}
+\cs_tmp:w {new_protected_nopar}{cx}{Npx}
+\prg_set_conditional:Npnn \cs_if_eq:NN #1#2{p,TF,T,F}{
+  \if_meaning:w #1#2
+  \prg_return_true: \else: \prg_return_false: \fi:
+}
+\cs_new_nopar:Npn \cs_if_eq_p:cN {\exp_args:Nc  \cs_if_eq_p:NN}
+\cs_new_nopar:Npn \cs_if_eq:cNTF {\exp_args:Nc  \cs_if_eq:NNTF}
+\cs_new_nopar:Npn \cs_if_eq:cNT  {\exp_args:Nc  \cs_if_eq:NNT}
+\cs_new_nopar:Npn \cs_if_eq:cNF  {\exp_args:Nc  \cs_if_eq:NNF}
+\cs_new_nopar:Npn \cs_if_eq_p:Nc {\exp_args:NNc \cs_if_eq_p:NN}
+\cs_new_nopar:Npn \cs_if_eq:NcTF {\exp_args:NNc \cs_if_eq:NNTF}
+\cs_new_nopar:Npn \cs_if_eq:NcT  {\exp_args:NNc \cs_if_eq:NNT}
+\cs_new_nopar:Npn \cs_if_eq:NcF  {\exp_args:NNc \cs_if_eq:NNF}
+\cs_new_nopar:Npn \cs_if_eq_p:cc {\exp_args:Ncc \cs_if_eq_p:NN}
+\cs_new_nopar:Npn \cs_if_eq:ccTF {\exp_args:Ncc \cs_if_eq:NNTF}
+\cs_new_nopar:Npn \cs_if_eq:ccT  {\exp_args:Ncc \cs_if_eq:NNT}
+\cs_new_nopar:Npn \cs_if_eq:ccF  {\exp_args:Ncc \cs_if_eq:NNF}
+%% 
+%%
+%% End of file `l3basics.sty'.

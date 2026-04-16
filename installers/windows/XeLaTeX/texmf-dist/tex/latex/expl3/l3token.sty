@@ -1,0 +1,566 @@
+%%
+%% This is file `l3token.sty',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% l3token.dtx  (with options: `package')
+%% 
+%% 
+%% EXPERIMENTAL CODE
+%% 
+%% Do not distribute this file without also distributing the
+%% source files specified above.
+%% 
+%% Do not distribute a modified version of this file.
+%% 
+%% 
+%% File: l3token.dtx Copyright (C) 2005-2010 LaTeX3 project
+%%
+%% It may be distributed and/or modified under the conditions of the
+%% LaTeX Project Public License (LPPL), either version 1.3c of this
+%% license or (at your option) any later version.  The latest version
+%% of this license is in the file
+%%
+%%    http://www.latex-project.org/lppl.txt
+%%
+%% This file is part of the ``expl3 bundle'' (The Work in LPPL)
+%% and all files in that bundle must be distributed together.
+%%
+%% The released version of this bundle is available from CTAN.
+%%
+%% -----------------------------------------------------------------------
+%%
+%% The development version of the bundle can be found at
+%%
+%%    http://www.latex-project.org/svnroot/experimental/trunk/
+%%
+%% for those people who are interested.
+%%
+%%%%%%%%%%%
+%% NOTE: %%
+%%%%%%%%%%%
+%%
+%%   Snapshots taken from the repository represent work in progress and may
+%%   not work or may contain conflicting material!  We therefore ask
+%%   people _not_ to put them into distributions, archives, etc. without
+%%   prior consultation with the LaTeX Project Team.
+%%
+%% -----------------------------------------------------------------------
+\RequirePackage{l3names}
+\GetIdInfo$Id: l3token.dtx 2063 2010-10-03 08:26:49Z mittelba $
+       {L3 Experimental token investigation and manipulation}
+\ProvidesExplPackage
+  {\filename}{\filedate}{\fileversion}{\filedescription}
+\package_check_loaded_expl:
+\cs_new_eq:NN \char_set_catcode:w \tex_catcode:D
+\cs_new_protected_nopar:Npn \char_set_catcode:nn #1#2 {
+  \char_set_catcode:w #1 = \int_eval:w #2\int_eval_end:
+}
+\cs_new_nopar:Npn \char_value_catcode:w { \int_use:N \tex_catcode:D }
+\cs_new_nopar:Npn \char_value_catcode:n #1 {
+  \char_value_catcode:w \int_eval:w #1\int_eval_end:
+}
+\cs_new_nopar:Npn \char_show_value_catcode:w {
+  \tex_showthe:D \tex_catcode:D
+}
+\cs_new_nopar:Npn \char_show_value_catcode:n #1 {
+  \char_show_value_catcode:w \int_eval:w #1\int_eval_end:
+}
+\cs_new_protected_nopar:Npn \char_make_escape:N           #1 { \char_set_catcode:nn {`#1} {\c_zero}   }
+\cs_new_protected_nopar:Npn \char_make_begin_group:N      #1 { \char_set_catcode:nn {`#1} {\c_one}    }
+\cs_new_protected_nopar:Npn \char_make_end_group:N        #1 { \char_set_catcode:nn {`#1} {\c_two}    }
+\cs_new_protected_nopar:Npn \char_make_math_shift:N       #1 { \char_set_catcode:nn {`#1} {\c_three}  }
+\cs_new_protected_nopar:Npn \char_make_alignment:N        #1 { \char_set_catcode:nn {`#1} {\c_four}   }
+\cs_new_protected_nopar:Npn \char_make_end_line:N         #1 { \char_set_catcode:nn {`#1} {\c_five}   }
+\cs_new_protected_nopar:Npn \char_make_parameter:N        #1 { \char_set_catcode:nn {`#1} {\c_six}    }
+\cs_new_protected_nopar:Npn \char_make_math_superscript:N #1 { \char_set_catcode:nn {`#1} {\c_seven}  }
+\cs_new_protected_nopar:Npn \char_make_math_subscript:N   #1 { \char_set_catcode:nn {`#1} {\c_eight}  }
+\cs_new_protected_nopar:Npn \char_make_ignore:N           #1 { \char_set_catcode:nn {`#1} {\c_nine}   }
+\cs_new_protected_nopar:Npn \char_make_space:N            #1 { \char_set_catcode:nn {`#1} {\c_ten}    }
+\cs_new_protected_nopar:Npn \char_make_letter:N           #1 { \char_set_catcode:nn {`#1} {\c_eleven}   }
+\cs_new_protected_nopar:Npn \char_make_other:N            #1 { \char_set_catcode:nn {`#1} {\c_twelve}   }
+\cs_new_protected_nopar:Npn \char_make_active:N           #1 { \char_set_catcode:nn {`#1} {\c_thirteen} }
+\cs_new_protected_nopar:Npn \char_make_comment:N          #1 { \char_set_catcode:nn {`#1} {\c_fourteen} }
+\cs_new_protected_nopar:Npn \char_make_invalid:N          #1 { \char_set_catcode:nn {`#1} {\c_fifteen}  }
+\cs_new_protected_nopar:Npn \char_make_escape:n           #1 { \char_set_catcode:nn {#1} {\c_zero}   }
+\cs_new_protected_nopar:Npn \char_make_begin_group:n      #1 { \char_set_catcode:nn {#1} {\c_one}    }
+\cs_new_protected_nopar:Npn \char_make_end_group:n        #1 { \char_set_catcode:nn {#1} {\c_two}    }
+\cs_new_protected_nopar:Npn \char_make_math_shift:n       #1 { \char_set_catcode:nn {#1} {\c_three}  }
+\cs_new_protected_nopar:Npn \char_make_alignment:n        #1 { \char_set_catcode:nn {#1} {\c_four}   }
+\cs_new_protected_nopar:Npn \char_make_end_line:n         #1 { \char_set_catcode:nn {#1} {\c_five}   }
+\cs_new_protected_nopar:Npn \char_make_parameter:n        #1 { \char_set_catcode:nn {#1} {\c_six}    }
+\cs_new_protected_nopar:Npn \char_make_math_superscript:n #1 { \char_set_catcode:nn {#1} {\c_seven}  }
+\cs_new_protected_nopar:Npn \char_make_math_subscript:n   #1 { \char_set_catcode:nn {#1} {\c_eight}  }
+\cs_new_protected_nopar:Npn \char_make_ignore:n           #1 { \char_set_catcode:nn {#1} {\c_nine}   }
+\cs_new_protected_nopar:Npn \char_make_space:n            #1 { \char_set_catcode:nn {#1} {\c_ten}    }
+\cs_new_protected_nopar:Npn \char_make_letter:n           #1 { \char_set_catcode:nn {#1} {\c_eleven}   }
+\cs_new_protected_nopar:Npn \char_make_other:n            #1 { \char_set_catcode:nn {#1} {\c_twelve}   }
+\cs_new_protected_nopar:Npn \char_make_active:n           #1 { \char_set_catcode:nn {#1} {\c_thirteen} }
+\cs_new_protected_nopar:Npn \char_make_comment:n          #1 { \char_set_catcode:nn {#1} {\c_fourteen} }
+\cs_new_protected_nopar:Npn \char_make_invalid:n          #1 { \char_set_catcode:nn {#1} {\c_fifteen}  }
+\cs_new_eq:NN \char_set_mathcode:w \tex_mathcode:D
+\cs_new_protected_nopar:Npn \char_set_mathcode:nn #1#2 {
+  \char_set_mathcode:w #1 = \int_eval:w #2\int_eval_end:
+}
+\cs_new_protected_nopar:Npn \char_gset_mathcode:w { \pref_global:D \tex_mathcode:D }
+\cs_new_protected_nopar:Npn \char_gset_mathcode:nn #1#2 {
+  \char_gset_mathcode:w #1 = \int_eval:w #2\int_eval_end:
+}
+\cs_new_nopar:Npn \char_value_mathcode:w { \int_use:N \tex_mathcode:D }
+\cs_new_nopar:Npn \char_value_mathcode:n #1 {
+  \char_value_mathcode:w \int_eval:w #1\int_eval_end:
+}
+\cs_new_nopar:Npn \char_show_value_mathcode:w { \tex_showthe:D \tex_mathcode:D }
+\cs_new_nopar:Npn \char_show_value_mathcode:n #1 {
+  \char_show_value_mathcode:w \int_eval:w #1\int_eval_end:
+}
+\cs_new_eq:NN \char_set_lccode:w \tex_lccode:D
+\cs_new_protected_nopar:Npn \char_set_lccode:nn #1#2{
+  \char_set_lccode:w #1 = \int_eval:w #2\int_eval_end:
+}
+\cs_new_nopar:Npn \char_value_lccode:w {\int_use:N\tex_lccode:D}
+\cs_new_nopar:Npn \char_value_lccode:n #1{\char_value_lccode:w
+  \int_eval:w #1\int_eval_end:}
+\cs_new_nopar:Npn \char_show_value_lccode:w {\tex_showthe:D\tex_lccode:D}
+\cs_new_nopar:Npn \char_show_value_lccode:n #1{
+  \char_show_value_lccode:w \int_eval:w #1\int_eval_end:}
+\cs_new_eq:NN \char_set_uccode:w \tex_uccode:D
+\cs_new_protected_nopar:Npn \char_set_uccode:nn #1#2{
+  \char_set_uccode:w #1 = \int_eval:w #2\int_eval_end:
+}
+\cs_new_nopar:Npn \char_value_uccode:w {\int_use:N\tex_uccode:D}
+\cs_new_nopar:Npn \char_value_uccode:n #1{\char_value_uccode:w
+  \int_eval:w #1\int_eval_end:}
+\cs_new_nopar:Npn \char_show_value_uccode:w {\tex_showthe:D\tex_uccode:D}
+\cs_new_nopar:Npn \char_show_value_uccode:n #1{
+  \char_show_value_uccode:w \int_eval:w #1\int_eval_end:}
+\cs_new_eq:NN \char_set_sfcode:w \tex_sfcode:D
+\cs_new_protected_nopar:Npn \char_set_sfcode:nn #1#2 {
+  \char_set_sfcode:w #1 = \int_eval:w #2\int_eval_end:
+}
+\cs_new_nopar:Npn \char_value_sfcode:w { \int_use:N \tex_sfcode:D }
+\cs_new_nopar:Npn \char_value_sfcode:n #1 {
+  \char_value_sfcode:w \int_eval:w #1\int_eval_end:
+}
+\cs_new_nopar:Npn \char_show_value_sfcode:w { \tex_showthe:D \tex_sfcode:D }
+\cs_new_nopar:Npn \char_show_value_sfcode:n #1 {
+  \char_show_value_sfcode:w \int_eval:w #1\int_eval_end:
+}
+\cs_new_protected_nopar:Npn \token_new:Nn #1#2 {\cs_new_eq:NN #1#2}
+\cs_new_eq:NN \c_group_begin_token {
+\cs_new_eq:NN \c_group_end_token }
+\group_begin:
+\char_set_catcode:nn{`\*}{3}
+\token_new:Nn \c_math_shift_token {*}
+\char_set_catcode:nn{`\*}{4}
+\token_new:Nn \c_alignment_tab_token {*}
+\token_new:Nn \c_parameter_token {#}
+\token_new:Nn \c_math_superscript_token {^}
+\char_set_catcode:nn{`\*}{8}
+\token_new:Nn \c_math_subscript_token {*}
+\token_new:Nn \c_space_token {~}
+\token_new:Nn \c_letter_token {a}
+\token_new:Nn \c_other_char_token {1}
+\char_set_catcode:nn{`\*}{13}
+\cs_gset_nopar:Npn \c_active_char_token {\exp_not:N*}
+\group_end:
+\prg_new_conditional:Nnn \token_if_group_begin:N {p,TF,T,F} {
+  \if_catcode:w \exp_not:N #1\c_group_begin_token
+    \prg_return_true: \else: \prg_return_false: \fi:
+}
+\prg_new_conditional:Nnn \token_if_group_end:N {p,TF,T,F} {
+  \if_catcode:w \exp_not:N #1\c_group_end_token
+    \prg_return_true: \else: \prg_return_false: \fi:
+}
+\prg_new_conditional:Nnn \token_if_math_shift:N {p,TF,T,F} {
+  \if_catcode:w \exp_not:N #1\c_math_shift_token
+    \prg_return_true: \else: \prg_return_false: \fi:
+}
+\prg_new_conditional:Nnn \token_if_alignment_tab:N {p,TF,T,F} {
+  \if_catcode:w \exp_not:N #1\c_alignment_tab_token
+    \prg_return_true: \else: \prg_return_false: \fi:
+}
+\prg_new_conditional:Nnn \token_if_parameter:N {p,TF,T,F} {
+  \exp_after:wN\if_catcode:w \cs:w c_parameter_token\cs_end:\exp_not:N #1
+    \prg_return_true: \else: \prg_return_false: \fi:
+}
+\prg_new_conditional:Nnn \token_if_math_superscript:N {p,TF,T,F} {
+  \if_catcode:w \exp_not:N #1\c_math_superscript_token
+    \prg_return_true: \else: \prg_return_false: \fi:
+}
+\prg_new_conditional:Nnn \token_if_math_subscript:N {p,TF,T,F} {
+  \if_catcode:w \exp_not:N #1\c_math_subscript_token
+    \prg_return_true: \else: \prg_return_false: \fi:
+}
+\prg_new_conditional:Nnn \token_if_space:N {p,TF,T,F} {
+  \if_catcode:w \exp_not:N #1\c_space_token
+    \prg_return_true: \else: \prg_return_false: \fi:
+}
+\prg_new_conditional:Nnn \token_if_letter:N {p,TF,T,F} {
+  \if_catcode:w \exp_not:N #1\c_letter_token
+    \prg_return_true: \else: \prg_return_false: \fi:
+}
+\prg_new_conditional:Nnn \token_if_other_char:N {p,TF,T,F} {
+  \if_catcode:w \exp_not:N #1\c_other_char_token
+    \prg_return_true: \else: \prg_return_false: \fi:
+}
+\prg_new_conditional:Nnn \token_if_active_char:N {p,TF,T,F} {
+  \if_catcode:w \exp_not:N #1\c_active_char_token
+    \prg_return_true: \else: \prg_return_false: \fi:
+}
+\prg_new_conditional:Nnn \token_if_eq_meaning:NN {p,TF,T,F} {
+  \if_meaning:w  #1  #2
+    \prg_return_true: \else: \prg_return_false: \fi:
+}
+\prg_new_conditional:Nnn \token_if_eq_catcode:NN {p,TF,T,F} {
+  \if_catcode:w \exp_not:N #1 \exp_not:N #2
+    \prg_return_true: \else: \prg_return_false: \fi:
+}
+\prg_new_conditional:Nnn \token_if_eq_charcode:NN {p,TF,T,F} {
+  \if_charcode:w \exp_not:N #1 \exp_not:N #2
+    \prg_return_true: \else: \prg_return_false: \fi:
+}
+\prg_new_conditional:Nnn \token_if_macro:N {p,TF,T,F} {
+  \exp_after:wN \token_if_macro_p_aux:w \token_to_meaning:N #1 -> \q_stop
+}
+\cs_new_nopar:Npn \token_if_macro_p_aux:w #1 -> #2 \q_stop{
+  \if_predicate:w \tl_if_empty_p:n{#2}
+    \prg_return_false: \else: \prg_return_true: \fi:
+}
+\prg_new_conditional:Nnn \token_if_cs:N {p,TF,T,F} {
+  \if_predicate:w \token_if_eq_catcode_p:NN \scan_stop: #1
+    \prg_return_true: \else: \prg_return_false: \fi:}
+\prg_new_conditional:Nnn \token_if_expandable:N {p,TF,T,F} {
+  \cs_if_exist:NTF #1 {
+    \exp_after:wN \if_meaning:w \exp_not:N #1 #1
+      \prg_return_false: \else: \prg_return_true: \fi:
+  } {
+    \prg_return_false:
+  }
+}
+\group_begin:
+  \char_set_lccode:nn {`\T}{`\T}
+  \char_set_lccode:nn {`\F}{`\F}
+  \char_set_lccode:nn {`\X}{`\n}
+  \char_set_lccode:nn {`\Y}{`\t}
+  \char_set_lccode:nn {`\Z}{`\d}
+  \char_set_lccode:nn {`\?}{`\\}
+  \tl_map_inline:nn{\X\Y\Z\M\C\H\A\R\O\U\S\K\I\P\L\G\P\E}
+    {\char_set_catcode:nn {`#1}{12}}
+\tl_to_lowercase:n{
+  \group_end:
+\prg_new_conditional:Nnn \token_if_chardef:N {p,TF,T,F} {
+  \exp_after:wN \token_if_chardef_aux:w
+  \token_to_meaning:N #1?CHAR"\q_stop
+}
+\cs_new_nopar:Npn \token_if_chardef_aux:w #1?CHAR"#2\q_stop{
+  \tl_if_empty:nTF {#1} {\prg_return_true:} {\prg_return_false:}
+}
+\prg_new_conditional:Nnn \token_if_mathchardef:N {p,TF,T,F} {
+  \exp_after:wN \token_if_mathchardef_aux:w
+  \token_to_meaning:N #1?MAYHCHAR"\q_stop
+}
+\cs_new_nopar:Npn \token_if_mathchardef_aux:w #1?MAYHCHAR"#2\q_stop{
+  \tl_if_empty:nTF {#1} {\prg_return_true:} {\prg_return_false:}
+}
+\prg_new_conditional:Nnn \token_if_int_register:N {p,TF,T,F} {
+  \if_meaning:w \tex_countdef:D #1
+    \prg_return_false:
+  \else:
+    \exp_after:wN \token_if_int_register_aux:w
+      \token_to_meaning:N #1?COUXY\q_stop
+  \fi:
+}
+\cs_new_nopar:Npn \token_if_int_register_aux:w #1?COUXY#2\q_stop{
+  \tl_if_empty:nTF {#1} {\prg_return_true:} {\prg_return_false:}
+}
+\prg_new_conditional:Nnn \token_if_skip_register:N {p,TF,T,F} {
+  \if_meaning:w \tex_skipdef:D #1
+    \prg_return_false:
+  \else:
+    \exp_after:wN \token_if_skip_register_aux:w
+    \token_to_meaning:N #1?SKIP\q_stop
+  \fi:
+}
+\cs_new_nopar:Npn \token_if_skip_register_aux:w #1?SKIP#2\q_stop{
+  \tl_if_empty:nTF {#1} {\prg_return_true:} {\prg_return_false:}
+}
+\prg_new_conditional:Nnn \token_if_dim_register:N {p,TF,T,F} {
+  \if_meaning:w \tex_dimendef:D #1
+    \c_false_bool
+  \else:
+    \exp_after:wN \token_if_dim_register_aux:w
+    \token_to_meaning:N #1?ZIMEX\q_stop
+  \fi:
+}
+\cs_new_nopar:Npn \token_if_dim_register_aux:w #1?ZIMEX#2\q_stop{
+  \tl_if_empty:nTF {#1} {\prg_return_true:} {\prg_return_false:}
+}
+\prg_new_conditional:Nnn \token_if_toks_register:N {p,TF,T,F} {
+  \if_meaning:w \tex_toksdef:D #1
+    \prg_return_false:
+  \else:
+    \exp_after:wN \token_if_toks_register_aux:w
+    \token_to_meaning:N #1?YOKS\q_stop
+  \fi:
+}
+\cs_new_nopar:Npn \token_if_toks_register_aux:w #1?YOKS#2\q_stop{
+  \tl_if_empty:nTF {#1} {\prg_return_true:} {\prg_return_false:}
+}
+\prg_new_conditional:Nnn \token_if_protected_macro:N {p,TF,T,F} {
+  \exp_after:wN \token_if_protected_macro_aux:w
+  \token_to_meaning:N #1?PROYECYEZ~MACRO\q_stop
+}
+\cs_new_nopar:Npn \token_if_protected_macro_aux:w #1?PROYECYEZ~MACRO#2\q_stop{
+  \tl_if_empty:nTF {#1} {\prg_return_true:} {\prg_return_false:}
+}
+\prg_new_conditional:Nnn \token_if_long_macro:N {p,TF,T,F} {
+  \exp_after:wN \token_if_long_macro_aux:w
+  \token_to_meaning:N #1?LOXG~MACRO\q_stop
+}
+\cs_new_nopar:Npn \token_if_long_macro_aux:w #1?LOXG~MACRO#2\q_stop{
+  \tl_if_empty:nTF {#1} {\prg_return_true:} {\prg_return_false:}
+}
+\prg_new_conditional:Nnn \token_if_protected_long_macro:N {p,TF,T,F} {
+  \exp_after:wN \token_if_protected_long_macro_aux:w
+  \token_to_meaning:N #1?PROYECYEZ?LOXG~MACRO\q_stop
+}
+\cs_new_nopar:Npn \token_if_protected_long_macro_aux:w #1
+  ?PROYECYEZ?LOXG~MACRO#2\q_stop{
+  \tl_if_empty:nTF {#1} {\prg_return_true:} {\prg_return_false:}
+}
+}
+\group_begin:
+\char_set_lccode:nn {`\?}{`\:}
+\char_set_catcode:nn{`\M}{12}
+\char_set_catcode:nn{`\A}{12}
+\char_set_catcode:nn{`\C}{12}
+\char_set_catcode:nn{`\R}{12}
+\char_set_catcode:nn{`\O}{12}
+\tl_to_lowercase:n{
+  \group_end:
+  \cs_new_nopar:Npn \token_get_prefix_arg_replacement_aux:w #1MACRO?#2->#3\q_stop#4{
+    #4{#1}{#2}{#3}
+  }
+  \cs_new_nopar:Npn\token_get_prefix_spec:N #1{
+    \token_if_macro:NTF #1{
+      \exp_after:wN \token_get_prefix_arg_replacement_aux:w
+      \token_to_meaning:N #1\q_stop\use_i:nnn
+    }{\scan_stop:}
+  }
+  \cs_new_nopar:Npn\token_get_arg_spec:N #1{
+    \token_if_macro:NTF #1{
+      \exp_after:wN \token_get_prefix_arg_replacement_aux:w
+      \token_to_meaning:N #1\q_stop\use_ii:nnn
+    }{\scan_stop:}
+  }
+  \cs_new_nopar:Npn\token_get_replacement_spec:N #1{
+    \token_if_macro:NTF #1{
+      \exp_after:wN \token_get_prefix_arg_replacement_aux:w
+      \token_to_meaning:N #1\q_stop\use_iii:nnn
+    }{\scan_stop:}
+  }
+}
+\prg_new_conditional:Nnn \token_if_primitive:N {p,TF,T,F} {
+  \if_predicate:w \token_if_cs_p:N #1
+    \if_predicate:w \token_if_macro_p:N #1
+      \prg_return_false:
+    \else:
+      \token_if_primitive_p_aux:N #1
+    \fi:
+  \else:
+    \if_predicate:w \token_if_active_char_p:N #1
+      \if_predicate:w \token_if_macro_p:N #1
+        \prg_return_false:
+      \else:
+        \token_if_primitive_p_aux:N #1
+      \fi:
+    \else:
+      \prg_return_false:
+    \fi:
+  \fi:
+}
+\cs_new_nopar:Npn \token_if_primitive_p_aux:N #1{
+  \if_predicate:w \token_if_chardef_p:N #1 \c_false_bool
+  \else:
+    \if_predicate:w \token_if_mathchardef_p:N #1 \prg_return_false:
+    \else:
+      \if_predicate:w \token_if_int_register_p:N #1 \prg_return_false:
+      \else:
+        \if_predicate:w \token_if_skip_register_p:N #1 \prg_return_false:
+        \else:
+          \if_predicate:w \token_if_dim_register_p:N #1 \prg_return_false:
+          \else:
+            \if_predicate:w   \token_if_toks_register_p:N #1 \prg_return_false:
+            \else:
+              \prg_return_true:
+            \fi:
+          \fi:
+        \fi:
+      \fi:
+    \fi:
+  \fi:
+}
+\token_new:Nn \l_peek_token {?}
+\token_new:Nn \g_peek_token {?}
+\token_new:Nn \l_peek_search_token {?}
+\cs_new_protected_nopar:Npn \peek_after:NN {\tex_futurelet:D \l_peek_token }
+\cs_new_protected_nopar:Npn \peek_gafter:NN {
+  \pref_global:D \tex_futurelet:D \g_peek_token
+}
+\tl_new:N \l_peek_true_tl
+\tl_new:N \l_peek_false_tl
+\cs_new_nopar:Npn \peek_tmp:w {}
+\tl_new:N \l_peek_search_tl
+\cs_new_protected:Npn \peek_token_generic:NNTF #1#2#3#4 {
+  \cs_set_eq:NN \l_peek_search_token #2
+  \tl_set:Nn \l_peek_search_tl {#2}
+  \tl_set:Nn \l_peek_true_tl  { \group_align_safe_end: #3 }
+  \tl_set:Nn \l_peek_false_tl { \group_align_safe_end: #4 }
+  \group_align_safe_begin:
+    \peek_after:NN #1
+}
+\cs_new_protected:Npn \peek_token_generic:NNT #1#2#3 {
+  \peek_token_generic:NNTF #1#2 {#3} {}
+}
+\cs_new_protected:Npn \peek_token_generic:NNF #1#2#3 {
+  \peek_token_generic:NNTF #1#2 {} {#3}
+}
+\cs_new_protected:Npn \peek_token_remove_generic:NNTF #1#2#3#4 {
+  \cs_set_eq:NN \l_peek_search_token #2
+  \tl_set:Nn \l_peek_search_tl {#2}
+  \tl_set:Nn \l_peek_true_aux_tl {#3}
+  \tl_set_eq:NN \l_peek_true_tl \c_peek_true_remove_next_tl
+  \tl_set:Nn \l_peek_false_tl {\group_align_safe_end: #4}
+  \group_align_safe_begin:
+    \peek_after:NN #1
+}
+\cs_new:Npn \peek_token_remove_generic:NNT #1#2#3 {
+  \peek_token_remove_generic:NNTF #1#2 {#3} {}
+}
+\cs_new:Npn \peek_token_remove_generic:NNF #1#2#3 {
+  \peek_token_remove_generic:NNTF #1#2 {} {#3}
+}
+\tl_new:N \l_peek_true_aux_tl
+\tl_const:Nn \c_peek_true_remove_next_tl {\group_align_safe_end:
+  \tex_afterassignment:D \l_peek_true_aux_tl \cs_set_eq:NN \peek_tmp:w
+}
+\cs_new_nopar:Npn \peek_execute_branches_meaning: {
+  \if_meaning:w \l_peek_token \l_peek_search_token
+    \exp_after:wN \l_peek_true_tl
+  \else:
+    \exp_after:wN \l_peek_false_tl
+  \fi:
+}
+\cs_new_nopar:Npn \peek_execute_branches_catcode: {
+  \if_catcode:w \exp_not:N\l_peek_token \exp_not:N\l_peek_search_token
+    \exp_after:wN \l_peek_true_tl
+  \else:
+    \exp_after:wN \l_peek_false_tl
+  \fi:
+}
+\cs_new_nopar:Npn \peek_execute_branches_charcode: {
+  \bool_if:nTF {
+    \token_if_eq_catcode_p:NN \l_peek_token \c_group_begin_token ||
+    \token_if_eq_catcode_p:NN \l_peek_token \c_group_end_token ||
+    \token_if_eq_meaning_p:NN \l_peek_token \c_space_token
+  }
+  { \l_peek_false_tl  }
+  { \exp_after:wN \peek_execute_branches_charcode_aux:NN \l_peek_search_tl }
+}
+\cs_new:Npn \peek_execute_branches_charcode_aux:NN #1#2{
+  \if_charcode:w \exp_not:N #1\exp_not:N#2
+    \exp_after:wN \l_peek_true_tl
+  \else:
+    \exp_after:wN \l_peek_false_tl
+  \fi:
+  #2
+}
+\cs_new_nopar:Npn \peek_def_aux:nnnn #1#2#3#4 {
+  \peek_def_aux_ii:nnnnn {#1} {#2} {#3} {#4} { TF }
+  \peek_def_aux_ii:nnnnn {#1} {#2} {#3} {#4} { T  }
+  \peek_def_aux_ii:nnnnn {#1} {#2} {#3} {#4} { F  }
+}
+\cs_new_protected_nopar:Npn \peek_def_aux_ii:nnnnn #1#2#3#4#5 {
+  \cs_new_nopar:cpx { #1 #5 } {
+    \tl_if_empty:nF {#2} {
+      \exp_not:n { \cs_set_eq:NN \peek_execute_branches: #2 }
+    }
+    \exp_not:c { #3 #5 }
+    \exp_not:n { #4 }
+  }
+}
+\peek_def_aux:nnnn
+  { peek_meaning:N }
+  {}
+  { peek_token_generic:NN }
+  { \peek_execute_branches_meaning: }
+\peek_def_aux:nnnn
+  { peek_meaning_ignore_spaces:N }
+  { \peek_execute_branches_meaning: }
+  { peek_token_generic:NN }
+  { \peek_ignore_spaces_execute_branches: }
+\peek_def_aux:nnnn
+  { peek_meaning_remove:N }
+  {}
+  { peek_token_remove_generic:NN }
+  { \peek_execute_branches_meaning: }
+\peek_def_aux:nnnn
+  { peek_meaning_remove_ignore_spaces:N }
+  { \peek_execute_branches_meaning: }
+  { peek_token_remove_generic:NN }
+  { \peek_ignore_spaces_execute_branches: }
+\peek_def_aux:nnnn
+  { peek_catcode:N }
+  {}
+  { peek_token_generic:NN }
+  { \peek_execute_branches_catcode: }
+\peek_def_aux:nnnn
+  { peek_catcode_ignore_spaces:N }
+  { \peek_execute_branches_catcode: }
+  { peek_token_generic:NN }
+  { \peek_ignore_spaces_execute_branches: }
+\peek_def_aux:nnnn
+  { peek_catcode_remove:N }
+  {}
+  { peek_token_remove_generic:NN }
+  { \peek_execute_branches_catcode: }
+\peek_def_aux:nnnn
+  { peek_catcode_remove_ignore_spaces:N }
+  { \peek_execute_branches_catcode: }
+  { peek_token_remove_generic:NN }
+  { \peek_ignore_spaces_execute_branches: }
+\peek_def_aux:nnnn
+  { peek_charcode:N }
+  {}
+  { peek_token_generic:NN }
+  { \peek_execute_branches_charcode: }
+\peek_def_aux:nnnn
+  { peek_charcode_ignore_spaces:N }
+  { \peek_execute_branches_charcode: }
+  { peek_token_generic:NN }
+  { \peek_ignore_spaces_execute_branches: }
+\peek_def_aux:nnnn
+  { peek_charcode_remove:N }
+  {}
+  { peek_token_remove_generic:NN }
+  { \peek_execute_branches_charcode: }
+\peek_def_aux:nnnn
+  { peek_charcode_remove_ignore_spaces:N }
+  { \peek_execute_branches_charcode: }
+  { peek_token_remove_generic:NN }
+  { \peek_ignore_spaces_execute_branches:}
+\cs_new_nopar:Npn \peek_ignore_spaces_aux: {
+  \peek_after:NN \peek_ignore_spaces_execute_branches:
+}
+\cs_new_protected_nopar:Npn \peek_ignore_spaces_execute_branches: {
+  \token_if_eq_meaning:NNTF \l_peek_token \c_space_token
+  {  \tex_afterassignment:D \peek_ignore_spaces_aux:
+     \cs_set_eq:NN \peek_tmp:w
+  }
+  \peek_execute_branches:
+}
+%% 
+%%
+%% End of file `l3token.sty'.

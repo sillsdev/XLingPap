@@ -1,0 +1,127 @@
+%%
+%% This is file `l3quark.sty',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% l3quark.dtx  (with options: `package,trace')
+%% 
+%% 
+%% EXPERIMENTAL CODE
+%% 
+%% Do not distribute this file without also distributing the
+%% source files specified above.
+%% 
+%% Do not distribute a modified version of this file.
+%% 
+%% 
+%% File: l3quark.dtx Copyright (C) 1990-2009 LaTeX3 project
+%%
+%% It may be distributed and/or modified under the conditions of the
+%% LaTeX Project Public License (LPPL), either version 1.3c of this
+%% license or (at your option) any later version.  The latest version
+%% of this license is in the file
+%%
+%%    http://www.latex-project.org/lppl.txt
+%%
+%% This file is part of the ``expl3 bundle'' (The Work in LPPL)
+%% and all files in that bundle must be distributed together.
+%%
+%% The released version of this bundle is available from CTAN.
+%%
+%% -----------------------------------------------------------------------
+%%
+%% The development version of the bundle can be found at
+%%
+%%    http://www.latex-project.org/svnroot/experimental/trunk/
+%%
+%% for those people who are interested.
+%%
+%%%%%%%%%%%
+%% NOTE: %%
+%%%%%%%%%%%
+%%
+%%   Snapshots taken from the repository represent work in progress and may
+%%   not work or may contain conflicting material!  We therefore ask
+%%   people _not_ to put them into distributions, archives, etc. without
+%%   prior consultation with the LaTeX Project Team.
+%%
+%% -----------------------------------------------------------------------
+\RequirePackage{l3names}
+\GetIdInfo$Id: l3quark.dtx 2036 2010-09-20 20:33:54Z joseph $
+          {L3 Experimental Quark Commands}
+\ProvidesExplPackage
+  {\filename}{\filedate}{\fileversion}{\filedescription}
+\package_check_loaded_expl:
+\cs_new_protected_nopar:Npn \quark_new:N #1 { \tl_const:Nn #1 {#1} }
+\quark_new:N \q_stop
+\quark_new:N \q_no_value
+\quark_new:N \q_nil
+\quark_new:N\q_error
+\quark_new:N\q_mark
+\quark_new:N\q_recursion_tail
+\quark_new:N\q_recursion_stop
+\cs_new:Npn \quark_if_recursion_tail_stop:n #1 {
+  \exp_after:wN\if_meaning:w
+    \quark_if_recursion_tail_aux:w #1?\q_stop\q_recursion_tail\q_recursion_tail
+    \exp_after:wN \use_none_delimit_by_q_recursion_stop:w
+  \fi:
+}
+\cs_new:Npn \quark_if_recursion_tail_stop:N #1 {
+  \if_meaning:w#1\q_recursion_tail
+    \exp_after:wN \use_none_delimit_by_q_recursion_stop:w
+  \fi:
+}
+\cs_generate_variant:Nn \quark_if_recursion_tail_stop:n {o}
+\cs_new:Npn \quark_if_recursion_tail_stop_do:nn #1#2 {
+  \exp_after:wN\if_meaning:w
+    \quark_if_recursion_tail_aux:w #1?\q_stop\q_recursion_tail\q_recursion_tail
+    \exp_after:wN \use_i_delimit_by_q_recursion_stop:nw
+  \else:
+    \exp_after:wN\use_none:n
+  \fi:
+  {#2}
+}
+\cs_new:Npn \quark_if_recursion_tail_stop_do:Nn #1#2 {
+  \if_meaning:w #1\q_recursion_tail
+    \exp_after:wN \use_i_delimit_by_q_recursion_stop:nw
+  \else:
+    \exp_after:wN\use_none:n
+  \fi:
+  {#2}
+}
+\cs_generate_variant:Nn \quark_if_recursion_tail_stop_do:nn {on}
+\cs_new:Npn \quark_if_recursion_tail_aux:w #1#2 \q_stop \q_recursion_tail {#1}
+\prg_new_conditional:Nnn \quark_if_no_value:N {p,TF,T,F} {
+  \if_meaning:w \q_no_value #1
+    \prg_return_true: \else: \prg_return_false: \fi:
+}
+\prg_new_conditional:Nnn \quark_if_no_value:n {p,TF,T,F} {
+  \if_num:w \pdf_strcmp:D
+      {\exp_not:N \q_no_value}
+      {\exp_not:n{#1}} = \c_zero
+    \prg_return_true: \else: \prg_return_false:
+  \fi:
+}
+\prg_new_conditional:Nnn \quark_if_nil:N {p,TF,T,F} {
+  \if_meaning:w \q_nil #1 \prg_return_true: \else: \prg_return_false: \fi:
+}
+\prg_new_conditional:Nnn \quark_if_nil:n {p,TF,T,F} {
+  \if_num:w \pdf_strcmp:D
+      {\exp_not:N \q_nil}
+      {\exp_not:n{#1}} = \c_zero
+    \prg_return_true: \else: \prg_return_false:
+  \fi:
+}
+\cs_generate_variant:Nn \quark_if_nil_p:n {V}
+\cs_generate_variant:Nn \quark_if_nil:nTF {V}
+\cs_generate_variant:Nn \quark_if_nil:nT  {V}
+\cs_generate_variant:Nn \quark_if_nil:nF  {V}
+\cs_generate_variant:Nn \quark_if_nil_p:n {o}
+\cs_generate_variant:Nn \quark_if_nil:nTF {o}
+\cs_generate_variant:Nn \quark_if_nil:nT  {o}
+\cs_generate_variant:Nn \quark_if_nil:nF  {o}
+
+%% 
+%%
+%% End of file `l3quark.sty'.

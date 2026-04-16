@@ -1,0 +1,28 @@
+%%
+%% This is file `listings-xepersian.def',
+
+%% 
+%%   __________________________________
+%%   Copyright © 2008-2010 Vafa Khalighi
+%% 
+%%   License information appended.
+%% 
+%% 
+\ProvidesFile{listings-xepersian.def}[2010/07/25 v0.2 bilingual captions for listings package]
+\def\lstlistingname{\if@RTL برنامهٔ\else Listing\fi}
+\def\lstlistlistingname{\if@RTL فهرست برنامه‌ها\else Listings\fi}
+%% 
+%% Copyright © 2008-2010      by Vafa Khalighi     <vafakh84@gmail.com>
+%% 
+%% Distributable under the LaTeX Project Public License,
+%% version 1.3c or higher (your choice). The latest version of
+%% this license is at: http://www.latex-project.org/lppl.txt
+%% 
+%% This work is "maintained" (as per LPPL maintenance status)
+%% by Vafa Khalighi.
+%% 
+%% 
+%% 
+%% 
+%%
+%% End of file `listings-xepersian.def'.

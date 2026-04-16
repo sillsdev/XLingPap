@@ -1,0 +1,195 @@
+%%
+%% This is file `l3box.sty',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% l3box.dtx  (with options: `package')
+%% 
+%% 
+%% EXPERIMENTAL CODE
+%% 
+%% Do not distribute this file without also distributing the
+%% source files specified above.
+%% 
+%% Do not distribute a modified version of this file.
+%% 
+%% 
+%% File: l3box.dtx Copyright (C) 2005-2010 LaTeX3 project
+%%
+%% It may be distributed and/or modified under the conditions of the
+%% LaTeX Project Public License (LPPL), either version 1.3c of this
+%% license or (at your option) any later version.  The latest version
+%% of this license is in the file
+%%
+%%    http://www.latex-project.org/lppl.txt
+%%
+%% This file is part of the ``expl3 bundle'' (The Work in LPPL)
+%% and all files in that bundle must be distributed together.
+%%
+%% The released version of this bundle is available from CTAN.
+%%
+%% -----------------------------------------------------------------------
+%%
+%% The development version of the bundle can be found at
+%%
+%%    http://www.latex-project.org/svnroot/experimental/trunk/
+%%
+%% for those people who are interested.
+%%
+%%%%%%%%%%%
+%% NOTE: %%
+%%%%%%%%%%%
+%%
+%%   Snapshots taken from the repository represent work in progress and may
+%%   not work or may contain conflicting material!  We therefore ask
+%%   people _not_ to put them into distributions, archives, etc. without
+%%   prior consultation with the LaTeX Project Team.
+%%
+%% -----------------------------------------------------------------------
+\RequirePackage{l3names}
+\GetIdInfo$Id: l3box.dtx 2048 2010-09-26 19:13:59Z joseph $
+          {L3 Experimental Box module}
+\ProvidesExplPackage
+  {\filename}{\filedate}{\fileversion}{\filedescription}
+\package_check_loaded_expl:
+\cs_new_protected:Npn \box_new:N #1 {
+  \chk_if_free_cs:N #1
+  \newbox #1
+}
+\cs_generate_variant:Nn \box_new:N {c}
+\cs_new_eq:NN \if_hbox:N        \tex_ifhbox:D
+\cs_new_eq:NN \if_vbox:N        \tex_ifvbox:D
+\cs_new_eq:NN \if_box_empty:N   \tex_ifvoid:D
+\prg_new_conditional:Nnn \box_if_horizontal:N {p,TF,T,F} {
+  \tex_ifhbox:D #1 \prg_return_true: \else: \prg_return_false: \fi:
+}
+\prg_new_conditional:Nnn \box_if_vertical:N {p,TF,T,F} {
+  \tex_ifvbox:D #1 \prg_return_true: \else: \prg_return_false: \fi:
+}
+\cs_generate_variant:Nn \box_if_horizontal_p:N {c}
+\cs_generate_variant:Nn \box_if_horizontal:NTF {c}
+\cs_generate_variant:Nn \box_if_horizontal:NT  {c}
+\cs_generate_variant:Nn \box_if_horizontal:NF  {c}
+\cs_generate_variant:Nn \box_if_vertical_p:N {c}
+\cs_generate_variant:Nn \box_if_vertical:NTF {c}
+\cs_generate_variant:Nn \box_if_vertical:NT  {c}
+\cs_generate_variant:Nn \box_if_vertical:NF  {c}
+\prg_new_conditional:Nnn \box_if_empty:N {p,TF,T,F} {
+  \tex_ifvoid:D #1 \prg_return_true: \else: \prg_return_false: \fi:
+}
+\cs_generate_variant:Nn \box_if_empty_p:N {c}
+\cs_generate_variant:Nn \box_if_empty:NTF {c}
+\cs_generate_variant:Nn \box_if_empty:NT  {c}
+\cs_generate_variant:Nn \box_if_empty:NF  {c}
+\cs_new_protected_nopar:Npn \box_set_eq:NN #1#2 {\tex_setbox:D #1 \tex_copy:D #2}
+\cs_generate_variant:Nn \box_set_eq:NN {cN,Nc,cc}
+\cs_new_protected_nopar:Npn \box_set_eq_clear:NN #1#2 {\tex_setbox:D #1 \tex_box:D #2}
+\cs_generate_variant:Nn \box_set_eq_clear:NN {cN,Nc,cc}
+\cs_new_protected_nopar:Npn \box_gset_eq:NN {\pref_global:D\box_set_eq:NN}
+\cs_generate_variant:Nn \box_gset_eq:NN {cN,Nc,cc}
+\cs_new_protected_nopar:Npn \box_gset_eq_clear:NN {\pref_global:D\box_set_eq_clear:NN}
+\cs_generate_variant:Nn \box_gset_eq_clear:NN {cN,Nc,cc}
+\cs_new_eq:NN \l_last_box \tex_lastbox:D
+\cs_new_protected_nopar:Npn \box_set_to_last:N #1{\tex_setbox:D#1\l_last_box}
+\cs_generate_variant:Nn \box_set_to_last:N {c}
+\cs_new_protected_nopar:Npn \box_gset_to_last:N {\pref_global:D \box_set_to_last:N}
+\cs_generate_variant:Nn \box_gset_to_last:N {c}
+\cs_new:Npn \box_move_left:nn #1#2{\tex_moveleft:D\dim_eval:n{#1} #2}
+\cs_new:Npn \box_move_right:nn #1#2{\tex_moveright:D\dim_eval:n{#1} #2}
+\cs_new:Npn \box_move_up:nn #1#2{\tex_raise:D\dim_eval:n{#1} #2}
+\cs_new:Npn \box_move_down:nn #1#2{\tex_lower:D\dim_eval:n{#1} #2}
+\cs_new_protected_nopar:Npn \box_clear:N #1{\box_set_eq_clear:NN #1 \c_empty_box }
+\cs_generate_variant:Nn \box_clear:N {c}
+\cs_new_protected_nopar:Npn \box_gclear:N {\pref_global:D\box_clear:N}
+\cs_generate_variant:Nn \box_gclear:N {c}
+\cs_new_eq:NN \box_ht:N \tex_ht:D
+\cs_new_eq:NN \box_dp:N \tex_dp:D
+\cs_new_eq:NN \box_wd:N \tex_wd:D
+\cs_generate_variant:Nn \box_ht:N {c}
+\cs_generate_variant:Nn \box_dp:N {c}
+\cs_generate_variant:Nn \box_wd:N {c}
+\cs_new_protected_nopar:Npn \box_set_dp:Nn #1#2 {
+  \box_dp:N #1 \etex_dimexpr:D #2 \scan_stop:
+}
+\cs_new_protected_nopar:Npn \box_set_ht:Nn #1#2 {
+  \box_ht:N #1 \etex_dimexpr:D #2 \scan_stop:
+}
+\cs_new_protected_nopar:Npn \box_set_wd:Nn #1#2 {
+  \box_wd:N #1 \etex_dimexpr:D #2 \scan_stop:
+}
+\cs_generate_variant:Nn \box_set_ht:Nn { c }
+\cs_generate_variant:Nn \box_set_dp:Nn { c }
+\cs_generate_variant:Nn \box_set_wd:Nn { c }
+\cs_new_eq:NN \box_use_clear:N \tex_box:D
+\cs_generate_variant:Nn \box_use_clear:N {c}
+\cs_new_eq:NN \box_use:N \tex_copy:D
+\cs_generate_variant:Nn \box_use:N {c}
+\cs_set_eq:NN \box_show:N \tex_showbox:D
+\cs_generate_variant:Nn \box_show:N {c}
+\cs_set_eq:NN \c_empty_box \voidb@x
+\cs_new_eq:NN \l_tmpa_box \@tempboxa
+\box_new:N \l_tmpb_box
+\cs_new_protected_nopar:Npn \vbox:n {\tex_vbox:D \scan_stop:}
+\cs_new_protected_nopar:Npn \vbox_top:n {\tex_vtop:D \scan_stop:}
+\cs_new_protected:Npn \vbox_set:Nn #1#2 {\tex_setbox:D #1 \tex_vbox:D {#2}}
+\cs_generate_variant:Nn \vbox_set:Nn {cn}
+\cs_new_protected_nopar:Npn \vbox_gset:Nn  {\pref_global:D \vbox_set:Nn}
+\cs_generate_variant:Nn \vbox_gset:Nn {cn}
+\cs_new_protected:Npn \vbox_set_top:Nn #1#2 {\tex_setbox:D #1 \tex_vtop:D {#2}}
+\cs_generate_variant:Nn \vbox_set_top:Nn {cn}
+\cs_new_protected_nopar:Npn \vbox_gset_top:Nn  {\pref_global:D \vbox_set_top:Nn}
+\cs_generate_variant:Nn \vbox_gset_top:Nn {cn}
+\cs_new_protected:Npn \vbox_set_to_ht:Nnn #1#2#3 {
+  \tex_setbox:D #1 \tex_vbox:D to #2 {#3}
+}
+\cs_generate_variant:Nn \vbox_set_to_ht:Nnn {cnn}
+\cs_new_protected_nopar:Npn \vbox_gset_to_ht:Nnn { \pref_global:D \vbox_set_to_ht:Nnn }
+\cs_generate_variant:Nn \vbox_gset_to_ht:Nnn {cnn,ccn}
+\cs_new_protected_nopar:Npn \vbox_set_inline_begin:N  #1 {
+  \tex_setbox:D #1 \tex_vbox:D \c_group_begin_token }
+\cs_new_eq:NN \vbox_set_inline_end: \c_group_end_token
+\cs_new_protected_nopar:Npn \vbox_gset_inline_begin:N {
+  \pref_global:D \vbox_set_inline_begin:N }
+\cs_new_eq:NN \vbox_gset_inline_end: \c_group_end_token
+\cs_new_protected:Npn \vbox_to_ht:nn #1#2{\tex_vbox:D to \dim_eval:n{#1}{#2}}
+\cs_new_protected:Npn \vbox_to_zero:n #1 {\tex_vbox:D to \c_zero_dim {#1}}
+\cs_new_protected_nopar:Npn \vbox_set_split_to_ht:NNn #1#2#3{
+  \tex_setbox:D #1 \tex_vsplit:D #2 to #3
+}
+\cs_new_eq:NN \vbox_unpack:N \tex_unvcopy:D
+\cs_generate_variant:Nn \vbox_unpack:N {c}
+\cs_new_eq:NN \vbox_unpack_clear:N \tex_unvbox:D
+\cs_generate_variant:Nn \vbox_unpack_clear:N {c}
+\cs_new_protected_nopar:Npn \hbox:n {\tex_hbox:D \scan_stop:}
+\cs_new_protected:Npn \hbox_set:Nn #1#2 {\tex_setbox:D #1 \tex_hbox:D {#2}}
+\cs_generate_variant:Nn \hbox_set:Nn {cn}
+\cs_new_protected_nopar:Npn \hbox_gset:Nn  {\pref_global:D \hbox_set:Nn}
+\cs_generate_variant:Nn \hbox_gset:Nn {cn}
+\cs_new_protected:Npn \hbox_set_to_wd:Nnn #1#2#3 {
+  \tex_setbox:D #1 \tex_hbox:D to \dim_eval:n{#2} {#3}
+}
+\cs_generate_variant:Nn \hbox_set_to_wd:Nnn {cnn}
+\cs_new_protected_nopar:Npn \hbox_gset_to_wd:Nnn {\pref_global:D \hbox_set_to_wd:Nnn }
+\cs_generate_variant:Nn \hbox_gset_to_wd:Nnn {cnn}
+\cs_new_protected_nopar:Npn \hbox_set_inline_begin:N  #1 {
+  \tex_setbox:D #1 \tex_hbox:D \c_group_begin_token
+}
+\cs_generate_variant:Nn \hbox_set_inline_begin:N {c}
+\cs_new_eq:NN \hbox_set_inline_end: \c_group_end_token
+\cs_new_protected_nopar:Npn \hbox_gset_inline_begin:N {
+  \pref_global:D \hbox_set_inline_begin:N
+}
+\cs_generate_variant:Nn \hbox_gset_inline_begin:N {c}
+\cs_new_eq:NN \hbox_gset_inline_end: \c_group_end_token
+\cs_new_protected:Npn \hbox_to_wd:nn #1#2 {\tex_hbox:D to #1 {#2}}
+\cs_new_protected:Npn \hbox_to_zero:n #1 {\tex_hbox:D to \c_zero_skip {#1}}
+\cs_new_protected:Npn \hbox_overlap_left:n  #1 {\hbox_to_zero:n {\tex_hss:D #1}}
+\cs_new_protected:Npn \hbox_overlap_right:n #1 {\hbox_to_zero:n {#1 \tex_hss:D}}
+\cs_new_eq:NN \hbox_unpack:N \tex_unhcopy:D
+\cs_generate_variant:Nn \hbox_unpack:N {c}
+\cs_new_eq:NN \hbox_unpack_clear:N \tex_unhbox:D
+\cs_generate_variant:Nn \hbox_unpack_clear:N {c}
+%% 
+%%
+%% End of file `l3box.sty'.

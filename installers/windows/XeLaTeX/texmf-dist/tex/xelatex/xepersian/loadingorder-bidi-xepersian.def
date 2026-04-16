@@ -1,0 +1,48 @@
+%%
+%% This is file `loadingorder-bidi-xepersian.def',
+
+%% 
+%%   __________________________________
+%%   Copyright © 2009-2010 Vafa Khalighi
+%% 
+%%   License information appended.
+%% 
+%% 
+\ProvidesFile{loadingorder-bidi-xepersian.def}[2010/07/25 v0.2 making sure that xepersian is the last package loaded]
+\bidi@isloaded{algorithmic}
+\bidi@isloaded{algorithm}
+\bidi@isloaded{backref}
+\bidi@isloaded{enumerate}
+\bidi@isloaded{tocloft}
+\AtBeginDocument{
+  \if@bidi@algorithmicloaded@\else
+    \bidi@isloaded[\PackageError{xepersian}{Oops! you have loaded package algorithmic after xepersian package. Please load package algorithmic before xepersian package, and then try to run xelatex on your document again}{}]{algorithmic}
+  \fi%
+  \if@bidi@algorithmloaded@\else
+    \bidi@isloaded[\PackageError{xepersian}{Oops! you have loaded package algorithm after xepersian package. Please load package algorithm before xepersian package, and then try to run xelatex on your document again}{}]{algorithm}
+  \fi%
+  \if@bidi@backrefloaded@\else
+    \bidi@isloaded[\PackageError{xepersian}{Oops! you have loaded package backref after xepersian package. Please load package backref before xepersian package, and then try to run xelatex on your document again}{}]{backref}
+  \fi%
+  \if@bidi@enumerateloaded@\else
+    \bidi@isloaded[\PackageError{xepersian}{Oops! you have loaded package enumerate after xepersian package. Please load package enumerate before xepersian package, and then try to run xelatex on your document again}{}]{enumerate}
+  \fi%
+  \if@bidi@tocloftloaded@\else
+    \bidi@isloaded[\PackageError{xepersian}{Oops! you have loaded package tocloft after xepersian package. Please load package tocloft before xepersian package, and then try to run xelatex on your document again}{}]{tocloft}
+  \fi%
+}
+%% 
+%% Copyright © 2009-2010      by Vafa Khalighi     <vafakh84@gmail.com>
+%% 
+%% Distributable under the LaTeX Project Public License,
+%% version 1.3c or higher (your choice). The latest version of
+%% this license is at: http://www.latex-project.org/lppl.txt
+%% 
+%% This work is "maintained" (as per LPPL maintenance status)
+%% by Vafa Khalighi.
+%% 
+%% 
+%% 
+%% 
+%%
+%% End of file `loadingorder-bidi-xepersian.def'.

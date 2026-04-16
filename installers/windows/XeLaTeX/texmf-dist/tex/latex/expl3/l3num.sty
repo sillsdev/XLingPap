@@ -1,0 +1,100 @@
+%%
+%% This is file `l3num.sty',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% l3num.dtx  (with options: `package,trace')
+%% 
+%% 
+%% EXPERIMENTAL CODE
+%% 
+%% Do not distribute this file without also distributing the
+%% source files specified above.
+%% 
+%% Do not distribute a modified version of this file.
+%% 
+%% 
+%% File: l3num.dtx Copyright (C) 2005-2010 Frank Mittelbach, LaTeX3 project
+%%
+%% It may be distributed and/or modified under the conditions of the
+%% LaTeX Project Public License (LPPL), either version 1.3c of this
+%% license or (at your option) any later version.  The latest version
+%% of this license is in the file
+%%
+%%    http://www.latex-project.org/lppl.txt
+%%
+%% This file is part of the ``expl3 bundle'' (The Work in LPPL)
+%% and all files in that bundle must be distributed together.
+%%
+%% The released version of this bundle is available from CTAN.
+%%
+%% -----------------------------------------------------------------------
+%%
+%% The development version of the bundle can be found at
+%%
+%%    http://www.latex-project.org/svnroot/experimental/trunk/
+%%
+%% for those people who are interested.
+%%
+%%%%%%%%%%%
+%% NOTE: %%
+%%%%%%%%%%%
+%%
+%%   Snapshots taken from the repository represent work in progress and may
+%%   not work or may contain conflicting material!  We therefore ask
+%%   people _not_ to put them into distributions, archives, etc. without
+%%   prior consultation with the LaTeX Project Team.
+%%
+%% -----------------------------------------------------------------------
+\RequirePackage{l3names}
+\GetIdInfo$Id: l3num.dtx 2063 2010-10-03 08:26:49Z mittelba $
+       {L3 Experimental token numbers}
+\ProvidesExplPackage
+  {\filename}{\filedate}{\fileversion}{\filedescription}
+\package_check_loaded_expl:
+\cs_set_eq:NN \if_num:w           \tex_ifnum:D
+\cs_set_eq:NN \if_case:w          \tex_ifcase:D
+\cs_set_protected_nopar:Npn \num_incr:N #1{\num_add:Nn#1 1}
+\cs_set_protected_nopar:Npn \num_decr:N #1{\num_add:Nn#1 \c_minus_one}
+\cs_set_protected_nopar:Npn \num_gincr:N #1{\num_gadd:Nn#1 1}
+\cs_set_protected_nopar:Npn \num_gdecr:N #1{\num_gadd:Nn#1 \c_minus_one}
+\cs_generate_variant:Nn \num_incr:N {c}
+\cs_generate_variant:Nn \num_decr:N {c}
+\cs_generate_variant:Nn \num_gincr:N {c}
+\cs_generate_variant:Nn \num_gdecr:N {c}
+\cs_new_protected_nopar:Npn \num_zero:N #1 {\num_set:Nn #1 0}
+\cs_new_protected_nopar:Npn \num_gzero:N #1 {\num_gset:Nn #1 0}
+\cs_generate_variant:Nn \num_zero:N {c}
+\cs_generate_variant:Nn \num_gzero:N {c}
+\cs_new_protected_nopar:Npn \num_new:N #1{\tl_new:Nn #1{0}}
+\cs_generate_variant:Nn \num_new:N {c}
+\cs_new_protected_nopar:Npn \num_set:Nn #1#2{
+  \tl_set:No #1{ \tex_number:D \int_eval:n {#2} }
+}
+\cs_generate_variant:Nn\num_set:Nn {c}
+\cs_new_protected_nopar:Npn \num_gset:Nn {\pref_global:D \num_set:Nn}
+\cs_generate_variant:Nn\num_gset:Nn {c}
+\cs_new_eq:NN \num_set_eq:NN \tl_set_eq:NN
+\cs_generate_variant:Nn\num_set_eq:NN {c,Nc,cc}
+\cs_new_eq:NN \num_gset_eq:NN \tl_gset_eq:NN
+\cs_generate_variant:Nn\num_gset_eq:NN {c,Nc,cc}
+\cs_new_protected_nopar:Npn \num_add:Nn #1#2 {\num_set:Nn #1{#1+#2}}
+\cs_generate_variant:Nn\num_add:Nn {c}
+\cs_new_protected_nopar:Npn \num_gadd:Nn {\pref_global:D \num_add:Nn}
+\cs_generate_variant:Nn\num_gadd:Nn {c}
+\cs_new_eq:NN\num_use:N \use:n
+\cs_new_eq:NN\num_use:c \use:c
+\cs_new_eq:NN\num_show:N \cs_show:N
+\cs_new_eq:NN\num_show:c \cs_show:c
+\cs_new:Npn \num_elt_count:n #1 { + 1 }
+\cs_new:Npn \num_elt_count_prop:Nn #1#2 { + 1 }
+\num_new:N \l_tmpa_num
+\num_new:N \l_tmpb_num
+\num_new:N \l_tmpc_num
+\num_new:N \g_tmpa_num
+\num_new:N \g_tmpb_num
+\tex_mathchardef:D \c_max_register_num = 32767 \scan_stop:
+%% 
+%%
+%% End of file `l3num.sty'.

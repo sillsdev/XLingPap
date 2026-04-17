@@ -37,9 +37,10 @@ jobs:
           fi
       shell: bash
 
-    - name: 'Unzip XXE jar files'
+    - name: 'Prepare for Java compilation'
       run: |
         cd javasrc\XLingPapExtensions
+        mkdir class
         mkdir XXEJars
         cd XXEJars
         7z x ..\..\installers\XXE8ars\XXE8Jars.7z -p${{ secrets.XXE82_INSTALLER }}

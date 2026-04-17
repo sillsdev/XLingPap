@@ -82,61 +82,61 @@ jobs:
         if-no-files-found: error
 
 # old way to sign
-#  sign-full-setup-installer:
-#    name: Sign Windows XLingPaper full setup installer
-#    needs: create_NSIS_installer
-#    uses: sillsdev/codesign/.github/workflows/sign.yml@v2
-#    with:
-#      artifact: FullSetup
-#    secrets:
-#      certificate: ${{ secrets.CODESIGN_LSDEVSECTIGOEV }}
-#
-#  create-full-setup-release:
-#    name: Create full setup Release
-#    needs: sign-full-setup-installer
-#    runs-on: windows-latest
-#
-#    steps:
-#      - uses: actions/download-artifact@v4
-#        with:
-#          name: FullSetup
-#
-#      - name: Create Full Setup Release
-#        uses: softprops/action-gh-release@v2
-#        with:
-#          files: XLingPaper*FullSetup.exe
-#          body: |
-#            Release for version ${{ github.ref }}
-#          draft: false
-
-# new way to sign that is not yet usable
-  sign-full-setup-installer-release:
-    name: Sign Windows XLingPaper full setup Installer and Create Release
+  sign-full-setup-installer:
+    name: Sign Windows XLingPaper full setup installer
     needs: create_NSIS_installer
+    uses: sillsdev/codesign/.github/workflows/sign.yml@v2
+    with:
+      artifact: FullSetup
+    secrets:
+      certificate: ${{ secrets.CODESIGN_LSDEVSECTIGOEV }}
+
+  create-full-setup-release:
+    name: Create full setup Release
+    needs: sign-full-setup-installer
     runs-on: windows-latest
+
     steps:
       - uses: actions/download-artifact@v4
         with:
           name: FullSetup
-      - name: Sign with Trusted Signing
-        uses: sillsdev/codesign/trusted-signing-action@v3
-        with:
-          credentials: ${{ secrets.TRUSTED_SIGNING_CREDENTIALS }}
-          files-folder: .
-          files-folder-filter: XLingPaper*FullSetup.exe
-          files-folder-recurse: true
-          files-folder-depth: 4
-          description:  'Release for version ${{ needs.build.outputs.version }} from branch ${{ github.ref }}'
-          description-url: 'https://software.sil.org/xlingpaper/'
-      - uses: actions/upload-artifact@v4
-        with:
-          name: XLingPaperFullSetupSigned
-          path: XLingPaper*FullSetup.exe
-          if-no-files-found: error
-      - name: Create Release
+
+      - name: Create Full Setup Release
         uses: softprops/action-gh-release@v2
         with:
           files: XLingPaper*FullSetup.exe
           body: |
             Release for version ${{ github.ref }}
           draft: false
+
+# new way to sign that is not yet usable
+#  sign-full-setup-installer-release:
+#    name: Sign Windows XLingPaper full setup Installer and Create Release
+#    needs: create_NSIS_installer
+#    runs-on: windows-latest
+#    steps:
+#      - uses: actions/download-artifact@v4
+#        with:
+#          name: FullSetup
+#      - name: Sign with Trusted Signing
+#        uses: sillsdev/codesign/trusted-signing-action@v3
+#        with:
+#          credentials: ${{ secrets.TRUSTED_SIGNING_CREDENTIALS }}
+#          files-folder: .
+#          files-folder-filter: XLingPaper*FullSetup.exe
+#          files-folder-recurse: true
+#          files-folder-depth: 4
+#          description:  'Release for version ${{ needs.build.outputs.version }} from branch ${{ github.ref }}'
+#          description-url: 'https://software.sil.org/xlingpaper/'
+#      - uses: actions/upload-artifact@v4
+#        with:
+#          name: XLingPaperFullSetupSigned
+#          path: XLingPaper*FullSetup.exe
+#          if-no-files-found: error
+#      - name: Create Release
+#        uses: softprops/action-gh-release@v2
+#        with:
+#          files: XLingPaper*FullSetup.exe
+#          body: |
+#            Release for version ${{ github.ref }}
+#          draft: false

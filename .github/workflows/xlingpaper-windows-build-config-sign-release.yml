@@ -42,7 +42,7 @@ jobs:
         cd javasrc\XLingPapExtensions
         mkdir XXEJars
         cd XXEJars
-        7z x ..\..\..\installers\XXE8ars\XXE8Jars.7z -p${{ secrets.XXE82_INSTALLER }}
+        7z x ..\..\installers\XXE8ars\XXE8Jars.7z -p${{ secrets.XXE82_INSTALLER }}
         dir
       shell: cmd
 

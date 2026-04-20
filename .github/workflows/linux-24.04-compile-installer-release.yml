@@ -24,11 +24,13 @@ jobs:
         mkdir XXEJars
         cd XXEJars
         7z x ..\..\..\installers\XXE8Jars\XXE8Jars.7z -p${{ secrets.XXE82_INSTALLER }}
+        pwd
+        dir
       shell: cmd
 
     - uses: actions/upload-artifact@v4
       with:
-        name: XXE*Jars
+        name: XXEJars
         path: XXEJars
         if-no-files-found: error
 

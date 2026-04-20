@@ -44,7 +44,6 @@ jobs:
         mkdir XXEJars
         cd XXEJars
         7z x ..\..\..\installers\XXE8Jars\XXE8Jars.7z -p${{ secrets.XXE82_INSTALLER }}
-        dir
       shell: cmd
 
     - name: Set up JDK 8
@@ -58,6 +57,11 @@ jobs:
       run: |
         cd javasrc/XLingPapExtensions
         ant -noinput -buildfile build.xml
+        echo Build done
+        pwd
+        cd ../..
+        pwd
+        ls -l
       shell: bash
 
     - name: 'create XLingPaper Configuration Folder'
@@ -80,6 +84,7 @@ jobs:
         copy ..\XLingPap.xxe XLingPap
         copy ..\xlingpap.xxe_addon XLingPap
         copy ..\XLingPap_catalog.xml XLingPap
+        pwd
         dir XLingPap
       shell: cmd
 

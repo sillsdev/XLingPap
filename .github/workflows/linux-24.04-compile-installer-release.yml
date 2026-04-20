@@ -26,9 +26,15 @@ jobs:
         7z x ..\..\..\installers\XXE8Jars\XXE8Jars.7z -p${{ secrets.XXE82_INSTALLER }}
       shell: cmd
 
-  build-installer:
+    - uses: actions/upload-artifact@v4
+      with:
+        name: XXE*Jars
+        path: XXEJars
+        if-no-files-found: error
 
+  build-installer:
     runs-on: ubuntu-latest
+    needs: create_XXE_jar_files
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -63,8 +69,12 @@ jobs:
           java-package: 'jdk'
 
       - name: Build with Ant
+      - uses: actions/download-artifact@v4
+        with:
+          name: XXEJars
         run: |
           cd javasrc/XLingPapExtensions
+          ls -l XXEJars
           ant -noinput -buildfile build.xml
         shell: bash
 

@@ -44,7 +44,7 @@ jobs:
           fetch-depth: '0'
       - uses: actions/download-artifact@v4
         with:
-          name: XLingPaper
+          name: XXEJars
 
       - name: Set VERSION (e.g. 1.0.0) and FULL_VERSION (e.g. 1.0.0-abcdef4)
         run: |

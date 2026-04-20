@@ -11,6 +11,21 @@ on:
 #  workflow_dispatch:
 
 jobs:
+  create_XXE_jar_files:
+    runs-on: windows-latest
+
+    steps:
+    - uses: actions/checkout@v5
+
+    - name: 'Prepare for Java compilation'
+      run: |
+        cd javasrc\XLingPapExtensions
+        mkdir class
+        mkdir XXEJars
+        cd XXEJars
+        7z x ..\..\..\installers\XXE8Jars\XXE8Jars.7z -p${{ secrets.XXE82_INSTALLER }}
+      shell: cmd
+
   build-installer:
 
     runs-on: ubuntu-latest
@@ -38,15 +53,6 @@ jobs:
             echo "Error: Version format is incorrect. It should match N.N.N where N is an integer."
             exit 1
           fi
-        shell: bash
-
-      - name: 'Prepare for Java compilation'
-        run: |
-          cd javasrc\XLingPapExtensions
-          mkdir class
-          mkdir XXEJars
-          cd XXEJars
-          7z x ..\..\..\installers\XXE8Jars\XXE8Jars.7z -p${{ secrets.XXE82_INSTALLER }}
         shell: bash
 
       - name: Set up JDK 8

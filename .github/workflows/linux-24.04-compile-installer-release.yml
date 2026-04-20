@@ -40,6 +40,9 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: '0'
+      - uses: actions/download-artifact@v4
+        with:
+          name: XLingPaper
 
       - name: Set VERSION (e.g. 1.0.0) and FULL_VERSION (e.g. 1.0.0-abcdef4)
         run: |
@@ -69,9 +72,6 @@ jobs:
           java-package: 'jdk'
 
       - name: Build with Ant
-      - uses: actions/download-artifact@v4
-        with:
-          name: XXEJars
         run: |
           cd javasrc/XLingPapExtensions
           ls -l XXEJars

@@ -59,6 +59,7 @@ jobs:
         ant -noinput -buildfile build.xml
         echo Build done
         pwd
+        ls -l
         cd ../..
         pwd
         ls -l

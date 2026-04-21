@@ -113,8 +113,9 @@ jobs:
 
       - name: 'create XLingPaper Configuration gz file'
         run: |
+          pwd
           cd XLingPaperConfiguration
-          ./createconfigonlyinstaller ${{ env.VERSION }}
+          ../installers/linux/createconfigonlyinstaller.sh ${{ env.VERSION }}
         shell: bash
 
       - uses: actions/upload-artifact@v4

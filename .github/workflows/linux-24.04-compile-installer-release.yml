@@ -45,6 +45,9 @@ jobs:
       - uses: actions/download-artifact@v4
         with:
           name: XXEJars
+          run: |
+            ls -lR
+          shell: bash
 
       - name: Set VERSION (e.g. 1.0.0) and FULL_VERSION (e.g. 1.0.0-abcdef4)
         run: |
@@ -76,7 +79,7 @@ jobs:
       - name: Build with Ant
         run: |
           ls -l
-          mv XXEJars javasrc/XLingPapExtensions
+          # mv XXEJars javasrc/XLingPapExtensions
           cd javasrc/XLingPapExtensions
           ls -l
           ant -noinput -buildfile build.xml

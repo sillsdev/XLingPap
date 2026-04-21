@@ -114,8 +114,12 @@ jobs:
       - name: 'create XLingPaper Configuration gz file'
         run: |
           pwd
-          cd XLingPaperConfiguration
-          chmod a+x ../installers/linux/*
+          cd installers/linux
+          ls -l
+          chmod a+x *
+          ls -l
+          cd ../../XLingPaperConfiguration
+          pwd
           ../installers/linux/createconfigonlyinstaller.sh ${{ env.VERSION }}
         shell: bash
 

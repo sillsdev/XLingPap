@@ -75,8 +75,10 @@ jobs:
 
       - name: Build with Ant
         run: |
+          ls -l
+          mv XXEJars javasrc/XLingPapExtensions
           cd javasrc/XLingPapExtensions
-          ls -l XXEJars
+          ls -l
           ant -noinput -buildfile build.xml
         shell: bash
 

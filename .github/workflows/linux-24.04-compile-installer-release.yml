@@ -69,7 +69,7 @@ jobs:
 
       - name: 'Prepare for Java compilation'
         run: |
-          cd javasrc\XLingPapExtensions
+          cd javasrc/XLingPapExtensions
           mkdir class
           mkdir XXEJars
           cd XXEJars

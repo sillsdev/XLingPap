@@ -115,6 +115,7 @@ jobs:
         run: |
           pwd
           cd XLingPaperConfiguration
+          chmod a+x ../installers/linux/*
           ../installers/linux/createconfigonlyinstaller.sh ${{ env.VERSION }}
         shell: bash
 

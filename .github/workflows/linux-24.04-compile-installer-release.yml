@@ -42,10 +42,10 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: '0'
-      - uses: actions/download-artifact@v4
-        with:
-          name: XXEJars
-          path: javasrc\XLingPapExtensions
+#      - uses: actions/download-artifact@v4
+#        with:
+#          name: XXEJars
+#          path: javasrc\XLingPapExtensions
 
       - name: Set VERSION (e.g. 1.0.0) and FULL_VERSION (e.g. 1.0.0-abcdef4)
         run: |

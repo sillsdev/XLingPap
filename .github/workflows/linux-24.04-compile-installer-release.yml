@@ -81,6 +81,7 @@ jobs:
           ls -l
           # mv XXEJars javasrc/XLingPapExtensions
           cd javasrc/XLingPapExtensions
+          mkdir class
           ls -l
           ant -noinput -buildfile build.xml
         shell: bash

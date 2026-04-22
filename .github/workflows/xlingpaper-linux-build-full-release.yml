@@ -1,0 +1,115 @@
+# This workflow will build an installer for XLingPaper config-only
+
+name: XLingPaper Linux Full Build Installer with Version
+
+on:
+  push:
+    tags:
+      - 'v*'  # Build the app for commits that are tagged starting with 'v' e.g. v1.2.3
+      # to tag a commit, use "git tag v1.2.3"
+      # when you then use "git push origin v1.2.3" this workflow will be invoked
+#  workflow_dispatch:
+
+jobs:
+  build-installer:
+    runs-on: ubuntu-latest
+    #needs: create_XXE_jar_files
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: '0'
+
+      - name: Set VERSION (e.g. 1.0.0) and FULL_VERSION (e.g. 1.0.0-abcdef4)
+        run: |
+          VERSION="${GITHUB_REF#refs/tags/v}"
+          SHORT_SHA=$(git rev-parse --short HEAD)
+          FULL_VERSION="${VERSION}-${SHORT_SHA}"
+          LINUXTARGET="24.04"
+          echo "VERSION=${VERSION}" >> $GITHUB_ENV
+          echo "FULL_VERSION=${FULL_VERSION}" >> $GITHUB_ENV
+          echo "LINUXTARGET=${LINUXTARGET}" >> $GITHUB_ENV
+        shell: bash
+
+      - name: Validate version format
+        run: |
+          echo ${VERSION}
+          if [[ ! "${VERSION}" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+            echo "Error: Version format is incorrect. It should match N.N.N where N is an integer."
+            exit 1
+          fi
+        shell: bash
+
+      - name: 'Prepare for Java compilation'
+        run: |
+          cd javasrc/XLingPapExtensions
+          mkdir class
+          mkdir XXEJars
+          cd XXEJars
+          7z x ../../../installers/XXE8Jars/XXE8Jars.7z -p${{ secrets.XXE82_INSTALLER }}
+
+      - name: Set up JDK 8
+        uses: actions/setup-java@v4
+        with:
+          java-version: '8'
+          distribution: 'temurin'
+          java-package: 'jdk'
+
+      - name: Build with Ant
+        run: |
+          cd javasrc/XLingPapExtensions
+          ant -noinput -buildfile build.xml
+        shell: bash
+
+      - name: 'create XLingPaper Configuration Folder'
+        run: |
+          mkdir XLingPaperConfiguration
+          cd XLingPaperConfiguration
+          mkdir XLingPap
+          cp -R ../batchfiles XLingPap/batchfiles
+          cp -R ../configuration XLingPap/configuration
+          cp -R ../css XLingPap/css
+          cp -R ../doc XLingPap/doc
+          cp -R ../dtds XLingPap/dtds
+          cp -R ../externalPackages XLingPap/externalPackages
+          cp -R ../localizations XLingPap/localizations
+          cp -R ../publisherstylesheets XLingPap/publisherstylesheets
+          cp -R ../templates XLingPap/templates
+          cp -R ../transforms XLingPap/transforms
+          cp ../XLingPap.jar XLingPap
+          cp ../XLingPap.sch XLingPap
+          cp ../XLingPap.xxe XLingPap
+          cp ../xlingpap.xxe_addon XLingPap
+          cp ../XLingPap_catalog.xml XLingPap
+        shell: bash
+
+      - name: 'create XLingPaper Full Setup gz file'
+        run: |
+          cd installers/linux
+          chmod a+x *.sh
+          7z x XXE8.2Installer.7z -p${{ secrets.XXE82_INSTALLER }}
+          ./createinstaller-xxe8-perso.sh ${{ env.VERSION }}
+        shell: bash
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: XLingPaperFullSetup
+          path: installers/linux/XLingPaper*XXEPersonalEditionFullSetup.tar.gz
+          if-no-files-found: error
+
+  create-release:
+    name: Create Release
+    needs: build-installer
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: XLingPaperFullSetup
+
+      - name: Create Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: XLingPaper*XXEPersonalEditionFullSetup.tar.gz
+          body: |
+            Release for version ${{ github.ref }}
+          draft: true

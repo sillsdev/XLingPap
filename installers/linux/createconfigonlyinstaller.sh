@@ -8,6 +8,9 @@ cp HasXeLaTeX2020 HasXeLaTeX
 cd ../configuration
 cp XeLaTeXVersion2020.txt XeLaTeXVersion.txt
 cd ../..
+pwd
+cd installers/linux
+pwd
 tar -cjf xlingpaperconfig-xxe7.tar XLingPap
 # cp xlingpaperconfig-xxe7.tar ../linux
 # cd ../linux

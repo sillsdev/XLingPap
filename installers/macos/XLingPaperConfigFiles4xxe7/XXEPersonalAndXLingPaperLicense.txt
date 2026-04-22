@@ -1,0 +1,51 @@
+XMLmind XML Editor Personal Edition License Agreement
+
+Version 1.0
+
+May 15, 2017
+
+Important! Read the terms and conditions of this license agreement (hereafter "Agreement") carefully before using XMLmind XML Editor Personal Edition (hereafter "Software"). Use of the Software implies acceptance of this Agreement, and legally binds you, as a natural person (hereafter "Licensee"), and XMLmind Software (hereafter "Licensor"), to the terms and conditions set forth below.
+1 Grant of License
+
+Subject to the terms and conditions of this Agreement, Licensor hereby grants to Licensee a non-exclusive and non-transferable license to install, use, customize and extend the Software for his personal activities and, in some limited cases, for his professional activities.
+1.1 Installation and use
+
+The Software may be installed on any host machine belonging to Licensee, as well as any host machine assigned to Licensee within an organization.
+
+Licensee may use the Software to create and modify documents that are Licensee's sole property, i.e. documents whose intellectual property rights are owned by Licensee. Licensee may not use the Software to create or modify documents that are not Licensee's sole property, except in any of the following conditions:
+
+    Licensee may use the Software to create and modify documents in relation to an Open Source software project as defined by the Open Source Initiative (http://www.opensource.org/ ).
+    Licensee may use the Software to create and modify documents released by Licensee in the public domain or under a free license similar to the Creative Commons licenses (http://creativecommons.org/ ).
+    Within a nonprofit non-governmental organization, Licensee may use the Software to create and modify documents that belong to this organization.
+    Within an educational institution, Licensee may use the Software as a teaching tool within the framework of lectures given by Licensee.
+    Licensee may use the Software for the purpose of evaluation of XMLmind XML Editor, for a limited time period that shall not exceed 30 days.
+
+1.2 Customization and extension
+
+Licensee may customize the Software by means of configuration files, and extend the Software by means of the public Application Programming Interfaces.
+2 Restrictions
+
+The Software is copyrighted and title to all copies is retained by Licensor. Except as stated in section 1.1, Licensee may not make copies of the Software other than copies for archival purposes. Licensee may, for its internal use only, print copies of the documentation of the Software, in which event all proprietary rights notices on the Software shall be reproduced and applied. Except as stated in section 1.2, Licensee may not modify, decompile, or otherwise reverse engineer the Software. Licensee may not distribute the Software, or part of the Software, alone or bundled with another product, without written permission from Licensor.
+
+The Software is not designed or licensed for use in on-line control equipment in hazardous environments such as operation of nuclear facilities, aircraft navigation or control, or direct life support machines.
+
+The Software is confidential and proprietary information of Licensor. Licensee agrees to protect the Software from unauthorized use or disclosure.
+3 Warranty Disclaimer
+
+Licensor does not warrant that the Software will meet Licensee's requirements or that the Software is error-free. Except as specified in this Agreement, Licensor expressly disclaims all warranties, express or implied, with respect to the Software, including, but not limited to, warranties of merchantability, fitness for a particular purpose or non-infringement.
+4 Limitation of Liability
+
+In no event shall Licensor be liable to Licensee or a third party for any lost revenue, profit or data, or for any indirect, special or consequential damages, however caused and regardless of theory of liability, arising out of the use of or inability to use the Software, even if Licensor has been advised of the possibility of such damages.
+5 Termination
+
+This license is effective from the date of first use of the Software by Licensee and is perpetual unless terminated by Licensee's election or by breach of this Agreement. Licensee may terminate this license at any time by destroying all copies of the Software, including any documentation. This license will terminate immediately without notice from Licensor if Licensee fails to comply with any provision of this Agreement. Upon termination, Licensee must destroy all copies of the Software, including any documentation.
+6 Entirety
+
+This Agreement is the complete and exclusive statement of agreements between Licensee and Licensor relating to the Software. It supersedes all prior agreements and understandings, and prevails over any conflicting or additional terms of any quote, order, acknowledgement, or similar communication between the parties before or during the term of this Agreement. It may be modified only in writing signed by both parties.
+
+This Agreement is made under, shall be governed by and construed in accordance with the French law.
+
+============================================
+
+The XLingPaper Configuration Package for the XMLmind XML Editor, Copyright 2010, SIL International, Inc. All rights reserved. This software is free; you can redistribute it and/or modify it under the terms of either: a) the GNU "GNU Lesser General Public License version 2.1" (http://fieldworks.sil.org/License/GNU_public_license_frame.htm) as published by the Free Software Foundation, or b) the "Common Public License Version 0.5" (http://fieldworks.sil.org/License/common_public_license_frame.htm).
+This software is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See either the GNU Lesser General Public License or the Common Public License for more details.

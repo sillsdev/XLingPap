@@ -120,12 +120,14 @@ jobs:
           chmod a+x *.sh
           ls -l
           ./createconfigonlyinstaller.sh ${{ env.VERSION }}
+          echo After build
+          ls -l
         shell: bash
 
       - uses: actions/upload-artifact@v4
         with:
           name: XLingPaperConfig
-          path: XLingPaper*UpdateConfigOnlySetup.tar.gz
+          path: installers/linux/XLingPaper*UpdateConfigOnlySetup.tar.gz
           if-no-files-found: error
 
   create-release:

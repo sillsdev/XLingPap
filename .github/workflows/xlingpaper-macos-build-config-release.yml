@@ -39,26 +39,26 @@ jobs:
           fi
         shell: bash
 
-      - name: 'Prepare for Java compilation'
-        run: |
-          cd javasrc/XLingPapExtensions
-          mkdir class
-          mkdir XXEJars
-          cd XXEJars
-          7z x ../../../installers/XXE8Jars/XXE8Jars.7z -p${{ secrets.XXE82_INSTALLER }}
-
-      - name: Set up JDK 8
-        uses: actions/setup-java@v4
-        with:
-          java-version: '8'
-          distribution: 'temurin'
-          java-package: 'jdk'
-
-      - name: Build with Ant
-        run: |
-          cd javasrc/XLingPapExtensions
-          ant -noinput -buildfile build.xml
-        shell: bash
+#      - name: 'Prepare for Java compilation'
+#        run: |
+#          cd javasrc/XLingPapExtensions
+#          mkdir class
+#          mkdir XXEJars
+#          cd XXEJars
+#          7z x ../../../installers/XXE8Jars/XXE8Jars.7z -p${{ secrets.XXE82_INSTALLER }}
+#
+#      - name: Set up JDK 8
+#        uses: actions/setup-java@v4
+#        with:
+#          java-version: '8'
+#          distribution: 'temurin'
+#          java-package: 'jdk'
+#
+#      - name: Build with Ant
+#        run: |
+#          cd javasrc/XLingPapExtensions
+#          ant -noinput -buildfile build.xml
+#        shell: bash
 
       - name: 'create XLingPaper Configuration Folder'
         run: |

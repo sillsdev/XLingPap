@@ -12,7 +12,7 @@ on:
 
 jobs:
   build-installer:
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4

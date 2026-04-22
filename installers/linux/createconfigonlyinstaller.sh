@@ -9,9 +9,10 @@ cd ../configuration
 cp XeLaTeXVersion2020.txt XeLaTeXVersion.txt
 cd ../..
 pwd
+tar -cjf xlingpaperconfig-xxe7.tar XLingPap
+cp xlingpaperconfig-xxe7.tar ../installers/linux
 cd ../installers/linux
 pwd
-tar -cjf xlingpaperconfig-xxe7.tar XLingPap
-# cp xlingpaperconfig-xxe7.tar ../linux
+ls -l
 # cd ../linux
 tar -czf XLingPaper-$1UpdateConfigOnlySetup.tar.gz installconfigonly-xxe7.sh xlingpaperconfig-xxe7.tar

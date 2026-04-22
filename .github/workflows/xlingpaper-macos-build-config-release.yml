@@ -82,13 +82,22 @@ jobs:
           cp ../XLingPap_catalog.xml XLingPap
         shell: bash
 
+#      - name: Install Packages CLI
+#        run: |
+#          # Download and install the Packages tool by Stéphane Sudre
+#          curl -L http://s.sudre.free.fr/Software/files/Packages.dmg -o Packages.dmg
+#          hdiutil mount Packages.dmg
+#          sudo installer -pkg /Volumes/Packages/Install\ Packages.pkg -target /
+#          hdiutil unmount /Volumes/Packages
+
       - name: Install Packages CLI
         run: |
-          # Download and install the Packages tool by Stéphane Sudre
           curl -L http://s.sudre.free.fr/Software/files/Packages.dmg -o Packages.dmg
           hdiutil mount Packages.dmg
-          sudo installer -pkg /Volumes/Packages/Install\ Packages.pkg -target /
-          hdiutil unmount /Volumes/Packages
+          # Use a wildcard to handle "Packages 1.2.11" or any other version
+          sudo installer -pkg /Volumes/Packages*/Install\ Packages.pkg -target /
+          # Unmount using the same wildcard
+          hdiutil unmount /Volumes/Packages*
 
       - name: Build Installer
         run: |

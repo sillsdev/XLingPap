@@ -1,6 +1,6 @@
 #!/bin/sh
 # Create  install package for XLingPaper on Linux
-# cd ../XLingPaperConfiguration/
+cd ../../XLingPaperConfiguration/
 cd XLingPap/batchfiles
 chmod a+x *
 cp DoTeXPDF2020 DoTeXPDF

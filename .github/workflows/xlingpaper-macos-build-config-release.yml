@@ -109,12 +109,13 @@ jobs:
           packagesbuild --project XLingPaperConfigFiles4xxe7.pkgproj --package-version ${{ env.VERSION }}
           pwd
           ls -l
+          ls -l build
           # packagesbuild --sign "Developer ID Installer: Your Name (TeamID)" --project XLingPaperConfigFiles4xxe7.pkgproj
 
       - uses: actions/upload-artifact@v4
         with:
           name: XLingPaperConfig
-          path: installers/macos/XLingPaperConfigurationFiles7n8*.pkg
+          path: installers/macos/XLingPaperConfigFiles4xxe7/build/XLingPaperConfigurationFiles7n8*.pkg
           if-no-files-found: error
 
   create-release:

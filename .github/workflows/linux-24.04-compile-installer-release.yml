@@ -135,7 +135,7 @@ jobs:
     steps:
       - uses: actions/download-artifact@v4
         with:
-          name: XLingPaper
+          name: XLingPaperConfig
 
       - name: Create Release
         uses: softprops/action-gh-release@v2

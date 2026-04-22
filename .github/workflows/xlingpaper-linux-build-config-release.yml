@@ -85,20 +85,13 @@ jobs:
           cp ../XLingPap.xxe XLingPap
           cp ../xlingpap.xxe_addon XLingPap
           cp ../XLingPap_catalog.xml XLingPap
-          ls -l
         shell: bash
 
       - name: 'create XLingPaper Configuration gz file'
         run: |
-          pwd
           cd installers/linux
-          pwd
-          ls -l
           chmod a+x *.sh
-          ls -l
           ./createconfigonlyinstaller.sh ${{ env.VERSION }}
-          echo After build
-          ls -l
         shell: bash
 
       - uses: actions/upload-artifact@v4

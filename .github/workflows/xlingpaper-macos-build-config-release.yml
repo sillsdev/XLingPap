@@ -97,8 +97,8 @@ jobs:
           cd installers/macos/XLingPapConfigMacros
           chmod a+x *.sh
           cd ../XLingPaperConfigFiles4xxe7
-          sed -i '' "s/3.16.0/${{ env.VERSION }}" ReadMe.rtf
-          sed -i '' "s/3.16.0/${{ env.VERSION }}" XLingPaperConfigFiles4xxe7.pkgproj
+          sed -i '' "s/3.16.0/${{ env.VERSION }}/" ReadMe.rtf
+          sed -i '' "s/3.16.0/${{ env.VERSION }}/" XLingPaperConfigFiles4xxe7.pkgproj
           packagesbuild --project XLingPaperConfigFiles4xxe7.pkgproj --package-version ${{ env.VERSION }}
           pwd
           ls -l

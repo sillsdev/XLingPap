@@ -122,6 +122,8 @@ jobs:
                          -srcfolder dmg_root \
                          -ov -format UDZO \
                          XLingPaperConfigOnly${{ env.VERSION }}.dmg
+          pwd
+          ls -lR
 
       - uses: actions/upload-artifact@v4
         with:

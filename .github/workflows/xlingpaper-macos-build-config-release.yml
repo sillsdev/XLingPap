@@ -109,7 +109,7 @@ jobs:
       - name: Create DMG with hdiutil
         run: |
           # Create a folder to hold the DMG contents
-          installers/macos/XLingPaperConfigFiles4xxe7/build
+          cd installers/macos/XLingPaperConfigFiles4xxe7/build
           mkdir -p dmg_root
           cp XLingPaperConfigurationFiles7n8*.pkg dmg_root/
 

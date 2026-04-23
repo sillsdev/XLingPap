@@ -82,14 +82,6 @@ jobs:
           cp ../XLingPap_catalog.xml XLingPap
         shell: bash
 
-#      - name: Install Packages CLI
-#        run: |
-#          # Download and install the Packages tool by Stéphane Sudre
-#          curl -L http://s.sudre.free.fr/Software/files/Packages.dmg -o Packages.dmg
-#          hdiutil mount Packages.dmg
-#          sudo installer -pkg /Volumes/Packages/Install\ Packages.pkg -target /
-#          hdiutil unmount /Volumes/Packages
-
       - name: Install Packages CLI
         run: |
           curl -L http://s.sudre.free.fr/Software/files/Packages.dmg -o Packages.dmg
@@ -99,7 +91,7 @@ jobs:
           # Unmount using the same wildcard
           hdiutil unmount /Volumes/Packages*
 
-      - name: Build Installer
+      - name: Build .pkg Installer
         run: |
           # Navigate to the directory containing the .pkgproj file
           cd installers/macos/XLingPapConfigMacros
@@ -110,12 +102,31 @@ jobs:
           pwd
           ls -l
           ls -l build
+          cd build
+          #productsign --sign "${{ vars.SIL_APPLE_CODESIGN_IDENTITY }}" XLingPaperConfigurationFiles7n8-3.16.0.pkg XLingPaperConfigurationFiles7n8-3.16.0Signed.pkg
           # packagesbuild --sign "Developer ID Installer: Your Name (TeamID)" --project XLingPaperConfigFiles4xxe7.pkgproj
+
+      - name: Create DMG with hdiutil
+        run: |
+          # Create a folder to hold the DMG contents
+          installers/macos/XLingPaperConfigFiles4xxe7/build
+          mkdir -p dmg_root
+          cp XLingPaperConfigurationFiles7n8*.pkg dmg_root/
+
+          # Create the DMG
+          # -volname: The name shown when the DMG is mounted
+          # -srcfolder: The source directory
+          # -ov: Overwrite existing file
+          # -format: UDZO is the standard compressed format
+          hdiutil create -volname "XLingPaper Config-only Installer" \
+                         -srcfolder dmg_root \
+                         -ov -format UDZO \
+                         XLingPaperConfigOnly${{ env.VERSION }}.dmg
 
       - uses: actions/upload-artifact@v4
         with:
           name: XLingPaperConfig
-          path: installers/macos/XLingPaperConfigFiles4xxe7/build/XLingPaperConfigurationFiles7n8*.pkg
+          path: installers/macos/XLingPaperConfigFiles4xxe7/build/dmg_root/XLingPaperConfigOnly*.dmg
           if-no-files-found: error
 
   create-release:
@@ -130,7 +141,7 @@ jobs:
       - name: Create Release
         uses: softprops/action-gh-release@v2
         with:
-          files: XLingPaperConfigurationFiles7n8*.pkg
+          files: XLingPaperConfigOnly*.dmg
           body: |
             Release for version ${{ github.ref }}
           draft: true

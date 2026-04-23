@@ -128,7 +128,7 @@ jobs:
       - uses: actions/upload-artifact@v4
         with:
           name: XLingPaperConfig
-          path: installers/macos/XLingPaperConfigFiles4xxe7/build/dmg_root/XLingPaperConfigOnly*.dmg
+          path: installers/macos/XLingPaperConfigFiles4xxe7/build/XLingPaperConfigOnly*.dmg
           if-no-files-found: error
 
   create-release:

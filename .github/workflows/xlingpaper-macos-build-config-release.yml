@@ -80,6 +80,8 @@ jobs:
           cp ../XLingPap.xxe XLingPap
           cp ../xlingpap.xxe_addon XLingPap
           cp ../XLingPap_catalog.xml XLingPap
+          chmod +x ./installers/macos/fixUpMacFiles.sh
+          ./installers/macos/fixUpMacFiles.sh
         shell: bash
 
       - name: Install Packages CLI

@@ -102,10 +102,13 @@ jobs:
           sed -i '' "s/3.18.0/${{ env.VERSION }}/" ReadMe.rtf
           sed -i '' "s/3.18.0/${{ env.VERSION }}/" XLingPaperFullSetupXXEPersoCatalina.pkgproj
           cd ..
+          pwd
           7z x XMLmindMac.7z -p${{ secrets.XXE82_INSTALLER }}
           ls -l
           7z x texlive2020macOs.7z -p${{ secrets.XXE82_INSTALLER }}
           ls -l
+          cd XLingPaperFullSetupXXEPersoCatalina
+          pwd
           packagesbuild --project XLingPaperFullSetupXXEPersoCatalina.pkgproj --package-version ${{ env.VERSION }}
           pwd
           ls -l

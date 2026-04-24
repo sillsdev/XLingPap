@@ -133,7 +133,7 @@ jobs:
           ls -l
           ls -l build
           cd build
-          productsign --sign "${{ secrets.MACOS_CERTIFICATE }}" \
+          productsign --sign "${{ vars.SIL_APPLE_CODESIGN_IDENTITY }}" \
              XLingPaperConfigurationFiles7n8-3.18.3.pkg \
              XLingPaperConfigurationFiles7n8-3.18.3Signed.pkg
 #          productsign --sign "${{ vars.SIL_APPLE_CODESIGN_IDENTITY }}" \

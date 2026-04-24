@@ -2933,7 +2933,7 @@
 				<key>POSTINSTALL_PATH</key>
 				<dict>
 					<key>PATH</key>
-					<string>../../XLingPapConfigMacros/postinstall8.sh</string>
+					<string>../XLingPapConfigMacros/postinstall8.sh</string>
 					<key>PATH_TYPE</key>
 					<integer>1</integer>
 				</dict>

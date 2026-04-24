@@ -5,7 +5,7 @@ name: XLingPaper macOS Config Build Installer with Version
 on:
   push:
     paths:
-      - ".github/workflows/xlingpaper-macos-build-config-sign-release.yml"
+      - ".github/workflows/xlingpaper-macos-build-config-sign-releaseHOLD.yml"
 #    branches: [ "GHAInstallers" ]
 #    tags:
 #      - 'v*'  # Build the app for commits that are tagged starting with 'v' e.g. v1.2.3

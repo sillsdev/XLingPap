@@ -125,7 +125,7 @@ jobs:
           cd ../XLingPaperConfigFiles4xxe7
           sed -i '' "s/3.16.0/3.18.3/" ReadMe.rtf
           sed -i '' "s/3.16.0/3.18.3/" XLingPaperConfigFiles4xxe7.pkgproj
-          packagesbuild --project XLingPaperConfigFiles4xxe7.pkgproj --sign "${{ vars.SIL_APPLE_CODESIGN_IDENTITY }}" --package-version 3.18.3
+          packagesbuild --project XLingPaperConfigFiles4xxe7.pkgproj --package-version 3.18.3
           #sed -i '' "s/3.16.0/${{ env.VERSION }}/" ReadMe.rtf
           #sed -i '' "s/3.16.0/${{ env.VERSION }}/" XLingPaperConfigFiles4xxe7.pkgproj
           #packagesbuild --project XLingPaperConfigFiles4xxe7.pkgproj --package-version ${{ env.VERSION }}
@@ -133,9 +133,9 @@ jobs:
           ls -l
           ls -l build
           cd build
-#          productsign --sign "${{ vars.SIL_APPLE_CODESIGN_IDENTITY }}" \
-#             XLingPaperConfigurationFiles7n8-3.18.3.pkg \
-#             XLingPaperConfigurationFiles7n8-3.18.3Signed.pkg
+          productsign --sign "${{ secrets.MACOS_CERTIFICATE }}" \
+             XLingPaperConfigurationFiles7n8-3.18.3.pkg \
+             XLingPaperConfigurationFiles7n8-3.18.3Signed.pkg
 #          productsign --sign "${{ vars.SIL_APPLE_CODESIGN_IDENTITY }}" \
 #             XLingPaperConfigurationFiles7n8-${{ env.VERSION }}.pkg \
 #             XLingPaperConfigurationFiles7n8-${{ env.VERSION }}Signed.pkg

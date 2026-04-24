@@ -4,7 +4,9 @@ name: XLingPaper macOS Config Build Installer with Version
 
 on:
   push:
-    branches: [ "GHAInstallers" ]
+    paths:
+      - ".github/workflows/xlingpaper-macos-build-config-sign-release.yml"
+#    branches: [ "GHAInstallers" ]
 #    tags:
 #      - 'v*'  # Build the app for commits that are tagged starting with 'v' e.g. v1.2.3
 #      # to tag a commit, use "git tag v1.2.3"
@@ -82,6 +84,8 @@ jobs:
           cp ../XLingPap.xxe XLingPap
           cp ../xlingpap.xxe_addon XLingPap
           cp ../XLingPap_catalog.xml XLingPap
+          chmod +x ../installers/macos/fixUpMacFiles.sh
+          ../installers/macos/fixUpMacFiles.sh
         shell: bash
 
       - name: Install Packages CLI

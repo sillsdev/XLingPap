@@ -35,26 +35,7 @@ jobs:
       uses: ./.github/actions/set-up-jdk-8-build-with-ant
 
     - name: 'create XLingPaper Configuration Folder'
-      run: |
-        mkdir XLingPaperConfiguration
-        cd XLingPaperConfiguration
-        mkdir XLingPap
-        xcopy /f /s /e /y /i ..\batchfiles XLingPap\batchfiles
-        xcopy /f /s /e /y /i ..\configuration XLingPap\configuration
-        xcopy /f /s /e /y /i ..\css XLingPap\css
-        xcopy /f /s /e /y /i ..\doc XLingPap\doc
-        xcopy /f /s /e /y /i ..\dtds XLingPap\dtds
-        xcopy /f /s /e /y /i ..\externalPackages XLingPap\externalPackages
-        xcopy /f /s /e /y /i ..\localizations XLingPap\localizations
-        xcopy /f /s /e /y /i ..\publisherstylesheets XLingPap\publisherstylesheets
-        xcopy /f /s /e /y /i ..\templates XLingPap\templates
-        xcopy /f /s /e /y /i ..\transforms XLingPap\transforms
-        copy ..\XLingPap.jar XLingPap
-        copy ..\XLingPap.sch XLingPap
-        copy ..\XLingPap.xxe XLingPap
-        copy ..\xlingpap.xxe_addon XLingPap
-        copy ..\XLingPap_catalog.xml XLingPap
-      shell: cmd
+      uses:  ./.github/actions/windows-create-xlp-config-folder
 
     - name: 'Install makensis (choco)'
       run: choco install nsis

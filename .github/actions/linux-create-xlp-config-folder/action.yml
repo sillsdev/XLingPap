@@ -1,0 +1,29 @@
+# This action creates the XLingPaper configuration folder for Linux
+
+name: Linux Create XLingPaper configuration folder
+description: 'Creates the XLingPaper configuration folder for Linux'
+
+runs:
+  using: "composite"
+  steps:
+      - name: 'create XLingPaper Configuration Folder'
+        run: |
+          mkdir XLingPaperConfiguration
+          cd XLingPaperConfiguration
+          mkdir XLingPap
+          cp -R ../batchfiles XLingPap/batchfiles
+          cp -R ../configuration XLingPap/configuration
+          cp -R ../css XLingPap/css
+          cp -R ../doc XLingPap/doc
+          cp -R ../dtds XLingPap/dtds
+          cp -R ../externalPackages XLingPap/externalPackages
+          cp -R ../localizations XLingPap/localizations
+          cp -R ../publisherstylesheets XLingPap/publisherstylesheets
+          cp -R ../templates XLingPap/templates
+          cp -R ../transforms XLingPap/transforms
+          cp ../XLingPap.jar XLingPap
+          cp ../XLingPap.sch XLingPap
+          cp ../XLingPap.xxe XLingPap
+          cp ../xlingpap.xxe_addon XLingPap
+          cp ../XLingPap_catalog.xml XLingPap
+        shell: bash

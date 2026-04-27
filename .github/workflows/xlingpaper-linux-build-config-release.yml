@@ -32,40 +32,29 @@ jobs:
 
       - name: Set up JDK 8 and build with Ant
         uses: ./.github/actions/set-up-jdk-8-build-with-ant
-#      - name: Set up JDK 8
-#        uses: actions/setup-java@v4
-#        with:
-#          java-version: '8'
-#          distribution: 'temurin'
-#          java-package: 'jdk'
-#
-#      - name: Build with Ant
-#        run: |
-#          cd javasrc/XLingPapExtensions
-#          ant -noinput -buildfile build.xml
-#        shell: bash
 
       - name: 'create XLingPaper Configuration Folder'
-        run: |
-          mkdir XLingPaperConfiguration
-          cd XLingPaperConfiguration
-          mkdir XLingPap
-          cp -R ../batchfiles XLingPap/batchfiles
-          cp -R ../configuration XLingPap/configuration
-          cp -R ../css XLingPap/css
-          cp -R ../doc XLingPap/doc
-          cp -R ../dtds XLingPap/dtds
-          cp -R ../externalPackages XLingPap/externalPackages
-          cp -R ../localizations XLingPap/localizations
-          cp -R ../publisherstylesheets XLingPap/publisherstylesheets
-          cp -R ../templates XLingPap/templates
-          cp -R ../transforms XLingPap/transforms
-          cp ../XLingPap.jar XLingPap
-          cp ../XLingPap.sch XLingPap
-          cp ../XLingPap.xxe XLingPap
-          cp ../xlingpap.xxe_addon XLingPap
-          cp ../XLingPap_catalog.xml XLingPap
-        shell: bash
+        uses:  ./.github/actions/linux-create-xlp-config-folder
+#        run: |
+#          mkdir XLingPaperConfiguration
+#          cd XLingPaperConfiguration
+#          mkdir XLingPap
+#          cp -R ../batchfiles XLingPap/batchfiles
+#          cp -R ../configuration XLingPap/configuration
+#          cp -R ../css XLingPap/css
+#          cp -R ../doc XLingPap/doc
+#          cp -R ../dtds XLingPap/dtds
+#          cp -R ../externalPackages XLingPap/externalPackages
+#          cp -R ../localizations XLingPap/localizations
+#          cp -R ../publisherstylesheets XLingPap/publisherstylesheets
+#          cp -R ../templates XLingPap/templates
+#          cp -R ../transforms XLingPap/transforms
+#          cp ../XLingPap.jar XLingPap
+#          cp ../XLingPap.sch XLingPap
+#          cp ../XLingPap.xxe XLingPap
+#          cp ../xlingpap.xxe_addon XLingPap
+#          cp ../XLingPap_catalog.xml XLingPap
+#        shell: bash
 
       - name: 'create XLingPaper Configuration gz file'
         run: |

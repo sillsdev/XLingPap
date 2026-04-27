@@ -1,0 +1,25 @@
+# This action sets and validates the version number
+
+name: Set and validate Version
+description: 'Sets version variables and validates the format of the version number'
+
+runs:
+  using: "composite"
+  steps:
+      - name: Set VERSION (e.g. 1.0.0) and FULL_VERSION (e.g. 1.0.0-abcdef4)
+        run: |
+          VERSION="${GITHUB_REF#refs/tags/v}"
+          SHORT_SHA=$(git rev-parse --short HEAD)
+          FULL_VERSION="${VERSION}-${SHORT_SHA}"
+          echo "VERSION=${VERSION}" >> $GITHUB_ENV
+          echo "FULL_VERSION=${FULL_VERSION}" >> $GITHUB_ENV
+        shell: bash
+
+      - name: Validate version format
+        run: |
+          echo ${VERSION}
+          if [[ ! "${VERSION}" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+            echo "Error: Version format is incorrect. It should match N.N.N where N is an integer."
+            exit 1
+          fi
+        shell: bash

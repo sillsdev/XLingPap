@@ -1,0 +1,20 @@
+# This action sets up JDK 8 and builds with Ant
+
+name: Set up JDK 9 and build with Ant
+description: 'Sets up JDK 8 and builds with Ant'
+
+runs:
+  using: "composite"
+  steps:
+      - name: Set up JDK 8
+        uses: actions/setup-java@v4
+        with:
+          java-version: '8'
+          distribution: 'temurin'
+          java-package: 'jdk'
+
+      - name: Build with Ant
+        run: |
+          cd javasrc/XLingPapExtensions
+          ant -noinput -buildfile build.xml
+        shell: bash

@@ -160,13 +160,17 @@ jobs:
                          -srcfolder dmg_root \
                          -ov -format UDZO \
                          XLingPaper3.18.3UpdateConfigOnly.dmg
+          echo after hdiutil
+          pwd
+          ls -lR
+          codesign --deep --force --sign "${{ vars.SIL_APPLE_CODESIGN_IDENTITY }}" --timestamp --options runtime XLingPaper3.18.3UpdateConfigOnly.dmg -v
+          echo after codesign
+          pwd
+          ls -lR
           #hdiutil create -volname "XLingPaper Config-only Installer" \
           #               -srcfolder dmg_root \
           #               -ov -format UDZO \
           #               XLingPaper${{ env.VERSION }}UpdateConfigOnly.dmg
-          echo after hdiutil
-          pwd
-          ls -lR
 
       # Verify the signature
       - name: Verify signature

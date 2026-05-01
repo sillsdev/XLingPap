@@ -168,13 +168,6 @@ jobs:
           pwd
           ls -lR
 
-      - uses: actions/upload-artifact@v4
-        with:
-          name: XLingPaperConfig
-          path: dmg_root/XLingPaper*UpdateConfigOnly.dmg
-          if-no-files-found: error
-
-
       # Verify the signature
       - name: Verify signature
         run: |
@@ -182,7 +175,7 @@ jobs:
           ls -l
           echo build
           ls -l installers/macos/XLingPaperConfigFiles4xxe7/build
-          codesign --verify --verbose XLingPaper3.18.3UpdateConfigOnly.dmg
+          codesign --verify --verbose installers/macos/XLingPaperConfigFiles4xxe7/build/XLingPaper3.18.3UpdateConfigOnly.dmg
 
 #      # Clean up keychain
 #      - name: Clean up keychain
@@ -194,7 +187,7 @@ jobs:
       - name: Notarize DMG
         uses: lando/notarize-action@v2
         with:
-          product-path: XLingPaper3.18.3UpdateConfigOnly.dmg
+          product-path: installers/macos/XLingPaperConfigFiles4xxe7/build/XLingPaper3.18.3UpdateConfigOnly.dmg
           appstore-connect-username: ${{ secrets.SIL_APPLE_NOTARIZATION_USERNAME }}
           appstore-connect-password: ${{ secrets.SIL_APPLE_NOTARIZATION_PASSWORD }}
           appstore-connect-team-id: "3YE4W86L3G"
@@ -207,12 +200,15 @@ jobs:
           #echo time stamp for stapling
           #ls -l LingTreeSigned.dmg
           #echo before stapling
-          xcrun stapler staple XLingPaper3.18.3UpdateConfigOnly.dmg
+          xcrun stapler staple installers/macos/XLingPaperConfigFiles4xxe7/build/XLingPaper3.18.3UpdateConfigOnly.dmg
           #echo after stapling
           #ls -l LingTreeSigned.dmg
           echo rename to include version number
           #cp LingTreeSigned.dmg LingTree-3.18.3.dmg
-          mv XLingPaper3.18.3UpdateConfigOnly.dmg LingTree-${{ env.VERSION }}.dmg
+          mv XLingPaper3.18.3UpdateConfigOnly.dmg ../../XLingPaper-${{ env.VERSION }}UpdateConfigOnly.dmg
+          cd ../..
+          pwd
+          ls -lR
 
 #      - name: Create Release
 #        uses: softprops/action-gh-release@v2

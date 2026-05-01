@@ -96,6 +96,14 @@ jobs:
           # Unmount using the same wildcard
           hdiutil unmount /Volumes/Packages*
 
+      # If a notarization fails, uncomment the following and replace the GUID with the one from
+      # notarization output
+      # Get notarization log of last run
+      - name: Get notarization log
+        run: |
+          echo Before trying to get notarization log of last run
+          xcrun notarytool log 371aa9a2-a02d-40cd-811f-288b5417793f --apple-id ${{ secrets.SIL_APPLE_NOTARIZATION_USERNAME }} --team-id "3YE4W86L3G" --password ${{ secrets.SIL_APPLE_NOTARIZATION_PASSWORD }}
+
       - name: Add certificate to Keychain
         env:
           MACOS_CERTIFICATE: ${{ secrets.MACOS_CERTIFICATE }}

@@ -140,9 +140,6 @@ jobs:
           ls -l
           ls -l build
           cd build
-          echo -----------------
-          security find-identity -p codesigning -v
-          echo -----------------
           productsign --sign "${{ vars.SIL_APPLE_INSTALLER_SIGNING_IDENTITY }}" \
             build/XLingPaperConfigurationFiles7n8-3.18.3.pkg \
             build/XLingPaper_Signed.pkg

@@ -147,6 +147,9 @@ jobs:
           cd installers/macos/XLingPaperConfigFiles4xxe7/build
           mkdir -p dmg_root
           cp XLingPaperConfigurationFiles7n8*.pkg dmg_root/
+          echo before hdiutil
+          pwd
+          ls -lR
 
           # Create the DMG
           # -volname: The name shown when the DMG is mounted
@@ -161,20 +164,25 @@ jobs:
           #               -srcfolder dmg_root \
           #               -ov -format UDZO \
           #               XLingPaper${{ env.VERSION }}UpdateConfigOnly.dmg
+          echo after hdiutil
           pwd
           ls -lR
 
       - uses: actions/upload-artifact@v4
         with:
           name: XLingPaperConfig
-          path: installers/macos/XLingPaperConfigFiles4xxe7/build/XLingPaper*UpdateConfigOnly.dmg
+          path: dmg_root/XLingPaper*UpdateConfigOnly.dmg
           if-no-files-found: error
 
 
       # Verify the signature
       - name: Verify signature
         run: |
-          codesign --verify --verbose LingTreeSigned.dmg
+          pwd
+          ls -l
+          echo build
+          ls -l installers/macos/XLingPaperConfigFiles4xxe7/build
+          codesign --verify --verbose XLingPaper3.18.3UpdateConfigOnly.dmg
 
 #      # Clean up keychain
 #      - name: Clean up keychain
@@ -186,7 +194,7 @@ jobs:
       - name: Notarize DMG
         uses: lando/notarize-action@v2
         with:
-          product-path: LingTreeSigned.dmg
+          product-path: XLingPaper3.18.3UpdateConfigOnly.dmg
           appstore-connect-username: ${{ secrets.SIL_APPLE_NOTARIZATION_USERNAME }}
           appstore-connect-password: ${{ secrets.SIL_APPLE_NOTARIZATION_PASSWORD }}
           appstore-connect-team-id: "3YE4W86L3G"
@@ -199,12 +207,12 @@ jobs:
           #echo time stamp for stapling
           #ls -l LingTreeSigned.dmg
           #echo before stapling
-          xcrun stapler staple LingTreeSigned.dmg
+          xcrun stapler staple XLingPaper3.18.3UpdateConfigOnly.dmg
           #echo after stapling
           #ls -l LingTreeSigned.dmg
           echo rename to include version number
-          cp LingTreeSigned.dmg LingTree-3.18.3.dmg
-          #cp LingTreeSigned.dmg LingTree-${{ env.VERSION }}.dmg
+          #cp LingTreeSigned.dmg LingTree-3.18.3.dmg
+          mv XLingPaper3.18.3UpdateConfigOnly.dmg LingTree-${{ env.VERSION }}.dmg
 
 #      - name: Create Release
 #        uses: softprops/action-gh-release@v2
@@ -216,9 +224,8 @@ jobs:
 
       - uses: actions/upload-artifact@v4
         with:
-          name: LingTreeSigned
-          path: LingTree*.dmg
-          #path: LingTree-*.dmg
+          name: XLingPaperConfig
+          path: XLingPaper*.dmg
           if-no-files-found: error
 
   create-release:
@@ -233,7 +240,7 @@ jobs:
       - name: Create Release
         uses: softprops/action-gh-release@v2
         with:
-          files: XLingPaper*UpdateConfigOnly.dmg
+          files: XLingPaper*.dmg
           body: |
             Release for version ${{ github.ref }}
           draft: true

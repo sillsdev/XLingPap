@@ -48,14 +48,6 @@ jobs:
         xcopy /f /s /e /y installers\windows\NSIS_Plugins\Plugins "%NSISINST%\Plugins\x86-unicode\"
         "%NSISINST%\makensis" /V4 /DVERSION=${{ env.VERSION }}.0 installers\windows\XLingPaperConfigOnlySetupXXE7.2+.nsi
 
-    - name: check existence
-      shell: cmd
-      run: |
-        echo top level
-        dir
-        echo windows
-        dir installers\windows\
-
     - name: Upload artifact
       uses: actions/upload-artifact@v4
       with:
@@ -86,12 +78,6 @@ jobs:
           name: ConfigOnlySigned
           path: XLingPaper*.exe
           if-no-files-found: error
-
-      - name: check existence
-        shell: cmd
-        run: |
-          echo top level
-          dir
 
       - name: Create Release
         uses: softprops/action-gh-release@v2

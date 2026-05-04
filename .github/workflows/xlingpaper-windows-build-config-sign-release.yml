@@ -55,65 +55,37 @@ jobs:
         path: installers/windows/XLingPaper*UpdateConfigOnlySetup.exe
         if-no-files-found: error
 
-# old way to sign
-  sign-config-only-installer:
-    name: Sign Windows XLingPaper config only installer
+  sign-config-only-installer-release:
+    name: Sign Windows XLingPaper config only Installer and Create Release
     needs: create_NSIS_installer
-    uses: sillsdev/codesign/.github/workflows/sign.yml@v2
-    with:
-      artifact: ConfigOnly
-    secrets:
-      certificate: ${{ secrets.CODESIGN_LSDEVSECTIGOEV }}
-
-  create-config-only-release:
-    name: Create config only Release
-    needs: sign-config-only-installer
     runs-on: windows-latest
-
     steps:
       - uses: actions/download-artifact@v4
         with:
           name: ConfigOnly
+      - name: Sign with Trusted Signing
+        uses: sillsdev/codesign/trusted-signing-action@v3
+        with:
+          credentials: ${{ secrets.TRUSTED_SIGNING_CREDENTIALS }}
+          files-folder: .
+          files-folder-filter: XLingPaper*.exe
+          files-folder-recurse: true
+          files-folder-depth: 4
+          description:  'Release for version ${{ needs.build.outputs.version }} from branch ${{ github.ref }}'
+          description-url: 'https://software.sil.org/xlingpaper/'
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ConfigOnlySigned
+          path: XLingPaper*.exe
+          if-no-files-found: error
 
-      - name: Create Config Only Release
+      - name: Create Release
         uses: softprops/action-gh-release@v2
         with:
-          files: XLingPaper*ConfigOnlySetup.exe
+          files: XLingPaper*.exe
           body: |
             Release for version ${{ github.ref }}
-          draft: false
-
-# new way to sign that is not yet usable
-#  sign-config-only-installer-release:
-#    name: Sign Windows XLingPaper config only Installer and Create Release
-#    needs: create_NSIS_installer
-#    runs-on: windows-latest
-#    steps:
-#      - uses: actions/download-artifact@v4
-#        with:
-#          name: ConfigOnly
-#      - name: Sign with Trusted Signing
-#        uses: sillsdev/codesign/trusted-signing-action@v3
-#        with:
-#          credentials: ${{ secrets.TRUSTED_SIGNING_CREDENTIALS }}
-#          files-folder: .
-#          files-folder-filter: XLingPaper*.exe
-#          files-folder-recurse: true
-#          files-folder-depth: 4
-#          description:  'Release for version ${{ needs.build.outputs.version }} from branch ${{ github.ref }}'
-#          description-url: 'https://software.sil.org/xlingpaper/'
-#      - uses: actions/upload-artifact@v4
-#        with:
-#          name: ConfigOnlySigned
-#          path: XLingPaper*.exe
-#          if-no-files-found: error
-#      - name: Create Release
-#        uses: softprops/action-gh-release@v2
-#        with:
-#          files: XLingPaper*.exe
-#          body: |
-#            Release for version ${{ github.ref }}
-#          draft: true
-#          files-folder-filter: XLingPaper*ConfigOnlySetup.exe
-##          path: XLingPaper*ConfigOnlySetup.exe
-##          files: XLingPaper*ConfigOnlySetup.exe
+          draft: true
+          files-folder-filter: XLingPaper*ConfigOnlySetup.exe
+#          path: XLingPaper*ConfigOnlySetup.exe
+#          files: XLingPaper*ConfigOnlySetup.exe

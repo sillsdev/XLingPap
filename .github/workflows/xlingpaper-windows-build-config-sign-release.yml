@@ -48,6 +48,14 @@ jobs:
         xcopy /f /s /e /y installers\windows\NSIS_Plugins\Plugins "%NSISINST%\Plugins\x86-unicode\"
         "%NSISINST%\makensis" /V4 /DVERSION=${{ env.VERSION }}.0 installers\windows\XLingPaperConfigOnlySetupXXE7.2+.nsi
 
+    - name: check existence
+      shell: cmd
+      run: |
+        echo top level
+        dir
+        echo windows
+        dir installers\windows\
+
     - name: Upload artifact
       uses: actions/upload-artifact@v4
       with:
@@ -55,7 +63,6 @@ jobs:
         path: installers/windows/XLingPaper*UpdateConfigOnlySetup.exe
         if-no-files-found: error
 
-# new way to sign that is not yet usable
   sign-config-only-installer-release:
     name: Sign Windows XLingPaper config only Installer and Create Release
     needs: create_NSIS_installer
@@ -79,6 +86,15 @@ jobs:
           name: ConfigOnlySigned
           path: XLingPaper*.exe
           if-no-files-found: error
+
+      - name: check existence
+        shell: cmd
+        run: |
+          echo top level
+          dir
+          echo windows
+          dir installers\windows\
+
       - name: Create Release
         uses: softprops/action-gh-release@v2
         with:

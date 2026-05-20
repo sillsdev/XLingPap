@@ -1948,6 +1948,79 @@ What we want is to load IE independently and to do a refresh so it will show the
             </cfg:sequence>
         </cfg:macro>
     </cfg:command>
+    <cfg:command name="ProduceLaTeX">
+        <cfg:macro trace="false">
+            <cfg:sequence>
+                <cfg:choice>
+                    <cfg:sequence>
+                        <cfg:test expression="not(//lingPaper)"/>
+<!--                                                <cfg:command name="alert" parameter="Sorry, but this is not a complete document.  It cannot be made into a PDF file."/>-->
+                        <cfg:command name="LocalizeString" parameter="msg.produceLaTeX"/>
+                        <cfg:command name="alert" parameter="%_"/>
+                    </cfg:sequence>
+                    <cfg:sequence>
+                        <cfg:test expression="not(/xlingpaper/styledPaper)"/>
+                        <!-- we won't allow using the default canned version -->
+                        <!--                                <cfg:command name="alert" parameter="Sorry, but you must use a publisher style sheet to produce an EBook."/>-->
+                        <cfg:command name="LocalizeString" parameter="msg.produceLaTeXNoStyleSheet"/>
+                        <cfg:command name="alert" parameter="%_"/>
+                    </cfg:sequence>
+                    <cfg:sequence>
+                        <cfg:sequence>
+                            <!-- It is potentially possible to produce the PDF.  Do some initial further checks.  -->
+                            <!--                            <cfg:command name="status" parameter="Look for possible problems..."/>-->
+<!--                            <cfg:command name="LocalizeString" parameter="msg.producePDFViaXeLaTeXLookForProblems"/>
+                            <cfg:command name="status" parameter="%_"/>
+                            <cfg:command name="UpdateMathMLFilesCmd" parameter="%{P}"/>
+                            <cfg:command name="CheckPresenceOfFontsAndImagesCmd" parameter="%{P}"/>-->
+<!--                                                                                <cfg:command name="alert" parameter="first one"/>-->
+                                <cfg:sequence>
+<!--                                    <cfg:pass>
+                                        <cfg:test expression="'%_' = 'allClear'"/>
+                                    </cfg:pass>-->
+                                    <cfg:choice>
+                                        <cfg:sequence>
+                                            <!-- On Windows, we have to do something special if the file name is at the root (e..g C:\) -->
+                                            <cfg:command name="run" parameter="[Windows] echo testing for drive letter only"/>
+                                            <cfg:get expression="substring('%P',1,2)"/>
+                                            <cfg:set variable="driveLetter" plainString="true" expression="%_"/>
+                                            <!--                            <cfg:get expression="$driveLetter"/>
+                                                <cfg:command name="alert" parameter="driveLetter = |%_|"/>
+                                            -->
+                                            <cfg:get expression="concat($driveLetter, ' ', $safeXeLaTeXFileName)"/>
+                                        </cfg:sequence>
+                                        <cfg:sequence>
+                                            <cfg:command name="run" parameter="[Unix] echo no need to test for drive letter"/>
+                                            <cfg:get expression="concat('/ ', $safeXeLaTeXFileName)"/>
+                                        </cfg:sequence>
+                                    </cfg:choice>
+                                    <!--                                </cfg:sequence>-->
+                                    <cfg:set variable="producePDFParameters1" expression="%_" plainString="true"/>
+                                    <cfg:command name="getXeLaTeXVersion"/>
+                                    <cfg:set variable="xeLaTeXVersion" expression="%_" plainString="true"/>
+                                    <cfg:get expression="concat($producePDFParameters1,' ', $xeLaTeXVersion)"/>
+                                    <cfg:set variable="producePDFParameters" expression="%_" plainString="true"/>
+                                    <cfg:get expression="$producePDFParameters"/>
+<!--                                        <cfg:command name="alert" parameter="producePDFParameters = |%_|"/>-->
+                                    <cfg:choice>
+                                        <cfg:sequence>
+                                            <cfg:test expression="//styledPaper"/>
+                                            <cfg:get expression="$producePDFParameters"/>
+<!--                                            <cfg:command name="alert" parameter="safeXeLaTeXFileName = |%_|"/>-->
+                                            <cfg:sequence>
+<!--                                                <cfg:get expression="$producePDFParameters"/>-->
+                                                <cfg:command name="produceLaTeXFromEmbeddedStylesheet" parameter="%_"/>
+                                                <cfg:command name="beep"/>
+                                            </cfg:sequence>
+                                        </cfg:sequence>
+                                    </cfg:choice>
+                                </cfg:sequence>
+                        </cfg:sequence>
+                    </cfg:sequence>
+                </cfg:choice>
+            </cfg:sequence>
+        </cfg:macro>
+    </cfg:command>
     <cfg:command name="AdjustWindowsRootPath">
         <cfg:macro trace="false">
             <!--  Have to work around the fact that %P includes a final backslash *if* it is the root on a Windows machine;  
@@ -2299,6 +2372,27 @@ What we want is to load IE independently and to do a refresh so it will show the
             <cfg:subProcess name="ProducePDFViaXeLaTeXPostProcessing" parameter="%0 &quot;%1&quot;"/>
         </cfg:process>
     </cfg:command>
+    <cfg:command name="produceLaTeXFromEmbeddedStylesheet">
+        <cfg:process>
+            <cfg:copyDocument to="in.xml"/>
+            <cfg:transform file="in.xml" stylesheet="../transforms/XLingPapRemoveAnyContent.xsl" to="in2.xml"/>
+            <cfg:transform file="in2.xml" stylesheet="..%{S}transforms%{S}XLingPapPublisherStylesheetLaTeX.xsl" to="TeXML.xml">
+                <cfg:parameter name="sFOProcessor">TeX</cfg:parameter>
+                <cfg:parameter name="sMainSourcePath">%{p}</cfg:parameter>
+                <cfg:parameter name="sMainSourceFile">%1</cfg:parameter>
+                <cfg:parameter name="sXeLaTeXVersion">%2</cfg:parameter>
+            </cfg:transform>
+            <!--                        <cfg:copy quiet="true" files="TeXML.xml" to="%{P}%{S}TeXML.xml"/>-->
+            <!--            <cfg:shell command="&quot;%{C}%{S}..%{S}batchfiles%{S}DoTeXMLLikeCharConv.bat&quot; TeXML.xml TeXML2.xml &quot;%{C}%{S}..%{S}bin%{S}TeXMLLikeCharConv.exe&quot;" platform="Windows"/>-->
+            <cfg:invoke method="xlingpaper.xxe.TeXMLLikeCharacterConversion.convert"/>
+            <!--                        <cfg:copy quiet="true" files="TeXML2.xml" to="%{P}%{S}TeXML2.xml"/>-->
+            <!--            <cfg:transform file="TeXML2.xml" stylesheet="..%{S}transforms%{S}TeXMLLike.xsl" to="%{P}%{S}XLingPaperPDFTemp%{S}%1.tex"/>-->
+            <cfg:transform file="TeXML2.xml" stylesheet="..%{S}transforms%{S}TeXMLLike.xsl" to="TeXML2.tex"/>
+            <!--            <cfg:copy quiet="true" files="TeXML2.tex" to="%{P}%{S}XLingPaperPDFTemp%{S}TeXML2.tex"/>-->
+            <cfg:invoke method="xlingpaper.xxe.NonASCIIIDandIDREFConversion.convert"/>
+            <cfg:copy quiet="true" files="TeXML3.tex" to="%{P}%{S}%{R}.ltx"/>
+        </cfg:process>
+    </cfg:command>
     <cfg:command name="getXeLaTeXVersion">
         <cfg:process>
             <cfg:read file="%C%SXeLaTeXVersion.txt" encoding="UTF-8"/>
@@ -2588,11 +2682,10 @@ What we want is to load IE independently and to do a refresh so it will show the
             <cfg:transform file="%{C}%{S}..%{S}xlingpap.xxe_addon" stylesheet="..%{S}transforms%{S}AboutXLingPaper.xsl" to="%{C}%{S}..%{S}doc%{S}AboutXLingPaper.htm"/>
         </cfg:process>
     </cfg:command>
-    <!-- Not used very much; will try turning it off and see what reaction we get.   
     <cfg:binding>
         <cfg:keyPressed code="F10"/>
-        <cfg:command name="produceWord2003Document"/>
-    </cfg:binding>-->
+        <cfg:command name="ProduceLaTeX"/>
+    </cfg:binding>
     <cfg:command name="xhtml.tableEdit">
         <cfg:class>com.xmlmind.xmleditext.xhtml.table.HTMLTableEdit</cfg:class>
     </cfg:command>

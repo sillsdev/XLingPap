@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <a:addon
-location="XLingPap-3.18.0-xxe-8.2.0.zip"
+location="XLingPap-3.19.0-xxe-8.2.0.zip"
 xmlns:a="http://www.xmlmind.com/xmleditor/schema/addon"
 ><a:category
 ><a:configuration
@@ -9,7 +9,7 @@ xmlns:a="http://www.xmlmind.com/xmleditor/schema/addon"
 ><a:name
 >A configuration for creating XLingPaper documents.</a:name
 ><a:version
->3.18.3</a:version
+>3.19.0</a:version
 ><a:author
 ><a
 href="mailto::xlingpaper_support@sil.org"
@@ -17,7 +17,7 @@ xmlns="http://www.w3.org/1999/xhtml"
 >Andy Black</a
 ></a:author
 ><a:date
->2026-04-16</a:date
+>2026-05-20</a:date
 ><a:abstract
 >A way to author and archive linguistic documents using XML.</a:abstract
 ><a:documentation
@@ -40,23 +40,21 @@ xmlns="http://www.w3.org/1999/xhtml"
 ><ul
 xmlns="http://www.w3.org/1999/xhtml"
 ><li
->3.18.3 16 April 2026<ul
+>3.19.0 19 May 20 2026<ul
+><li
+>Add ability to control how a langData element is formatted in a word or listWord element via the langDataInListWordLayout element in a publisher style sheet.</li
 ><li
 >Update ORCID URL.</li
 ><li
 >Add SetXmlToClipboard command</li
-></ul
-></li
-><li
->3.18.2 19 January 2026<ul
-><li
->Add ability to control how a langData element is formatted in a word or listWord element via the langDataInListWordLayout element in a publisher style sheet.</li
 ><li
 >Fix bug: example word/listWord do not correctly show langData text before/after in XXE.</li
 ><li
 >For the default way of producing PDF (via XeLaTeX):<ul
 ><li
 >Add two new XeLaTeXSpecial attributes: subscriptany and superscriptany. These are for cases where a font (like Charis 7.000) has font features for certain subscript and/or superscript character; as a result, only these characters come out in subscript or superscript. Use these new attributes to get any characters to come out properly.</li
+><li
+>Fix bug: line numbering was incorrect for contents and listInterlinears.</li
 ></ul
 ></li
 ></ul

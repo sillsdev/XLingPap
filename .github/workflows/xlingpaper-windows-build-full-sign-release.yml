@@ -48,7 +48,15 @@ jobs:
       run: |
         xcopy /f /s /e /y installers\windows\NSIS_Plugins\Include "%NSISINST%\Include\"
         xcopy /f /s /e /y installers\windows\NSIS_Plugins\Plugins "%NSISINST%\Plugins\x86-unicode\"
-        7z x XXE8Installer\xxe82.7z -p${{ secrets.XXE82_INSTALLER }}
+        7z x installers\XXE8Installer\xxe82.7z -p${{ secrets.XXE82_INSTALLER }} -oinstallers\XXE8Installer -y
+        del installers\XXE8Installer\xxe82.7z
+        REM we need to unzip these here and then the NSI script copies them to the right place
+        7z x installers\XXE8Installer\es_dictionary-8_2_0.zip -oinstallers\XXE8Installer\es_dictionary
+        7z x installers\XXE8Installer\es_translation-8_2_0.zip -oinstallers\XXE8Installer\es_translation
+        7z x installers\XXE8Installer\fr_dictionary-8_2_0.zip -oinstallers\XXE8Installer\fr_dictionary
+        7z x installers\XXE8Installer\fr_translation-8_2_0.zip -oinstallers\XXE8Installer\fr_translation
+        7z x installers\XXE8Installer\sample_customize_xxe-8_2_0.zip -oinstallers\XXE8Installer\sample_customize_xxe-2
+        del installers\XXE8Installer\*.zip
         "%NSISINST%\makensis" /V4 /DVERSION=${{ env.VERSION }}.0 installers\windows\XLingPaperXXEPersonalEditionFullSetup.nsi
       
     - name: Upload artifact

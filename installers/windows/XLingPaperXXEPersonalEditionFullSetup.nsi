@@ -80,12 +80,12 @@ Section -Main SEC0000
     File /r ..\XXE8Installer\*
     SetOutPath $APPDATA\XMLmind\XMLEditor8
     File /r /x .svn ..\XXE8Installer\preferences.properties
-    # now add the XXE8 special configuration packages
-    ZipDLL::extractall "$INSTDIR\XXEPersonalEditionInstaller\sample_customize_xxe-8_2_0.zip" $APPDATA\XMLmind\XMLEditor8\addon
-    ZipDLL::extractall "$INSTDIR\XXEPersonalEditionInstaller\es_dictionary-8_2_0.zip" $APPDATA\XMLmind\XMLEditor8\addon
-    ZipDLL::extractall "$INSTDIR\XXEPersonalEditionInstaller\es_translation-8_2_0.zip" $APPDATA\XMLmind\XMLEditor8\addon
-    ZipDLL::extractall "$INSTDIR\XXEPersonalEditionInstaller\fr_dictionary-8_2_0.zip" $APPDATA\XMLmind\XMLEditor8\addon
-    ZipDLL::extractall "$INSTDIR\XXEPersonalEditionInstaller\fr_translation-8_2_0.zip" $APPDATA\XMLmind\XMLEditor8\addon
+    # now add the XXE8 special configuration packages; no! do it later
+#    ZipDLL::extractall "$INSTDIR\XXEPersonalEditionInstaller\sample_customize_xxe-8_2_0.zip" $APPDATA\XMLmind\XMLEditor8\addon
+#    ZipDLL::extractall "$INSTDIR\XXEPersonalEditionInstaller\es_dictionary-8_2_0.zip" $APPDATA\XMLmind\XMLEditor8\addon
+#    ZipDLL::extractall "$INSTDIR\XXEPersonalEditionInstaller\es_translation-8_2_0.zip" $APPDATA\XMLmind\XMLEditor8\addon
+#    ZipDLL::extractall "$INSTDIR\XXEPersonalEditionInstaller\fr_dictionary-8_2_0.zip" $APPDATA\XMLmind\XMLEditor8\addon
+#    ZipDLL::extractall "$INSTDIR\XXEPersonalEditionInstaller\fr_translation-8_2_0.zip" $APPDATA\XMLmind\XMLEditor8\addon
     SetOutPath $APPDATA\XMLmind\XMLEditor8
     File /r /x .svn ..\XXE8Installer\preferences.properties
     # now add the XXE8 special configuration packages
@@ -168,6 +168,12 @@ Section -Main SEC0000
     IfFileExists $APPDATA\XMLmind\XMLEditor8 0 +3
     SetOutPath $APPDATA\XMLmind\XMLEditor8\addon
     File /r  /x .svn ..\..\XLingPaperConfiguration\* 
+    # now add the XXE8 special configuration packages
+    nsExec::ExecToStack 'xcopy /f /s /e /y /i "$INSTDIR\XXEPersonalEditionInstaller\sample_customize_xxe-2" "$APPDATA\XMLmind\XMLEditor8\addon\sample_customize_xxe-2"'
+    nsExec::ExecToStack 'xcopy /f /s /e /y /i "$INSTDIR\XXEPersonalEditionInstaller\es_dictionary" "$APPDATA\XMLmind\XMLEditor8\addon\es_dictionary"'
+    nsExec::ExecToStack 'xcopy /f /s /e /y /i "$INSTDIR\XXEPersonalEditionInstaller\es_translation" "$APPDATA\XMLmind\XMLEditor8\addon\es_translation"'
+    nsExec::ExecToStack 'xcopy /f /s /e /y /i "$INSTDIR\XXEPersonalEditionInstaller\fr_dictionary" "$APPDATA\XMLmind\XMLEditor8\addon\fr_dictionary"'
+    nsExec::ExecToStack 'xcopy /f /s /e /y /i "$INSTDIR\XXEPersonalEditionInstaller\fr_translation" "$APPDATA\XMLmind\XMLEditor8\addon\fr_translation"'
     WriteRegStr HKLM "${REGKEY}\Components" Main 1
     # Make sure the small caps fonts are installed
     SetOutPath $INSTDIR\Fonts

@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet version="1.1" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:fo="http://www.w3.org/1999/XSL/Format" xmlns:tex="http://getfo.sourceforge.net/texml/ns1"
     xmlns:saxon="http://icl.com/saxon">
+    <xsl:import href="XLingPapCommon.xsl"/>
     <xsl:import href="XLingPapXeLaTeXCommon.xsl"/>
+    <xsl:import href="XLingPapPublisherStylesheetCommon.xsl"/>
     <xsl:output method="xml" version="1.0" encoding="utf-8" indent="no"/>
     <!-- ===========================================================
       Parameterized Variables
@@ -15,7 +17,9 @@
     <xsl:param name="sFOProcessor">XEP</xsl:param>
     <xsl:param name="sXeLaTeXVersion">2010</xsl:param>
     <xsl:param name="bUseBookTabs" select="'Y'"/>
-    <xsl:variable name="secIdPreface" select="'sec:'"/>
+    <xsl:variable name="appendixIdPreface" select="'apdx:'"/>
+    <xsl:variable name="chapterIdPreface" select="'chap:'"/>
+    <xsl:variable name="sectionIdPreface" select="'sec:'"/>
     <xsl:variable name="sPageWidth" select="string($pageLayoutInfo/pageWidth)"/>
     <xsl:variable name="sPageHeight" select="string($pageLayoutInfo/pageHeight)"/>
     <xsl:variable name="sPageTopMargin" select="string($pageLayoutInfo/pageTopMargin)"/>
@@ -1119,7 +1123,7 @@
         </tex:cmd>
         <tex:cmd name="label" nl2="1">
             <tex:parm>
-                <xsl:text>apdx:</xsl:text>
+                <xsl:value-of select="$appendixIdPreface"/>
                 <xsl:value-of select="@id"/>
             </tex:parm>
         </tex:cmd>
@@ -1136,7 +1140,7 @@
         </tex:cmd>
         <tex:cmd name="label" nl2="1">
             <tex:parm>
-                <xsl:text>chap:</xsl:text>
+                <xsl:value-of select="$chapterIdPreface"/>
                 <xsl:value-of select="@id"/>
             </tex:parm>
         </tex:cmd>
@@ -1549,7 +1553,6 @@
         </tex:cmd>
         <tex:cmd name="label" nl2="1">
             <tex:parm>
-                <xsl:value-of select="$secIdPreface"/>
                 <xsl:value-of select="@id"/>
             </tex:parm>
         </tex:cmd>
@@ -3558,7 +3561,12 @@
       citation
       -->
     <xsl:template match="citation[not(parent::selectedBibliography)]">
-        <xsl:variable name="refer" select="id(@ref)"/>
+        <tex:cmd name="cite">
+            <tex:parm>
+                <xsl:value-of select="@ref"/>
+            </tex:parm>
+        </tex:cmd>
+<!--        <xsl:variable name="refer" select="id(@ref)"/>
         <xsl:call-template name="DoInternalHyperlinkBegin">
             <xsl:with-param name="sName" select="@ref"/>
         </xsl:call-template>
@@ -3573,9 +3581,9 @@
         </xsl:call-template>
         <xsl:call-template name="DoInternalHyperlinkEnd"/>
         <xsl:if test="parent::blockquote and count(following-sibling::text())=0 and not(following-sibling::endnote)">
-            <!-- a citation ends the initial text in a blockquote; need to insert a \par -->
+            <!-\- a citation ends the initial text in a blockquote; need to insert a \par -\->
             <tex:cmd name="par"/>
-        </xsl:if>
+        </xsl:if>-->
     </xsl:template>
     <!--
       index
@@ -3718,7 +3726,11 @@
       -->
     <xsl:template match="references">
         <xsl:param name="backMatterLayout" select="$backMatterLayoutInfo"/>
-        <tex:cmd name="printbibliography" nl2="1"/>
+        <tex:cmd name="printbibliography" nl2="1">
+            <tex:parm>
+                <xsl:value-of select="@bibtexFile"/>
+            </tex:parm>
+        </tex:cmd>
 <!--        
         <xsl:choose>
             <xsl:when test="$bIsBook">
@@ -6182,6 +6194,25 @@
         <xsl:call-template name="DoNotBreakHere"/>
     </xsl:template>
     <!--  
+        DoOutputCitationContents
+    -->
+    <xsl:template name="DoOutputCitationContents">
+        <xsl:param name="refer"/>
+        <xsl:choose>
+            <xsl:when test="ancestor::chapterInCollection/descendant::references">
+                <xsl:call-template name="OutputCitationContents">
+                    <xsl:with-param name="refer" select="$refer"/>
+                    <xsl:with-param name="refWorks" select="ancestor::chapterInCollection/descendant::references/refWork"/>
+                </xsl:call-template>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:call-template name="OutputCitationContents">
+                    <xsl:with-param name="refer" select="$refer"/>
+                </xsl:call-template>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
+    <!--  
         DoPageBreakFormatInfo
     -->
     <xsl:template name="DoPageBreakFormatInfo">
@@ -8068,6 +8099,125 @@
         <!--      </fo:block>-->
     </xsl:template>
     <!--  
+        OutputCitationContents
+    -->
+    <xsl:template name="OutputCitationContents">
+        <xsl:param name="refer"/>
+        <xsl:param name="refWorks" select="$refWorks"/>
+        <xsl:if test="@paren='citationBoth' or @paren='citationInitial' or $citationLayout/@defaultparenvalue='citationBoth' and not(@paren)">
+            <xsl:text>(</xsl:text>
+        </xsl:if>
+        <xsl:if test="@author='yes'">
+            <xsl:choose>
+                <xsl:when test="$refer/../citeName">
+                    <xsl:apply-templates select="$refer/../citeName"/>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:choose>
+                        <xsl:when test="$refer/../citeName">
+                            <xsl:apply-templates select="$refer/../citeName"/>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:call-template name="OutputCitationName">
+                                <xsl:with-param name="citeName" select="$refer/../@citename"/>
+                            </xsl:call-template>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                </xsl:otherwise>
+            </xsl:choose>
+            <xsl:choose>
+                <xsl:when test="@date!='yes'">
+                    <!-- do nothing -->
+                </xsl:when>
+                <xsl:when test="string-length($sTextBetweenAuthorAndDate) &gt; 0 and @paren!='both' and @paren!='initial'">
+                    <xsl:value-of select="$citationLayout/@textbetweenauthoranddate"/>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:text>&#x20;</xsl:text>
+                </xsl:otherwise>
+            </xsl:choose>
+        </xsl:if>
+        <xsl:choose>
+            <xsl:when test="not(@paren)">
+                <xsl:if test="not($citationLayout/@defaultparenvalue) or $citationLayout/@defaultparenvalue='both'">
+                    <xsl:text>(</xsl:text>
+                </xsl:if>
+            </xsl:when>
+            <xsl:when test="@paren='both' or @paren='initial'">
+                <xsl:text>(</xsl:text>
+            </xsl:when>
+        </xsl:choose>
+        <xsl:variable name="works" select="$refWorks[../@name=$refer/../@name and @id=//citation/@ref]"/>
+        <xsl:variable name="date">
+            <xsl:variable name="sCiteDate" select="$refer/refDate/@citedate"/>
+            <xsl:choose>
+                <xsl:when test="string-length($sCiteDate) &gt; 0">
+                    <xsl:value-of select="$sCiteDate"/>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:value-of select="$refer/refDate"/>
+                </xsl:otherwise>
+            </xsl:choose>
+        </xsl:variable>
+        <xsl:if test="@author='yes' and not(not(@paren) or @paren='both' or @paren='initial')">
+            <xsl:choose>
+                <xsl:when test="@date!='yes'">
+                    <!-- do nothing -->
+                </xsl:when>
+                <xsl:when test="string-length($sTextBetweenAuthorAndDate) &gt; 0">
+                    <!-- do nothing; it's already there -->
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:text>&#x20;</xsl:text>
+                </xsl:otherwise>
+            </xsl:choose>
+        </xsl:if>
+        <xsl:if test="@date!='no'">
+            <xsl:value-of select="$date"/>
+            <xsl:if test="count($works[refDate=$date or refDate/@citedate=$date])>1">
+                <xsl:apply-templates select="$refer" mode="dateLetter">
+                    <xsl:with-param name="date" select="$date"/>
+                </xsl:apply-templates>
+            </xsl:if>
+        </xsl:if>
+        <xsl:variable name="sPage" select="normalize-space(@page)"/>
+        <xsl:if test="string-length($sPage) &gt; 0">
+            <xsl:variable name="sColon" select="$citationLayout/@replacecolonwith"/>
+            <xsl:choose>
+                <xsl:when test="string-length($sColon) &gt; 0">
+                    <xsl:value-of select="$sColon"/>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:text>:</xsl:text>
+                </xsl:otherwise>
+            </xsl:choose>
+            <xsl:if test="string-length($citationLayout/@textbeforepages) &gt; 0">
+                <xsl:value-of select="$citationLayout/@textbeforepages"/>
+            </xsl:if>
+            <xsl:value-of select="$sPage"/>
+        </xsl:if>
+        <xsl:variable name="sTimestamp" select="normalize-space(@timestamp)"/>
+        <xsl:if test="string-length($sTimestamp) &gt; 0">
+            <xsl:variable name="sBefore" select="$citationLayout/@textbeforetimestamp"/>
+            <xsl:choose>
+                <xsl:when test="string-length($sBefore) &gt; 0">
+                    <xsl:value-of select="$sBefore"/>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:text>&#x20;</xsl:text>
+                </xsl:otherwise>
+            </xsl:choose>
+            <xsl:value-of select="$sTimestamp"/>
+            <xsl:variable name="sAfter" select="$citationLayout/@textaftertimestamp"/>
+            <xsl:if test="string-length($sAfter) &gt; 0">
+                <xsl:value-of select="$sAfter"/>
+            </xsl:if>
+        </xsl:if>
+        <xsl:if test="not(@paren) or @paren='both' or @paren='final' or @paren='citationBoth'">
+            <xsl:text>)</xsl:text>
+        </xsl:if>
+    </xsl:template>
+    <!--  
                   OutputExampleNumber
 -->
     <xsl:template name="OutputExampleNumber">
@@ -9701,6 +9851,4 @@
     <xsl:include href="XLingPapPublisherStylesheetXeLaTeXBookmarks.xsl"/>
     <xsl:include href="XLingPapPublisherStylesheetXeLaTeXContents.xsl"/>
     <xsl:include href="XLingPapPublisherStylesheetXeLaTeXReferences.xsl"/>
-    <xsl:include href="XLingPapCommon.xsl"/>
-    <xsl:include href="XLingPapPublisherStylesheetCommon.xsl"/>
 </xsl:stylesheet>

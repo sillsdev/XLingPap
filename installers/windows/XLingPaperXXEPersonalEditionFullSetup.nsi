@@ -130,6 +130,7 @@ Section -Main SEC0000
     RmDir /r $APPDATA\XMLmind\XMLEditor8\addon\XLingPap
     RmDir /r $APPDATA\XMLmind\XMLEditor8\cache
     RmDir /r $INSTDIR\XeLaTeX
+    RmDir /r $INSTDIR\XeLaTeX2020
     RmDir /r $INSTDIR\XXE
        ; delete environment variables
    DeleteRegValue ${env_hklm} XLingPaperXeLaTeXPath
@@ -149,6 +150,9 @@ Section -Main SEC0000
     SetOutPath $INSTDIR\XeLaTeX
     SetOverwrite on
     File /r /x .svn XeLaTeX\*
+    SetOutPath $INSTDIR\XeLaTeX2020
+    SetOverwrite on
+    File /r /x .svn XeLaTeX2020\*
     #           XLingPaper
     SetOutPath "$DOCUMENTS\My XLingPaper"
     File /r /x .svn ..\XLingPaperSamples\*
@@ -243,6 +247,7 @@ Section /o -un.Main UNSEC0000
     IfFileExists $APPDATA\XMLmind\XMLEditor8 0 +1
     RmDir /r $APPDATA\XMLmind\XMLEditor8\addon\XLingPap
     RmDir /r $INSTDIR\XeLaTeX
+    RmDir /r $INSTDIR\XeLaTeX2020
     RmDir /r $INSTDIR\XXE
     ; RmDir /r $INSTDIR\XLingPaperSamples
     DeleteRegValue HKLM "${REGKEY}\Components" Main

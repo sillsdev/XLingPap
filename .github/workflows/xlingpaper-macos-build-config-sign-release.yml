@@ -1,0 +1,216 @@
+# This workflow will build an installer for XLingPaper config-only, sign and notarize it
+
+name: XLingPaper macOS Signed Config Build Installer with Version
+
+on:
+  push:
+#    paths:
+#      - ".github/workflows/xlingpaper-macos-build-config-sign-releaseHOLD.yml"
+#    branches: [ "GHAInstallers" ]
+    tags:
+      - 'v*'  # Build the app for commits that are tagged starting with 'v' e.g. v1.2.3
+#      # to tag a commit, use "git tag v1.2.3"
+#      # when you then use "git push origin v1.2.3" this workflow will be invoked
+#  workflow_dispatch:
+
+jobs:
+  build-installer:
+    runs-on: macos-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: '0'
+
+      - name: Set and validate version
+        uses: ./.github/actions/set-validate-version
+
+      # If a notarization fails, uncomment the following and replace the GUID with the one from
+      # notarization output
+      # Get notarization log of last run
+#      - name: Get notarization log
+#        run: |
+#          echo Before trying to get notarization log of last run
+#          xcrun notarytool log ae91e970-d919-429b-9d2b-2eb6e1cfdbdb --apple-id ${{ secrets.SIL_APPLE_NOTARIZATION_USERNAME }} --team-id "3YE4W86L3G" --password ${{ secrets.SIL_APPLE_NOTARIZATION_PASSWORD }}
+
+# macOS does not allow for JDK 8 and we need it for building XLingPap.jar in order not to block XXE 8.2 from running.
+# Since XLingPap.jar comes with the configuration files and is platform-independant, we'll just use it for macOS.
+#      - name: 'Prepare for Java compilation'
+#        run: |
+#          cd javasrc/XLingPapExtensions
+#          mkdir class
+#          mkdir XXEJars
+#          cd XXEJars
+#          7z x ../../../installers/XXE8Jars/XXE8Jars.7z -p${{ secrets.XXE82_INSTALLER }}
+#
+#      - name: Set up JDK 8
+#        uses: actions/setup-java@v4
+#        with:
+#          java-version: '8'
+#          distribution: 'temurin'
+#          java-package: 'jdk'
+#
+#      - name: Build with Ant
+#        run: |
+#          cd javasrc/XLingPapExtensions
+#          ant -noinput -buildfile build.xml
+#        shell: bash
+
+      - name: 'create XLingPaper Configuration Folder'
+        uses:  ./.github/actions/macos-create-xlp-config-folder
+
+      - name: Install Packages CLI
+        uses:  ./.github/actions/macos-install-packages
+
+      - name: Add certificate to Keychain
+        env:
+          MACOS_CERTIFICATE: ${{ secrets.MACOS_CERTIFICATE }}
+          MACOS_CERTIFICATE_PWD: ${{ secrets.SIL_APPLE_DEVELOPER_ID_APPLICATION_PASSWORD }}
+          KEYCHAIN_PASSWORD: ${{ secrets.SIL_APPLE_DEVELOPER_ID_APPLICATION_PASSWORD }}
+        run: |
+          # Create a temporary keychain
+          security create-keychain -p "$KEYCHAIN_PASSWORD" build.keychain
+          security default-keychain -s build.keychain
+          security unlock-keychain -p "$KEYCHAIN_PASSWORD" build.keychain
+
+          # Import the developer certificate
+          curl -O ${{ secrets.SIL_APPLE_DEVELOPER_ID_APPLICATION_CERT_URL }}
+          security import sil_developer_id_application_cert.p12 -k build.keychain -P ${{ secrets.SIL_APPLE_DEVELOPER_ID_APPLICATION_PASSWORD }} -T /usr/bin/codesign
+
+          # Allow codesign to access the certificate without prompts
+          #echo before allow codesign to access the certificate without prompts
+          security set-key-partition-list -S apple-tool:,apple:,codesign: -s -k "$KEYCHAIN_PASSWORD" build.keychain
+          #echo after allow codesign to access the certificate without prompts
+
+          # Import the installer certificate
+          curl -O ${{ secrets.SIL_APPLE_DEVELOPER_ID_INSTALLER_CERT_URL }}
+          echo before import istaller
+          ls -l
+          security import sil_developer_id_installer_cert.p12 -k build.keychain -P ${{ secrets.SIL_APPLE_DEVELOPER_ID_INSTALLER_PASSWORD }} -T /usr/bin/productsign
+
+          # Allow productsign to access the certificate without prompts
+          #echo before allow codesign to access the certificate without prompts
+          security set-key-partition-list -S apple-tool:,apple:,productsign: -s -k "$KEYCHAIN_PASSWORD" build.keychain
+          #echo after allow codesign to access the certificate without prompts
+
+      - name: Build .pkg Installer
+        run: |
+          # Navigate to the directory containing the .pkgproj file
+          cd installers/macos/XLingPapConfigMacros
+          chmod a+x *.sh
+          cd ../XLingPaperConfigFiles4xxe7
+          #sed -i '' "s/3.16.0/3.18.3/" ReadMe.rtf
+          #sed -i '' "s/3.16.0/3.18.3/" XLingPaperConfigFiles4xxe7.pkgproj
+          #packagesbuild --project XLingPaperConfigFiles4xxe7.pkgproj --package-version 3.18.3
+          sed -i '' "s/3.16.0/${{ env.VERSION }}/" ReadMe.rtf
+          sed -i '' "s/3.16.0/${{ env.VERSION }}/" XLingPaperConfigFiles4xxe7.pkgproj
+          packagesbuild --project XLingPaperConfigFiles4xxe7.pkgproj --package-version ${{ env.VERSION }}
+          pwd
+          ls -l
+          ls -l build
+          cd build
+          productsign --sign "${{ vars.SIL_APPLE_DEVELOPER_ID_INSTALLER_CODESIGN_IDENTITY }}" \
+             XLingPaperConfigurationFiles7n8-${{ env.VERSION }}.pkg \
+             XLingPaperConfigurationFiles7n8-${{ env.VERSION }}Signed.pkg
+          echo after product sign in
+          pwd
+          ls -l
+#          productsign --sign "${{ vars.SIL_APPLE_DEVELOPER_ID_INSTALLER_CODESIGN_IDENTITY }}" \
+#             XLingPaperConfigurationFiles7n8-3.18.3.pkg \
+#             XLingPaperConfigurationFiles7n8-3.18.3Signed.pkg
+
+      # Verify the signature
+      - name: Verify signature
+        run: |
+          echo dir of installers/macos/XLingPaperConfigFiles4xxe7
+          cd installers/macos/XLingPaperConfigFiles4xxe7/
+          ls -lR
+          pkgutil --check-signature build/XLingPaperConfigurationFiles7n8-${{ env.VERSION }}Signed.pkg
+
+      - name: Create DMG with hdiutil
+        run: |
+          # Create a folder to hold the DMG contents
+          cd installers/macos/XLingPaperConfigFiles4xxe7/build
+          mkdir -p dmg_root
+          cp XLingPaperConfigurationFiles7n8*Signed.pkg dmg_root/
+
+          # Create the DMG
+          # -volname: The name shown when the DMG is mounted
+          # -srcfolder: The source directory
+          # -ov: Overwrite existing file
+          # -format: UDZO is the standard compressed format
+          hdiutil create -volname "XLingPaper Config-only Installer" \
+                         -srcfolder dmg_root \
+                         -ov -format UDZO \
+                         XLingPaper${{ env.VERSION }}UpdateConfigOnly.dmg
+          #hdiutil create -volname "XLingPaper Config-only Installer" \
+          #               -srcfolder dmg_root \
+          #               -ov -format UDZO \
+          #               XLingPaper3.18.3UpdateConfigOnly.dmg
+          cd ..
+          pwd
+          ls -lR
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: XLingPaperConfig
+          path: installers/macos/XLingPaperConfigFiles4xxe7/build/XLingPaper*UpdateConfigOnly.dmg
+          if-no-files-found: error
+
+
+#      # Clean up keychain
+#      - name: Clean up keychain
+#        if: always()
+#        run: |
+#          security delete-keychain build.keychain || true
+
+     # Notarize the DMG
+      - name: Notarize DMG
+        uses: lando/notarize-action@v2
+        with:
+          product-path: installers/macos/XLingPaperConfigFiles4xxe7/build/XLingPaper${{ env.VERSION }}UpdateConfigOnly.dmg
+          appstore-connect-username: ${{ secrets.SIL_APPLE_NOTARIZATION_USERNAME }}
+          appstore-connect-password: ${{ secrets.SIL_APPLE_NOTARIZATION_PASSWORD }}
+          appstore-connect-team-id: "3YE4W86L3G"
+          verbose: true
+#          appstore-connect-team-id: ${{ secrets.APPLE_TEAM_ID }}
+
+      # Staple the notarization ticket
+      - name: Staple Notarization Ticket
+        run: |
+          #echo before stapling
+          xcrun stapler staple installers/macos/XLingPaperConfigFiles4xxe7/build/XLingPaper${{ env.VERSION }}UpdateConfigOnly.dmg
+          #echo after stapling
+          cd installers/macos/XLingPaperConfigFiles4xxe7/build
+          #echo rename to include version number
+          #cp XLingPaper3.18.3UpdateConfigOnly.dmg XLingPaper${{ env.VERSION }}UpdateConfigOnly.dmg
+          #rm XLingPaper3.18.3UpdateConfigOnly.dmg
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: XLingPaperConfigSigned
+          path: installers/macos/XLingPaperConfigFiles4xxe7/build/XLingPaper*UpdateConfigOnly.dmg
+          #path: LingTree-*.dmg
+          if-no-files-found: error
+
+  create-release:
+    name: Create Release
+    needs: build-installer
+    runs-on: macos-latest
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: XLingPaperConfigSigned
+
+      - name: Check dmg
+        run: |
+          echo Before release
+          ls -lR *.dmg
+
+      - name: Create Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: XLingPaper*UpdateConfigOnly.dmg
+          body: |
+            Release for version ${{ github.ref }}
+          draft: true

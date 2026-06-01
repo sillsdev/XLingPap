@@ -60,7 +60,13 @@ jobs:
         uses:  ./.github/actions/macos-create-xlp-config-folder
 
       - name: Install Packages CLI
-        uses:  ./.github/actions/macos-install-packages
+        run: |
+          curl -L http://s.sudre.free.fr/Software/files/Packages.dmg -o Packages.dmg
+          hdiutil mount Packages.dmg
+          # Use a wildcard to handle "Packages 1.2.11" or any other version
+          sudo installer -pkg /Volumes/Packages*/Install\ Packages.pkg -target /
+          # Unmount using the same wildcard
+          hdiutil unmount /Volumes/Packages*
 
       - name: Add certificate to Keychain
         env:

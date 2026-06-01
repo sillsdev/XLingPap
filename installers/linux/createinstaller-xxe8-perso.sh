@@ -12,5 +12,5 @@ cd ../..
 tar -cjf xlingpaperconfig-xxe7.tar XLingPap
 cp xlingpaperconfig-xxe7.tar ../installers/linux
 cd ../installers/linux
-tar -czf XLingPaper-$1XXEPersonalEditionFullSetup.tar.gz install4xxe8Perso.sh runxxe8.sh XLingPaperLicense XXEPersonalAndXLingPaperLicense.txt xlingpaperconfig-xxe7.tar texlivexlingpaper2020.tar XLingPaperSample.tar XXE8-2Installer.tar preferences.properties SamplePaper.xml
+tar -czf XLingPaper-$1XXEPersonalEditionFullSetup.tar.gz install4xxe8Perso.sh runxxe8.sh XLingPaperLicense XXEPersonalAndXLingPaperLicense.txt xlingpaperconfig-xxe7.tar texlivexlingpaper2020.tar XLingPaperSample.tar XXE8-2Installer.tar preferences.properties
 

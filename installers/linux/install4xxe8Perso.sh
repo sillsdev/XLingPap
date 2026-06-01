@@ -108,10 +108,8 @@ echo  Part 6/6: install sample XLingPaper document
 
 if [ -d "Documentos" ]; then
 	tar -xjf "$INSTALL_DIR"/XLingPaperSample.tar -C $USERHOME/Documentos
-	cp "$INSTALL_DIR"/SamplePaper.xml $USERHOME/Documentos/My_XLingPaper/SamplePaper.xml
 else
 	tar -xjf "$INSTALL_DIR"/XLingPaperSample.tar -C $USERHOME/Documents
-	cp "$INSTALL_DIR"/SamplePaper.xml $USERHOME/Documents/My_XLingPaper/SamplePaper.xml
 fi
 
 #-------------------------------------------------------

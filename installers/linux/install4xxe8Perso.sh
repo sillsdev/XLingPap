@@ -84,8 +84,8 @@ sudo chown -R $NAMEO $USERHOME/.xxe8
 
 echo  Part 4/6: install texlive for XLingPaper files
 #sudo mkdir -p /usr/local
-sudo tar -xzf "$INSTALL_DIR"/texlive4xlingpaper.tar -C /opt
-sudo ln -s /opt/texlivexlingpaper/2009/bin/i386-linux /usr/texbinxlingpaper
+sudo tar -xzf "$INSTALL_DIR"/texlivexlingpaper2020.tar -C /opt
+sudo ln -s /opt/texlivexlingpaper2020/bin/x86_64-linux /usr/texbinxlingpaper2020
 
 echo  Part 5/6: install XXE preferences
 #case "$SPRA" in
@@ -96,7 +96,8 @@ echo  Part 5/6: install XXE preferences
 ##cd $USERHOME/.xxe7
 ##cp "$INSTALL_DIR"/XXE7Installer/preferences.properties .
 cd $USERHOME/.xxe8
-cp "$INSTALL_DIR"/XXE8Installer/preferences.properties .
+#cp "$INSTALL_DIR"/XXE8Installer/preferences.properties .
+cp "$INSTALL_DIR"/preferences.properties .
 
 echo  Part 6/6: install sample XLingPaper document
 #case "$SPRA" in
@@ -107,8 +108,10 @@ echo  Part 6/6: install sample XLingPaper document
 
 if [ -d "Documentos" ]; then
 	tar -xjf "$INSTALL_DIR"/XLingPaperSample.tar -C $USERHOME/Documentos
+	cp "$INSTALL_DIR"/SamplePaper.xml $USERHOME/Documentos/My_XLingPaper/SamplePaper.xml
 else
 	tar -xjf "$INSTALL_DIR"/XLingPaperSample.tar -C $USERHOME/Documents
+	cp "$INSTALL_DIR"/SamplePaper.xml $USERHOME/Documents/My_XLingPaper/SamplePaper.xml
 fi
 
 #-------------------------------------------------------

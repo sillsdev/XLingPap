@@ -472,6 +472,20 @@
         </fo:inline>
     </xsl:template>
     <!--
+        HandleCitation
+    -->
+    <xsl:template name="HandleCitation">
+        <xsl:variable name="refer" select="id(@ref)"/>
+        <fo:basic-link internal-destination="{@ref}">
+            <xsl:call-template name="AddAnyLinkAttributes">
+                <xsl:with-param name="override" select="$pageLayoutInfo/linkLayout/citationLinkLayout"/>
+            </xsl:call-template>
+            <xsl:call-template name="DoOutputCitationContents">
+                <xsl:with-param name="refer" select="$refer"/>
+            </xsl:call-template>
+        </fo:basic-link>
+    </xsl:template>
+    <!--
         HandleColumnWidth
     -->
     <xsl:template name="HandleColumnWidth">
@@ -622,6 +636,15 @@
         <xsl:attribute name="border-bottom-width">
             <xsl:value-of select="$imgBorderWidth"/>
         </xsl:attribute>
+    </xsl:template>
+    <!--
+        Italicize
+    -->
+    <xsl:template name="Italicize">
+        <xsl:param name="content"/>
+        <fo:inline  font-style="italic">
+            <xsl:apply-templates select="$content"/>
+        </fo:inline>
     </xsl:template>
     <!--
         OutputAbbreviationInTable

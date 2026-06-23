@@ -853,6 +853,15 @@
         </p>
         <!--    </xsl:if> -->
     </xsl:template>
+    <!--
+        Italicize
+    -->
+    <xsl:template name="Italicize">
+        <xsl:param name="content"/>
+        <span style="font-style:italic;">
+            <xsl:apply-templates select="$content"/>
+        </span>
+    </xsl:template>
     <!-- ===========================================================
         Hanging indent paragraph
         =========================================================== -->
@@ -2398,18 +2407,6 @@
         <xsl:call-template name="OutputCitationContents">
             <xsl:with-param name="refer" select="id(@ref)"/>
         </xsl:call-template>
-    </xsl:template>
-    <xsl:template match="//citation[not(parent::selectedBibliography)]">
-        <xsl:variable name="refer" select="id(@ref)"/>
-        <xsl:element name="a">
-            <xsl:attribute name="href">
-                <xsl:text>#</xsl:text>
-                <xsl:value-of select="@ref"/>
-            </xsl:attribute>
-            <xsl:call-template name="DoOutputCitationContents">
-                <xsl:with-param name="refer" select="$refer"/>
-            </xsl:call-template>
-        </xsl:element>
     </xsl:template>
     <!--
         references
@@ -4446,6 +4443,21 @@
         <span style="font-style:italic;">
             <xsl:value-of select="."/>
         </span>
+    </xsl:template>
+    <!--
+        HandleCitation
+    -->
+    <xsl:template name="HandleCitation">
+        <xsl:variable name="refer" select="id(@ref)"/>
+        <xsl:element name="a">
+            <xsl:attribute name="href">
+                <xsl:text>#</xsl:text>
+                <xsl:value-of select="@ref"/>
+            </xsl:attribute>
+            <xsl:call-template name="DoOutputCitationContents">
+                <xsl:with-param name="refer" select="$refer"/>
+            </xsl:call-template>
+       </xsl:element>
     </xsl:template>
     <!--
         HandleColumnWidth

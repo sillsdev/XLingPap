@@ -20,9 +20,10 @@
     showinlandscapemode (yes | no) "no"
     authorNamesWordForAnd CDATA #IMPLIED
     pageRangeSeparator CDATA #IMPLIED
+    useCMOSNotesAndBibliographyStyle (yes | no) "no"
 >
 <!-- the citename is the string to use in a citation within the text body -->
-<!ELEMENT refAuthor (refAuthorInitials?, refAuthorSurnameGivenName?, refAuthorName?, citeName?, refWork+)>
+<!ELEMENT refAuthor (refAuthorInitials?, refAuthorSurnameGivenName?, refAuthorName?, CMOSNandBFirstCitationName?, CMOSNandBShortCitationName?, citeName?, refWork+)>
 <!ATTLIST refAuthor
     name CDATA #REQUIRED
     citename CDATA #REQUIRED
@@ -38,8 +39,10 @@
 <!ELEMENT  refAuthorSurnameGivenName (#PCDATA | %embedded;)* >
 <!ELEMENT  refAuthorName (#PCDATA | refAuthorLastName)* >
 <!ELEMENT  refAuthorLastName (#PCDATA) >     
+<!ELEMENT  CMOSNandBFirstCitationName (#PCDATA | %embedded;)* >
+<!ELEMENT  CMOSNandBShortCitationName (#PCDATA | %embedded;)* >
 <!ELEMENT  citeName (#PCDATA | %embedded;)* >
-<!ELEMENT refWork (authorRole?, refDate, refTitle, refTitleLowerCase?, (article | book | collection | dissertation | fieldNotes | ms | paper | proceedings | thesis | webPage), url?, dateAccessed?, iso639-3code*, comment?, annotations?, keywords?)>
+<!ELEMENT refWork (authorRole?, refDate, refTitle, refTitleLowerCase?, CMOSNandBShortCitationTitle?, (article | book | collection | dissertation | fieldNotes | ms | paper | proceedings | thesis | webPage), url?, dateAccessed?, iso639-3code*, comment?, annotations?, keywords?)>
 <!ATTLIST refWork
     id ID #REQUIRED
     %special;
@@ -64,6 +67,7 @@
 <!ATTLIST refTitleLowerCase
     xml:lang CDATA #IMPLIED
 >
+<!ELEMENT CMOSNandBShortCitationTitle (#PCDATA | %embedded;)*>
 <!ELEMENT reprintInfo (#PCDATA | %embedded;)*>
 <!ATTLIST reprintInfo
     xml:lang CDATA #IMPLIED

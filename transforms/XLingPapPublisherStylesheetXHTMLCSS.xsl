@@ -2271,6 +2271,7 @@ align--center {
     <xsl:template match="@useblankextrapage"/>
     <xsl:template match="@usechapterlabelbeforechapters"/>
     <xsl:template match="@usecitationformatwhennumberofsharedpaperis"/>
+    <xsl:template match="@useCMOSNotesAndBibliographyStyle"/>
     <xsl:template match="@useDigitsForEndnoteNumbering"/>
     <xsl:template match="@useDoubleColumns"/>
     <xsl:template match="@useemptyheaderfooter"/>
@@ -2538,6 +2539,9 @@ align--center {
     <xsl:template match="appendix/shortTitle"/>
     <xsl:template match="affiliation" mode="contents"/>
     <xsl:template match="author" mode="contents"/>
+    <xsl:template match="CMOSNandBFirstCitationName"/>
+    <xsl:template match="CMOSNandBShortCitationName"/>
+    <xsl:template match="CMOSNandBShortCitationTitle"/>
     <xsl:template match="comment"/>
     <xsl:template match="comment" mode="contents"/>
     <xsl:template match="contentControlChoice"/>
@@ -2572,7 +2576,9 @@ align--center {
     <xsl:template name="DoRefWorkPrep"/>
     <xsl:template name="DoRefWork"/>
     <xsl:template name="DoRefWorks"/>
+    <xsl:template name="HandleCitation"/>
     <xsl:template name="HandleLiteralLabelLayoutInfo"/>
+    <xsl:template name="Italicize"/>
     <xsl:template name="LinkAttributesBegin"/>
     <xsl:template name="LinkAttributesEnd"/>
     <xsl:template name="OutputAbbreviationInCommaSeparatedList"/>

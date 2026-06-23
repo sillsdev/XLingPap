@@ -2603,15 +2603,6 @@ not using
             <xsl:with-param name="refer" select="id(@ref)"/>
         </xsl:call-template>
     </xsl:template>
-    <xsl:template match="//citation[not(parent::selectedBibliography)]">
-        <xsl:variable name="refer" select="id(@ref)"/>
-        <fo:basic-link internal-destination="{@ref}">
-            <xsl:call-template name="AddAnyLinkAttributes"/>
-            <xsl:call-template name="DoOutputCitationContents">
-                <xsl:with-param name="refer" select="$refer"/>
-            </xsl:call-template>
-        </fo:basic-link>
-    </xsl:template>
     <!--
       glossary
       -->

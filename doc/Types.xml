@@ -22,6 +22,10 @@ font-weight="bold"
 id="tBold"
 ></type
 ><type
+after="Chicago Manual of Style Notes and Bibliography"
+id="tCMOSNandB"
+></type
+><type
 font-family="Courier New"
 font-weight="bold"
 id="tCitationLabel"

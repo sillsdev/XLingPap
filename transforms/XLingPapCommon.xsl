@@ -9,6 +9,7 @@
         Keys
         =========================================================== -->
     <xsl:key name="AnnotationID" match="//annotation" use="@id"/>
+    <xsl:key name="CitationIDREFs" match="//citation" use="@ref"/>
     <xsl:key name="EndnoteID" match="//endnote" use="@id"/>
     <xsl:key name="GlossaryTerms" match="//glossaryTerm" use="@id"/>
     <xsl:key name="GlossaryTermRefs" match="//glossaryTermRef" use="@glossaryTerm"/>
@@ -214,6 +215,30 @@
     -->
     <xsl:template match="br" mode="InMarker">
         <xsl:text>&#x20;</xsl:text>
+    </xsl:template>
+    <!--
+        citation
+    -->
+    <xsl:template match="//citation[not(parent::selectedBibliography)]">
+        <xsl:choose>
+            <xsl:when test="//references[@useCMOSNotesAndBibliographyStyle='yes']">
+                    <xsl:choose>
+                        <xsl:when test="generate-id()=generate-id(key('CitationIDREFs',@ref))">
+                            <xsl:call-template name="DoCMOSFirstRefWork">
+                                <xsl:with-param name="work" select="id(@ref)"/>
+                            </xsl:call-template>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:call-template name="DoCMOSShortRefWork">
+                                <xsl:with-param name="work" select="id(@ref)"/>
+                            </xsl:call-template>
+                        </xsl:otherwise>
+                    </xsl:choose>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:call-template name="HandleCitation"/>
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
     <!--
         comment
@@ -1965,6 +1990,314 @@
             <xsl:otherwise>
                 <xsl:call-template name="OutputAbbreviationsInTable"/>
             </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
+    <!--
+        DoCMOSFirstRefWork
+    -->
+    <xsl:template name="DoCMOSFirstRefWork">
+        <xsl:param name="work"/>
+        <xsl:variable name="sPage" select="@page"/>
+        <xsl:variable name="sAuthor" select="$work/../CMOSNandBFirstCitationName"/>
+        <xsl:choose>
+            <xsl:when test="string-length($sAuthor)&gt;0">
+                <xsl:value-of select="$sAuthor"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:text>The CMOSNandBFirstCitationName element of refAuthor is missing.  Please add it</xsl:text>
+            </xsl:otherwise>
+        </xsl:choose>
+        <xsl:text>, </xsl:text>
+        <xsl:choose>
+            <xsl:when test="$work/article">
+                <xsl:for-each select="$work/article">
+                    <xsl:text>“</xsl:text>
+                    <xsl:value-of select="../refTitle"/>
+                    <xsl:text>,” </xsl:text>
+                    <xsl:call-template name="Italicize">
+                        <xsl:with-param name="content" select="jTitle"/>
+                    </xsl:call-template>
+                    <xsl:if test="string-length(jVol)&gt;0">
+                        <xsl:text>&#x20;</xsl:text>
+                        <xsl:value-of select="jVol"/>
+                        <xsl:if test="string-length(jIssueNumber)&gt;0">
+                            <xsl:text>, no. </xsl:text>
+                            <xsl:value-of select="jIssueNumber"/>
+                        </xsl:if>
+                    </xsl:if>
+                    <xsl:text> (</xsl:text>
+                    <xsl:value-of select="../refDate"/>
+                    <xsl:text>)</xsl:text>
+                    <xsl:if test="string-length($sPage)&gt;0">
+                        <xsl:text>: </xsl:text>
+                        <xsl:value-of select="$sPage"/>
+                    </xsl:if>
+                    <xsl:if test="string-length(dateAccessed)&gt;0">
+                        <xsl:text>, accessed </xsl:text>
+                        <xsl:value-of select="dateAccessed"/>
+                    </xsl:if>
+                    <xsl:if test="string-length(url)&gt;0">
+                        <xsl:text>, </xsl:text>
+                        <xsl:value-of select="url"/>
+                    </xsl:if>
+                    <xsl:if test="string-length(doi)&gt;0">
+                        <xsl:text>, </xsl:text>
+                        <xsl:value-of select="doi"/>
+                    </xsl:if>
+                </xsl:for-each>
+            </xsl:when>
+            <xsl:when test="$work/book">
+                <xsl:for-each select="$work/book">
+                    <xsl:call-template name="Italicize">
+                        <xsl:with-param name="content" select="../refTitle"/>
+                    </xsl:call-template>
+                    <xsl:if test="string-length(translatedBy)&gt;0">
+                        <xsl:text>, trans. </xsl:text>
+                        <xsl:value-of select="translatedBy"/>
+                    </xsl:if>
+                    <xsl:text> (</xsl:text>
+                    <xsl:value-of select="publisher"/>
+                    <xsl:text>, </xsl:text>
+                    <xsl:value-of select="../refDate"/>
+                    <xsl:text>)</xsl:text>
+                    <xsl:if test="string-length($sPage)&gt;0">
+                        <xsl:text>, </xsl:text>
+                        <xsl:value-of select="$sPage"/>
+                    </xsl:if>
+                </xsl:for-each>
+            </xsl:when>
+            <xsl:when test="$work/collection">
+                <xsl:text>“</xsl:text>
+                <xsl:for-each select="$work/collection">
+                    <xsl:value-of select="../refTitle"/>
+                    <xsl:text>,” in </xsl:text>
+                    <xsl:call-template name="Italicize">
+                        <xsl:with-param name="content" select="collTitle"/>
+                    </xsl:call-template>
+                    <xsl:if test="string-length(collVol)&gt;0">
+                        <xsl:text>&#x20;</xsl:text>
+                        <xsl:value-of select="collVol"/>
+                    </xsl:if>
+                    <xsl:if test="string-length(collEd)&gt;0">
+                        <xsl:text>, ed. </xsl:text>
+                        <xsl:value-of select="collEd"/>
+                    </xsl:if>
+                    <xsl:text> (</xsl:text>
+                    <xsl:value-of select="publisher"/>
+                    <xsl:text>, </xsl:text>
+                    <xsl:value-of select="../refDate"/>
+                    <xsl:text>)</xsl:text>
+                    <xsl:if test="string-length($sPage)&gt;0">
+                        <xsl:text>, </xsl:text>
+                        <xsl:value-of select="$sPage"/>
+                    </xsl:if>
+                    <xsl:if test="string-length(dateAccessed)&gt;0">
+                        <xsl:text>, accessed </xsl:text>
+                        <xsl:value-of select="dateAccessed"/>
+                    </xsl:if>
+                    <xsl:if test="string-length(url)&gt;0">
+                        <xsl:text>, </xsl:text>
+                        <xsl:value-of select="url"/>
+                    </xsl:if>
+                    <xsl:if test="string-length(doi)&gt;0">
+                        <xsl:text>, </xsl:text>
+                        <xsl:value-of select="doi"/>
+                    </xsl:if>
+                </xsl:for-each>
+            </xsl:when>
+            <xsl:when test="$work/dissertation">
+                <xsl:for-each select="$work/dissertation">
+                    <xsl:text>“</xsl:text>
+                    <xsl:value-of select="../refTitle"/>
+                    <xsl:text>” (PhD diss.</xsl:text>
+                    <xsl:if test="string-length(institution)&gt;0">
+                        <xsl:text>, </xsl:text>
+                        <xsl:value-of select="institution"/>
+                    </xsl:if>
+                    <xsl:text>, </xsl:text>
+                    <xsl:value-of select="../refDate"/>
+                    <xsl:text>)</xsl:text>
+                    <xsl:if test="string-length($sPage)&gt;0">
+                        <xsl:text>, </xsl:text>
+                        <xsl:value-of select="$sPage"/>
+                    </xsl:if>
+                </xsl:for-each>
+            </xsl:when>
+            <xsl:when test="$work/ms">
+                <xsl:for-each select="$work/ms">
+                    <xsl:text>“</xsl:text>
+                    <xsl:value-of select="../refTitle"/>
+                    <xsl:text>” (</xsl:text>
+                    <xsl:if test="string-length(institution)&gt;0">
+                        <xsl:value-of select="institution"/>
+                        <xsl:text> ms. </xsl:text>
+                    </xsl:if>
+                    <xsl:text>, </xsl:text>
+                    <xsl:value-of select="../refDate"/>
+                    <xsl:text>)</xsl:text>
+                    <xsl:if test="string-length($sPage)&gt;0">
+                        <xsl:text>, </xsl:text>
+                        <xsl:value-of select="$sPage"/>
+                    </xsl:if>
+                </xsl:for-each>
+            </xsl:when>
+            <xsl:when test="$work/paper">
+                <xsl:text>“</xsl:text>
+                <xsl:for-each select="$work/paper">
+                    <xsl:value-of select="../refTitle"/>
+                    <xsl:text>,” presented at </xsl:text>
+                    <xsl:value-of select="conference"/>
+                    <xsl:if test="string-length(procEd)&gt;0">
+                        <xsl:text>, ed. </xsl:text>
+                        <xsl:value-of select="procEd"/>
+                    </xsl:if>
+                    <xsl:text> (</xsl:text>
+                    <xsl:value-of select="../refDate"/>
+                    <xsl:text>)</xsl:text>
+                    <xsl:if test="string-length(dateAccessed)&gt;0">
+                        <xsl:text> accessed </xsl:text>
+                        <xsl:value-of select="dateAccessed"/>
+                    </xsl:if>
+                    <xsl:if test="string-length(url)&gt;0">
+                        <xsl:text>, </xsl:text>
+                        <xsl:value-of select="url"/>
+                    </xsl:if>
+                    <xsl:if test="string-length(doi)&gt;0">
+                        <xsl:text>, </xsl:text>
+                        <xsl:value-of select="doi"/>
+                    </xsl:if>
+                </xsl:for-each>
+            </xsl:when>
+            <xsl:when test="$work/proceedings">
+                <xsl:text>“</xsl:text>
+                <xsl:for-each select="$work/proceedings">
+                    <xsl:value-of select="../refTitle"/>
+                    <xsl:text>,” in </xsl:text>
+                    <xsl:call-template name="Italicize">
+                        <xsl:with-param name="content" select="procTitle"/>
+                    </xsl:call-template>
+                    <xsl:if test="string-length(procVol)&gt;0">
+                        <xsl:text>&#x20;</xsl:text>
+                        <xsl:value-of select="procVol"/>
+                    </xsl:if>
+                    <xsl:if test="string-length(procEd)&gt;0">
+                        <xsl:text>, ed. </xsl:text>
+                        <xsl:value-of select="procEd"/>
+                    </xsl:if>
+                    <xsl:text> (</xsl:text>
+                    <xsl:value-of select="publisher"/>
+                    <xsl:text>, </xsl:text>
+                    <xsl:value-of select="../refDate"/>
+                    <xsl:text>)</xsl:text>
+                    <xsl:if test="string-length($sPage)&gt;0">
+                        <xsl:text>, </xsl:text>
+                        <xsl:value-of select="$sPage"/>
+                    </xsl:if>
+                    <xsl:if test="string-length(dateAccessed)&gt;0">
+                        <xsl:text>, accessed </xsl:text>
+                        <xsl:value-of select="dateAccessed"/>
+                    </xsl:if>
+                    <xsl:if test="string-length(url)&gt;0">
+                        <xsl:text>, </xsl:text>
+                        <xsl:value-of select="url"/>
+                    </xsl:if>
+                    <xsl:if test="string-length(doi)&gt;0">
+                        <xsl:text>, </xsl:text>
+                        <xsl:value-of select="doi"/>
+                    </xsl:if>
+                </xsl:for-each>
+            </xsl:when>
+            <xsl:when test="$work/thesis">
+                <xsl:for-each select="$work/thesis">
+                    <xsl:text>“</xsl:text>
+                    <xsl:value-of select="../refTitle"/>
+                    <xsl:text>” (MA thesis</xsl:text>
+                    <xsl:if test="string-length(institution)&gt;0">
+                        <xsl:text>, </xsl:text>
+                        <xsl:value-of select="institution"/>
+                    </xsl:if>
+                    <xsl:text>, </xsl:text>
+                    <xsl:value-of select="../refDate"/>
+                    <xsl:text>)</xsl:text>
+                    <xsl:if test="string-length($sPage)&gt;0">
+                        <xsl:text>, </xsl:text>
+                        <xsl:value-of select="$sPage"/>
+                    </xsl:if>
+                </xsl:for-each>
+            </xsl:when>
+            <xsl:when test="$work/webPAage">
+                <xsl:for-each select="$work/webPage">
+                    <xsl:text>“</xsl:text>
+                    <xsl:value-of select="../refTitle"/>
+                    <xsl:if test="string-length(institution)&gt;0">
+                        <xsl:text>, </xsl:text>
+                        <xsl:value-of select="institution"/>
+                    </xsl:if>
+                    <xsl:text>, </xsl:text>
+                    <xsl:if test="string-length(dateAccessed)&gt;0">
+                        <xsl:text>, accessed </xsl:text>
+                        <xsl:value-of select="dateAccessed"/>
+                    </xsl:if>
+                    <xsl:if test="string-length(url)&gt;0">
+                        <xsl:text>, </xsl:text>
+                        <xsl:value-of select="url"/>
+                    </xsl:if>
+                    <xsl:if test="string-length(doi)&gt;0">
+                        <xsl:text>, </xsl:text>
+                        <xsl:value-of select="doi"/>
+                    </xsl:if>
+                </xsl:for-each>
+            </xsl:when>
+        </xsl:choose>
+    </xsl:template>
+    <!--
+        DoCMOSShortRefWork
+    -->
+    <xsl:template name="DoCMOSShortRefWork">
+        <xsl:param name="work"/>
+        <xsl:variable name="sAuthor" select="$work/../CMOSNandBShortCitationName"/>
+        <xsl:choose>
+            <xsl:when test="string-length($sAuthor)&gt;0">
+                <xsl:value-of select="$sAuthor"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:text>The CMOSNandBShortCitationName element of refAuthor is missing.  Please add it</xsl:text>
+            </xsl:otherwise>
+        </xsl:choose>
+        <xsl:text>, </xsl:text>
+        <xsl:variable name="sTitle">
+            <xsl:choose>
+                <xsl:when test="string-length($work/CMOSNandBShortCitationTitle)&gt;0">
+                    <xsl:value-of select="$work/CMOSNandBShortCitationTitle"/>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:text>The CMOSNandBShortCitationTitle element of refWork is missing.  Please add it</xsl:text>
+                </xsl:otherwise>
+            </xsl:choose>
+        </xsl:variable>
+        <xsl:choose>
+            <xsl:when test="$work/article or $work/collection  or $work/dissertation or $work/thesis or $work/webPage or $work/ms or $work/paper">
+                <xsl:text> “</xsl:text>
+                <xsl:value-of name="content" select="$sTitle"/>
+                <xsl:choose>
+                    <xsl:when test="string-length(@page)&gt;0">
+                        <xsl:text>,” </xsl:text>
+                        <xsl:value-of select="@page"/>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:text>” </xsl:text>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </xsl:when>
+            <xsl:when test="$work/book">
+                <xsl:call-template name="Italicize">
+                    <xsl:with-param name="content" select="$sTitle"/>
+                </xsl:call-template>
+                <xsl:if test="string-length(@page)&gt;0">
+                    <xsl:text>, </xsl:text>
+                    <xsl:value-of select="@page"/>
+                </xsl:if>
+            </xsl:when>
         </xsl:choose>
     </xsl:template>
     <!--

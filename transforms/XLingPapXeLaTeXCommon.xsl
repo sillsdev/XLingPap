@@ -8655,6 +8655,17 @@
         </xsl:if>
     </xsl:template>
     <!--
+        Italicize
+    -->
+    <xsl:template name="Italicize">
+        <xsl:param name="content"/>
+        <tex:spec cat="esc"/>
+        <xsl:text>textit</xsl:text>
+        <tex:spec cat="bg"/>
+        <xsl:apply-templates select="$content"/>
+        <tex:spec cat="eg"/>
+    </xsl:template>
+    <!--
         OKToBreakHere
     -->
     <xsl:template name="OKToBreakHere">

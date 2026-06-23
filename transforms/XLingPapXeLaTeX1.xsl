@@ -2306,24 +2306,6 @@
       CITATIONS, Glossary, Indexes and REFERENCES 
       =========================================================== -->
     <!--
-      citation
-      -->
-    <xsl:template match="//citation[not(parent::selectedBibliography)]">
-        <xsl:variable name="refer" select="id(@ref)"/>
-        <xsl:call-template name="DoInternalHyperlinkBegin">
-            <xsl:with-param name="sName" select="@ref"/>
-        </xsl:call-template>
-        <xsl:call-template name="AddAnyLinkAttributes"/>
-        <xsl:call-template name="DoOutputCitationContents">
-            <xsl:with-param name="refer" select="$refer"/>
-        </xsl:call-template>
-        <xsl:call-template name="DoInternalHyperlinkEnd"/>
-        <xsl:if test="parent::blockquote and count(following-sibling::text())=0 and not(following-sibling::endnote)">
-            <!-- a citation ends the initial text in a blockquote; need to insert a \par -->
-            <tex:cmd name="par"/>
-        </xsl:if>
-    </xsl:template>
-    <!--
       glossary
       -->
     <xsl:template match="glossary">
@@ -4624,6 +4606,24 @@
             <xsl:otherwise/>
         </xsl:choose>
         <xsl:text>FontFamily</xsl:text>
+    </xsl:template>
+    <!--
+        HandleCitation
+    -->
+    <xsl:template name="HandleCitation">
+        <xsl:variable name="refer" select="id(@ref)"/>
+        <xsl:call-template name="DoInternalHyperlinkBegin">
+            <xsl:with-param name="sName" select="@ref"/>
+        </xsl:call-template>
+        <xsl:call-template name="AddAnyLinkAttributes"/>
+        <xsl:call-template name="DoOutputCitationContents">
+            <xsl:with-param name="refer" select="$refer"/>
+        </xsl:call-template>
+        <xsl:call-template name="DoInternalHyperlinkEnd"/>
+        <xsl:if test="parent::blockquote and count(following-sibling::text())=0 and not(following-sibling::endnote)">
+            <!-- a citation ends the initial text in a blockquote; need to insert a \par -->
+            <tex:cmd name="par"/>
+        </xsl:if>
     </xsl:template>
     <!--  
         HandleFontFamily

@@ -3398,29 +3398,6 @@
       CITATIONS, Glossary, Indexes and REFERENCES 
       =========================================================== -->
     <!--
-      citation
-      -->
-    <xsl:template match="citation[not(parent::selectedBibliography)]">
-        <xsl:variable name="refer" select="id(@ref)"/>
-        <xsl:call-template name="DoInternalHyperlinkBegin">
-            <xsl:with-param name="sName" select="@ref"/>
-        </xsl:call-template>
-        <xsl:call-template name="LinkAttributesBegin">
-            <xsl:with-param name="override" select="$pageLayoutInfo/linkLayout/citationLinkLayout"/>
-        </xsl:call-template>
-        <xsl:call-template name="DoOutputCitationContents">
-            <xsl:with-param name="refer" select="$refer"/>
-        </xsl:call-template>
-        <xsl:call-template name="LinkAttributesEnd">
-            <xsl:with-param name="override" select="$pageLayoutInfo/linkLayout/citationLinkLayout"/>
-        </xsl:call-template>
-        <xsl:call-template name="DoInternalHyperlinkEnd"/>
-        <xsl:if test="parent::blockquote and count(following-sibling::text())=0 and not(following-sibling::endnote)">
-            <!-- a citation ends the initial text in a blockquote; need to insert a \par -->
-            <tex:cmd name="par"/>
-        </xsl:if>
-    </xsl:template>
-    <!--
       index
       -->
     <xsl:template match="index">
@@ -7300,6 +7277,29 @@
             <xsl:with-param name="freeLayout" select="$freeLayout"/>
         </xsl:call-template>
         <!--        </tex:group>-->
+    </xsl:template>
+    <!--  
+        HandleCitation
+    -->
+    <xsl:template name="HandleCitation">
+        <xsl:variable name="refer" select="id(@ref)"/>
+        <xsl:call-template name="DoInternalHyperlinkBegin">
+            <xsl:with-param name="sName" select="@ref"/>
+        </xsl:call-template>
+        <xsl:call-template name="LinkAttributesBegin">
+            <xsl:with-param name="override" select="$pageLayoutInfo/linkLayout/citationLinkLayout"/>
+        </xsl:call-template>
+        <xsl:call-template name="DoOutputCitationContents">
+            <xsl:with-param name="refer" select="$refer"/>
+        </xsl:call-template>
+        <xsl:call-template name="LinkAttributesEnd">
+            <xsl:with-param name="override" select="$pageLayoutInfo/linkLayout/citationLinkLayout"/>
+        </xsl:call-template>
+        <xsl:call-template name="DoInternalHyperlinkEnd"/>
+        <xsl:if test="parent::blockquote and count(following-sibling::text())=0 and not(following-sibling::endnote)">
+            <!-- a citation ends the initial text in a blockquote; need to insert a \par -->
+            <tex:cmd name="par"/>
+        </xsl:if>
     </xsl:template>
     <!--  
         HandleFontFamily

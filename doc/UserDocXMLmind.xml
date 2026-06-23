@@ -34,13 +34,13 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >xlingpaper_support@sil.org</emailAddress
 ><date
->20 May 2026</date
+>24 June 2026</date
 ><version
 contentType="ctVersion5.3"
->2.49.0</version
+>2.49.1</version
 ><version
 contentType="ctVersion7Plus"
->3.19.0</version
+>3.19.1</version
 ><contents
 showLevel="4"
 ></contents
@@ -4386,6 +4386,29 @@ type="tElement"
 > element defined.</p
 ><p
 ><indexedItem
+term="iCMOSNandB"
+></indexedItem
+>If you are using the <object
+type="tCMOSNandB"
+></object
+> approach for citations, you will need to insert two elements for the author name to use for the first time a citation is made and for the short form (for the other times the citation is made). One way to do this is to click on the first <object
+type="tElement"
+>refWork</object
+> element and then do an <object
+type="tInstruction"
+>insert before</object
+> command. Choose <object
+type="tElement"
+>CMOSNandBFirstCitationName</object
+> and type in the format of the author's name to use for the first citation. Next do an <object
+type="tInstruction"
+>insert after</object
+> command and choose <object
+type="tElement"
+>CMOSNandBShortCitationName</object
+>. Type in the short form of the author's name.</p
+><p
+><indexedItem
 term="iReferencesWorksCited"
 ></indexedItem
 >Within each <object
@@ -4460,6 +4483,20 @@ type="tAttribute"
 type="tAttrValue"
 >pagebreak</object
 > when you want to force a page break before this work in the output (and are using the default way of producing PDF).</p
+><p
+><indexedItem
+term="iCMOSNandB"
+></indexedItem
+>If you are using the <object
+type="tCMOSNandB"
+></object
+> approach, then you will need to insert a <object
+type="tElement"
+>CMOSNandBShortCitationTitle</object
+> element immediately after the <object
+type="tElement"
+>refTitle</object
+> element. Type in the short form of the title.</p
 ><p
 >The <object
 type="tElement"
@@ -6400,6 +6437,43 @@ lang="lMeaning"
 type="tXMLmindXMLEditor"
 ></object
 >, show just the upper case version of the title of works</langData
+></td
+></tr
+><tr
+><td
+type="tAttribute"
+><indexedItem
+term="iCMOSNandB"
+></indexedItem
+><langData
+lang="lAttribute"
+><object
+type="tAttribute"
+>useCMOSNotesAndBibliographyStyle</object
+></langData
+></td
+><td
+type="tAttrValue"
+><langData
+lang="lValue"
+><object
+type="tAttrValue"
+>yes</object
+> or <object
+type="tAttrValue"
+>no</object
+> (default is <object
+type="tAttrValue"
+>no</object
+>)</langData
+></td
+><td
+><langData
+lang="lMeaning"
+>Use the <object
+type="tCMOSNandB"
+></object
+> approach to citations</langData
 ></td
 ></tr
 ><tr
@@ -19351,6 +19425,20 @@ num="xCitationExampleHTML"
 type="tHtmlOutput"
 >&lt;p&gt;QZ has consonant clusters which violate the normal sonority sequencing patterns given as universals by &lt;a href="#rGreenberg78"&gt;Greenberg (1978)&lt;/a&gt; and further discussed in &lt;a href="#rBellSaka83"&gt;Bell &amp; Saka (1983)&lt;/a&gt; and &lt;a href="#rSelkirk84"&gt;Selkirk (1984)&lt;/a&gt;, among others. QZ exhibits many reversed onset clusters consisting of a sonorant or glide followed by an obstruent (data are from &lt;a href="#rRegnier89"&gt;Regnier 1989&lt;/a&gt;).&lt;/p&gt; &lt;p&gt;...&lt;/p&gt; &lt;hr size="3"&gt;&lt;a name="rXLingPapReferences"&gt;&lt;p&gt;&lt;big&gt;&lt;big&gt;&lt;big&gt;&lt;b&gt;&lt;a name=""&gt;References&lt;/a&gt;&lt;/b&gt;&lt;/big&gt;&lt;/big&gt;&lt;/big&gt;&lt;/p&gt;&lt;/a&gt;&lt;div style="margin-left:0.25in"&gt; &lt;p style="text-indent:-0.25in;margin-bottom:0in;margin-top:0in"&gt;&lt;a name="rBellSaka83"&gt;Bell, Alan and Mohamad M. Saka.&lt;/a&gt; 1983. "Reversed sonority in Pashto initial clusters." &lt;i&gt;Journal of Phonetics 11:259-275&lt;/i&gt;.&lt;/p&gt; &lt;p style="text-indent:-0.25in;margin-bottom:0in;margin-top:0in"&gt;&lt;a name="rGreenberg78"&gt;Greenberg, J.&lt;/a&gt; 1978. "Some generalizations concerning initial and final consonant clusters." In J. Greenberg, ed. &lt;i&gt;Universals of Human Language Vol. 2&lt;/i&gt; Stanford University Press.&lt;/p&gt; &lt;p style="text-indent:-0.25in;margin-bottom:0in;margin-top:0in"&gt;&lt;a name="rRegnier89"&gt;Regnier, Sue&lt;/a&gt;. 1989. "Quiegolani Zapotec phonology." Summer Institute of Linguistics, Mexico Branch ms.&lt;/p&gt; &lt;p style="text-indent:-0.25in;margin-bottom:0in;margin-top:0in"&gt;&lt;a name="rSelkirk84"&gt;Selkirk, E.O.&lt;/a&gt; 1984. "On the major class features and syllable theory." In M. Aronoff and R. Oehrle, eds. &lt;i&gt;Language Sound Structure&lt;/i&gt; MIT Press, Cambridge.&lt;/p&gt; &lt;/div&gt;</chart
 ></example
+><p
+><indexedItem
+term="iCMOSNandB"
+></indexedItem
+>If you are using the <object
+type="tCMOSNandB"
+></object
+> approach, you should put each <object
+type="tElement"
+>citation</object
+> element within an <object
+type="tElement"
+>endnote</object
+> element.</p
 ></section2
 ><section2
 id="sCitationsDate"
@@ -31664,6 +31752,36 @@ type="tElement"
 ><dt
 ><object
 type="tElement"
+>CMOSNandBFirstCitationName</object
+></dt
+><dd
+>The name to use for the first citation when employing the <object
+type="tCMOSNandB"
+></object
+> approach.</dd
+><dt
+><object
+type="tElement"
+>CMOSNandBShortCitationName</object
+></dt
+><dd
+>The name to use for the short citation when employing the <object
+type="tCMOSNandB"
+></object
+> approach.</dd
+><dt
+><object
+type="tElement"
+>CMOSNandBShorttCitationTitle</object
+></dt
+><dd
+>The title to use for the short citation when employing the <object
+type="tCMOSNandB"
+></object
+> approach.</dd
+><dt
+><object
+type="tElement"
 >col</object
 ></dt
 ><dd
@@ -37243,6 +37361,11 @@ type="tTool"
 id="iCheckSpelling"
 ><term
 >Check spelling</term
+></indexTerm
+><indexTerm
+id="iCMOSNandB"
+><term
+>Chicago Manual of Style Notes and Bibliography</term
 ></indexTerm
 ><indexTerm
 id="iChunkElements"

@@ -1170,6 +1170,37 @@ citeName:after
 	;
 	font-size:smaller;
 }
+CMOSNandBFirstCitationName:before
+{
+    content:"CMOS note and bilbliography first cite name: ";
+}
+CMOSNandBFirstCitationName
+{
+    display:block;
+    font-size:smaller;
+}
+CMOSNandBShortCitationName:before
+{
+    content:"CMOS note and bilbliography short cite name: ";
+}
+CMOSNandBShortCitationName
+{
+    display:block;
+    font-size:smaller;
+}
+CMOSNandBShortCitationTitle:before
+{
+    content:"CMOS short title: ";
+}
+CMOSNandBShortCitationTitle
+{
+    display:inline;
+    font-size:smaller;
+}
+CMOSNandBShortCitationTitle:after
+{
+    content:" ";
+}
 collCitation:before
 {
 	content: " In ";

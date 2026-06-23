@@ -2065,17 +2065,6 @@
             <xsl:with-param name="refer" select="id(@ref)"/>
         </xsl:call-template>
     </xsl:template>
-    <xsl:template match="//citation[not(parent::selectedBibliography)]">
-        <xsl:variable name="refer" select="id(@ref)"/>
-        <a href="#{@ref}">
-            <xsl:call-template name="AddAnyLinkAttributes">
-                <xsl:with-param name="override" select="$pageLayoutInfo/linkLayout/citationLinkLayout"/>
-            </xsl:call-template>
-            <xsl:call-template name="DoOutputCitationContents">
-                <xsl:with-param name="refer" select="$refer"/>
-            </xsl:call-template>
-        </a>
-    </xsl:template>
     <!--
       index
       -->
@@ -4851,6 +4840,20 @@
         </xsl:choose>
     </xsl:template>
     <!--  
+        HandleCitation
+    -->
+    <xsl:template name="HandleCitation">
+        <xsl:variable name="refer" select="id(@ref)"/>
+        <a href="#{@ref}">
+            <xsl:call-template name="AddAnyLinkAttributes">
+                <xsl:with-param name="override" select="$pageLayoutInfo/linkLayout/citationLinkLayout"/>
+            </xsl:call-template>
+            <xsl:call-template name="DoOutputCitationContents">
+                <xsl:with-param name="refer" select="$refer"/>
+            </xsl:call-template>
+        </a>
+    </xsl:template>
+    <!--  
         HandleGlossTextAfterAndFontOverrides
     -->
     <xsl:template name="HandleGlossTextAfterAndFontOverrides">
@@ -4924,6 +4927,15 @@
                 </xsl:attribute>
             </xsl:otherwise>
         </xsl:choose>
+    </xsl:template>
+    <!--
+        Italicize
+    -->
+    <xsl:template name="Italicize">
+        <xsl:param name="content"/>
+        <span style="font-style:italic;">
+            <xsl:apply-templates select="$content"/>
+        </span>
     </xsl:template>
     <!--
         ItalicizeString

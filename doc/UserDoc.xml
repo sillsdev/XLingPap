@@ -16,13 +16,13 @@ type="tXLingPap"
 ><affiliation
 >SIL International</affiliation
 ><date
->20 May 2026</date
+>24 June 2026</date
 ><version
 contentType="ctVersion5.3"
->2.49.0</version
+>2.49.1</version
 ><version
 contentType="ctVersion7Plus"
->3.19.0</version
+>3.19.1</version
 ><contents
 showLevel="3"
 ></contents
@@ -9341,6 +9341,27 @@ type="tElement"
 ></dt
 ><dd
 >A way to create custom formatting of a citation name for a reference.</dd
+><dt
+><object
+type="tElement"
+>CMOSNandBFirstCitationName</object
+></dt
+><dd
+>The name to use for the first citation when employing the Chicago Manual of Style Notes and Bibliography approach.</dd
+><dt
+><object
+type="tElement"
+>CMOSNandBShortCitationName</object
+></dt
+><dd
+>The name to use for the short citation when employing the Chicago Manual of Style Notes and Bibliography approach.</dd
+><dt
+><object
+type="tElement"
+>CMOSNandBShorttCitationTitle</object
+></dt
+><dd
+>The title to use for the short citation when employing the Chicago Manual of Style Notes and Bibliography approach.</dd
 ><dt
 ><object
 type="tElement"

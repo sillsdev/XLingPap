@@ -3448,4 +3448,7 @@ NB actually it associates the stylesheet with the original file, not the new han
     <cfg:command name="FindAnyDuplicateAuthorsCmd">
         <cfg:class>xlingpaper.xxe.FindAnyDuplicateAuthors</cfg:class>
     </cfg:command>
+    <cfg:command name="ExpandInterlinearRefCmd">
+        <cfg:class>xlingpaper.xxe.ExpandInterlinearRef</cfg:class>
+    </cfg:command>
 </cfg:configuration>

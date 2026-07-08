@@ -34,13 +34,13 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >xlingpaper_support@sil.org</emailAddress
 ><date
->24 June 2026</date
+>8 July 2026</date
 ><version
 contentType="ctVersion5.3"
->2.49.1</version
+>2.49.2</version
 ><version
 contentType="ctVersion7Plus"
->3.19.1</version
+>3.19.2</version
 ><contents
 showLevel="4"
 ></contents
@@ -12715,7 +12715,7 @@ sec="sInterlinearText"
 > or else as a referenced interlinear text; see section <sectionRef
 sec="sInterlinearTextReferencedInterlinearText"
 ></sectionRef
->), then you can create an interlinear example that will refer to the appropriate portion of the interlinear text. You can do so in either of two ways.</p
+>), then you can create an interlinear example that will refer to the appropriate portion of the interlinear text. You can do so in either of three ways.</p
 ><p
 >The simplest is to merely make a reference to the portion. Do this by following these steps:</p
 ><ol
@@ -12940,6 +12940,41 @@ href="PublisherStylesheetUserDocXMLmind.htm#sInterlinearSourceStyleLayout"
 ><li
 >While the interlinear has a linked reference to the portion in the interlinear text, it is a copy of that portion. This is so you can, for example, highlight certain constructs in it if that is appropriate for the context of what you are writing about.</li
 ></ul
+><p
+>The third way has five steps but has the same result as the second way:</p
+><ol
+><li
+>Use the first way by inserting an <object
+type="tElement"
+>interlinearRef</object
+> element as outlined above.</li
+><li
+>Use <object
+type="tInstruction"
+>Tools</object
+> menu item / <object
+type="tInstruction"
+>Execute Command...</object
+>.<endnoteRef
+note="nToolMenuExecuteCommand"
+></endnoteRef
+></li
+><li
+>In the dialog box that comes up, in the “Command” text box, type “Ex” (it should then fill in “ExpandInterlinearRefCmd” for you). Note that case is crucial!</li
+><li
+>Press the <object
+type="tKey"
+>Enter</object
+> key or click on <object
+type="tInstruction"
+>OK</object
+>.</li
+><li
+>This will then replace the <object
+type="tElement"
+>interlinearRef</object
+> element with the content of the interlinear.</li
+></ol
 ></section4
 ><section4
 id="sExInterlinearSourceNotIncluded"

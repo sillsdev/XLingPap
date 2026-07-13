@@ -9,7 +9,7 @@ xmlns:a="http://www.xmlmind.com/xmleditor/schema/addon"
 ><a:name
 >A configuration for creating XLingPaper documents.</a:name
 ><a:version
->3.19.2</a:version
+>3.19.3</a:version
 ><a:author
 ><a
 href="mailto::xlingpaper_support@sil.org"
@@ -17,7 +17,7 @@ xmlns="http://www.w3.org/1999/xhtml"
 >Andy Black</a
 ></a:author
 ><a:date
->2026-07-08</a:date
+>2026-07-13</a:date
 ><a:abstract
 >A way to author and archive linguistic documents using XML.</a:abstract
 ><a:documentation
@@ -40,7 +40,15 @@ xmlns="http://www.w3.org/1999/xhtml"
 ><ul
 xmlns="http://www.w3.org/1999/xhtml"
 ><li
->3.19.2 8 July 2026<ul
+>3.19.3 13 July 2026<ul
+><li
+>For the default way of producing PDF (via XeLaTeX):<ul
+><li
+>Fix bug: an indexed item's page number would be '??' when it was in a title that the publisher style sheet set to all caps.</li
+></ul
+></li
+></ul
+><ul
 ><li
 >Add ability to flesh out or expand an interlinearRef with its content via the new ExpandInterlinearRefCmd command.</li
 ></ul

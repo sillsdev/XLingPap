@@ -1328,6 +1328,9 @@
                         <xsl:call-template name="DoInternalTargetBegin">
                             <xsl:with-param name="sName" select="@id"/>
                         </xsl:call-template>
+                        <xsl:for-each select="secTitle/indexedItem | secTitle/indexedRangeBegin">
+                            <xsl:apply-templates/>
+                        </xsl:for-each>
                     </xsl:if>
                     <xsl:call-template name="DoTitleFormatInfo">
                         <xsl:with-param name="layoutInfo" select="$titleLayoutToUse/descendant-or-self::*"/>
@@ -5373,6 +5376,12 @@
             </xsl:call-template>
             <xsl:call-template name="DoInternalTargetEnd"/>
             <xsl:call-template name="DoBookMark"/>
+        </xsl:if>
+        <xsl:variable name="sTextTransform" select="$layoutInfo/descendant-or-self::*/@text-transform"/>
+        <xsl:if test="$sTextTransform='uppercase' or $sTextTransform='lowercase'">
+            <xsl:for-each select="secTitle">
+                <xsl:apply-templates select="indexedItem|indexedRangeBegin"/>
+            </xsl:for-each>
         </xsl:if>
         <xsl:call-template name="OutputFontAttributes">
             <xsl:with-param name="language" select="$layoutInfo"/>

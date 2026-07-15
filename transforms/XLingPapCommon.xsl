@@ -222,6 +222,7 @@
     <xsl:template match="//citation[not(parent::selectedBibliography)]">
         <xsl:choose>
             <xsl:when test="//references[@useCMOSNotesAndBibliographyStyle='yes']">
+                <xsl:variable name="ref" select="id(@ref)"/>
                     <xsl:choose>
                         <xsl:when test="generate-id()=generate-id(key('CitationIDREFs',@ref))">
                             <xsl:call-template name="DoCMOSFirstRefWork">
@@ -2004,7 +2005,15 @@
                 <xsl:value-of select="$sAuthor"/>
             </xsl:when>
             <xsl:otherwise>
-                <xsl:text>The CMOSNandBFirstCitationName element of refAuthor is missing.  Please add it</xsl:text>
+                <xsl:choose>
+                    <xsl:when test="/xlingpaper/styledPaper">
+                        <!-- has a publisher style sheet -->
+                        <xsl:apply-templates select="$work/.."/>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:apply-templates select="$work/../@name"/>
+                    </xsl:otherwise>
+                </xsl:choose>
             </xsl:otherwise>
         </xsl:choose>
         <xsl:text>, </xsl:text>
@@ -2012,7 +2021,7 @@
             <xsl:when test="$work/article">
                 <xsl:for-each select="$work/article">
                     <xsl:text>“</xsl:text>
-                    <xsl:value-of select="../refTitle"/>
+                    <xsl:apply-templates select="../refTitle"/>
                     <xsl:text>,” </xsl:text>
                     <xsl:call-template name="Italicize">
                         <xsl:with-param name="content" select="jTitle"/>
@@ -2069,7 +2078,7 @@
             <xsl:when test="$work/collection">
                 <xsl:text>“</xsl:text>
                 <xsl:for-each select="$work/collection">
-                    <xsl:value-of select="../refTitle"/>
+                    <xsl:apply-templates select="../refTitle"/>
                     <xsl:text>,” in </xsl:text>
                     <xsl:call-template name="Italicize">
                         <xsl:with-param name="content" select="collTitle"/>
@@ -2108,7 +2117,7 @@
             <xsl:when test="$work/dissertation">
                 <xsl:for-each select="$work/dissertation">
                     <xsl:text>“</xsl:text>
-                    <xsl:value-of select="../refTitle"/>
+                    <xsl:apply-templates select="../refTitle"/>
                     <xsl:text>” (PhD diss.</xsl:text>
                     <xsl:if test="string-length(institution)&gt;0">
                         <xsl:text>, </xsl:text>
@@ -2126,7 +2135,7 @@
             <xsl:when test="$work/ms">
                 <xsl:for-each select="$work/ms">
                     <xsl:text>“</xsl:text>
-                    <xsl:value-of select="../refTitle"/>
+                    <xsl:apply-templates select="../refTitle"/>
                     <xsl:text>” (</xsl:text>
                     <xsl:if test="string-length(institution)&gt;0">
                         <xsl:value-of select="institution"/>
@@ -2144,7 +2153,7 @@
             <xsl:when test="$work/paper">
                 <xsl:text>“</xsl:text>
                 <xsl:for-each select="$work/paper">
-                    <xsl:value-of select="../refTitle"/>
+                    <xsl:apply-templates select="../refTitle"/>
                     <xsl:text>,” presented at </xsl:text>
                     <xsl:value-of select="conference"/>
                     <xsl:if test="string-length(procEd)&gt;0">
@@ -2171,7 +2180,7 @@
             <xsl:when test="$work/proceedings">
                 <xsl:text>“</xsl:text>
                 <xsl:for-each select="$work/proceedings">
-                    <xsl:value-of select="../refTitle"/>
+                    <xsl:apply-templates select="../refTitle"/>
                     <xsl:text>,” in </xsl:text>
                     <xsl:call-template name="Italicize">
                         <xsl:with-param name="content" select="procTitle"/>
@@ -2210,7 +2219,7 @@
             <xsl:when test="$work/thesis">
                 <xsl:for-each select="$work/thesis">
                     <xsl:text>“</xsl:text>
-                    <xsl:value-of select="../refTitle"/>
+                    <xsl:apply-templates select="../refTitle"/>
                     <xsl:text>” (MA thesis</xsl:text>
                     <xsl:if test="string-length(institution)&gt;0">
                         <xsl:text>, </xsl:text>
@@ -2228,7 +2237,7 @@
             <xsl:when test="$work/webPAage">
                 <xsl:for-each select="$work/webPage">
                     <xsl:text>“</xsl:text>
-                    <xsl:value-of select="../refTitle"/>
+                    <xsl:apply-templates select="../refTitle"/>
                     <xsl:if test="string-length(institution)&gt;0">
                         <xsl:text>, </xsl:text>
                         <xsl:value-of select="institution"/>
@@ -2261,7 +2270,7 @@
                 <xsl:value-of select="$sAuthor"/>
             </xsl:when>
             <xsl:otherwise>
-                <xsl:text>The CMOSNandBShortCitationName element of refAuthor is missing.  Please add it</xsl:text>
+                <xsl:value-of select="$work/../@citename"/>
             </xsl:otherwise>
         </xsl:choose>
         <xsl:text>, </xsl:text>
@@ -2271,7 +2280,7 @@
                     <xsl:value-of select="$work/CMOSNandBShortCitationTitle"/>
                 </xsl:when>
                 <xsl:otherwise>
-                    <xsl:text>The CMOSNandBShortCitationTitle element of refWork is missing.  Please add it</xsl:text>
+                    <xsl:apply-templates select="$work/refTitle"/>
                 </xsl:otherwise>
             </xsl:choose>
         </xsl:variable>

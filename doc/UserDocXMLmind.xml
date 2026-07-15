@@ -34,13 +34,13 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >xlingpaper_support@sil.org</emailAddress
 ><date
->8 July 2026</date
+>15 July 2026</date
 ><version
 contentType="ctVersion5.3"
->2.49.2</version
+>2.49.3</version
 ><version
 contentType="ctVersion7Plus"
->3.19.2</version
+>3.19.3</version
 ><contents
 showLevel="4"
 ></contents
@@ -4406,7 +4406,13 @@ type="tInstruction"
 > command and choose <object
 type="tElement"
 >CMOSNandBShortCitationName</object
->. Type in the short form of the author's name.</p
+>. Type in the short form of the author's name. If you do not have these, then <object
+type="tXLingPap"
+></object
+> will use the standard author name for the first citation and what is in the <object
+type="tAttribute"
+>citename</object
+> attribute for the short name.</p
 ><p
 ><indexedItem
 term="iReferencesWorksCited"
@@ -4496,7 +4502,10 @@ type="tElement"
 > element immediately after the <object
 type="tElement"
 >refTitle</object
-> element. Type in the short form of the title.</p
+> element. Type in the short form of the title. If you do not have this element, then <object
+type="tXLingPap"
+></object
+> will use the standard title.</p
 ><p
 >The <object
 type="tElement"

@@ -20,8 +20,8 @@
    <body>
       <h1 align="center"><img src="resources/XLingPaper.ico" alt="icon">&nbsp;&nbsp;XLingPaper&nbsp;&nbsp;<img src="resources/XLingPaper.ico" alt="icon"></h1>
       <h3 align="center">for use with the XMLmind XML Editor</h3>
-      <p align="center">Version: <span style="font-size:larger; font-weight:bold">3.19.3</span></p>
-      <p align="center">Date: 2026-07-15</p>
+      <p align="center">Version: <span style="font-size:larger; font-weight:bold">3.19.4</span></p>
+      <p align="center">Date: 2026-07-22</p>
       <p align="center">A configuration for creating XLingPaper documents.</p>
       <p align="center" style="font-style:italic;">A way to author and archive linguistic documents using XML.</p>
       <hr>
@@ -34,6 +34,21 @@
             <hr xmlns="http://www.w3.org/1999/xhtml"></hr>
             <p xmlns="http://www.w3.org/1999/xhtml"><b>Revision History</b></p>
             <ul xmlns="http://www.w3.org/1999/xhtml">
+               <li>3.19.4 22 July 2026
+                  <ul>
+                     <li>For the default way of producing PDF (via XeLaTeX):
+                        <ul>
+                           <li>Fix bug: When an interlinear in an interlinear text included an exampleHeading and there was an example with an interlinearRef
+                              pointing to that interlinear and one was showing the source after the first line of the interlinear, the PDF output did not
+                              align correctly.
+                           </li>
+                           <li>Fix bug: the non-publisher style sheet output defaulted to showing interlinear source after the free when it was supposed
+                              to default to after the first line.
+                           </li>
+                        </ul>
+                     </li>
+                  </ul>
+               </li>
                <li>3.19.3 15 July 2026
                   <ul>
                      <li>For the use citations according to the Chicago Manual of Style Notes and Bibliography approach, if there is no CMOS-specific

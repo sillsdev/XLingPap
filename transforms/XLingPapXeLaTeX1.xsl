@@ -45,8 +45,7 @@
         The other possibilities are AfterFree (immediately after the free translation, on the same line)
         and UnderFree (on the line immediately after the free translation)
     -->
-    <!--       <xsl:param name="sInterlinearSourceStyle">AfterFirstLine</xsl:param>-->
-    <xsl:param name="sInterlinearSourceStyle">AfterFree</xsl:param>
+    <xsl:param name="sInterlinearSourceStyle">AfterFirstLine</xsl:param>
     <xsl:variable name="sLaTeXBasicPointSize" select="$sBasicPointSize"/>
     <xsl:variable name="sExampleIndentBefore" select="$sBlockQuoteIndent"/>
     <xsl:variable name="sExampleIndentAfter" select="'0pt'"/>

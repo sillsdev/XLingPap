@@ -9,7 +9,7 @@ xmlns:a="http://www.xmlmind.com/xmleditor/schema/addon"
 ><a:name
 >A configuration for creating XLingPaper documents.</a:name
 ><a:version
->3.19.3</a:version
+>3.19.4</a:version
 ><a:author
 ><a
 href="mailto::xlingpaper_support@sil.org"
@@ -17,7 +17,7 @@ xmlns="http://www.w3.org/1999/xhtml"
 >Andy Black</a
 ></a:author
 ><a:date
->2026-07-15</a:date
+>2026-07-22</a:date
 ><a:abstract
 >A way to author and archive linguistic documents using XML.</a:abstract
 ><a:documentation
@@ -39,6 +39,18 @@ xmlns="http://www.w3.org/1999/xhtml"
 ></p
 ><ul
 xmlns="http://www.w3.org/1999/xhtml"
+><li
+>3.19.4 22 July 2026<ul
+><li
+>For the default way of producing PDF (via XeLaTeX):<ul
+><li
+>Fix bug: When an interlinear in an interlinear text included an exampleHeading and there was an example with an interlinearRef pointing to that interlinear and one was showing the source after the first line of the interlinear, the PDF output did not align correctly.</li
+><li
+>Fix bug: the non-publisher style sheet output defaulted to showing interlinear source after the free when it was supposed to default to after the first line.</li
+></ul
+></li
+></ul
+></li
 ><li
 >3.19.3 15 July 2026<ul
 ><li

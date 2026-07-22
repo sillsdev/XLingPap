@@ -2250,7 +2250,7 @@ What we want is to load IE independently and to do a refresh so it will show the
                     The other possibilities are AfterFree (immediately after the free translation, on the same line)
                     and UnderFree (on the line immediately after the free translation)
                 -->
-                <cfg:parameter name="sInterlinearSourceStyle">AfterFree</cfg:parameter>
+                <cfg:parameter name="sInterlinearSourceStyle">AfterFirstLine</cfg:parameter>
             </cfg:transform>
             <!--            <cfg:copy files="TeXML.xml" to="%{P}%{S}XLingPaperPDFTemp%{S}TeXML.xml"/>-->
             <!--                        <cfg:copy quiet="true" files="TeXML.xml" to="%{P}%{S}TeXML.xml"/>-->

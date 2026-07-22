@@ -1582,6 +1582,14 @@
                         </xsl:call-template>
                     </tex:env>
                 </xsl:when>
+                <xsl:when test="exampleHeading and $sInterlinearSourceStyle='AfterFirstLine'">
+                    <xsl:apply-templates select="exampleHeading"/>
+                    <xsl:call-template name="DoInterlinearRefContents">
+                        <xsl:with-param name="bHasExampleHeading" select="$bHasExampleHeading"/>
+                        <xsl:with-param name="bListsShareSameCode" select="$bListsShareSameCode"/>
+                        <xsl:with-param name="originalContext" select="$originalContext"/>
+                    </xsl:call-template>
+                </xsl:when>
                 <xsl:otherwise>
                     <xsl:call-template name="DoInterlinearRefContents">
                         <xsl:with-param name="bHasExampleHeading" select="$bHasExampleHeading"/>
@@ -5915,7 +5923,7 @@
                         </xsl:apply-templates>
                     </xsl:when>
                     <xsl:when test="ancestor::interlinear-text">
-                        <xsl:apply-templates>
+                        <xsl:apply-templates select="*[name()!='exampleHeading']">
                             <xsl:with-param name="bHasExampleHeading" select="$bHasExampleHeading"/>
                             <xsl:with-param name="originalContext" select="$originalContext"/>
                         </xsl:apply-templates>

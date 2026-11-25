@@ -64,4 +64,4 @@ jobs:
           files: XLingPaper*UpdateConfigOnlySetup.tar.gz
           body: |
             Release for version ${{ github.ref }}
-          draft: true
+          draft: false

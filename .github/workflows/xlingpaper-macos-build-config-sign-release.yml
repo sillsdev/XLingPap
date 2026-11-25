@@ -213,4 +213,4 @@ jobs:
           files: XLingPaper*UpdateConfigOnly.dmg
           body: |
             Release for version ${{ github.ref }}
-          draft: true
+          draft: false

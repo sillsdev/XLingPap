@@ -85,7 +85,7 @@ jobs:
           files: XLingPaper*.exe
           body: |
             Release for version ${{ github.ref }}
-          draft: true
+          draft: false
           files-folder-filter: XLingPaper*ConfigOnlySetup.exe
 #          path: XLingPaper*ConfigOnlySetup.exe
 #          files: XLingPaper*ConfigOnlySetup.exe

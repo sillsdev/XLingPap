@@ -1,4 +1,4 @@
-# This workflow will build an installer for XLingPaper config-only
+# This workflow will build a macOS installer for XLingPaper config-only
 
 name: XLingPaper macOS Config Build Installer with Version
 
